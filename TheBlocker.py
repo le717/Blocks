@@ -21,12 +21,16 @@
 """
 
 import os
-
-# GUI code
-import tkinter as tk
-from tkinter import ttk
-# File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
+import sys
+try:
+    # Python 3 import
+    import tkinter as tk
+    from tkinter.messagebox import showerror
+    from tkinter import (filedialog, Tk)
+except ImportError:
+    # Python 2 import
+    import Tkinter as tk
+    from tkMessageBox import showerror
 
 ### Colored shell text
 ##import Color as color, Color.colors as colors
@@ -92,6 +96,13 @@ def main():
     else:
         # Close application
         raise SystemExit
+
+# User is not running < Python 3.3.0
+if sys.version_info < (3,3,0):
+    root = tk.Tk()
+    root.withdraw()
+    showerror("Unsupported Python Version!", "You are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2}.\n".format(sys.version[0:5], app, majver))
+    raise SystemExit
 
 if __name__ == "__main__":
     os.system("title {0} {1}".format(app, majver))
