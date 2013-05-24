@@ -21,6 +21,7 @@
 """
 import os
 import sys
+import webbrowser
 try:
     # Python 3 import
     import tkinter as tk
@@ -35,12 +36,12 @@ except ImportError:
 # Global variables
 app = "Blocks"
 majver = "0.5"
-minver = ""
+minver = ".5"
 app_logo = os.path.join("Media", "Blocks.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
-def viewer(*args):
-    '''Views Minigame Level'''
+def read(*args):
+    '''Reads Minigame Level'''
 
     # Select the level file
     level_file = askopenfilename(
@@ -75,7 +76,10 @@ if sys.version_info < (3,3,0):
     root = tk.Tk()
     root.withdraw()
     root.iconbitmap(app_icon)
-    showerror("Unsupported Python Version!", "You are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2}.\n".format(sys.version[0:5], app, majver))
+    showerror("Unsupported Python Version!", "You are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n".format(sys.version[0:5], app, majver, minver))
+    # Opens only when user clicks OK
+    # New tab, raise browser window (if possible)
+    webbrowser.open_new_tab("http://python.org/download/")
     raise SystemExit
 
 def GUI():
@@ -106,13 +110,13 @@ ttk.Label(mainframe, text='''                                              Legen
             YT = Yellow Tile, RC = Red Cube, RT = Red Tile,
             BC = Blue Cube, BT = Blue Tile''').grid(column=0, row=0, sticky=(tk.W, tk.E))
 
-ttk.Label(mainframe, text='''                 {0} {1}
-    Created 2013 Triangle717'''.format(app, majver)).grid(column=2, row=0, sticky=tk.N)
+ttk.Label(mainframe, text='''                 {0} {1}{2}
+    Created 2013 Triangle717'''.format(app, majver, minver)).grid(column=2, row=0, sticky=tk.N)
 
 # Open button
-ttk.Button(mainframe, text="Open", command=viewer).grid(column=2, row=1, sticky=tk.N)
+ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=1, sticky=tk.N)
 ### Save button
-##ttk.Button(mainframe, text="Save", command=viewer).grid(column=2, row=2, sticky=tk.N)
+##ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=2, sticky=tk.N)
 
 # Blocks Logo
 blocks_logo = tk.PhotoImage(file=app_logo)
@@ -123,8 +127,11 @@ image_frame.grid(column=1, row=0, sticky=tk.E)
 # Padding around elements
 for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
 
-# Bind Return ("Enter") key to open button
-root.bind('<Return>', viewer)
+def close():
+    raise SystemExit
+# Bind lowercase "o" key (as in "Oh!") key to open button
+root.bind('<o>', read)
+root.bind('<Escape>', close)
 # Add app icon, run program
 root.iconbitmap(app_icon)
 root.mainloop()
