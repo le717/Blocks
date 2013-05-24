@@ -19,7 +19,8 @@ File Details
 * They consist of 10 (ten) lines: the first is a letter, followed by the Hex values `01 00 0`, and a number. The letter and number ID something, unsure what. The next 9 lines are the level itself (laid out in a 13x8 grid). The last line is blank.
   If this last line is missing, the game will crash.
 * You can add new colored blocks, but unless they were already in the level, they cannot be used. Adding new ones and pushing only one to it's proper location will complete the level.
-* If a new column is added on either the left or right, the entire layout shifts, using differient values. Find out excatly how many squares they move, and how to tell where they end up.
+* If a new column is added on either the left or right, the entire layout shifts, using different values. Find out excatly how many squares they move, and how to tell where they end up.
+ ([Standard size](http://www.brickshelf.com/gallery/le717/IXS/Minigame-Modding/Jack-O-Trades/Level-3/proof_of_concept.png), [One column added on right](http://www.brickshelf.com/gallery/le717/IXS/Minigame-Modding/Jack-O-Trades/Level-3/one_new_column_on_right.png))
 
 
 Layout Details
