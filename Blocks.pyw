@@ -43,7 +43,7 @@ app_icon = os.path.join("Media", "Blocks.ico")
 # ------------ Begin Level Layout Reading ------------ #
 
 def read(*args):
-    '''Reads Minigame Level'''
+    '''Reads Minigame Level.'''
 
     # Select the level file
     level_file = askopenfilename(
@@ -64,21 +64,27 @@ def read(*args):
         # Remove nulls, since they cannot be printed
         # Display only the layout
         layout = "".join(lines[2:10])
-##        print(layout)
         level.delete("1.0", "end")
         level.insert("1.0", layout)
 
 # ------------ End Level Layout Reading ------------ #
 
+# ------------ Begin Level Layout Writing ------------ #
+
+def write(*args):
+    '''Writes Modded Minigame Level.'''
+    raise SystemExit
+
+
+# ------------ End Level Layout Writing ------------ #
 
 # ------------ Begin Python Version Check ------------ #
 
 def PyVerCheck():
-    '''Dummy function for easy access to Python Version Check code'''
+    '''Dummy function for easy access to Python Version Check code.'''
     pass
 
 # User is not running < Python 3.3.0
-##print(sys.version[0:5])
 if sys.version_info < (3,3,0):
     root = tk.Tk()
     root.withdraw()
@@ -95,7 +101,7 @@ if sys.version_info < (3,3,0):
 # ------------ Begin Tkinter GUI Layout ------------ #
 
 def GUI():
-    '''Dummy function for easy access to GUI code'''
+    '''Dummy function for easy access to GUI code.'''
     pass
 
 # Root window settings
@@ -140,11 +146,13 @@ image_frame.grid(column=1, row=0, sticky=tk.E)
 for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
 
 def close(*args):
-    '''Closes Blocks'''
+    '''Closes Blocks.'''
     raise SystemExit
 
-# Bind lowercase "o" key (as in "Oh!") key to open button
+# Bind lowercase "o" key (as in "Oh!") key to Open button
 root.bind('<o>', read)
+# Bind lowercase "s" key to Save button
+root.bind('<s>', write)
 # Bind escape key to close function
 root.bind('<Escape>', close)
 # Add app icon, run program

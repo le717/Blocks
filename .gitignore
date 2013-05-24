@@ -12,6 +12,7 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
+__pycache__/
 Compile/
 Testing/
 *.blend1
