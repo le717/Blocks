@@ -9,7 +9,7 @@ by [Triangle717](http://triangle717.wordpress.com).
 Downloads
 ---------
  
-* Format Details can be found at [`Format-Details.md`](Documentation/Format-Details.md.md)
+* Format Details can be found at [`Format-Details.md`](Documentation/Format-Details.md)
 
 * **Blocks** Version 0.5 - Released May 23, 2013 
 
