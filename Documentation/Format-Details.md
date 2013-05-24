@@ -6,7 +6,7 @@ File Details
 
 ### Known For Sure
 
-* The levels are nothing more than plain text using ANSI encoding.
+* The levels are nothing more than plain text using `ANSI` encoding. They can be changed to use `UTF-8 without BOM`. Any other encodings will crash the game.
 * They are located in `cdc\Z14WPO`, `cdc\Z14WPO\LEVELS`, `cdc\Z14WWH` and `cdc\Z14WWH\LEVELS`. They do not exist in any  other folders.
 * They are named according to the level number in-game: `LEVEL1.TXT`, located in `Z14WWH\LEVELS`, is the first level in Jack O' Trade's store.
 * It is possible to add barrier (or possibly any) block to the left edges, but they have to be offset to the other direction (more on that in 
