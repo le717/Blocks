@@ -7,6 +7,7 @@ Released ?? ??, 2013
 * Bound `Escape` key to exit button
 * Changed binding of Open button to lowercase `o` (as in, "Oh!")
 * Open web browser to `http://python.org/download/` if run on any version of Python below 3.3.0
+* Added script dividers
 
 ### 0.5 
 Released May 24, 2013

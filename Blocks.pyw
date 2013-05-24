@@ -40,6 +40,8 @@ minver = ".5"
 app_logo = os.path.join("Media", "Blocks.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
+# ------------ Begin Level Layout Reading ------------ #
+
 def read(*args):
     '''Reads Minigame Level'''
 
@@ -66,6 +68,11 @@ def read(*args):
         level.delete("1.0", "end")
         level.insert("1.0", layout)
 
+# ------------ End Level Layout Reading ------------ #
+
+
+# ------------ Begin Python Version Check ------------ #
+
 def PyVerCheck():
     '''Dummy function for easy access to Python Version Check code'''
     pass
@@ -81,6 +88,11 @@ if sys.version_info < (3,3,0):
     # New tab, raise browser window (if possible)
     webbrowser.open_new_tab("http://python.org/download/")
     raise SystemExit
+
+# ------------ End Python Version Check ------------ #
+
+
+# ------------ Begin Tkinter GUI Layout ------------ #
 
 def GUI():
     '''Dummy function for easy access to GUI code'''
@@ -138,3 +150,5 @@ root.bind('<Escape>', close)
 # Add app icon, run program
 root.iconbitmap(app_icon)
 root.mainloop()
+
+# ------------ End Tkinter GUI Layout ------------ #
