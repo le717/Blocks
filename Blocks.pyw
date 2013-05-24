@@ -19,8 +19,9 @@
     along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
-import os
 import sys
+import os
+import shutil
 import webbrowser
 try:
     # Python 3 import
@@ -35,8 +36,8 @@ except ImportError:
 
 # Global variables
 app = "Blocks"
-majver = "0.5"
-minver = ".6"
+majver = "0.6"
+minver = ""
 app_logo = os.path.join("Media", "Blocks.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -48,6 +49,8 @@ def read(*args):
     # File type label for dialog box
     formats = [("IXS Minigame Layout", ".TXT")]
 
+    # Assign selected file as global
+    global level_file
     # Select the level file
     level_file = askopenfilename(
     parent=root,
@@ -62,6 +65,9 @@ def read(*args):
 
     # The user selected a level
     else:
+       # Get just the file name, assign it as global
+        global level_file_name
+        level_file_name = os.path.basename(level_file)
         # Open file for reading
         with open(level_file, "rt") as file:
             lines = file.readlines()[:]
@@ -78,7 +84,30 @@ def read(*args):
 
 def write(*args):
     '''Writes Modded Minigame Level.'''
-    raise SystemExit
+
+    # Get just the folder path to the file
+    location = level_file.rstrip(level_file_name)
+
+    # name == everything before extenstion,
+    # ext == the extenstion
+    name, ext = os.path.splitext(level_file_name)
+
+    # They are the same
+    new_file = level_file
+
+    # Used to rename the file if it already exists
+    count = 0
+    while os.path.exists(new_file):
+        # Update count
+        count += 1
+        # Define new file name
+        new_file = os.path.join(location, '{0}{1}{2}{3}'.format(name, ext, ".bak", str(count)))
+    #print(new_file)
+    # Copy the file, try to preserve metadata
+    shutil.copy2(level_file, new_file)
+    # For now
+    raise SyntaxError
+##    pass
 
 
 # ------------ End Level Layout Writing ------------ #

@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.5.6
+### 0.6
 Released ?? ??, 2013
 
 * Bound `Escape` key to exit button
@@ -10,6 +10,8 @@ Released ?? ??, 2013
 * Added script dividers 
 * Bound lowercase `s` key to Save button
 * Restricted selectable files for viewing to `.TXT`
+* Added ability to copy selected level file, append `.bak` to it
+* Added ability to update copied filename if it already exists
 
 ### 0.5 
 Released May 24, 2013
