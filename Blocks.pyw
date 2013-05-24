@@ -36,7 +36,7 @@ except ImportError:
 # Global variables
 app = "Blocks"
 majver = "0.5"
-minver = ".5"
+minver = ".6"
 app_logo = os.path.join("Media", "Blocks.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -45,14 +45,19 @@ app_icon = os.path.join("Media", "Blocks.ico")
 def read(*args):
     '''Reads Minigame Level.'''
 
+    # File type label for dialog box
+    formats = [("IXS Minigame Layout", ".TXT")]
+
     # Select the level file
     level_file = askopenfilename(
     parent=root,
-    title="Select a Minigame Level")
+    defaultextension=".TXT",
+    filetypes=formats,
+    title="Select a Minigame Layout")
 
     # The user clicked the cancel button
     if len(level_file) == 0:
-        # Quit Application
+        # Close dialog box
         pass
 
     # The user selected a level

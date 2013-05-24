@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.5.5
+### 0.5.6
 Released ?? ??, 2013
 
 * Bound `Escape` key to exit button
@@ -9,6 +9,7 @@ Released ?? ??, 2013
 * Open web browser to `http://python.org/download/` if run on any version of Python below 3.3.0
 * Added script dividers 
 * Bound lowercase `s` key to Save button
+* Restricted selectable files for viewing to `.TXT`
 
 ### 0.5 
 Released May 24, 2013
