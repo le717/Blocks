@@ -66,8 +66,8 @@ def read(*args):
         with open(level_file, "rt") as file:
             lines = file.readlines()[:]
 
-        # Remove nulls, since they cannot be printed
-        # Display only the layout
+        # Skip nulls, since they cannot be printed,
+        # and display only the layout
         layout = "".join(lines[2:10])
         level.delete("1.0", "end")
         level.insert("1.0", layout)
