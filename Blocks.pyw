@@ -19,7 +19,6 @@
     along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
-
 import os
 import sys
 try:
@@ -71,10 +70,11 @@ def PyVerCheck():
     pass
 
 # User is not running < Python 3.3.0
-print(sys.version[0:5])
+##print(sys.version[0:5])
 if sys.version_info < (3,3,0):
     root = tk.Tk()
     root.withdraw()
+    root.iconbitmap(app_icon)
     showerror("Unsupported Python Version!", "You are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2}.\n".format(sys.version[0:5], app, majver))
     raise SystemExit
 
