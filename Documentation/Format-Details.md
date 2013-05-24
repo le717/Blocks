@@ -11,8 +11,8 @@ File Details
 * They are named according to the level number in-game: `LEVEL1.TXT`, located in `Z14WWH\LEVELS`, is the first level in Jack O' Trade's store.
 * It is possible to add barrier (or possibly any) block to the left edges, but they have to be offset to the other direction (more on that in 
 [Layout Details](#layout-details). Furthermore, if a barrier block is on the left corner, and you add a block directly to its right, the game will crash.
-* It is possible to place any type of block where Pepper spawns at the beginning of the level. He always starts on the seventh square on the bottom row -  
-directly in the middle of the row. If you put a barrier block there, he'll just spawn on it.
+* It is possible to place any type of block where Pepper spawns at the beginning of the level. He always starts on the seventh square on the 
+ bottom row - directly in the middle of the row. If you put a barrier block there, he'll just spawn on it.
 * It is impossible to add new rows to a level from the level file alone.
 
 ### Needs More Research
@@ -30,7 +30,16 @@ to tell where they end up. ([Standard size](http://www.brickshelf.com/gallery/le
 Layout Details
 --------------
 
-`cdc\Z14WWH\LEVELS\LEVEL3.txt`, level 3 in Jack O' Trade's store
+### Legend (Incomplete)
+
+```
+Legend:
+  F = free block, BW = Blocked Wall, YC = Yellow Cube,  YT = Yellow Tile, 
+  RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile
+```
+
+
+Level 3 in Jack O' Trade's store, located at `cdc\Z14WWH\LEVELS\LEVEL3.txt` 
 
 ```
 C 01 00 00 1
