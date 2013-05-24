@@ -127,10 +127,13 @@ image_frame.grid(column=1, row=0, sticky=tk.E)
 # Padding around elements
 for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
 
-def close():
+def close(*args):
+    '''Closes Blocks'''
     raise SystemExit
+
 # Bind lowercase "o" key (as in "Oh!") key to open button
 root.bind('<o>', read)
+# Bind escape key to close function
 root.bind('<Escape>', close)
 # Add app icon, run program
 root.iconbitmap(app_icon)
