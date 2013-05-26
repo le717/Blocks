@@ -62,7 +62,6 @@ def read(*args):
     if len(level_file) == 0:
         # Close dialog box
         pass
-
     # The user selected a level
     else:
        # Get just the file name, assign it as global
@@ -107,10 +106,23 @@ def write(*args):
         new_file = os.path.join(location, '{0}{1}{2}{3}'.format(name, ext, ".bak", str(count)))
     #print(new_file)
     # Copy the file, try to preserve metadata
-    shutil.copy2(level_file, new_file)
-    # For now
-    raise SyntaxError
-##    pass
+    try:
+        shutil.copy2(level_file, new_file)
+
+        with open(level_file, "rb") as f:
+            for line in range(0, 1):
+                first_line = f.readline()
+        new_layout = level.get('1.0', 'end')
+        new_layout = str.encode(new_layout[:-1], encoding="utf-8", errors="strict")
+        with open(level_file, "wb") as f:
+            f.write(first_line)
+            f.write(new_layout)
+            f.write(b"\r\n ")
+
+    # A level was edited directly in Program Files, and Block was run
+    # without Admin rights
+    except PermissionError:
+        showerror("Insufficient User Rights!", "Blocks does not have the user rights to save the level!\nPlease relaunch Blocks as an Administrator.")
 
 
 # ------------ End Level Layout Writing ------------ #

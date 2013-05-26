@@ -19,6 +19,8 @@ Released ?? ??, 2013
 * Added large version of `Blocks` icon
 * Compressed Blender project
 * Renamed `Blocks.gif` to 'BlocksIcon.gif`
+* Added ability to save edited levels
+* Handled `PermissionError` exception
 
 ### 0.5 
 Released May 24, 2013
