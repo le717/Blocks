@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.6
+### 0.7.5
 Released ?? ??, 2013
 
 * Bound `Escape` key to exit button
