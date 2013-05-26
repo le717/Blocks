@@ -12,6 +12,7 @@ Released ?? ??, 2013
 * Restricted selectable files for viewing to `.TXT`
 * Added ability to copy selected level file, append `.bak` to it
 * Added ability to update copied filename if it already exists
+* Changed bindings of Open and Save buttons to `<Crtl> + <o>` and `<Ctrl> + <s>` shortcuts, respectively. 
 
 ### 0.5 
 Released May 24, 2013
