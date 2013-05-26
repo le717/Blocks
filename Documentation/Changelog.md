@@ -13,6 +13,12 @@ Released ?? ??, 2013
 * Added ability to copy selected level file, append `.bak` to it
 * Added ability to update copied filename if it already exists
 * Changed bindings of Open and Save buttons to `<Crtl> + <o>` and `<Ctrl> + <s>` shortcuts, respectively. 
+* Limited the amount of level file read (it pulled out two too many lines)
+* Added error message if user tries to save a level without opening one first
+* Resized Blocks logo, moved location of logo in program, resized program window
+* Added large version of `Blocks` icon
+* Compressed Blender project
+* Renamed `Blocks.gif` to 'BlocksIcon.gif`
 
 ### 0.5 
 Released May 24, 2013

@@ -37,8 +37,8 @@ except ImportError:
 # Global variables
 app = "Blocks"
 majver = "0.6"
-minver = ""
-app_logo = os.path.join("Media", "Blocks.gif")
+minver = ".5"
+app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
 # ------------ Begin Level Layout Reading ------------ #
@@ -74,7 +74,7 @@ def read(*args):
 
         # Skip nulls, since they cannot be printed,
         # and display only the layout
-        layout = "".join(lines[2:10])
+        layout = "".join(lines[2:9])
         level.delete("1.0", "end")
         level.insert("1.0", layout)
 
@@ -85,8 +85,11 @@ def read(*args):
 def write(*args):
     '''Writes Modded Minigame Level.'''
 
-    # Get just the folder path to the file
-    location = level_file.rstrip(level_file_name)
+    try:
+        # Get just the folder path to the file
+        location = level_file.rstrip(level_file_name)
+    except NameError:
+        showerror("Cannot Save Level!", "A minigame level has not been selected for editing!")
 
     # name == everything before extenstion,
     # ext == the extenstion
@@ -142,8 +145,8 @@ def GUI():
 root = tk.Tk()
 root.title("{0} {1}{2}".format(app, majver, minver))
 # The window cannot be resized at all
-root.minsize("585", "230")
-root.maxsize("585", "230")
+root.minsize("500", "260")
+root.maxsize("500", "260")
 
 # Frame settings
 mainframe = ttk.Frame(root, padding="7 7 7 7")
@@ -167,14 +170,14 @@ ttk.Label(mainframe, text='''                 {0} {1}{2}
 
 # Open button
 ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=1, sticky=tk.N)
-### Save button
-##ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=2, sticky=tk.N)
+# Save button
+ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=2, sticky=tk.N)
 
 # Blocks Logo
 blocks_logo = tk.PhotoImage(file=app_logo)
-image_frame = ttk.Label(root)
+image_frame = ttk.Label(mainframe)
 image_frame['image'] = blocks_logo
-image_frame.grid(column=1, row=0, sticky=tk.E)
+image_frame.grid(column=2, row=3, sticky=tk.N)
 
 # Padding around elements
 for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
