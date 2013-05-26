@@ -183,12 +183,12 @@ def close(*args):
     '''Closes Blocks.'''
     raise SystemExit
 
-# Bind lowercase "o" key (as in "Oh!") key to Open button
-root.bind('<o>', read)
-# Bind lowercase "s" key to Save button
-root.bind('<s>', write)
+# Bind <Ctrl + o> (lowercase "o" (as in "Oh!")) shortcut to Open button
+root.bind("<Control-o>", read)
+# Bind <Ctrl + s> shortcut to Save button
+root.bind("<Control-s>", write)
 # Bind escape key to close function
-root.bind('<Escape>', close)
+root.bind("<Escape>", close)
 # Add app icon, run program
 root.iconbitmap(app_icon)
 root.mainloop()
