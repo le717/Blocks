@@ -23,7 +23,7 @@ File Details
 
 * What folders and files go to what location in-game
 * Creating new level slots
-* The letter and number combonation on the first line identify something, but what.
+* The letter and number combination on the first line identify something, but what.
 * You can add new colored blocks, but unless they were already in the level, they cannot be used. Adding new ones and pushing only one to it's proper location 
 will complete the level.
 * If a new column is added on either the left or right, the entire layout shifts, using different values. Find out exactly how many squares they move, and how 
@@ -66,17 +66,20 @@ C 01 00 00 1
 
 
 * From looking at our [Legend](#legend-incomplete), we can see this level contains
- 1. free tiles
- 2. blocked walls
- 3. a yellow tile
- 4. a yellow cube
+ 1. Free Tiles
+ 2. Blocked Walls
+ 3. a Yellow Tile
+ 4. a Yellow Cube
 
 It also contains the code for the first and last lines of the file. We will not worry ourselves with them, 
 and will instead focus on the layout itself. 
 
-*Notice*: Sometimes, it is better to teach by example, rather than explainations. I feel this tutorial will go much more smoothly 
- if I do not purely use explainations, but use examples in addition to explaining why we do what we do. :wink:
+*Notice*: Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly 
+ if I do not purely use explanations, but use examples in addition to explaining why we do what we do. :wink:
 
 #### Task #1 - Adding a Blocked Wall 
+
+* The first modding example we will do is add a Blocked Wall to the layout. We remember from our Legend a Blocked Wall is signified by a `BW`.
+(If you don't remember, fell free to peek back at the Legend any time you need to).
 
 *Coming Soon.*
