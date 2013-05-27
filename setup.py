@@ -44,7 +44,7 @@ build_exe_options = {"build_exe": destfolder,
 
 setup(
     name = "Blocks",
-    version = "0.5",
+    version = "0.8.2",
     author = "Triangle717",
     description = "Island Xtreme Stunts Minigame Level Editor",
     license = "GNU GPLv3",
