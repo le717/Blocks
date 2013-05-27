@@ -2,7 +2,7 @@ Blocks Change Log
 =================
 
 ### 0.8.2
-Released ?? ??, 2013
+Released May 26, 2013
 
 * Bound `Escape` key to exit button
 * Changed binding of Open button to lowercase `o` (as in, "Oh!")
@@ -30,6 +30,7 @@ Released ?? ??, 2013
 * Fixed bug where extra line was being written the end of the file
 * Fixed bug where text box was too small to display all of the level layout
 * Changed binding of Open button to `<Crtl> + <q>` (there is a bug with `<Crtl> + <o>` adding spaces in the text area)
+* Added display of currently opened file name
 
 ### 0.5 
 Released May 24, 2013

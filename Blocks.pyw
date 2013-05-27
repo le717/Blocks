@@ -67,6 +67,7 @@ def read(*args):
        # Get just the file name, assign it as global
         global level_file_name
         level_file_name = os.path.basename(level_file)
+        level_name.set(level_file_name)
         # Open file for reading
         with open(level_file, "rt") as file:
             lines = file.readlines()[:]
@@ -182,6 +183,10 @@ root.maxsize("500", "280")
 mainframe = ttk.Frame(root, padding="7 7 7 7")
 mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 mainframe.columnconfigure(0, weight=1)
+
+# Level (file) name display
+level_name = tk.StringVar()
+ttk.Label(mainframe, textvariable=level_name).grid(column=0, row=2, sticky=tk.N)
 
 # Where level is viewed (and in the future, edited)
 level = tk.Text(mainframe, height=8, width=40, wrap="none")
