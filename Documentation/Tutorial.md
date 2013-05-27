@@ -4,8 +4,8 @@ Editing Tutorial
 
 ### Warning: This tutorial is incomplete!
 
-This is a basic tutorial to modding the *Island Xtreme Stunts* minigame levels, and it will not cover every single detail. 
-Rather, it attempts to explain the basics of the level layout, and advise you on what to and not to do in your modding.
+This is a tutorial on modding the *Island Xtreme Stunts* minigame levels. It is a basic tutorial, and will not cover every single detail. 
+Instead, it attempts to explain the basics of the level layout, and advise you on what to and not to do in your modding.
 
 ### Requirements
 
