@@ -42,8 +42,8 @@ C 01 00 00 1
  2. Blocked Walls
  3. a Yellow Tile
  4. a Yellow Cube
-
-It also contains the code for the first and last lines of the file. We will not worry ourselves with them, 
+ 
+You may note it also contains the code for the first and last lines of the file. We will not worry ourselves with them, 
 and will instead focus on the layout itself. 
 
 *Notice*: Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly 
