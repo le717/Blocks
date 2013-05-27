@@ -75,11 +75,11 @@ It also contains the code for the first and last lines of the file. We will not 
 and will instead focus on the layout itself. 
 
 *Notice*: Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly 
- if I do not purely use explanations, but use examples in addition to explaining why we do what we do. :wink:
+ if I do not purely use explanations, but use examples in addition to explaining why we do what we do. :smile:
 
 #### Task #1 - Adding a Blocked Wall 
 
 * The first modding example we will do is add a Blocked Wall to the layout. We remember from our Legend a Blocked Wall is signified by a `BW`.
-(If you don't remember, fell free to peek back at the Legend any time you need to).
+(If you don't remember, fell free to peek back at the Legend any time you need to. :wink:)
 
 *Coming Soon.*
