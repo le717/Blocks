@@ -1,6 +1,11 @@
 Blocks Change Log
 =================
 
+### 0.8.2.1
+Released ?? ??, 2013
+
+* Updated Legend to identify `F` as a `Free Tile`
+
 ### 0.8.2
 Released May 26, 2013
 
