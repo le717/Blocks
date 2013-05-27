@@ -42,7 +42,7 @@ Rather, it attempts to explain the basics, and advice you on what to and not to 
 
 ```
 Legend:
-  F = free tile, BW = Blocked Wall, YC = Yellow Cube,  YT = Yellow Tile, 
+  F = Free Tile, BW = Blocked Wall, YC = Yellow Cube,  YT = Yellow Tile, 
   RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile
 ```
 
