@@ -9,8 +9,8 @@ File Details
 * The levels are nothing more than plain text written with [`ANSI (Windows-1252)`](http://en.wikipedia.org/wiki/Windows-1252) encoding, and can be changed to use [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding. Any other encodings will crash the game.
 * They are located in `cdc\Z14WPO`, `cdc\Z14WPO\LEVELS`, `cdc\Z14WWH` and `cdc\Z14WWH\LEVELS`. They do not exist in any  other folders.
 * They are named according to the level number in-game: `LEVEL1.TXT`, located in `Z14WWH\LEVELS`, is the first level in Jack O' Trade's store.
-* It is possible to add barrier (or possibly any) block to the left edges, but they have to be offset to the right, rather than the left (more on that in 
-[Layout Details](#layout-details). Furthermore, if a barrier block is on the left corner, and you add a block directly to its right, the game will crash.
+* It is possible to add barrier (or possibly any) block to the left edges, but they have to be offset to the right, rather than the left (more on that in the
+[Editing Tutorial](#editing-yutorial). Furthermore, if a barrier block is on the left corner, and you add a block directly to its right, the game will crash.
 * It is possible to place any type of block where Pepper spawns at the beginning of the level. He always starts on the seventh square on the 
  bottom row - directly in the middle of the row. If you put a barrier block there, he'll just spawn on it.
 * It is impossible to add new rows to a level from the level file alone.
@@ -27,8 +27,11 @@ to tell where they end up. ([Standard size](http://www.brickshelf.com/gallery/le
 [One column added on right](http://www.brickshelf.com/gallery/le717/IXS/Minigame-Modding/Jack-O-Trades/Level-3/one_new_column_on_right.png))
 
 
-Layout Details
---------------
+Editing Tutorial
+----------------
+
+This is a basic tutorial to modding the *Island Xtreme Stunts* minigame levels. It will not cover every detail. 
+Rather, it attempts to explain the basics, and advice you on what to and not to do.
 
 ### Legend (Incomplete)
 
@@ -38,8 +41,7 @@ Legend:
   RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile
 ```
 
-
-Level 3 in Jack O' Trade's store, located at `cdc\Z14WWH\LEVELS\LEVEL3.txt` 
+For this tutorial, we will use level 3 of *Trouble in Store*, located at `cdc\Z14WWH\LEVELS\LEVEL3.TXT` 
 
 ```
 C 01 00 00 1
