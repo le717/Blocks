@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.7.5
+### 0.8.2
 Released ?? ??, 2013
 
 * Bound `Escape` key to exit button
@@ -21,6 +21,15 @@ Released ?? ??, 2013
 * Renamed `Blocks.gif` to 'BlocksIcon.gif`
 * Added ability to save edited levels
 * Handled `PermissionError` exception
+* Added successful save message
+* Added general exception handle
+* Added file name to `PermissionError` and general exception message
+* Removed unneeded variable
+* Lots of script comments
+* Fixed bug where entire level layout was not being written to file
+* Fixed bug where extra line was being written the end of the file
+* Fixed bug where text box was too small to display all of the level layout
+* Changed binding of Open button to `<Crtl> + <q>` (there is a bug with `<Crtl> + <o>` adding spaces in the text area)
 
 ### 0.5 
 Released May 24, 2013

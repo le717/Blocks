@@ -36,8 +36,8 @@ except ImportError:
 
 # Global variables
 app = "Blocks"
-majver = "0.6"
-minver = ".5"
+majver = "0.8"
+minver = ".2"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -73,7 +73,7 @@ def read(*args):
 
         # Skip nulls, since they cannot be printed,
         # and display only the layout
-        layout = "".join(lines[2:9])
+        layout = "".join(lines[1:9])
         level.delete("1.0", "end")
         level.insert("1.0", layout)
 
@@ -87,14 +87,12 @@ def write(*args):
     try:
         # Get just the folder path to the file
         location = level_file.rstrip(level_file_name)
+
+    # The user tried to same a level without loading one first
     except NameError:
         showerror("Cannot Save Level!", "A minigame level has not been selected for editing!")
 
-    # name == everything before extenstion,
-    # ext == the extenstion
-    name, ext = os.path.splitext(level_file_name)
-
-    # They are the same
+    # They are the same, but this is needed to remove an error
     new_file = level_file
 
     # Used to rename the file if it already exists
@@ -103,29 +101,46 @@ def write(*args):
         # Update count
         count += 1
         # Define new file name
-        new_file = os.path.join(location, '{0}{1}{2}{3}'.format(name, ext, ".bak", str(count)))
-    #print(new_file)
-    # Copy the file, try to preserve metadata
+        new_file = os.path.join(location, "{0}{1}{2}".format(level_file_name, ".bak", str(count)))
+
     try:
+        # Copy the file, try to preserve metadata
         shutil.copy2(level_file, new_file)
 
+        # Read (original, not .bak*) file in binary mode
         with open(level_file, "rb") as f:
+            # Read just the first line
             for line in range(0, 1):
                 first_line = f.readline()
+
+        # Get new layout from text box
         new_layout = level.get('1.0', 'end')
-        new_layout = str.encode(new_layout[:-1], encoding="utf-8", errors="strict")
+        # Convert it from a string to binary, removing the extra lines
+        new_layout = str.encode(new_layout[:-2], encoding="utf-8", errors="strict")
+
+        # Open the (original, not .bak*) level back up, again in binary mode
         with open(level_file, "wb") as f:
+            # Rewrite the first line
             f.write(first_line)
+            # Write the new layout
             f.write(new_layout)
+            # Write requied ending line
             f.write(b"\r\n ")
+
+        # Display sucess dialog, [:-1] to remove the trailing "\"
+        tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}".format(level_file_name, location[:-1]))
 
     # A level was edited directly in Program Files, and Block was run
     # without Admin rights
     except PermissionError:
-        showerror("Insufficient User Rights!", "Blocks does not have the user rights to save the level!\nPlease relaunch Blocks as an Administrator.")
+        showerror("Insufficient User Rights!", "Blocks does not have the user rights to save {0}!\nPlease relaunch Blocks as an Administrator.".format(level_file_name))
 
+    # Any other unhandled error occurred
+    except Exception:
+        showerror("An Error Has Occurred!", "Blocks ran into an unknown error while trying to {0}!".format(level_file_name))
 
 # ------------ End Level Layout Writing ------------ #
+
 
 # ------------ Begin Python Version Check ------------ #
 
@@ -142,6 +157,7 @@ if sys.version_info < (3,3,0):
     # Opens only when user clicks OK
     # New tab, raise browser window (if possible)
     webbrowser.open_new_tab("http://python.org/download/")
+    # Close Blocks
     raise SystemExit
 
 # ------------ End Python Version Check ------------ #
@@ -156,9 +172,11 @@ def GUI():
 # Root window settings
 root = tk.Tk()
 root.title("{0} {1}{2}".format(app, majver, minver))
+
 # The window cannot be resized at all
-root.minsize("500", "260")
-root.maxsize("500", "260")
+# Length x width
+root.minsize("500", "280")
+root.maxsize("500", "280")
 
 # Frame settings
 mainframe = ttk.Frame(root, padding="7 7 7 7")
@@ -166,7 +184,7 @@ mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 mainframe.columnconfigure(0, weight=1)
 
 # Where level is viewed (and in the future, edited)
-level = tk.Text(mainframe, height=7, width=40, wrap="none")
+level = tk.Text(mainframe, height=8, width=40, wrap="none")
 level.grid(column=0, row=3)
 level.insert("1.0", "Minigame layout will be displayed here.")
 
@@ -199,11 +217,12 @@ def close(*args):
     raise SystemExit
 
 # Bind <Ctrl + o> (lowercase "o" (as in "Oh!")) shortcut to Open button
-root.bind("<Control-o>", read)
+root.bind("<Control-q>", read)
 # Bind <Ctrl + s> shortcut to Save button
 root.bind("<Control-s>", write)
 # Bind escape key to close function
 root.bind("<Escape>", close)
+
 # Add app icon, run program
 root.iconbitmap(app_icon)
 root.mainloop()
