@@ -43,9 +43,9 @@ Rather, it attempts to explain the basics of the level layout, and advise you on
 ### Requirements
 
 You will need a few items to complete this tutorial
-* 
-* 
-*
+* A copy of [*Island Xtreme Stunts*](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-)
+* The newest release of **Blocks**, available in the [Downloads](https://github.com/le717/Blocks#downloads), or
+* A source code editor, preferably [Notepad++](http://notepad-plus-plus.org/)
 
 #### Legend (Incomplete)
 
@@ -69,7 +69,6 @@ C 01 00 00 1
  F  F BW  F  F BW  F  F  F  F  F BW BW
 \r\n 
 ```
-
 
 * From looking at our [Legend](#legend-incomplete), we can see this level contains
  1. Free Tiles
