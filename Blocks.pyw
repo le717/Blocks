@@ -196,7 +196,7 @@ level.insert("1.0", "Minigame layout will be displayed here.")
 # Legend display
 # TODO: Finish populating list
 ttk.Label(mainframe, text='''                                              Legend:
-            F = free block, BW = Blocked Wall, YC = Yellow Cube,
+            F = Free Tile, BW = Blocked Wall, YC = Yellow Cube,
             YT = Yellow Tile, RC = Red Cube, RT = Red Tile,
             BC = Blue Cube, BT = Blue Tile''').grid(column=0, row=0, sticky=(tk.W, tk.E))
 
