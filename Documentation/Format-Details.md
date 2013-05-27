@@ -12,8 +12,8 @@ File Details
 * They consist of `10` (ten) lines: the first is a letter, followed by the Hex values `01 00 00`, and a number. 
   The next `9` (nine) lines are the level itself (laid out in a 13x8 grid). The last line ends with ```\r\n``` and a space.
 * All blocks must be indented to the left, that is, the first letter must be to the left of the other letter in a blank area. However, blocks on the left corner must be indented to the right,
-* with the second letter offset to the right of the other letter, also in a blank area (more on that in the
-[Editing Tutorial](#editing-tutorial)
+ with the second letter offset to the right of the other letter, also in a blank area (more on that in the
+ [Editing Tutorial](#editing-tutorial))
 * If a barrier block is on the left corner, and a block is added directly to its right, the game will crash.
 * It is possible to place any type of block where Pepper spawns at the beginning of the level. He always starts on the seventh square on the 
  bottom row - directly in the middle of the row. If you put a barrier block there, he'll just spawn on it.
