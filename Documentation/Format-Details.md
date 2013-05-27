@@ -37,15 +37,16 @@ Editing Tutorial
 This is a basic tutorial to modding the *Island Xtreme Stunts* minigame levels. It will not cover every detail. 
 Rather, it attempts to explain the basics, and advice you on what to and not to do.
 
+
 ### Legend (Incomplete)
 
 ```
 Legend:
-  F = free block, BW = Blocked Wall, YC = Yellow Cube,  YT = Yellow Tile, 
+  F = free tile, BW = Blocked Wall, YC = Yellow Cube,  YT = Yellow Tile, 
   RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile
 ```
 
-For this tutorial, we will use level 3 of *Trouble in Store*, located at `cdc\Z14WWH\LEVELS\LEVEL3.TXT` 
+For this tutorial, we will use level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
 
 ```
 C 01 00 00 1
@@ -57,8 +58,12 @@ C 01 00 00 1
  F  F  F  F  F  F YC  F BW  F  F  F  F
  F  F  F  F  F  F  F  F BW  F YT  F  F
  F  F BW  F  F BW  F  F  F  F  F BW BW
- 
- ```
+\r\n 
+```
 
-*Coming Soon.*
 
+* From looking at our [Legend](#legend-incomplete), we can see this level contains
+ 1. free tiles
+ 2. blocked walls
+ 3. a yellow tile
+ 4. a yellow cube
