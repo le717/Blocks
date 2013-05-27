@@ -7,7 +7,7 @@ File Details
 ### Known For Sure
 
 * The levels are nothing more than plain text written with [`ANSI (Windows-1252)`](http://en.wikipedia.org/wiki/Windows-1252) encoding, and can be changed to use [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding. Any other encodings will crash the game.
-* They are located in `cdc\Z14WPO`, `cdc\Z14WPO\LEVELS`, `cdc\Z14WWH` and `cdc\Z14WWH\LEVELS`. They do not exist in any  other folders.
+* They are located in [`cdc\Z14WPO`](about:blank), [`cdc\Z14WPO\LEVELS`](about:blank), [`cdc\Z14WWH`](about:blank), and [`cdc\Z14WWH\LEVELS`](about:blank). They do not exist in any  other folders.
 * They are named according to the level number in-game: `LEVEL1.TXT`, located in `Z14WWH\LEVELS`, is the first level for *Trouble in Store*.
 * They consist of `10` (ten) lines: the first is a letter, followed by the Hex values `01 00 00`, and a number. 
   The next `9` (nine) lines are the level itself (laid out in a 13x8 grid). The last line ends with ```\r\n``` and a space.
@@ -33,9 +33,12 @@ to tell where they end up. ([Standard size](http://www.brickshelf.com/gallery/le
 
 Editing Tutorial
 ----------------
+**Written by [Triangle717](https://github.com/le717)**
 
-This is a basic tutorial to modding the *Island Xtreme Stunts* minigame levels. It will not cover every detail. 
-Rather, it attempts to explain the basics, and advice you on what to and not to do.
+### Warning: This tutorial is incomplete!
+
+This is a basic tutorial to modding the *Island Xtreme Stunts* minigame levels, and it will not cover every single detail. 
+Rather, it attempts to explain the basics of the level layout, and advise you on what to and not to do in your modding.
 
 
 ### Legend (Incomplete)
@@ -46,7 +49,7 @@ Legend:
   RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile
 ```
 
-For this tutorial, we will use level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
+For this tutorial, we will be using level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
 
 ```
 C 01 00 00 1
@@ -67,3 +70,13 @@ C 01 00 00 1
  2. blocked walls
  3. a yellow tile
  4. a yellow cube
+
+It also contains the code for the first and last lines of the file. We will not worry ourselves with them, 
+and will instead focus on the layout itself. 
+
+*Notice*: Sometimes, it is better to teach by example, rather than explainations. I feel this tutorial will go much more smoothly 
+ if I do not purely use explainations, but use examples in addition to explaining why we do what we do. :wink:
+
+#### Task #1 - Adding a Blocked Wall 
+
+*Coming Soon.*
