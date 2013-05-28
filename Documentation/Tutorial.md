@@ -4,6 +4,14 @@ Editing Tutorial
 
 ### Warning: This tutorial is incomplete!
 
+<table>
+<td>Requirements</td>
+<td>Legend</td>
+<td>Task #1</td>
+<td>Lesson #1</rd>
+<td>Task #2</td>
+</table>
+
 This is a tutorial on modding the *Island Xtreme Stunts* minigame levels. It is a basic tutorial, and will not cover every single detail. 
 Instead, it attempts to explain the basics of the level layout, and advise you on what to and not to do in your modding.
 
@@ -56,7 +64,7 @@ The first modding example we will do is add a Blocked Wall to the layout. We rem
 (If you don't remember, fell free to peek back at the Legend any time you need to. :wink:) To start, we are going to add a Blocked Wall on 
 the top row, on the 8th column. However, before we add our wall, we need to speak a bit on alignment.
 
-#### Mini-lesson #1: Alignment
+#### Lesson #1: Alignment
 
 Look carefully at the level layout. You will notice that the code for any non-free tile or block consists of two letters, rather than one. 
 Also, the first letter of the code is offset to the left of the free tile code. Except in special circumstances (as we will see later), 
@@ -73,6 +81,6 @@ the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:bl
 
 And you thought modding was going to be easy. :stuck_out_tongue:
 
-This is that special circumstance I mentioned in Mini-lesson #1.
+This is that special circumstance I mentioned in Lesson #1.
 
 *Coming Soon.*
