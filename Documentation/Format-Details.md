@@ -16,7 +16,8 @@ They do not exist in any other folders.
 * All blocks must be indented to the left, that is, the first letter must be to the left of the other letter in a blank area. 
 However, blocks on the left corner must be indented to the right, with the second letter offset to the right of the other letter, also in a blank area 
 (more on that in [**Building With Blocks**](Tutorial.md))
-* ~~If a barrier block is on the left corner, and a block is added directly to its right, the game will crash.~~ UPDATE ME!
+* If a barrier block is on the left corner, another barrier block can be added directly to its right, provided the second follows the same indention.
+This is possible until either the end of the row or the first block indented to the left.
 * It is possible to place any type of block where Pepper spawns at the beginning of the level. He always starts on the seventh square on the 
  bottom row - directly in the middle of the row. If you put a barrier block there, he'll just spawn on it.
 * It is impossible to add new rows to a level from the level file alone.
@@ -25,8 +26,8 @@ However, blocks on the left corner must be indented to the right, with the secon
 
 ### Needs More Research
 
-* What folders and files go to what location in-game
-* Creating new level slots
+* What folders and files go to what location in-game?
+* New level slots can be added using `LEVELS.TXT`?
 * The letter and number combination on the first line identify something, but what.
 * You can add new colored blocks, but unless they were already in the level, they cannot be used. Adding new ones and pushing only one to it's proper location 
 will complete the level.
