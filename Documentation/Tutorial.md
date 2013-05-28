@@ -90,7 +90,7 @@ sitting in that location, in addition to a single space (what did we talk about 
 If you performed the editing correctly, the game will successfully load your modded level, and you will see a new Blocked Wall where you placed it! 
 If you didn't, then the game will crash.
 
-> Recap: You just learned about text alignment, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
+> **Recap:** You just learned about text alignment, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
 > ensuring it is aligned to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back!
 
 Now for some more lessons!
