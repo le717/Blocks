@@ -37,7 +37,7 @@ except ImportError:
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".2"
+minver = ".2.1"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 

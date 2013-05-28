@@ -1,23 +1,27 @@
-Modding Tutorial
-================
+Building With Blocks
+====================
 **Written by [Triangle717](https://github.com/le717)**
 
 ### Warning: This tutorial is incomplete!
 
-## Table of Contents
+Table of Contents
+-----------------
+
 <table>
 <td><a href="#requirements">Requirements</a></td>
 <td><a href="#legend-incomplete">Legend</a></td>
 <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
 <td><a href="#lesson-1-alignment">Lesson #1</a></td>
 <td><a href="#lesson-2-making-sure-it-all-works">Lesson #2</a></td>
+<td><a href="#lesson-3-jumping-to-specific-levels">Lesson #3</a></td>
 <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
 </table>
 
 This is a tutorial on modding the *Island Xtreme Stunts* minigame levels. It is a basic tutorial, and will not cover every single detail. 
 Instead, it attempts to explain the basics of the level layout, and advise you on what to and not to do in your modding experiences.
 
-## Requirements
+Requirements
+------------
 
 You will need a few items to complete this tutorial
 * A copy of [*Island Xtreme Stunts*](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-)
@@ -89,7 +93,7 @@ If you didn't, then the game will crash.
 > Recap: You just learned about text alignment, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
 > ensuring it is aligned to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back!
 
-Now for another lesson!
+Now for some more lessons!
 
 #### Lesson #2: Making Sure It All Works
 
@@ -100,6 +104,10 @@ telling you if your mod is not correctly created: it crashes! :stuck_out_tongue:
 
 More specifically, if the game crashes when you try to load a minigame, no matter what level, it will crash before it loads at all. If the game does not crash, 
 then you made your mod correctly. Thus, ensuring you editing correctly really pays off in the long run!
+
+#### Lesson #3: Jumping to Specific Levels
+
+*Coming Soon.*
 
 ### Task #2: Adding a Blocked Wall on the Left Corner
 
