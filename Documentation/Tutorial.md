@@ -83,7 +83,7 @@ sitting in that location, in addition to a single space (what did we talk about 
 `F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
 
 * Open *Island Xtreme Stunts*, load your save, make your way to Jack O' Trade's store (if you aren't already there), and load the *Trouble in Store* minigame.
-If you performed the editing correctly, the game will successfully load your modded level, and you will see a newBlocked Wall where you placed it! 
+If you performed the editing correctly, the game will successfully load your modded level, and you will see a new Blocked Wall where you placed it! 
 If you didn't, then the game will crash.
 
 > Recap: You just learned about text alignment, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
