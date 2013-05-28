@@ -34,7 +34,7 @@ You will need a few items to complete this tutorial
 ```
 Legend:
   F = Free Tile, BW = Blocked Wall, YC = Yellow Cube,  YT = Yellow Tile, 
-  RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile, WH = Water Tile
+  RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile, WT = Water Tile
 ```
 
 For this tutorial, we will be using level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
