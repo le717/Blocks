@@ -64,7 +64,7 @@ the codes for *any* non-free block/tile follow this pattern.
 
 Well, now that we know a bit about alignment, let's add our Blocked Wall!
 
-* Open **Blocks**, and open the level file (`<Ctrl> + <q>), or by opening it in Notepad++. If you don't remember where it is located, 
+* Open **Blocks**, and open the level file (`<Ctrl> + <q>`), or by opening it in Notepad++ (`<Ctrl> + <o>`). If you don't remember where it is located, 
 the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank).
 
 *Coming Soon.*
