@@ -83,11 +83,10 @@ sitting in that location, in addition to a single space (what did we talk about 
 `F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
 
 * Open *Island Xtreme Stunts*, load your save, make your way to Jack O' Trade's store (if you aren't already there), and load the *Trouble in Store* minigame.
-Play it until you reach level 3. If you performed the editing correctly, the game will successfully load your modded level, and you will see a new
-Blocked Wall where you placed it! If you didn't, then the game will crash. If the game crashes after any mod, you know for sure you did something incorrectly.
-:stuck_out_tongue:
+If you performed the editing correctly, the game will successfully load your modded level, and you will see a newBlocked Wall where you placed it! 
+If you didn't, then the game will crash.
 
-> Recap: You just learned how to open a level in **Blocks** or**Notepad++** add a Blocked Wall using the `BW` code, 
+> Recap: You just learned about text alignment, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
 > ensuring it is aligned to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back!
 > Now for another lesson!
 
@@ -95,7 +94,11 @@ Blocked Wall where you placed it! If you didn't, then the game will crash. If th
 
 How do you know your mod will work or not? I mean, if it is not properly created, it won't work, will it? 
 
-*Coming Soon.*
+Correct, your mod will not work if is not properly created, but how do you know if it works? *Island Xtreme Stunts* has a pretty simple way of 
+telling you if your mod is correctly created: it crashes! :stuck_out_tongue:
+
+More specifically, if the game crashes when you try to load a minigame, no matter what level, it will crash before it loads at all. If the game does not crash, 
+then you made your mod correctly. Thus, ensuring you editing correctly really pays off in the long run!
 
 ### Task #2: Adding a Blocked Wall on the Left Corner
 

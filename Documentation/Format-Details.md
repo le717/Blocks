@@ -23,6 +23,8 @@ File Details
 
 * What folders and files go to what location in-game
 * Creating new level slots
+* If a level later on the in the chain or one already completed is broken, will the game crash when loading the minigame at the beginning (both cases), 
+or when you get to that level (later on)?
 * The letter and number combination on the first line identify something, but what.
 * You can add new colored blocks, but unless they were already in the level, they cannot be used. Adding new ones and pushing only one to it's proper location 
 will complete the level.
