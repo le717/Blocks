@@ -15,7 +15,7 @@ Modding Tutorial
 </table>
 
 This is a tutorial on modding the *Island Xtreme Stunts* minigame levels. It is a basic tutorial, and will not cover every single detail. 
-Instead, it attempts to explain the basics of the level layout, and advise you on what to and not to do in your modding.
+Instead, it attempts to explain the basics of the level layout, and advise you on what to and not to do in your modding experiences.
 
 ## Requirements
 
