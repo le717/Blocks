@@ -89,7 +89,7 @@ If you didn't, then the game will crash.
 > Recap: You just learned about text alignment, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
 > ensuring it is aligned to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back!
 
-aNow for another lesson!
+Now for another lesson!
 
 #### Lesson #2: Making Sure It All Works
 
