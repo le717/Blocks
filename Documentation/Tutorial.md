@@ -10,6 +10,7 @@ Modding Tutorial
 <td><a href="#legend-incomplete">Legend</a></td>
 <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
 <td><a href="#lesson-1-alignment">Lesson #1</a></td>
+<td><a href="#lesson2-making-sure-it-all-works">Lesson #2</a></td>
 <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
 </table>
 
@@ -81,18 +82,25 @@ be sure to run both **Blocks** and **Notepad++** with Administrator rights, othe
 sitting in that location, in addition to a single space (what did we talk about in lesson #1?). Now type `BW`, ensuring the `W` is lined up with the
 `F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
 
-* Open *Island Xtreme Stunts*, load your save, make your way to Jack O' Trade's store (if you aren't already there), and losd the *Trouble in Store* minigame.
+* Open *Island Xtreme Stunts*, load your save, make your way to Jack O' Trade's store (if you aren't already there), and load the *Trouble in Store* minigame.
 Play it until you reach level 3. If you performed the editing correctly, the game will successfully load your modded level, and you will see a new
 Blocked Wall where you placed it! If you didn't, then the game will crash. If the game crashes after any mod, you know for sure you did something incorrectly.
 :stuck_out_tongue:
+
+> Recap: You just learned how to open a level in **Blocks** or**Notepad++** add a Blocked Wall using the `BW` code, 
+> ensuring it is aligned to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back!
+> Now for another lesson!
+
+#### Lesson #2: Making Sure It All Works
+
+How do you know your mod will work or not? I mean, if it is not properly created, it won't work, will it? 
 
 *Coming Soon.*
 
 ### Task #2: Adding a Blocked Wall on the Left Corner
 
-And you thought modding was going to be easy. Well, actually, it is!
-
-This is that special circumstance I mentioned in Lesson #1. Adding a Blocked Wall on the
+This is that special circumstance I mentioned in Lesson #1. Adding a Blocked Wall on the left corner of the level is not much harder than adding one
+anywhere else, it's just different.
 
 *Coming Soon.*
 
