@@ -88,14 +88,15 @@ If you didn't, then the game will crash.
 
 > Recap: You just learned about text alignment, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
 > ensuring it is aligned to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back!
-> Now for another lesson!
+
+aNow for another lesson!
 
 #### Lesson #2: Making Sure It All Works
 
 How do you know your mod will work or not? I mean, if it is not properly created, it won't work, will it? 
 
 Correct, your mod will not work if is not properly created, but how do you know if it works? *Island Xtreme Stunts* has a pretty simple way of 
-telling you if your mod is correctly created: it crashes! :stuck_out_tongue:
+telling you if your mod is not correctly created: it crashes! :stuck_out_tongue:
 
 More specifically, if the game crashes when you try to load a minigame, no matter what level, it will crash before it loads at all. If the game does not crash, 
 then you made your mod correctly. Thus, ensuring you editing correctly really pays off in the long run!
