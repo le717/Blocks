@@ -21,7 +21,7 @@ Instead, it attempts to explain the basics of the level layout, and advise you o
 You will need a few items to complete this tutorial
 * A copy of [*Island Xtreme Stunts*](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-)
 * The newest release of **Blocks**, available in the [Downloads](https://github.com/le717/Blocks#downloads), or
-* A source code editor, preferably [Notepad++](http://notepad-plus-plus.org)
+* A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org)
 * The minigame level format details, available in [Format-Details.md](Format-Details.md)
 
 ### Legend (Incomplete)
@@ -73,16 +73,26 @@ the codes for *any* non-free block/tile follow this pattern.
 
 Well, now that we know a bit about alignment, let's add our Blocked Wall!
 
-* Open **Blocks**, and open the level file (`<Ctrl> + <q>`), or by opening it in Notepad++ (`<Ctrl> + <o>`). If you don't remember where it is located, 
-the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank).
+* Open **Blocks**, and open the level file (`<Ctrl> + <q>`), or by opening it in **Notepad++** (`<Ctrl> + <o>`). If you don't remember where it is located, 
+the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank). If you are editing the level straight from Program Files,
+be sure to run both **Blocks** and **Notepad++** with Administrator rights, otherwise you will be unable to save your edit!
+
+* Once the level is open in your editor of choice, find the square we want to edit (top row, eight column). Start by removing the `F` that is currently 
+sitting in that location, in addition to a single space (what did we talk about in lesson #1?). Now type `BW`, ensuring the `W` is lined up with the
+`F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
+
+* Open *Island Xtreme Stunts*, load your save, make your way to Jack O' Trade's store (if you aren't already there), and losd the *Trouble in Store* minigame.
+Play it until you reach level 3. If you performed the editing correctly, the game will successfully load your modded level, and you will see a new
+Blocked Wall where you placed it! If you didn't, then the game will crash. If the game crashes after any mod, you know for sure you did something incorrectly.
+:stuck_out_tongue:
 
 *Coming Soon.*
 
 ### Task #2: Adding a Blocked Wall on the Left Corner
 
-And you thought modding was going to be easy. :stuck_out_tongue:
+And you thought modding was going to be easy. Well, actually, it is!
 
-This is that special circumstance I mentioned in Lesson #1.
+This is that special circumstance I mentioned in Lesson #1. Adding a Blocked Wall on the
 
 *Coming Soon.*
 
