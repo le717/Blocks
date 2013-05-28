@@ -6,11 +6,11 @@ Modding Tutorial
 
 ## Table of Contents
 <table>
-<td>[Requirements](#requirements)</td>
-<td>[Legend](#legend-incomplete)</td>
-<td>[Task #1](#task-1-adding-a-blocked-wall</td>
-<td>[Lesson #1](#lesson-1-alignment)</td>
-<td>[Task #2](#task-2-adding-a-blocked-wall-on-the-left-corner)</td>
+<td><a href="#requirements">Requirements</a></td>
+<td><a href="#legend-incomplete">Legend</a></td>
+<td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
+<td><a href="#lesson-1-alignment">Lesson #1</a></td>
+<td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
 </table>
 
 This is a tutorial on modding the *Island Xtreme Stunts* minigame levels. It is a basic tutorial, and will not cover every single detail. 
