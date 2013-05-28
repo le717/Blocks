@@ -34,7 +34,7 @@ You will need a few items to complete this tutorial
 ```
 Legend:
   F = Free Tile, BW = Blocked Wall, YC = Yellow Cube,  YT = Yellow Tile, 
-  RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile
+  RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile, WH = Water Tile
 ```
 
 For this tutorial, we will be using level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
@@ -85,6 +85,14 @@ be sure to run both **Blocks** and **Notepad++** with Administrator rights, othe
 * Once the level is open in your editor of choice, find the square we want to edit (top row, eight column). Start by removing the `F` that is currently 
 sitting in that location, in addition to a single space (what did we talk about in lesson #1?). Now type `BW`, ensuring the `W` is lined up with the
 `F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
+
+The original line should have looked like this:
+
+` F  F  F  F  F  F  F  F  F  F  F  F  F`
+
+but now, it should look like this:
+
+` F  F  F  F  F  F  F BW  F  F  F  F  F`
 
 * Open *Island Xtreme Stunts*, load your save, make your way to Jack O' Trade's store (if you aren't already there), and load the *Trouble in Store* minigame.
 If you performed the editing correctly, the game will successfully load your modded level, and you will see a new Blocked Wall where you placed it! 
