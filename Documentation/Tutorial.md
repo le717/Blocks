@@ -10,7 +10,7 @@ Modding Tutorial
 <td><a href="#legend-incomplete">Legend</a></td>
 <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
 <td><a href="#lesson-1-alignment">Lesson #1</a></td>
-<td><a href="#lesson2-making-sure-it-all-works">Lesson #2</a></td>
+<td><a href="#lesson-2-making-sure-it-all-works">Lesson #2</a></td>
 <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
 </table>
 
