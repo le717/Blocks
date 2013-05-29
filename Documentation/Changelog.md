@@ -6,6 +6,7 @@ Released ?? ??, 2013
 
 * Updated Legend to identify `F` as a `Free Tile`
 * Added WT (Water Tile) to Legend (thanks Xiron)
+* Added commented-out code for New button
 
 ### 0.8.2
 Released May 26, 2013

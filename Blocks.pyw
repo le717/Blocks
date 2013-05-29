@@ -203,16 +203,22 @@ ttk.Label(mainframe, text='''                                              Legen
 ttk.Label(mainframe, text='''                 {0} {1}{2}
     Created 2013 Triangle717'''.format(app, majver, minver)).grid(column=2, row=0, sticky=tk.N)
 
+### New button
+##ttk.Button(mainframe,text="New", command=read).grid(column=2, row=1, sticky=tk.N)
 # Open button
 ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=1, sticky=tk.N)
+##ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=2, sticky=tk.N)
 # Save button
 ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=2, sticky=tk.N)
+##ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=3, sticky=tk.N)
+
 
 # Blocks Logo
 blocks_logo = tk.PhotoImage(file=app_logo)
 image_frame = ttk.Label(mainframe)
 image_frame['image'] = blocks_logo
 image_frame.grid(column=2, row=3, sticky=tk.N)
+##image_frame.grid(column=2, row=4, sticky=tk.N)
 
 # Padding around elements
 for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
