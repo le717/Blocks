@@ -198,7 +198,8 @@ level.insert("1.0", "Minigame layout will be displayed here.")
 ttk.Label(mainframe, text='''                                              Legend:
             F = Free Tile, BW = Blocked Wall, YC = Yellow Cube,
             YT = Yellow Tile, RC = Red Cube, RT = Red Tile,
-            BC = Blue Cube, BT = Blue Tile, WT = Water Tile''').grid(column=0, row=0, sticky=(tk.W, tk.E))
+            BC = Blue Cube, BT = Blue Tile, GT = Green Tile, GC = Green Cube,
+            WT = Water Tile, WI = ??, WJ = ??, WM = ??''').grid(column=0, row=0, sticky=(tk.W, tk.E))
 
 ttk.Label(mainframe, text='''                 {0} {1}{2}
     Created 2013 Triangle717'''.format(app, majver, minver)).grid(column=2, row=0, sticky=tk.N)
