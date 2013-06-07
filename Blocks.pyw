@@ -37,7 +37,7 @@ except ImportError:
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".2.1"
+minver = ".2.2"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -176,8 +176,8 @@ root.title("{0} {1}{2}".format(app, majver, minver))
 
 # The window cannot be resized at all
 # Length x width
-root.minsize("500", "280")
-root.maxsize("500", "280")
+root.minsize("575", "300")
+root.maxsize("575", "300")
 
 # Frame settings
 mainframe = ttk.Frame(root, padding="7 7 7 7")
@@ -204,22 +204,19 @@ ttk.Label(mainframe, text='''                                              Legen
 ttk.Label(mainframe, text='''                 {0} {1}{2}
     Created 2013 Triangle717'''.format(app, majver, minver)).grid(column=2, row=0, sticky=tk.N)
 
-### New button
-##ttk.Button(mainframe,text="New", command=read).grid(column=2, row=1, sticky=tk.N)
+# New button
+ttk.Button(mainframe,text="New", command=read).grid(column=2, row=1, sticky=tk.N)
 # Open button
-ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=1, sticky=tk.N)
-##ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=2, sticky=tk.N)
+ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=2, sticky=tk.N)
 # Save button
-ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=2, sticky=tk.N)
-##ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=3, sticky=tk.N)
+ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=3, sticky=tk.N)
 
 
 # Blocks Logo
 blocks_logo = tk.PhotoImage(file=app_logo)
 image_frame = ttk.Label(mainframe)
 image_frame['image'] = blocks_logo
-image_frame.grid(column=2, row=3, sticky=tk.N)
-##image_frame.grid(column=2, row=4, sticky=tk.N)
+image_frame.grid(column=2, row=3, sticky=tk.S)
 
 # Padding around elements
 for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
@@ -228,6 +225,8 @@ def close(*args):
     '''Closes Blocks.'''
     raise SystemExit
 
+# Bind <Ctrl + n> shortcut to New button
+root.bind("<Control-n>", read)
 # Bind <Ctrl + o> (lowercase "o" (as in "Oh!")) shortcut to Open button
 root.bind("<Control-q>", read)
 # Bind <Ctrl + s> shortcut to Save button

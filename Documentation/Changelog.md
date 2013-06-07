@@ -1,13 +1,15 @@
 Blocks Change Log
 =================
 
-### 0.8.2.1
+### 0.8.2.2
 Released ?? ??, 2013
 
 * Updated Legend to identify `F` as a `Free Tile`
 * Added WT (Water Tile) to Legend (thanks Xiron)
 * Added commented-out code for New button
 * More of the Legend (thanks Xiron)
+* Added New button, updated window size
+* Bound `<Ctrl> + <n>` shortcut to New button
 
 ### 0.8.2
 Released May 26, 2013
@@ -20,7 +22,7 @@ Released May 26, 2013
 * Restricted selectable files for viewing to `.TXT`
 * Added ability to copy selected level file, append `.bak` to it
 * Added ability to update copied filename if it already exists
-* Changed bindings of Open and Save buttons to `<Crtl> + <o>` and `<Ctrl> + <s>` shortcuts, respectively. 
+* Changed bindings of Open and Save buttons to `<Ctrl> + <o>` and `<Ctrl> + <s>` shortcuts, respectively. 
 * Limited the amount of level file read (it pulled out two too many lines)
 * Added error message if user tries to save a level without opening one first
 * Resized Blocks logo, moved location of logo in program, resized program window
@@ -37,7 +39,7 @@ Released May 26, 2013
 * Fixed bug where entire level layout was not being written to file
 * Fixed bug where extra line was being written the end of the file
 * Fixed bug where text box was too small to display all of the level layout
-* Changed binding of Open button to `<Crtl> + <q>` (there is a bug with `<Crtl> + <o>` adding spaces in the text area)
+* Changed binding of Open button to `<Ctrl> + <q>` (there is a bug with `<Ctrl> + <o>` adding spaces in the text area)
 * Added display of currently opened file name
 
 ### 0.5 
