@@ -188,7 +188,7 @@ mainframe.columnconfigure(0, weight=1)
 level_name = tk.StringVar()
 ttk.Label(mainframe, textvariable=level_name).grid(column=0, row=2, sticky=tk.N)
 
-# Where level is viewed (and in the future, edited)
+# Where level is viewed and edited
 level = tk.Text(mainframe, height=8, width=40, wrap="none")
 level.grid(column=0, row=3)
 level.insert("1.0", "Minigame layout will be displayed here.")
