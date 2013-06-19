@@ -10,6 +10,7 @@ Released ?? ??, 2013
 * More of the Legend (thanks Xiron)
 * Added New button, updated window size
 * Bound `<Ctrl> + <n>` shortcut to New button
+* Fixed error when a `Save` button is pressed without opening a level first
 
 ### 0.8.2
 Released May 26, 2013

@@ -89,56 +89,56 @@ def write(*args):
         # Get just the folder path to the file
         location = level_file.rstrip(level_file_name)
 
+        # They are the same, but this is needed to remove an error
+        new_file = level_file
+
+        # Used to rename the file if it already exists
+        count = 0
+        while os.path.exists(new_file):
+            # Update count
+            count += 1
+            # Define new file name
+            new_file = os.path.join(location, "{0}{1}{2}".format(level_file_name, ".bak", str(count)))
+
+        try:
+            # Copy the file, try to preserve metadata
+            shutil.copy2(level_file, new_file)
+
+            # Read (original, not .bak*) file in binary mode
+            with open(level_file, "rb") as f:
+                # Read just the first line
+                for line in range(0, 1):
+                    first_line = f.readline()
+
+            # Get new layout from text box
+            new_layout = level.get('1.0', 'end')
+            # Convert it from a string to binary, removing the extra lines
+            new_layout = str.encode(new_layout[:-2], encoding="utf-8", errors="strict")
+
+            # Open the (original, not .bak*) level back up, again in binary mode
+            with open(level_file, "wb") as f:
+                # Rewrite the first line
+                f.write(first_line)
+                # Write the new layout
+                f.write(new_layout)
+                # Write requied ending line
+                f.write(b"\r\n ")
+
+            # Display sucess dialog, [:-1] to remove the trailing "\"
+            tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}".format(level_file_name, location[:-1]))
+
+        # A level was edited directly in Program Files, and Block was run
+        # without Admin rights
+        except PermissionError:
+            showerror("Insufficient User Rights!", "Blocks does not have the user rights to save {0}!\nPlease relaunch Blocks as an Administrator.".format(level_file_name))
+
+        # Any other unhandled error occurred
+        except Exception:
+            showerror("An Error Has Occurred!", "Blocks ran into an unknown error while trying to {0}!".format(level_file_name))
+
     # The user tried to same a level without loading one first
     except NameError:
         showerror("Cannot Save Level!", "A minigame level has not been selected for editing!")
-
-    # They are the same, but this is needed to remove an error
-    new_file = level_file
-
-    # Used to rename the file if it already exists
-    count = 0
-    while os.path.exists(new_file):
-        # Update count
-        count += 1
-        # Define new file name
-        new_file = os.path.join(location, "{0}{1}{2}".format(level_file_name, ".bak", str(count)))
-
-    try:
-        # Copy the file, try to preserve metadata
-        shutil.copy2(level_file, new_file)
-
-        # Read (original, not .bak*) file in binary mode
-        with open(level_file, "rb") as f:
-            # Read just the first line
-            for line in range(0, 1):
-                first_line = f.readline()
-
-        # Get new layout from text box
-        new_layout = level.get('1.0', 'end')
-        # Convert it from a string to binary, removing the extra lines
-        new_layout = str.encode(new_layout[:-2], encoding="utf-8", errors="strict")
-
-        # Open the (original, not .bak*) level back up, again in binary mode
-        with open(level_file, "wb") as f:
-            # Rewrite the first line
-            f.write(first_line)
-            # Write the new layout
-            f.write(new_layout)
-            # Write requied ending line
-            f.write(b"\r\n ")
-
-        # Display sucess dialog, [:-1] to remove the trailing "\"
-        tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}".format(level_file_name, location[:-1]))
-
-    # A level was edited directly in Program Files, and Block was run
-    # without Admin rights
-    except PermissionError:
-        showerror("Insufficient User Rights!", "Blocks does not have the user rights to save {0}!\nPlease relaunch Blocks as an Administrator.".format(level_file_name))
-
-    # Any other unhandled error occurred
-    except Exception:
-        showerror("An Error Has Occurred!", "Blocks ran into an unknown error while trying to {0}!".format(level_file_name))
 
 # ------------ End Level Layout Writing ------------ #
 
