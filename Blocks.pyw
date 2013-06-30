@@ -44,7 +44,7 @@ app_icon = os.path.join("Media", "Blocks.ico")
 # ------------ Begin Level Layout Reading ------------ #
 
 def read(*args):
-    '''Reads Minigame Level.'''
+    '''Reads Minigame Level'''
 
     # File type label for dialog box
     formats = [("IXS Minigame Layout", ".TXT")]
@@ -80,10 +80,25 @@ def read(*args):
 
 # ------------ End Level Layout Reading ------------ #
 
+
+# ------------ Begin Level Layout Syntax Check ------------ #
+
+def syntax_check(layout):
+    '''Checks the Minigame Level Layout for syntax errors'''
+
+    # Convert all text to uppercase
+    upper_layout = layout.upper()
+    print(upper_layout)
+    # Send the corrected layout back
+    return upper_layout
+
+# ------------ End Level Layout Syntax Check ------------ #
+
+
 # ------------ Begin Level Layout Writing ------------ #
 
 def write(*args):
-    '''Writes Modded Minigame Level.'''
+    '''Writes Modded Minigame Level'''
 
     try:
         # Get just the folder path to the file
@@ -112,15 +127,20 @@ def write(*args):
 
             # Get new layout from text box
             new_layout = level.get('1.0', 'end')
+            print(new_layout)
+
+            # Sens it to the syntax checker for fixing
+            clean_layout = syntax_check(new_layout)
+
             # Convert it from a string to binary, removing the extra lines
-            new_layout = str.encode(new_layout[:-2], encoding="utf-8", errors="strict")
+            clean_layout = str.encode(clean_layout[:-2], encoding="utf-8", errors="strict")
 
             # Open the (original, not .bak*) level back up, again in binary mode
             with open(level_file, "wb") as f:
                 # Rewrite the first line
                 f.write(first_line)
                 # Write the new layout
-                f.write(new_layout)
+                f.write(clean_layout)
                 # Write requied ending line
                 f.write(b"\r\n ")
 
@@ -135,10 +155,12 @@ def write(*args):
         # Any other unhandled error occurred
         except Exception:
             showerror("An Error Has Occurred!", "Blocks ran into an unknown error while trying to {0}!".format(level_file_name))
+        pass
 
     # The user tried to same a level without loading one first
     except NameError:
         showerror("Cannot Save Level!", "A minigame level has not been selected for editing!")
+        pass
 
 # ------------ End Level Layout Writing ------------ #
 
@@ -146,7 +168,7 @@ def write(*args):
 # ------------ Begin Python Version Check ------------ #
 
 def PyVerCheck():
-    '''Dummy function for easy access to Python Version Check code.'''
+    '''Dummy function for easy access to Python Version Check code'''
     pass
 
 # User is not running < Python 3.3.0
@@ -167,7 +189,7 @@ if sys.version_info < (3,3,0):
 # ------------ Begin Tkinter GUI Layout ------------ #
 
 def GUI():
-    '''Dummy function for easy access to GUI code.'''
+    '''Dummy function for easy access to GUI code'''
     pass
 
 # Root window settings
@@ -222,7 +244,7 @@ image_frame.grid(column=2, row=3, sticky=tk.S)
 for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
 
 def close(*args):
-    '''Closes Blocks.'''
+    '''Closes Blocks'''
     raise SystemExit
 
 # Bind <Ctrl + n> shortcut to New button
