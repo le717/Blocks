@@ -23,6 +23,7 @@ import sys
 import os
 import shutil
 import webbrowser
+import sys
 try:
     # Python 3 import
     import tkinter as tk
@@ -37,9 +38,19 @@ except ImportError:
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".2.2"
+minver = ".2.5"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
+
+try:
+    # If the debug parameter is passed, enable the debugging messages
+    if sys.argv[1] == "--debug":
+        debug = True
+        import traceback
+        print("\nDebug messages have been enabled.\n")
+except IndexError:
+    # The parameter was not passed, don't display debugging messages
+    debug = False
 
 # ------------ Begin Level Layout Reading ------------ #
 
@@ -83,21 +94,51 @@ def read(*args):
 
 # ------------ Begin Level Layout Syntax Check ------------ #
 
-def syntax_check(layout):
+def syntax_check(*args):
     '''Checks the Minigame Level Layout for syntax errors'''
+
+    # Get new layout from text box
+    layout = level.get('1.0', 'end')
+    if debug:
+        print("The new layout is: \n\n{0}".format(layout))
 
     # Convert all text to uppercase
     upper_layout = layout.upper()
-    print(upper_layout)
-    # Send the corrected layout back
-    return upper_layout
+
+    # Split the text at each space
+    layout_syntax = upper_layout.split(" ")
+
+    # The allowed characters in a layout
+    # TODO: Finish populating this, along with the legend
+    itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "BC", "BT", "GT", "GC",
+    "WT", "WI", "WJ", "WM"]
+
+    for index, char in enumerate(layout_syntax):
+        # Remove \n, \t, and the like
+        char = char.strip()
+
+        # If any character in the layout is not in the list
+        if char not in itemlist:
+            if debug:
+                print('Invalid character "{0}" at position {1}\n'.format(char, index))
+            showerror("Error!", 'Invalid character: "{0}" at position {1}'.format(char, index))
+            # return False so the saving process will not continue on
+            return False
+
+    # Remove the list, keep proper formatting
+    fixed_level = " ".join(layout_syntax)
+
+    if debug:
+        print("The new layout (after syntax checking) is: \n\n{0}".format(fixed_level))
+    # Send the corrected layout for writing
+    write(fixed_level)
 
 # ------------ End Level Layout Syntax Check ------------ #
 
 
 # ------------ Begin Level Layout Writing ------------ #
 
-def write(*args):
+def write(new_layout):
     '''Writes Modded Minigame Level'''
 
     try:
@@ -105,19 +146,19 @@ def write(*args):
         location = level_file.rstrip(level_file_name)
 
         # They are the same, but this is needed to remove an error
-        new_file = level_file
+        backup_file = level_file
 
         # Used to rename the file if it already exists
         count = 0
-        while os.path.exists(new_file):
+        while os.path.exists(backup_file):
             # Update count
             count += 1
-            # Define new file name
-            new_file = os.path.join(location, "{0}{1}{2}".format(level_file_name, ".bak", str(count)))
+            # Define backup filename
+            backup_file = os.path.join(location, "{0}{1}{2}".format(level_file_name, ".bak", str(count)))
 
         try:
             # Copy the file, try to preserve metadata
-            shutil.copy2(level_file, new_file)
+            shutil.copy2(level_file, backup_file)
 
             # Read (original, not .bak*) file in binary mode
             with open(level_file, "rb") as f:
@@ -125,42 +166,42 @@ def write(*args):
                 for line in range(0, 1):
                     first_line = f.readline()
 
-            # Get new layout from text box
-            new_layout = level.get('1.0', 'end')
-            print(new_layout)
-
-            # Sens it to the syntax checker for fixing
-            clean_layout = syntax_check(new_layout)
-
-            # Convert it from a string to binary, removing the extra lines
-            clean_layout = str.encode(clean_layout[:-2], encoding="utf-8", errors="strict")
+            # Convert layout from string to binary, removing the extra lines
+            layout = str.encode(new_layout[:-2], encoding="utf-8", errors="strict")
 
             # Open the (original, not .bak*) level back up, again in binary mode
             with open(level_file, "wb") as f:
                 # Rewrite the first line
                 f.write(first_line)
                 # Write the new layout
-                f.write(clean_layout)
+                f.write(layout)
                 # Write requied ending line
                 f.write(b"\r\n ")
 
             # Display sucess dialog, [:-1] to remove the trailing "\"
             tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}".format(level_file_name, location[:-1]))
 
-        # A level was edited directly in Program Files, and Block was run
-        # without Admin rights
+        # A level was edited directly in Program Files,
+        # and Blocks was run without Admin rights
         except PermissionError:
             showerror("Insufficient User Rights!", "Blocks does not have the user rights to save {0}!\nPlease relaunch Blocks as an Administrator.".format(level_file_name))
+            if debug:
+                # Display complete traceback to console
+                traceback.print_exc(file=sys.stderr)
 
         # Any other unhandled error occurred
         except Exception:
             showerror("An Error Has Occurred!", "Blocks ran into an unknown error while trying to {0}!".format(level_file_name))
-        pass
+            if debug:
+                # Display complete traceback to console
+                traceback.print_exc(file=sys.stderr)
 
     # The user tried to same a level without loading one first
     except NameError:
         showerror("Cannot Save Level!", "A minigame level has not been selected for editing!")
-        pass
+        if debug:
+            # Display complete traceback to console
+            traceback.print_exc(file=sys.stderr)
 
 # ------------ End Level Layout Writing ------------ #
 
@@ -226,12 +267,12 @@ ttk.Label(mainframe, text='''                                              Legen
 ttk.Label(mainframe, text='''                 {0} {1}{2}
     Created 2013 Triangle717'''.format(app, majver, minver)).grid(column=2, row=0, sticky=tk.N)
 
-# New button
-ttk.Button(mainframe,text="New", command=read).grid(column=2, row=1, sticky=tk.N)
+## New button
+##ttk.Button(mainframe,text="New", command=read).grid(column=2, row=1, sticky=tk.N)
 # Open button
 ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=2, sticky=tk.N)
 # Save button
-ttk.Button(mainframe, text="Save", command=write).grid(column=2, row=3, sticky=tk.N)
+ttk.Button(mainframe, text="Save", command=syntax_check).grid(column=2, row=3, sticky=tk.N)
 
 
 # Blocks Logo
@@ -247,12 +288,12 @@ def close(*args):
     '''Closes Blocks'''
     raise SystemExit
 
-# Bind <Ctrl + n> shortcut to New button
-root.bind("<Control-n>", read)
-# Bind <Ctrl + o> (lowercase "o" (as in "Oh!")) shortcut to Open button
+## Bind <Ctrl + n> shortcut to New button
+##root.bind("<Control-n>", close)
+# Bind <Ctrl + q> shortcut to Open button
 root.bind("<Control-q>", read)
 # Bind <Ctrl + s> shortcut to Save button
-root.bind("<Control-s>", write)
+root.bind("<Control-s>", syntax_check)
 # Bind escape key to close function
 root.bind("<Escape>", close)
 

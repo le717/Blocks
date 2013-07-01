@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.8.2.2
+### 0.8.2.5
 Released ?? ??, 2013
 
 * Updated Legend to identify `F` as a `Free Tile`
@@ -11,7 +11,14 @@ Released ?? ??, 2013
 * Added New button, updated window size
 * Bound `<Ctrl> + <n>` shortcut to New button
 * Fixed error when `Save` button is pressed without opening a level first
-* Convert new level layout to uppercase (syntax check)
+* Convert new level layout to uppercase (partial syntax checker)
+* Reworked save workflow to enable addition of layout syntax checker
+* Added syntax check for each item in layout, warns if error is present
+* Updated variables and comments in `write()`
+* Fixed outdated comment for Save button
+* Disabled New button (until code to support it can be written)
+* Added debug command-line parameter (`--debug`), moved debugging messages under it
+* Display complete error traceback to console if debug parameter is enabled
 
 ### 0.8.2
 Released May 26, 2013
