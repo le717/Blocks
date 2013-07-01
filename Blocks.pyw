@@ -38,7 +38,7 @@ except ImportError:
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".2.5"
+minver = ".2.7"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -206,6 +206,61 @@ def write(new_layout):
 # ------------ End Level Layout Writing ------------ #
 
 
+# ------------ Begin Level Legend Window ------------ #
+
+def the_legend(*args):
+    '''Contains Level Character Legend'''
+
+    # Spawn a new window, parent it to main window
+    legend_window = tk.Toplevel(root)
+    # App Icon
+    legend_window.iconbitmap(app_icon)
+    # The window cannot be resized at all
+    # Length x width
+    legend_window.minsize("400", "350")
+    legend_window.maxsize("400", "350")
+    # Lift it above main window, give it focus
+    legend_window.lift()
+    legend_window.focus()
+
+    # Legend display
+    # TODO: Finish populating list
+    legend = ttk.Label(legend_window, text='''                                            === Available Colors ===
+                                  R = Red, G = Green, B = Blue, Y = Yellow
+
+                                            === Available Types ===
+                                                    F = Free Tile,
+                                                    BW = Blocked Wall,
+                                              (R, G, B, Y)C = Cube,
+                                              (R, G, B, Y)B = One-way Cube,
+                                              (R, G, B, Y)T = Tile
+
+                                                    === Water ===
+                                                        W = Water
+                          T = Tile, I = ??, J = ??, M = Middle
+
+
+
+
+
+                          ''').grid()
+
+
+
+    def close_legend(*args):
+        '''Closes Legend Window'''
+        legend_window.destroy()
+
+    # Bind Escape key to close the legend window
+    legend_window.bind('<Escape>', close_legend)
+
+    # Close Legend button
+    close_legend_button = ttk.Button(legend_window, text="Close Legend", command=close_legend)
+    close_legend_button.grid(column=0, row=0, sticky=(tk.NW))
+
+# ------------ End Level Legend Window ------------ #
+
+
 # ------------ Begin Python Version Check ------------ #
 
 def PyVerCheck():
@@ -236,44 +291,61 @@ def GUI():
 # Root window settings
 root = tk.Tk()
 root.title("{0} {1}{2}".format(app, majver, minver))
+# App icon
+root.iconbitmap(app_icon)
 
 # The window cannot be resized at all
 # Length x width
 root.minsize("575", "300")
-root.maxsize("575", "300")
+#root.maxsize("575", "300")
 
 # Frame settings
 mainframe = ttk.Frame(root, padding="7 7 7 7")
 mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+root.columnconfigure(0, weight=1)
+
 mainframe.columnconfigure(0, weight=1)
+mainframe.columnconfigure(1, weight=1)
+mainframe.columnconfigure(2, weight=1)
+
+mainframe.rowconfigure(0, weight=1)
+mainframe.rowconfigure(1, weight=1)
+mainframe.rowconfigure(2, weight=1)
 
 # Level (file) name display
 level_name = tk.StringVar()
-ttk.Label(mainframe, textvariable=level_name).grid(column=0, row=2, sticky=tk.N)
+ttk.Label(mainframe, textvariable=level_name).grid(column=0, row=2, columnspan=2)
 
 # Where level is viewed and edited
 level = tk.Text(mainframe, height=8, width=40, wrap="none")
-level.grid(column=0, row=3)
+level.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
 level.insert("1.0", "Minigame layout will be displayed here.")
 
-# Legend display
-# TODO: Finish populating list
-ttk.Label(mainframe, text='''                                              Legend:
-            F = Free Tile, BW = Blocked Wall, YC = Yellow Cube,
-            YT = Yellow Tile, RC = Red Cube, RT = Red Tile,
-            BC = Blue Cube, BT = Blue Tile, GT = Green Tile, GC = Green Cube,
-            WT = Water Tile, WI = ??, WJ = ??, WM = ??''').grid(column=0, row=0, sticky=(tk.W, tk.E))
+##legend = ttk.Label(mainframe, text='''                                                   === Available Colors ===
+##                                        R = Red, G = Green, B = Blue, Y = Yellow
+##                                                   === Available Types ===
+##                                            F = Free Tile, BW = Blocked Wall,
+##                                            (R, G, B, Y)C = Cube,
+##                                            (R, G, B, Y)B = One-way Cube,
+##                                            (R, G, B, Y)T = Tile,
+##                                                            === Water ===
+##                                        WT = Water Tile, WI = ??, WJ = ??, WM = ??''')
+##legend.grid(column=0, row=0, sticky=(tk.N, tk.S, tk.E))
+##sticky=(tk.W, tk.E)
 
-ttk.Label(mainframe, text='''                 {0} {1}{2}
-    Created 2013 Triangle717'''.format(app, majver, minver)).grid(column=2, row=0, sticky=tk.N)
+about_blocks = ttk.Label(mainframe, text='''                 {0} {1}{2}
+    Created 2013 Triangle717'''.format(app, majver, minver))
+about_blocks.grid(column=2, row=0, sticky=tk.N)
 
 ## New button
-##ttk.Button(mainframe,text="New", command=read).grid(column=2, row=1, sticky=tk.N)
+##new_button = ttk.Button(mainframe,text="New", command=read)
+##new_button.grid(column=2, row=1, sticky=tk.N)
 # Open button
-ttk.Button(mainframe, text="Open", command=read).grid(column=2, row=2, sticky=tk.N)
+open_file = ttk.Button(mainframe, text="Open", command=read)
+open_file.grid(column=2, row=2, sticky=tk.N)
 # Save button
-ttk.Button(mainframe, text="Save", command=syntax_check).grid(column=2, row=3, sticky=tk.N)
-
+save_file = ttk.Button(mainframe, text="Save", command=syntax_check)
+save_file.grid(column=2, row=3, sticky=tk.N)
 
 # Blocks Logo
 blocks_logo = tk.PhotoImage(file=app_logo)
@@ -297,8 +369,13 @@ root.bind("<Control-s>", syntax_check)
 # Bind escape key to close function
 root.bind("<Escape>", close)
 
-# Add app icon, run program
-root.iconbitmap(app_icon)
+# Legend button
+legend_button = ttk.Button(mainframe, text="Character Legend", command=the_legend)
+legend_button.grid(column=0, row=0, columnspan=2)
+
+root.bind('<Control-l>', the_legend)
+
+# Run program
 root.mainloop()
 
 # ------------ End Tkinter GUI Layout ------------ #
