@@ -119,7 +119,7 @@ def syntax_check(*args):
         char = char.strip()
 
         # If any character in the layout is not in the list
-        if char not in itemlist:
+        if char.upper() not in itemlist:
             if debug:
                 print('Invalid character "{0}" at position {1}\n'.format(char, index))
             showerror("Error!", 'Invalid character: "{0}" at position {1}'.format(char, index))
