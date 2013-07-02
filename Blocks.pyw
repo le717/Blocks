@@ -106,11 +106,8 @@ def syntax_check(*args):
     if debug:
         print("The new layout is: \n\n{0}".format(layout))
 
-    # Convert all text to uppercase
-    upper_layout = layout.upper()
-
     # Split the text at each space
-    layout_syntax = upper_layout.split(" ")
+    layout_syntax = layout.split(" ")
 
     # The allowed characters in a layout
     # TODO: Finish populating this, along with the legend
@@ -130,12 +127,15 @@ def syntax_check(*args):
             return False
 
     # Remove the list, keep proper formatting
-    fixed_level = " ".join(layout_syntax)
+    fixed_layout = " ".join(layout_syntax)
+
+    # Convert all text to uppercase
+    upper_layout = fixed_layout.upper()
 
     if debug:
-        print("The new layout (after syntax checking) is: \n\n{0}".format(fixed_level))
+        print("The new layout (after syntax checking) is: \n\n{0}".format(upper_layout))
     # Send the corrected layout for writing
-    write(fixed_level)
+    write(upper_layout)
 
 # ------------ End Level Layout Syntax Check ------------ #
 

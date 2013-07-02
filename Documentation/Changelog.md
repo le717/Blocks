@@ -23,6 +23,7 @@ Released ?? ??, 2013
 * Rewrote legend for better understanding, and identify the (*many*) Water tiles
 * Moved legend to a new window, added Character Legend button to open window in former place of legend
 * Bound `<Ctrl> + <l>` shortcut to Character Legend button
+* Moved conversion of level layout to uppercase after syntax checking
 
 ### 0.8.2
 Released May 26, 2013
