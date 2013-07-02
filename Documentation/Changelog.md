@@ -20,7 +20,7 @@ Released ?? ??, 2013
 * Added debug command-line parameter (`--debug`), moved debugging messages under it
 * Display complete error traceback to console if debug parameter is enabled
 * Reworked GUI to better support window resizing
-* Rewrote legend for better understanding, and idenitfy the (*many*) Water tiles
+* Rewrote legend for better understanding, and identify the (*many*) Water tiles
 * Moved legend to a new window, added Character Legend button to open window in former place of legend
 * Bound `<Ctrl> + <l>` shortcut to Character Legend button
 

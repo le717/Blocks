@@ -35,6 +35,10 @@ except ImportError:
     import Tkinter as tk
     from tkMessageBox import showerror
 
+def globals():
+    '''Dummy function for eas access to global variables'''
+    pass
+
 # Global variables
 app = "Blocks"
 majver = "0.8"
@@ -302,6 +306,8 @@ root.minsize("575", "300")
 # Frame settings
 mainframe = ttk.Frame(root, padding="7 7 7 7")
 mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+
+# Resizing code
 root.columnconfigure(0, weight=1)
 
 mainframe.columnconfigure(0, weight=1)
@@ -337,7 +343,7 @@ about_blocks = ttk.Label(mainframe, text='''                 {0} {1}{2}
     Created 2013 Triangle717'''.format(app, majver, minver))
 about_blocks.grid(column=2, row=0, sticky=tk.N)
 
-## New button
+# New button
 ##new_button = ttk.Button(mainframe,text="New", command=read)
 ##new_button.grid(column=2, row=1, sticky=tk.N)
 # Open button
@@ -346,6 +352,9 @@ open_file.grid(column=2, row=2, sticky=tk.N)
 # Save button
 save_file = ttk.Button(mainframe, text="Save", command=syntax_check)
 save_file.grid(column=2, row=3, sticky=tk.N)
+# Character Legend button
+legend_button = ttk.Button(mainframe, text="Character Legend", command=the_legend)
+legend_button.grid(column=0, row=0, columnspan=2)
 
 # Blocks Logo
 blocks_logo = tk.PhotoImage(file=app_logo)
@@ -353,7 +362,7 @@ image_frame = ttk.Label(mainframe)
 image_frame['image'] = blocks_logo
 image_frame.grid(column=2, row=3, sticky=tk.S)
 
-# Padding around elements
+# Padding around all the elements
 for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
 
 def close(*args):
@@ -368,11 +377,7 @@ root.bind("<Control-q>", read)
 root.bind("<Control-s>", syntax_check)
 # Bind escape key to close function
 root.bind("<Escape>", close)
-
-# Legend button
-legend_button = ttk.Button(mainframe, text="Character Legend", command=the_legend)
-legend_button.grid(column=0, row=0, columnspan=2)
-
+# Bind <Ctrl + l> shortcut to Character Legend button
 root.bind('<Control-l>', the_legend)
 
 # Run program
