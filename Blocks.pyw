@@ -246,7 +246,6 @@ def the_legend(*args):
                             WB = Bottom Right, WR = Bottom Left''').grid()
 
 
-
     def close_legend(*args):
         '''Closes Legend Window'''
         legend_window.destroy()
@@ -323,18 +322,8 @@ level = tk.Text(mainframe, height=8, width=40, wrap="none")
 level.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
 level.insert("1.0", "Minigame layout will be displayed here.")
 
-##legend = ttk.Label(mainframe, text='''                                                   === Available Colors ===
-##                                        R = Red, G = Green, B = Blue, Y = Yellow
-##                                                   === Available Types ===
-##                                            F = Free Tile, BW = Blocked Wall,
-##                                            (R, G, B, Y)C = Cube,
-##                                            (R, G, B, Y)B = One-way Cube,
-##                                            (R, G, B, Y)T = Tile,
-##                                                            === Water ===
-##                                        WT = Water Tile, WI = ??, WJ = ??, WM = ??''')
-##legend.grid(column=0, row=0, sticky=(tk.N, tk.S, tk.E))
-##sticky=(tk.W, tk.E)
 
+# About Blocks text
 about_blocks = ttk.Label(mainframe, text='''                 {0} {1}{2}
     Created 2013 Triangle717'''.format(app, majver, minver))
 about_blocks.grid(column=2, row=0, sticky=tk.N)
