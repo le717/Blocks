@@ -1,10 +1,10 @@
 Blocks
 ======
 
-![Blocks Logo](https://raw.github.com/le717/Blocks/master/Media/Blocks.png)
+![Blocks Logo](Media/Blocks.png)
 
 **Blocks**, an Island Xtreme Stunts Minigame Level Editor, written in [Python 3](http://www.python.org)
-by [Triangle717](http://triangle717.wordpress.com).
+by [Triangle717](http://Triangle717.WordPress.com).
 
 Downloads
 ---------
@@ -30,4 +30,4 @@ If you would like to contribute to the development of **Blocks**, please be sure
 
 Credit
 ------
-***Blocks*, created 2013 Triangle717, and released under the GNU General Public License Version 3.**
+***Blocks*, created 2013 Triangle717, and released under the [GNU General Public License Version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).**

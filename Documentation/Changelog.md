@@ -28,6 +28,7 @@ Released ?? ??, 2013
 `F12` key for Character Legend button, `<Ctrl + q>` for Close Character Legend button
 * Marked Close Character Legend button as active
 * Changed method of detecting Cancel button in File Open dialog
+* Finished populating Character Legend
 
 ### 0.8.2
 Released May 26, 2013
