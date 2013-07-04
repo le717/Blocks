@@ -221,33 +221,29 @@ def the_legend(*args):
     legend_window.iconbitmap(app_icon)
     # The window cannot be resized at all
     # Length x width
-    legend_window.minsize("400", "350")
-    legend_window.maxsize("400", "350")
+    legend_window.minsize("400", "260")
+    legend_window.maxsize("400", "260")
     # Lift it above main window, give it focus
     legend_window.lift()
     legend_window.focus()
 
     # Legend display
     # TODO: Finish populating list
-    legend = ttk.Label(legend_window, text='''                                            === Available Colors ===
-                                  R = Red, G = Green, B = Blue, Y = Yellow
+    legend = ttk.Label(legend_window, text='''                                        === Available Colors ===
+                              R = Red, G = Green, B = Blue, Y = Yellow
 
-                                            === Available Types ===
-                                                    F = Free Tile,
-                                                    BW = Blocked Wall,
-                                              (R, G, B, Y)C = Cube,
-                                              (R, G, B, Y)B = One-way Cube,
-                                              (R, G, B, Y)T = Tile
+                                        === Available Types ===
+                                                F = Free Tile,
+                                                BW = Blocked Wall,
+                                          (R, G, B, Y)C = Cube,
+                                          (R, G, B, Y)T = Tile,
+                              RB = One-way, west-bound Red Cube
 
-                                                    === Water ===
-                                                        W = Water
-                          T = Tile, I = ??, J = ??, M = Middle
-
-
-
-
-
-                          ''').grid()
+                                                === Water ===
+                        WH = Small Horizontal, WV = Small Vertical
+                            WI = Top, WJ = Left, WM = Right,
+                            WL = Top Right, WT = Top Left,
+                            WB = Bottom Right, WR = Bottom Left''').grid()
 
 
 
@@ -259,8 +255,8 @@ def the_legend(*args):
     legend_window.bind('<Control-q>', close_legend)
 
     # Close Legend button
-    close_legend_button = ttk.Button(legend_window, default="active", text="Close Legend", command=close_legend)
-    close_legend_button.grid(column=0, row=0, sticky=(tk.NW))
+    close_legend_button = ttk.Button(legend_window, default="active", text="Close", command=close_legend)
+    close_legend_button.grid(column=1, row=1, sticky=tk.S)
 
 # ------------ End Level Legend Window ------------ #
 
