@@ -24,6 +24,10 @@ Released ?? ??, 2013
 * Moved legend to a new window, added Character Legend button to open window in former place of legend
 * Bound `<Ctrl> + <l>` shortcut to Character Legend button
 * Moved conversion of level layout to uppercase after syntax checking
+* Changed keyboard bindings: `<Ctrl + Shift + O>` for Open button, `<Ctrl + q>` for Close button
+`F12` key for Character Legend button, `<Ctrl + q>` for Close Character Legend button
+* Marked Close Character Legend button as active
+* Changed method of detecting Cancel button in File Open dialog
 
 ### 0.8.2
 Released May 26, 2013

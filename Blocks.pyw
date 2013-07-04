@@ -74,7 +74,7 @@ def read(*args):
     title="Select a Minigame Layout")
 
     # The user clicked the cancel button
-    if len(level_file) == 0:
+    if not level_file:
         # Close dialog box
         pass
     # The user selected a level
@@ -111,8 +111,8 @@ def syntax_check(*args):
 
     # The allowed characters in a layout
     # TODO: Finish populating this, along with the legend
-    itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "BC", "BT", "GT", "GC",
-    "WT", "WI", "WJ", "WM"]
+    itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
+    "GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV"]
 
     for index, char in enumerate(layout_syntax):
         # Remove \n, \t, and the like
@@ -255,11 +255,11 @@ def the_legend(*args):
         '''Closes Legend Window'''
         legend_window.destroy()
 
-    # Bind Escape key to close the legend window
-    legend_window.bind('<Escape>', close_legend)
+    # Bind <Ctrl + q> shortcut to close the legend window
+    legend_window.bind('<Control-q>', close_legend)
 
     # Close Legend button
-    close_legend_button = ttk.Button(legend_window, text="Close Legend", command=close_legend)
+    close_legend_button = ttk.Button(legend_window, default="active", text="Close Legend", command=close_legend)
     close_legend_button.grid(column=0, row=0, sticky=(tk.NW))
 
 # ------------ End Level Legend Window ------------ #
@@ -371,14 +371,14 @@ def close(*args):
 
 ## Bind <Ctrl + n> shortcut to New button
 ##root.bind("<Control-n>", close)
-# Bind <Ctrl + q> shortcut to Open button
-root.bind("<Control-q>", read)
+# Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
+root.bind("<Control-O>", read)
 # Bind <Ctrl + s> shortcut to Save button
 root.bind("<Control-s>", syntax_check)
-# Bind escape key to close function
-root.bind("<Escape>", close)
-# Bind <Ctrl + l> shortcut to Character Legend button
-root.bind('<Control-l>', the_legend)
+# Bind <Ctrl + q> shortcut to close function
+root.bind("<Control-q>", close)
+# Bind F12 key to Character Legend button
+root.bind('<F12>', the_legend)
 
 # Run program
 root.mainloop()
