@@ -13,17 +13,7 @@ Downloads
  
 * Format Details can be found at [`Format-Details.md`](Documentation/Format-Details.md)
 
-* Version 0.8.2 - Released May 26, 2013 
-
-> [Source Code](https://github.com/le717/Blocks/tree/0.8.2)
-
-> [Direct Download](https://github.com/le717/Blocks/archive/0.8.2.zip)
-
-* Version 0.5 - Released May 23, 2013 
-
-> [Source Code](https://github.com/le717/Blocks/tree/0.5)
-
-> [Direct Download](https://github.com/le717/Blocks/archive/0.5.zip)
+* All downloads can be found on the [**Blocks Releases** page.](https://github.com/le717/Blocks/releases)
 
 Contributing
 ------------
