@@ -233,17 +233,17 @@ def the_legend(*args):
                               R = Red, G = Green, B = Blue, Y = Yellow
 
                                         === Available Types ===
-                                                F = Free Tile,
-                                                BW = Blocked Wall,
-                                          (R, G, B, Y)C = Cube,
-                                          (R, G, B, Y)T = Tile,
-                              RB = One-way, west-bound Red Cube
+                                                  F = Free Tile,
+                                              BW = Blocked Wall,
+                                            (R, G, B, Y)C = Cube,
+                                            (R, G, B, Y)T = Tile,
+                                RB = One-way, west-bound Red Cube
 
                                                 === Water ===
-                        WH = Small Horizontal, WV = Small Vertical
+                        WH = Small Horizontal, WV = Small Vertical,
                             WI = Top, WJ = Left, WM = Right,
-                            WL = Top Right, WT = Top Left,
-                            WB = Bottom Right, WR = Bottom Left''').grid()
+                            WT = Top Left, WL = Top Right,
+                            WR = Bottom Left, WB = Bottom Right''').grid()
 
 
     def close_legend(*args):
