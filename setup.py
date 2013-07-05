@@ -39,7 +39,10 @@ else:
 
 build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
-                     "include_files": ["Media"]}
+                     "include_files": [
+                     "Media/Blocks.ico",
+                     "Media/BlocksIcon.gif"]
+                     }
 
 setup(
     name = "Blocks",

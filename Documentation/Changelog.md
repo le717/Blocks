@@ -33,6 +33,7 @@ Released July 4, 2013
 * Added Linux compatible hashbang
 * Decreased minimum window size
 * Removed commented `root.maxsize()` line
+* Updated `setup.py` to selectively copy files in `Media` folder
 
 ### 0.8.2
 Released May 26, 2013
