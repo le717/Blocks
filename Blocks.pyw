@@ -1,4 +1,4 @@
-#! python3
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
     Blocks - Island Xtreme Stunts Minigame Level Editor
@@ -42,7 +42,7 @@ def globals():
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".2.7"
+minver = ".5"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -293,10 +293,9 @@ root.title("{0} {1}{2}".format(app, majver, minver))
 # App icon
 root.iconbitmap(app_icon)
 
-# The window cannot be resized at all
+# The smallest size the window can be
 # Length x width
-root.minsize("575", "300")
-#root.maxsize("575", "300")
+root.minsize("575", "225")
 
 # Frame settings
 mainframe = ttk.Frame(root, padding="7 7 7 7")

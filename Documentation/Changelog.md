@@ -30,6 +30,9 @@ Released ?? ??, 2013
 * Changed method of detecting Cancel button in File Open dialog
 * Finished populating Character Legend
 * Removed 64-bit build from `setup.py`
+* Added Linux compatible hashbang
+* Decreased minimum window size
+* Removed commented `root.maxsize()` line
 
 ### 0.8.2
 Released May 26, 2013
