@@ -31,12 +31,11 @@ import os
 # Append build to the arguments. Just type "python setup.py" and it will compile
 if len(sys.argv) == 1: sys.argv[1:] = ["build"]
 
-# Compile into the proper folder depending on the architecture
-# Based on code from the Python help file (platform module) and my own tests
 if sys.maxsize == 2147483647:
-    destfolder = "Compile/Windows32"
+    destfolder = os.path.join("Compile", "Windows")
 else:
-    destfolder = "Compile/Windows64"
+    print("\n64-bit binaries are not compiled. Please recompile using 32-bit Python 3.3.")
+    raise SystemExit
 
 build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
@@ -44,7 +43,7 @@ build_exe_options = {"build_exe": destfolder,
 
 setup(
     name = "Blocks",
-    version = "0.8.2",
+    version = "0.8.5",
     author = "Triangle717",
     description = "Island Xtreme Stunts Minigame Level Editor",
     license = "GNU GPLv3",

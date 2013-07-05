@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.8.2.7
+### 0.8.5
 Released ?? ??, 2013
 
 * Updated Legend to identify `F` as a `Free Tile`
@@ -29,6 +29,7 @@ Released ?? ??, 2013
 * Marked Close Character Legend button as active
 * Changed method of detecting Cancel button in File Open dialog
 * Finished populating Character Legend
+* Removed 64-bit build from `setup.py`
 
 ### 0.8.2
 Released May 26, 2013
