@@ -2,7 +2,7 @@ Blocks Change Log
 =================
 
 ### 0.8.5
-Released ?? ??, 2013
+Released July 4, 2013
 
 * Updated Legend to identify `F` as a `Free Tile`
 * Added WT (Water Tile) to Legend (thanks Xiron)
