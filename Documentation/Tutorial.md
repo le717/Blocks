@@ -9,7 +9,7 @@ Table of Contents
 
 <table>
 <td><a href="#requirements">Requirements</a></td>
-<td><a href="#legend-incomplete">Legend</a></td>
+<td><a href="#character-legend">Character Legend</a></td>
 <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
 <td><a href="#lesson-1-alignment">Lesson #1</a></td>
 <td><a href="#lesson-2-making-sure-it-all-works">Lesson #2</a></td>
@@ -29,14 +29,24 @@ You will need a few items to complete this tutorial
 * A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org)
 * The minigame level format details, available in [Format-Details.md](Format-Details.md)
 
-### Legend (Incomplete)
+### Character Legend ###
 
 ```
-Legend:
-  F = Free Tile, BW = Blocked Wall, YC = Yellow Cube,  YT = Yellow Tile, 
-  RC = Red Cube, RT = Red Tile, BC = Blue Cube, BT = Blue Tile, GC = Green Cube, GT = Green Tile
-  WT = Water Tile, WT = Water Top, WB = Water Bottom, WR = Water Right, WL = Water Left, WM = Water Middle, 
-  WH = Water ??, WI = Water ??, WJ = Water ??, WV = Water ??
+                                              === Available Colors ===
+                                        R = Red, G = Green, B = Blue, Y = Yellow
+
+                                                === Available Types ===
+                                                    F = Free Tile,
+                                                  BW = Blocked Wall,
+                                                (R, G, B, Y)C = Cube,
+                                                (R, G, B, Y)T = Tile,
+                                          RB = One-way, west-bound Red Cube
+
+                                                    === Water ===
+                                    WH = Small Horizontal, WV = Small Vertical,
+                                        WI = Top, WJ = Left, WM = Right,
+                                        WT = Top Left, WL = Top Right,
+                                        WR = Bottom Left, WB = Bottom Right
 ```
 
 For this tutorial, we will be using level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
@@ -54,7 +64,7 @@ C 01 00 00 1
 \r\n 
 ```
 
-From looking at our [Legend](#legend-incomplete), we can see this level contains
+From looking at our [Legend](#character-legend), we can see this level contains
  1. Free Tiles
  2. Blocked Walls
  3. a Yellow Tile
@@ -66,13 +76,13 @@ and will instead focus on the layout itself.
 Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly 
 if I do not purely use explanations, but use examples in addition to explaining why we do what we do. :smile:
 
-### Task #1: Adding a Blocked Wall 
+### Task #1: Adding a Blocked Wall ###
 
 The first modding example we will do is add a Blocked Wall to the layout. We remember from our Legend a Blocked Wall is signified by a `BW`.
 (If you don't remember, fell free to peek back at the Legend any time you need to. :wink:) To start, we are going to add a Blocked Wall on 
 the top row, on the 8th column. However, before we add our wall, we need to speak a bit on alignment.
 
-#### Lesson #1: Alignment
+#### Lesson #1: Alignment ####
 
 Look carefully at the level layout. You will notice that the code for any non-free tile or block consists of two letters, rather than one. 
 Also, the first letter of the code is offset to the left of the free tile code. Except in special circumstances (as we will see later), 
@@ -105,7 +115,7 @@ If you didn't, then the game will crash.
 
 Now for some more lessons!
 
-#### Lesson #2: Making Sure It All Works
+#### Lesson #2: Making Sure It All Works ####
 
 How do you know your mod will work or not? I mean, if it is not properly created, it won't work, will it? 
 
@@ -115,11 +125,11 @@ telling you if your mod is not correctly created: it crashes! :stuck_out_tongue:
 More specifically, if the game crashes when you try to load a minigame, no matter what level, it will crash before it loads at all. If the game does not crash, 
 then you made your mod correctly. Thus, ensuring you editing correctly really pays off in the long run!
 
-#### Lesson #3: Jumping to Specific Levels
+#### Lesson #3: Jumping to Specific Levels ####
 
 *Coming Soon.*
 
-### Task #2: Adding a Blocked Wall on the Left Corner
+### Task #2: Adding a Blocked Wall on the Left Corner ###
 
 This is that special circumstance I mentioned in Lesson #1. Adding a Blocked Wall on the left corner of the level is not much harder than adding one
 anywhere else, it's just different.
