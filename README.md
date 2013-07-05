@@ -1,7 +1,9 @@
 Blocks
 ======
 
-![Blocks Logo](Media/Blocks.png)
+<p align="center">
+    <img src="Media/Blocks.png" />
+</p>
 
 **Blocks**, an Island Xtreme Stunts Minigame Level Editor, written in [Python 3](http://www.python.org)
 by [Triangle717](http://Triangle717.WordPress.com).
