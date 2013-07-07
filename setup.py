@@ -1,4 +1,4 @@
-#! python3
+#! python3.3-32
 # -*- coding: utf-8 -*-
 """
     Blocks - Island Xtreme Stunts Minigame Level Editor

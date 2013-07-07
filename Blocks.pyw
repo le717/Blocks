@@ -3,7 +3,7 @@
 """
     Blocks - Island Xtreme Stunts Minigame Level Editor
     Created 2013 Triangle717
-    <http://triangle717.wordpress.com/>
+    <http://Triangle717.WordPress.com/>
 
     Blocks is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ def globals():
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".5"
+minver = ".5.1"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -105,12 +105,15 @@ def syntax_check(*args):
     layout = level.get('1.0', 'end')
     if debug:
         print("The new layout is: \n\n{0}".format(layout))
+        
+    ##layout_list = layout.split("\n")
+    ##print(layout_list, len(layout_list))
+    ##return False
 
     # Split the text at each space
     layout_syntax = layout.split(" ")
 
     # The allowed characters in a layout
-    # TODO: Finish populating this, along with the legend
     itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
     "GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV"]
 
@@ -123,7 +126,7 @@ def syntax_check(*args):
             if debug:
                 print('Invalid character "{0}" at position {1}\n'.format(char, index))
             showerror("Error!", 'Invalid character: "{0}" at position {1}'.format(char, index))
-            # return False so the saving process will not continue on
+            # Return False so the saving process will not continue on
             return False
 
     # Remove the list, keep proper formatting
@@ -210,6 +213,29 @@ def write(new_layout):
 # ------------ End Level Layout Writing ------------ #
 
 
+# ------------ Begin New Minigame Level Details ------------ #
+
+def new(*args):
+    '''New Minigame Level'''
+
+    # Blank (free) layout for when starting a new level
+    blank_layout = ''' F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F'''
+
+    # Remove the old content
+    level.delete("1.0", "end")
+    # Add blank layout in edit box
+    level.insert("1.0", blank_layout)
+
+# ------------ End New Minigame Level Details ------------ #
+
+
 # ------------ Begin Level Legend Window ------------ #
 
 def the_legend(*args):
@@ -228,7 +254,6 @@ def the_legend(*args):
     legend_window.focus()
 
     # Legend display
-    # TODO: Finish populating list
     legend = ttk.Label(legend_window, text='''                                        === Available Colors ===
                               R = Red, G = Green, B = Blue, Y = Yellow
 
@@ -262,11 +287,11 @@ def the_legend(*args):
 
 # ------------ Begin Python Version Check ------------ #
 
-def PyVerCheck():
+def PyVerCheck(*args):
     '''Dummy function for easy access to Python Version Check code'''
     pass
 
-# User is not running < Python 3.3.0
+# User is not running >= Python 3.3.0
 if sys.version_info < (3,3,0):
     root = tk.Tk()
     root.withdraw()
@@ -287,6 +312,8 @@ def GUI():
     '''Dummy function for easy access to GUI code'''
     pass
 
+# Run Python Version check
+PyVerCheck()
 # Root window settings
 root = tk.Tk()
 root.title("{0} {1}{2}".format(app, majver, minver))
@@ -328,7 +355,7 @@ about_blocks = ttk.Label(mainframe, text='''                 {0} {1}{2}
 about_blocks.grid(column=2, row=0, sticky=tk.N)
 
 # New button
-##new_button = ttk.Button(mainframe,text="New", command=read)
+##new_button = ttk.Button(mainframe,text="New", command=new)
 ##new_button.grid(column=2, row=1, sticky=tk.N)
 # Open button
 open_file = ttk.Button(mainframe, text="Open", command=read)
@@ -354,7 +381,7 @@ def close(*args):
     raise SystemExit
 
 ## Bind <Ctrl + n> shortcut to New button
-##root.bind("<Control-n>", close)
+##root.bind("<Control-n>", new)
 # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
 root.bind("<Control-O>", read)
 # Bind <Ctrl + s> shortcut to Save button

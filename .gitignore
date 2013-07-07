@@ -13,7 +13,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 __pycache__/
-Compile/
+Compile*/
 Testing/
 Archives/
 *.blend1

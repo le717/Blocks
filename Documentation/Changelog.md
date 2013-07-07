@@ -1,7 +1,15 @@
 Blocks Change Log
 =================
 
-### 0.8.5
+### 0.8.5.1 ###
+Released ?? ??, 2013
+
+* Removed outdated comments left over from 0.8.5
+* Created blank (nothing but free tiles) layout for new level creation
+* Reactivated Python Version check
+* Updated `setup.py` shebang to run with Python 3.3 x86 only
+
+### 0.8.5 ###
 Released July 4, 2013
 
 * Updated Legend to identify `F` as a `Free Tile`
@@ -35,7 +43,7 @@ Released July 4, 2013
 * Removed commented `root.maxsize()` line
 * Updated `setup.py` to selectively copy files in `Media` folder
 
-### 0.8.2
+### 0.8.2 ###
 Released May 26, 2013
 
 * Bound `Escape` key to exit button
@@ -66,7 +74,7 @@ Released May 26, 2013
 * Changed binding of Open button to `<Ctrl> + <q>` (there is a bug with `<Ctrl> + <o>` adding spaces in the text area)
 * Added display of currently opened file name
 
-### 0.5 
+### 0.5 ###
 Released May 24, 2013
 
 * Added Python 3.3.0 version check
@@ -79,7 +87,7 @@ Released May 24, 2013
 * Added `setup.py`
 * Compiled into Windows x86 and x64 Exes
 
-### 0.1
+### 0.1 ###
 Released May 24, 2013
 
 * First version
