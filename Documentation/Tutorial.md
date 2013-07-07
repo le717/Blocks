@@ -98,7 +98,7 @@ be sure to run either program with Administrator rights, otherwise you will be u
 sitting in that location, in addition to a single space (what did we talk about in Lesson #1?). Now type `BW`, ensuring the `W` is lined up with the
 `F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
 
-The original line should have looked like this:
+The original line looked like this:
 
 ` F  F  F  F  F  F  F  F  F  F  F  F  F`
 
@@ -135,6 +135,21 @@ when you reach that level. Thus, ensuring you edit correctly really pays off in 
 This is that special circumstance I mentioned in Lesson #1. Adding a Blocked Wall on the left corner of the level is not much harder than adding one
 anywhere else, it's just different.
 
+To make this special edit a bit clearer, we'll edit the same line from Task #1, including the Blocked Wall we added, but we'll incude the second line
+to show that alignment counts.
+
+Original lines:
+
+```
+ F  F  F  F  F  F  F BW  F  F  F  F  F
+ F  F  F BW  F  F  F  F  F  F  F  F  F
+```
+New lines:
+
+```
+ BW F  F  F  F  F  F BW  F  F  F  F  F
+ F  F  F BW  F  F  F  F  F  F  F  F  F
+ ```
 *Coming Soon.*
 
 [Back To The Top](#table-of-contents)
