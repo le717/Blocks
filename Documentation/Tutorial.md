@@ -25,8 +25,8 @@ Requirements
 
 You will need a few items to complete this tutorial
 * A copy of [*Island Xtreme Stunts*](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-)
-* The newest release of **Blocks**, available in the [Downloads](https://github.com/le717/Blocks#downloads), or
-* A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org)
+* The newest release of [**Blocks**](https://github.com/le717/Blocks/releases), or
+* A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org) (just __never__ use Notepad!)
 * The minigame level format details, available in [Format-Details.md](Format-Details.md)
 
 ### Character Legend ###
@@ -90,12 +90,12 @@ the codes for *any* non-free block/tile follow this pattern.
 
 Well, now that we know a bit about alignment, let's add our Blocked Wall!
 
-* Open **Blocks**, and open the level file (`<Ctrl> + <q>`), or by opening it in **Notepad++** (`<Ctrl> + <o>`). If you don't remember where it is located, 
+* Open **Blocks**, and open the level file (`<Ctrl + Shift + O>`), or by opening it in **Notepad++** (`<Ctrl + o>`). If you don't remember where it is located, 
 the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank). If you are editing the level straight from Program Files,
-be sure to run both **Blocks** and **Notepad++** with Administrator rights, otherwise you will be unable to save your edit!
+be sure to run either program with Administrator rights, otherwise you will be unable to save your edit!
 
 * Once the level is open in your editor of choice, find the square we want to edit (top row, eight column). Start by removing the `F` that is currently 
-sitting in that location, in addition to a single space (what did we talk about in lesson #1?). Now type `BW`, ensuring the `W` is lined up with the
+sitting in that location, in addition to a single space (what did we talk about in Lesson #1?). Now type `BW`, ensuring the `W` is lined up with the
 `F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
 
 The original line should have looked like this:
@@ -122,8 +122,9 @@ How do you know your mod will work or not? I mean, if it is not properly created
 Correct, your mod will not work if is not properly created, but how do you know if it works? *Island Xtreme Stunts* has a pretty simple way of 
 telling you if your mod is not correctly created: it crashes! :stuck_out_tongue:
 
-More specifically, if the game crashes when you try to load a minigame, no matter what level, it will crash before it loads at all. If the game does not crash, 
-then you made your mod correctly. Thus, ensuring you editing correctly really pays off in the long run!
+More specifically, the game will crash when you try to load a broken level if that level is the current level. If the broken level is one you have
+already completed, it won't crash, but it would if you loaded that one. If the broken level is ahead of the current level, then the game will crash
+when you reach that level. Thus, ensuring you edit correctly really pays off in the long run!
 
 #### Lesson #3: Jumping to Specific Levels ####
 
@@ -136,4 +137,4 @@ anywhere else, it's just different.
 
 *Coming Soon.*
 
-[Back To The Top](#modding-tutorial)
+[Back To The Top](#table-of-contents)
