@@ -26,7 +26,7 @@ Requirements
 You will need a few items to complete this tutorial
 * A copy of [*Island Xtreme Stunts*](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-)
 * The newest release of [**Blocks**](https://github.com/le717/Blocks/releases), or
-* A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org) (just __never__ use Notepad!)
+* A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org) (just **never** use Notepad!)
 * The minigame level format details, available in [Format-Details.md](Format-Details.md)
 
 ### Character Legend ###
@@ -139,21 +139,26 @@ To make this special edit a bit clearer, we'll edit the same line from Task #1, 
 to show that alignment counts.
 
 Now you recall I said in Lesson #1 that for the first letter of a BW (or any non-Free tile) the code is offset to the left of the free tile code directly
-above or below it. To make that a bit clearer (if you are indeed confused), here is a correct alignment:
-
-
-```
-F  F  F  F  F  F  F BW  F  F  F  F  F
-F  F  F BW  F  F  F  F  F  F  F  F  F
+above or below it. To make that a bit clearer (if you are confused), here is a correct alignment:    
 
 ```
-In every instance, the `B` is offset one character to the left of an `F`, and the same goes
-New lines:
+ F  F  F  F  F  F  F BW  F  F  F  F  F
+ F  F  F BW  F  F  F  F  F  F  F  F  F
+```
+In every instance, the `B` is offset one character to the left of an `F`, and the same goes all non-`F` characters. However, a block on the left 
+corner is intented to the right, so the `W` is aligned with the `F` on the top and bottom, like this:
 
 ```
  BW F  F  F  F  F  F BW  F  F  F  F  F
  F  F  F BW  F  F  F  F  F  F  F  F  F
- ```
+``` 
+What's more, this right indention will continue until either the end of the line or the first free tile is reached. An example of this indention would look like:
+
+```
+ BW BW BW BW BW BW F BW  F  F  F  F  F
+ F  F  F BW  F  F  F  F  F  F  F  F  F
+ ``` 
+
 *Coming Soon.*
 
 [Back To The Top](#table-of-contents)
