@@ -183,7 +183,7 @@ and was adding it into the Character Legend, I was unable to write a better desc
 
 And that's how it got the name `One-way, west-bound Red Cube`. I'm sure if the *Island Xtreme Stunts* developer who added this cube saw this, they would probably laugh at the odd name. :P
 
-Now that we take taken care of, let's add this cube into our layout.
+Now that we take taken care of, let's add this cube into our layout. Since it only moves West, we'll be mindful of players and place it where they can use it.
 
 *Coming Soon.*
 
