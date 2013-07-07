@@ -2,7 +2,7 @@ Building With Blocks
 ====================
 **Written by [Triangle717](https://github.com/le717)**
 
-### Warning: This tutorial is incomplete!
+### Warning: This tutorial is incomplete! ###
 
 Table of Contents
 -----------------
@@ -84,7 +84,7 @@ the top row, on the 8th column. However, before we add our wall, we need to spea
 
 #### Lesson #1: Alignment ####
 
-Look carefully at the level layout. You will notice that the code for any non-free tile or block consists of two letters, rather than one. 
+Look carefully at the level layout. You will notice that the code for any non-free tile consists of two letters, rather than one. 
 Also, the first letter of the code is offset to the left of the free tile code. Except in special circumstances (as we will see later), 
 the codes for *any* non-free block/tile follow this pattern.
 
@@ -138,12 +138,16 @@ anywhere else, it's just different.
 To make this special edit a bit clearer, we'll edit the same line from Task #1, including the Blocked Wall we added, but we'll incude the second line
 to show that alignment counts.
 
-Original lines:
+Now you recall I said in Lesson #1 that for the first letter of a BW (or any non-Free tile) the code is offset to the left of the free tile code directly
+above or below it. To make that a bit clearer (if you are indeed confused), here is a correct alignment:
+
 
 ```
- F  F  F  F  F  F  F BW  F  F  F  F  F
- F  F  F BW  F  F  F  F  F  F  F  F  F
+F  F  F  F  F  F  F BW  F  F  F  F  F
+F  F  F BW  F  F  F  F  F  F  F  F  F
+
 ```
+In every instance, the `B` is offset one character to the left of an `F`, and the same goes
 New lines:
 
 ```
