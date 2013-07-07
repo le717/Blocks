@@ -146,7 +146,7 @@ above or below it. To make that a bit clearer (if you are confused), here is a c
  F  F  F BW  F  F  F  F  F  F  F  F  F
 ```
 In every instance, the `B` is offset one character to the left of an `F`, and the same goes all non-`F` characters. However, a block on the left 
-corner is intented to the right, so the `W` is aligned with the `F` on the top and bottom, like this:
+corner is indented to the right, so the `W` is aligned with the `F` on the top and bottom, like this:
 
 ```
  BW F  F  F  F  F  F BW  F  F  F  F  F
@@ -157,7 +157,14 @@ What's more, this right indention will continue until either the end of the line
 ```
  BW BW BW BW BW BW F BW  F  F  F  F  F
  F  F  F BW  F  F  F  F  F  F  F  F  F
- ``` 
+``` 
+So added a block on the left corner affects the most (if not the entire) indention of the line!
+
+> **Recap:** You just learned how to add a block on the left corner, the proper indention for a block, and the effects it has on the line! Be proud!
+
+### Task #3: Adding a One way, West-bound Red Block ###
+
+This one is gonna be fun, and in a good way. :stuck-out-tongue:
 
 *Coming Soon.*
 
