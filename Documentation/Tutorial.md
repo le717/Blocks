@@ -8,7 +8,9 @@ Table of Contents
 -----------------
 
 <table>
+<tr>
 <th colspan="8">Table of Contents</th>
+</tr>
 <td><a href="#requirements">Requirements</a></td>
 <td><a href="#character-legend">Character Legend</a></td>
 <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
