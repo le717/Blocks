@@ -50,6 +50,7 @@ try:
     # If the debug parameter is passed, enable the debugging messages
     if sys.argv[1] == "--debug":
         debug = True
+        os.system("title Blocks {0}{1} - Debug".format(majver, minver))
         import traceback
         print("\nDebug messages have been enabled.\n")
 except IndexError:
@@ -101,14 +102,43 @@ def read(*args):
 def syntax_check(*args):
     '''Checks the Minigame Level Layout for syntax errors'''
 
-    # Get new layout from text box
-    layout = level.get('1.0', 'end')
-    if debug:
-        print("The new layout is: \n\n{0}".format(layout))
-        
-    ##layout_list = layout.split("\n")
-    ##print(layout_list, len(layout_list))
-    ##return False
+    # Get new layout from text box, minus the new line the text widget adds
+    layout = level.get('1.0', 'end -2 chars')
+
+    # Split the layout at each new line
+    layout_size = layout.split("\n")
+
+    # Get the index for each line in the layout
+    print("The new layout is: \n")
+    for index, char in enumerate(layout_size):
+        # Display index and string if debug messages are enabled
+        if debug:
+            print(index, char)
+        # Do nothing else, all we need are the indices
+        pass
+
+    # If the index is more than 7, AKA the level is more than 8 lines
+    if index > 7:
+        # Display error message in console if debug messages are enabled
+        if debug:
+            print("\nThe level is too big! It must be only 8 lines, and yours is {0} lines!\n".format(index + 1))
+        # Display error message to user telling them the level is too big
+        showerror("Level Error!", "The level layout must be no more than 8 lines.\nYour layout takes up {0} lines!".format(index + 1))
+
+        # Return False so the saving process will not continue on
+        return False
+
+    # On the flip side, if the index equals 0, AKA the level area is blank
+    if index < 7:
+        # Display error message in console if debug messages are enabled
+        if debug:
+            print("\nThe level is too small! It must be 8 lines, and yours is {0} lines!\n".format(index + 1))
+        # Display error message to user telling them the level is too small
+        showerror("Error!", "The level layout must be 8 lines.\nYour layout is only {0} lines!".format(index + 1))
+
+        # Return False so the saving process will not continue on
+        return False
+
 
     # Split the text at each space
     layout_syntax = layout.split(" ")
@@ -124,8 +154,8 @@ def syntax_check(*args):
         # If any character in the layout is not in the list
         if char.upper() not in itemlist:
             if debug:
-                print('Invalid character "{0}" at position {1}\n'.format(char, index))
-            showerror("Error!", 'Invalid character: "{0}" at position {1}'.format(char, index))
+                print('\nInvalid character "{0}" at position {1}\n'.format(char, index))
+            showerror("Syntax Error!", 'Invalid character: "{0}" at position {1}'.format(char, index))
             # Return False so the saving process will not continue on
             return False
 
@@ -136,7 +166,7 @@ def syntax_check(*args):
     upper_layout = fixed_layout.upper()
 
     if debug:
-        print("The new layout (after syntax checking) is: \n\n{0}".format(upper_layout))
+        print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(upper_layout))
     # Send the corrected layout for writing
     write(upper_layout)
 
@@ -173,8 +203,8 @@ def write(new_layout):
                 for line in range(0, 1):
                     first_line = f.readline()
 
-            # Convert layout from string to binary, removing the extra lines
-            layout = str.encode(new_layout[:-2], encoding="utf-8", errors="strict")
+            # Convert layout from string to binary
+            layout = str.encode(new_layout, encoding="utf-8", errors="strict")
 
             # Open the (original, not .bak*) level back up, again in binary mode
             with open(level_file, "wb") as f:
