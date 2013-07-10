@@ -12,6 +12,7 @@ Released ?? ??, 2013
 * Fixed amount of text pulled from text box before writing (it was pulling out too many spaces)
 * Added level size check to syntax checker, warns about level being too big and too small
 * Updated debug messages present during the syntax check
+* Updated invalid character message with proper location of character
 
 ### 0.8.5 ###
 Released July 4, 2013
@@ -32,7 +33,7 @@ Released July 4, 2013
 * Added debug command-line parameter (`--debug`), moved debugging messages under it
 * Display complete error traceback to console if debug parameter is enabled
 * Reworked GUI to better support window resizing
-* Rewrote legend for better understanding, and identify the (_many_) Water tiles
+* Rewrote legend for better understanding, and identify the _many_ Water tiles
 * Moved legend to a new window, added Character Legend button to open window in former place of legend
 * Bound `<Ctrl> + <l>` shortcut to Character Legend button
 * Moved conversion of level layout to uppercase after syntax checking
