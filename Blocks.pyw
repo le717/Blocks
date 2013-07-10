@@ -23,7 +23,7 @@ import sys
 import os
 import shutil
 import webbrowser
-import sys
+
 try:
     # Python 3 import
     import tkinter as tk
@@ -34,6 +34,7 @@ except ImportError:
     # Python 2 import
     import Tkinter as tk
     from tkMessageBox import showerror
+
 
 def globals():
     '''Dummy function for eas access to global variables'''
@@ -57,7 +58,9 @@ except IndexError:
     # The parameter was not passed, don't display debugging messages
     debug = False
 
+
 # ------------ Begin Level Layout Reading ------------ #
+
 
 def read(*args):
     '''Reads Minigame Level'''
@@ -85,8 +88,8 @@ def read(*args):
         level_file_name = os.path.basename(level_file)
         level_name.set(level_file_name)
         # Open file for reading
-        with open(level_file, "rt") as file:
-            lines = file.readlines()[:]
+        with open(level_file, "rt") as f:
+            lines = f.readlines()[:]
 
         # Skip nulls, since they cannot be printed,
         # and display only the layout
@@ -94,10 +97,12 @@ def read(*args):
         level.delete("1.0", "end")
         level.insert("1.0", layout)
 
+
 # ------------ End Level Layout Reading ------------ #
 
 
 # ------------ Begin Level Layout Syntax Check ------------ #
+
 
 def syntax_check(*args):
     '''Checks the Minigame Level Layout for syntax errors'''
@@ -123,7 +128,8 @@ def syntax_check(*args):
         if debug:
             print("\nThe level is too big! It must be only 8 lines, and yours is {0} lines!\n".format(index + 1))
         # Display error message to user telling them the level is too big
-        showerror("Level Error!", "The level layout must be no more than 8 lines.\nYour layout takes up {0} lines!".format(index + 1))
+        showerror("Level Error!", '''The level layout must be no more than 8 lines.
+Your layout takes up {0} lines!'''.format(index + 1))
 
         # Return False so the saving process will not continue on
         return False
@@ -134,7 +140,8 @@ def syntax_check(*args):
         if debug:
             print("\nThe level is too small! It must be 8 lines, and yours is {0} lines!\n".format(index + 1))
         # Display error message to user telling them the level is too small
-        showerror("Error!", "The level layout must be 8 lines.\nYour layout is only {0} lines!".format(index + 1))
+        showerror("Error!", '''The level layout must be 8 lines.
+Your layout is only {0} lines!'''.format(index + 1))
 
         # Return False so the saving process will not continue on
         return False
@@ -154,8 +161,10 @@ def syntax_check(*args):
         # If any character in the layout is not in the list
         if char.upper() not in itemlist:
             if debug:
-                print('\nInvalid character "{0}" at position {1}\n'.format(char, index))
-            showerror("Syntax Error!", 'Invalid character: "{0}" at position {1}'.format(char, index))
+                print('\nInvalid character "{0}" at position {1}\n'.format(
+                    char, index + 1))
+            showerror("Syntax Error!",
+            'Invalid character: "{0}" at position {1}'.format(char, index + 1))
             # Return False so the saving process will not continue on
             return False
 
@@ -166,7 +175,8 @@ def syntax_check(*args):
     upper_layout = fixed_layout.upper()
 
     if debug:
-        print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(upper_layout))
+        print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
+            upper_layout))
     # Send the corrected layout for writing
     write(upper_layout)
 
@@ -191,7 +201,8 @@ def write(new_layout):
             # Update count
             count += 1
             # Define backup filename
-            backup_file = os.path.join(location, "{0}{1}{2}".format(level_file_name, ".bak", str(count)))
+            backup_file = os.path.join(location, "{0}{1}{2}".format(
+                level_file_name, ".bak", str(count)))
 
         try:
             # Copy the file, try to preserve metadata
@@ -216,34 +227,41 @@ def write(new_layout):
                 f.write(b"\r\n ")
 
             # Display sucess dialog, [:-1] to remove the trailing "\"
-            tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}".format(level_file_name, location[:-1]))
+            tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
+            .format(level_file_name, location[:-1]))
 
         # A level was edited directly in Program Files,
         # and Blocks was run without Admin rights
         except PermissionError:
-            showerror("Insufficient User Rights!", "Blocks does not have the user rights to save {0}!\nPlease relaunch Blocks as an Administrator.".format(level_file_name))
+            showerror("Insufficient User Rights!",
+'''Blocks does not have the user rights to save {0}!
+Please relaunch Blocks as an Administrator.'''.format(level_file_name))
             if debug:
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
 
         # Any other unhandled error occurred
         except Exception:
-            showerror("An Error Has Occurred!", "Blocks ran into an unknown error while trying to {0}!".format(level_file_name))
+            showerror("An Error Has Occurred!",
+"Blocks ran into an unknown error while trying to {0}!".format(level_file_name))
             if debug:
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
 
     # The user tried to same a level without loading one first
     except NameError:
-        showerror("Cannot Save Level!", "A minigame level has not been selected for editing!")
+        showerror("Cannot Save Level!",
+"A minigame level has not been selected for editing!")
         if debug:
             # Display complete traceback to console
             traceback.print_exc(file=sys.stderr)
+
 
 # ------------ End Level Layout Writing ------------ #
 
 
 # ------------ Begin New Minigame Level Details ------------ #
+
 
 def new(*args):
     '''New Minigame Level'''
@@ -263,10 +281,12 @@ def new(*args):
     # Add blank layout in edit box
     level.insert("1.0", blank_layout)
 
+
 # ------------ End New Minigame Level Details ------------ #
 
 
 # ------------ Begin Level Legend Window ------------ #
+
 
 def the_legend(*args):
     '''Contains Level Character Legend'''
@@ -284,7 +304,7 @@ def the_legend(*args):
     legend_window.focus()
 
     # Legend display
-    legend = ttk.Label(legend_window, text='''                                        === Available Colors ===
+    ttk.Label(legend_window, text='''                                        === Available Colors ===
                               R = Red, G = Green, B = Blue, Y = Yellow
 
                                         === Available Types ===
@@ -300,7 +320,6 @@ def the_legend(*args):
                             WT = Top Left, WL = Top Right,
                             WR = Bottom Left, WB = Bottom Right''').grid()
 
-
     def close_legend(*args):
         '''Closes Legend Window'''
         legend_window.destroy()
@@ -309,34 +328,41 @@ def the_legend(*args):
     legend_window.bind('<Control-q>', close_legend)
 
     # Close Legend button
-    close_legend_button = ttk.Button(legend_window, default="active", text="Close", command=close_legend)
+    close_legend_button = ttk.Button(legend_window, default="active",
+        text="Close", command=close_legend)
     close_legend_button.grid(column=1, row=1, sticky=tk.S)
+
 
 # ------------ End Level Legend Window ------------ #
 
 
 # ------------ Begin Python Version Check ------------ #
 
+
 def PyVerCheck(*args):
     '''Dummy function for easy access to Python Version Check code'''
     pass
 
 # User is not running >= Python 3.3.0
-if sys.version_info < (3,3,0):
+if sys.version_info < (3, 3, 0):
     root = tk.Tk()
     root.withdraw()
     root.iconbitmap(app_icon)
-    showerror("Unsupported Python Version!", "You are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n".format(sys.version[0:5], app, majver, minver))
+    showerror("Unsupported Python Version!", '''You are running Python {0}.
+You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
+.format(sys.version[0:5], app, majver, minver))
     # Opens only when user clicks OK
     # New tab, raise browser window (if possible)
     webbrowser.open_new_tab("http://python.org/download/")
     # Close Blocks
     raise SystemExit
 
+
 # ------------ End Python Version Check ------------ #
 
 
 # ------------ Begin Tkinter GUI Layout ------------ #
+
 
 def GUI():
     '''Dummy function for easy access to GUI code'''
@@ -371,7 +397,8 @@ mainframe.rowconfigure(2, weight=1)
 
 # Level (file) name display
 level_name = tk.StringVar()
-ttk.Label(mainframe, textvariable=level_name).grid(column=0, row=2, columnspan=2)
+ttk.Label(mainframe, textvariable=level_name).grid(
+    column=0, row=2, columnspan=2)
 
 # Where level is viewed and edited
 level = tk.Text(mainframe, height=8, width=40, wrap="none")
@@ -394,7 +421,8 @@ open_file.grid(column=2, row=2, sticky=tk.N)
 save_file = ttk.Button(mainframe, text="Save", command=syntax_check)
 save_file.grid(column=2, row=3, sticky=tk.N)
 # Character Legend button
-legend_button = ttk.Button(mainframe, text="Character Legend", command=the_legend)
+legend_button = ttk.Button(mainframe, text="Character Legend",
+command=the_legend)
 legend_button.grid(column=0, row=0, columnspan=2)
 
 # Blocks Logo
@@ -404,7 +432,9 @@ image_frame['image'] = blocks_logo
 image_frame.grid(column=2, row=3, sticky=tk.S)
 
 # Padding around all the elements
-for child in mainframe.winfo_children(): child.grid_configure(padx=2, pady=2)
+for child in mainframe.winfo_children():
+    child.grid_configure(padx=2, pady=2)
+
 
 def close(*args):
     '''Closes Blocks'''
@@ -423,5 +453,6 @@ root.bind('<F12>', the_legend)
 
 # Run program
 root.mainloop()
+
 
 # ------------ End Tkinter GUI Layout ------------ #
