@@ -114,7 +114,8 @@ def syntax_check(*args):
     layout_size = layout.split("\n")
 
     # Get the index for each line in the layout
-    print("The new layout is: \n")
+    if debug:
+        print("The new layout is: \n")
     for index, char in enumerate(layout_size):
         # Display index and string if debug messages are enabled
         if debug:
@@ -135,6 +136,7 @@ Your layout takes up {0} lines!'''.format(index + 1))
         return False
 
     # On the flip side, if the index equals 0, AKA the level area is blank
+    # I could have merged these two messages, but
     if index < 7:
         # Display error message in console if debug messages are enabled
         if debug:
@@ -145,7 +147,6 @@ Your layout is only {0} lines!'''.format(index + 1))
 
         # Return False so the saving process will not continue on
         return False
-
 
     # Split the text at each space
     layout_syntax = layout.split(" ")
@@ -190,7 +191,7 @@ def write(new_layout):
 
     try:
         # Get just the folder path to the file
-        location = level_file.rstrip(level_file_name)
+        location = os.path.dirname(level_file)
 
         # They are the same, but this is needed to remove an error
         backup_file = level_file
@@ -226,9 +227,9 @@ def write(new_layout):
                 # Write requied ending line
                 f.write(b"\r\n ")
 
-            # Display sucess dialog, [:-1] to remove the trailing "\"
+            # Display sucess dialog
             tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-            .format(level_file_name, location[:-1]))
+            .format(level_file_name, location))
 
         # A level was edited directly in Program Files,
         # and Blocks was run without Admin rights

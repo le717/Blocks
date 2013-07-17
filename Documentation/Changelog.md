@@ -13,6 +13,9 @@ Released ?? ??, 2013
 * Added level size check to syntax checker, warns about level being too big and too small
 * Updated debug messages present during the syntax check
 * Updated invalid character message with proper location of character
+* Update method of getting location of level file
+* Fixed broken messages caused by previous change
+* Fixed message mistakenly displayed if the ``--debug`` parameter is not given
 
 ### 0.8.5 ###
 Released July 4, 2013
