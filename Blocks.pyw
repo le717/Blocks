@@ -43,7 +43,7 @@ def globals():
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".5.1"
+minver = ".5.3"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -116,34 +116,35 @@ def syntax_check(*args):
     # Get the index for each line in the layout
     if debug:
         print("The new layout is: \n")
-    for index, char in enumerate(layout_size):
-        # Display index and string if debug messages are enabled
+    for lineno, linetext in enumerate(layout_size):
+        # Display line number and line content if debug messages are enabled
         if debug:
-            print(index, char)
+            print(lineno, linetext)
         # Do nothing else, all we need are the indices
         pass
 
-    # If the index is more than 7, AKA the level is more than 8 lines
-    if index > 7:
+    # If lineno is more than 7, AKA the level is more than 8 lines
+    if lineno > 7:
         # Display error message in console if debug messages are enabled
         if debug:
-            print("\nThe level is too big! It must be only 8 lines, and yours is {0} lines!\n".format(index + 1))
+            print("\nThe level is too big! It must be only 8 lines, and yours is {0} lines!\n".format(lineno + 1))
         # Display error message to user telling them the level is too big
         showerror("Level Error!", '''The level layout must be no more than 8 lines.
-Your layout takes up {0} lines!'''.format(index + 1))
+Your layout takes up {0} lines!'''.format(lineno + 1))
 
         # Return False so the saving process will not continue on
         return False
 
     # On the flip side, if the index equals 0, AKA the level area is blank
-    # I could have merged these two messages, but
-    if index < 7:
+    # I could have merged these two messages, but I wanted to show different
+    # messages depending on the error. I still may split them...
+    if lineno < 7:
         # Display error message in console if debug messages are enabled
         if debug:
-            print("\nThe level is too small! It must be 8 lines, and yours is {0} lines!\n".format(index + 1))
+            print("\nThe level is too small! It must be 8 lines, and yours is {0} lines!\n".format(lineno + 1))
         # Display error message to user telling them the level is too small
         showerror("Error!", '''The level layout must be 8 lines.
-Your layout is only {0} lines!'''.format(index + 1))
+Your layout is only {0} lines!'''.format(lineno + 1))
 
         # Return False so the saving process will not continue on
         return False

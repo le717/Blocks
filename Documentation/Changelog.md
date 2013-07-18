@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.8.5.1 ###
+### 0.8.5.3 ###
 Released ?? ??, 2013
 
 * Removed outdated comments left over from 0.8.5
@@ -16,6 +16,7 @@ Released ?? ??, 2013
 * Update method of getting location of level file
 * Fixed broken messages caused by previous change
 * Fixed message mistakenly displayed if the ``--debug`` parameter is not given
+* Changed variables for level size checker
 
 ### 0.8.5 ###
 Released July 4, 2013
