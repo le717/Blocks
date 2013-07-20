@@ -43,6 +43,7 @@ Please freeze Blocks using 32-bit Python 3.3.''')
 build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
                      "include_files": [
+                     "LICENSE.txt",
                      "Media/Blocks.ico",
                      "Media/BlocksIcon.gif",
                      "Documentation/Changelog.md",
