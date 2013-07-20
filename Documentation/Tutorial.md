@@ -189,6 +189,19 @@ And that's how it got the name `One-way, west-bound Red Cube`. I'm sure if the *
 they would probably laugh at the odd fan name. :tongue:
 
 Now that we take taken care of, let's add this cube into our layout. Since it only moves West, we'll be mindful of players and place it where they can use it.
+I said at the beginning we were using level 3 of *Trouble in Store*, from [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank), but we're going to stray for a minute 
+and use a fresh layout, containing nothing but Free tiles.
+
+```
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+```
 
 *Coming Soon.*
 
