@@ -43,7 +43,7 @@ def globals():
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".5.3"
+minver = ".6"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -144,7 +144,7 @@ def read(level_file):
     with open(level_file, "rt") as f:
         lines = f.readlines()[:]
 
-    # Skip nulls, since they cannot be printed,
+    # Skip nulls, since they cannot be displayed,
     # and display only the layout
     layout = "".join(lines[1:9])
     level.delete("1.0", "end")

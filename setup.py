@@ -3,7 +3,7 @@
 """
     Blocks - Island Xtreme Stunts Minigame Level Editor
     Created 2013 Triangle717
-    <http://triangle717.wordpress.com/>
+    <http://Triangle717.WordPress.com/>
 
     Blocks is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,28 +28,35 @@ from cx_Freeze import setup, Executable
 import sys
 import os
 
-# Append build to the arguments. Just type "python setup.py" and it will compile
-if len(sys.argv) == 1: sys.argv[1:] = ["build"]
+# Append build command to command-line arguments.
+# Just type "python setup.py" and it will freeze
+if len(sys.argv) == 1:
+    sys.argv[1:] = ["build"]
 
 if sys.maxsize == 2147483647:
-    destfolder = os.path.join("Compile", "Windows")
+    destfolder = os.path.join("Freeze", "Windows")
 else:
-    print("\n64-bit binaries are not compiled. Please recompile using 32-bit Python 3.3.")
+    input('''\n64-bit binaries are not frozen.
+Please freeze Blocks using 32-bit Python 3.3.''')
     raise SystemExit
 
 build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
                      "include_files": [
                      "Media/Blocks.ico",
-                     "Media/BlocksIcon.gif"]
+                     "Media/BlocksIcon.gif",
+                     "Documentation/Changelog.md",
+                     "Documentation/Format-Details.md",
+                     "Documentation/Tutorial.md"]
                      }
 
 setup(
-    name = "Blocks",
-    version = "0.8.5",
-    author = "Triangle717",
-    description = "Island Xtreme Stunts Minigame Level Editor",
-    license = "GNU GPLv3",
-    options = {"build_exe": build_exe_options},
-    executables = [Executable("Blocks.pyw", targetName="Blocks.exe", base="Win32GUI")]
+    name="Blocks",
+    version="0.8.6",
+    author="Triangle717",
+    description="Island Xtreme Stunts Minigame Level Editor",
+    license="GNU GPLv3",
+    options={"build_exe": build_exe_options},
+    executables=[Executable("Blocks.pyw",
+        targetName="Blocks.exe", base="Win32GUI")]
 )

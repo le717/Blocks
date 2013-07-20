@@ -1,8 +1,8 @@
 Blocks Change Log
 =================
 
-### 0.8.5.3 ###
-Released ?? ??, 2013
+### 0.8.6 ###
+Released July 20, 2013
 
 * Removed outdated comments left over from 0.8.5
 * Created blank (nothing but free tiles) layout for new level creation
@@ -21,6 +21,7 @@ Released ?? ??, 2013
 * Small internal renaming and organization
 * Added new `new_level` variable to keep track if a new level is being created or not
 * Improved internal layout of Legend
+* Updated `setup.py` to conform to PEP 8 style guidelines
 
 ### 0.8.5 ###
 Released July 4, 2013
