@@ -74,7 +74,8 @@ From looking at our [Legend](#character-legend), we can see this level contains
  3. a Yellow Tile
  4. a Yellow Cube
  
-You may notice it also contains the code for the first and last lines of the file. We will not worry ourselves with them, and will instead focus on the layout itself. 
+You may notice it also contains the code for the first and last lines of the file. We will not worry ourselves with them, and will instead 
+focus on the layout itself. 
 
 Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly if I do not purely use explanations, 
 but use examples in addition to explaining why we do what we do. :smile:
@@ -176,12 +177,13 @@ You are probably wondering,
 
 Well, I'll tell you.
 An `One-way, west-bound Red Cube` is a unique cube in *Island Xtreme Stunts*. They are only found in Maggie Post's *Trouble in Store* minigame 
-(that is, only in an unmodded copy), it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special, and even have 
-special properties, since it only move ones direction, to the right of the layout. If you think about the level in terms of a map, and have a standard NSEW 
-compass, we can call the top of the level North, the bottom South, the left side East, and the right side West, you'll find this cube only moves West. You 
-can't push it North or South, and clearly not East, only West. But despite all this special-ness about the cube, it still validates a Red Tile, and it can be 
-sunk in Water. As for the name of the cube: After I was told about this by Xiron, another modder, and was adding it into the Character Legend, I was unable to 
-write a better description for it. I asked around for a new name, to no avail, until I finally had this thought:
+(that is, only in an unmodded copy), it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special, 
+validates any color Tile (not only Red) and even have special properties, since it only move ones direction, to the right of the layout. If you think about the 
+level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, the bottom South, the left side East, and the right side 
+West, you'll find this cube only moves West. You can't push it North or South, and clearly not East, only West. The only un-special-ness about the 
+cube is that it can still be sunk in Water, it still follows all the indention rules, and you can't pull it (just all everything else, but since pulling is 
+clearly not possible, why do I even mention it?). As for the name of the cube: After I was told about this by Xiron, another modder, and was adding it into the 
+Character Legend, I was unable to write a better description for it. I asked around for a new name, to no avail, until I finally had this thought:
 
 > Since this cube is so unique and one-of-a-kind, why can't it have a unique name to match? 
 
@@ -242,6 +244,6 @@ Now, just for fun, we'll add a few Blocked Walls and a Cube in the layout to mak
 
 And finally, we test it. If the game loaded, and you can complete it, your mod works, and you have successfully added an `One-way, west-bound Red Cube`!
 
-> **Recap:** *Coming Soon.*
+> **Recap:** You leaned about a `One-way, west-bound Red Cube`, the special properties it has and doesn't have, how it got it's name, and you used it in a level layout. High five! :raised_hand:
 
 [Back To The Top](#table-of-contents)
