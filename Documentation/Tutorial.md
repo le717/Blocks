@@ -175,7 +175,7 @@ You are probably wondering,
 > "What on earth is a `One-way, west-bound Red Cube`, and what is with that name??
 
 Well, I'll tell you.
-A One-way, west-bound Red Cube is a unique cube in *Island Xtreme Stunts*. They are only found in Maggie Post's *Trouble in Store* minigame 
+An `One-way, west-bound Red Cube` is a unique cube in *Island Xtreme Stunts*. They are only found in Maggie Post's *Trouble in Store* minigame 
 (that is, only in an unmodded copy), it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special, and even have 
 special properties, since it only move ones direction, to the right of the layout. If you think about the level in terms of a map, and have a standard NSEW 
 compass, we can call the top of the level North, the bottom South, the left side East, and the right side West, you'll find this cube only moves West. You 
@@ -211,7 +211,7 @@ Let's start by placing a Red Tile (`RT`) at the 11th column of the 4th row (reme
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Since we are adding a `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Let's add it at...
+Since we are adding an `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Let's add it at...
 
 ***"Wait a second, le! You haven't said what the code for this cube is!***
 
@@ -240,6 +240,8 @@ Now, just for fun, we'll add a few Blocked Walls and a Cube in the layout to mak
  F  F BW BW BW  F  F  F  F  F  F  F  F
 ```
 
-*Coming Soon.*
+And finally, we test it. If the game loaded, and you can complete it, your mod works, and you have successfully added an `One-way, west-bound Red Cube`!
+
+> **Recap:** *Coming Soon.*
 
 [Back To The Top](#table-of-contents)
