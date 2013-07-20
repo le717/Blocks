@@ -9,7 +9,7 @@ Table of Contents
 
 <table>
 <tr>
-<th colspan="8">Table of Contents</th>
+<th colspan="9">Table of Contents</th>
 </tr>
 <td><a href="#requirements">Requirements</a></td>
 <td><a href="#character-legend">Character Legend</a></td>
@@ -19,6 +19,7 @@ Table of Contents
 <td><a href="#lesson-3-jumping-to-specific-levels">Lesson #3</a></td>
 <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
 <td><a href="#task-3-adding-a-one-way-west-bound-red-cube">Task #3</a></td>
+<td><a href="#task-4-water">Task #4</a></td>
 </table>
 
 This is a tutorial on modding the *Island Xtreme Stunts* minigame levels. It is a basic tutorial, and will not cover every single detail. 
@@ -53,7 +54,7 @@ You will need a few items to complete this tutorial
                                         WR = Bottom Left, WB = Bottom Right
 ```
 
-For this tutorial, we will be using level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
+For the majority of this tutorial, we will be using level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
 
 ```
 C 01 00 00 1
@@ -229,7 +230,7 @@ NOW that we have the code, let's add this cube on the 3rd column of the 4th row,
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Now, just for fun, we'll add a few Blocked Walls and a Cube in the layout to make this level a bit less sparse...
+Just for fun, we'll add a few Blocked Walls and a Cube in the layout to make this level a bit less sparse...
 
 ```
  F  F BW BW BW BW  F  F BW  F BW  F BW
@@ -244,6 +245,11 @@ Now, just for fun, we'll add a few Blocked Walls and a Cube in the layout to mak
 
 And finally, we test it. If the game loaded, and you can complete it, your mod works, and you have successfully added an `One-way, west-bound Red Cube`!
 
-> **Recap:** You leaned about a `One-way, west-bound Red Cube`, the special properties it has and doesn't have, how it got it's name, and you used it in a level layout. High five! :raised_hand:
+> **Recap:** You leaned about a `One-way, west-bound Red Cube`, the special properties it has and doesn't have, how it got it's name, and you used it in a 
+level layout. High five! :raised_hand:
+
+### Task #4: Water ###
+
+*Unknown ETA*
 
 [Back To The Top](#table-of-contents)
