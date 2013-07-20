@@ -114,7 +114,7 @@ If you performed the editing correctly, the game will successfully load your mod
 If you didn't, then the game will crash. Even with this little bit of knowledge, you can mod the minigame levels, as cubes and non-free tiles all work this way.
 
 > **Recap:** You just learned that indention matters, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
-> ensuring it is properly indented to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back! :D
+> ensuring it is properly indented to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back! :clap:
 
 Now we will dive into some lessons to learn a few things that will help us in our quest for modding.
 
@@ -163,7 +163,8 @@ What's more, this right indention will continue until either the end of the line
 ``` 
 So adding a cube on the left corner affects the most (if not the entire) indention of the line!
 
-> **Recap:** You just learned how to add a cube on the left corner, the proper indention for the cube, and the effects it has on the line! Be proud of yourself!
+> **Recap:** You just learned how to add a cube on the left corner, the proper indention for the cube, and the effects it has on the line! Be proud of 
+yourself! :thumbsup:
 
 ### Task #3: Adding a One-way, west-bound Red Cube ###
 
