@@ -120,7 +120,7 @@ If you didn't, then the game will crash. Even with this little bit of knowledge,
 
 Now we will dive into some lessons to learn a few things that will help us in our quest for modding.
 
-[:arrow_up:](#building-with-blocks)
+[:arrow_up: Back to Top](#building-with-blocks)
 
 #### Lesson #2: Making Sure It All Works ####
 
@@ -170,7 +170,7 @@ So adding a cube on the left corner affects the most (if not the entire) indenti
 > **Recap:** You just learned how to add a cube on the left corner, the proper indention for the cube, and the effects it has on the line! Be proud of 
 yourself! :thumbsup:
 
-[:arrow_up:](#building-with-blocks)
+[:arrow_up: Back to Top](#building-with-blocks)
 
 ### Task #3: Adding a One-way, west-bound Red Cube ###
 
@@ -258,4 +258,4 @@ level layout. High five! :raised_hand:
 
 *Unknown ETA*
 
-[Back to Top :arrow_up:](#building-with-blocks)
+[:arrow_up: Back to Top](#building-with-blocks)
