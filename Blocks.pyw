@@ -344,11 +344,11 @@ def the_legend(*args):
 \t\t            (R, G, B, Y)T = Tile,
 \t\tRB = One-way, west-bound Red Cube
 
-                                                === Water ===
-                        WH = Small Horizontal, WV = Small Vertical,
-                            WI = Top, WJ = Left, WM = Right,
-                            WT = Top Left, WL = Top Right,
-                            WR = Bottom Left, WB = Bottom Right'''
+\t\t\t=== Water ===
+\t        WH = Small Horizontal, WV = Small Vertical,
+\t            WI = Top, WJ = Left, WM = Right,
+\t            WT = Top Left, WL = Top Right,
+\t            WR = Bottom Left, WB = Bottom Right'''
 
     # Display the legend
     ttk.Label(legend_window, text=legend_text).grid()
