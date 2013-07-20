@@ -1,4 +1,4 @@
-#! /usr/bin python3
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
     Blocks - Island Xtreme Stunts Minigame Level Editor
@@ -474,7 +474,7 @@ def close(*args):
     raise SystemExit
 
 ## Bind <Ctrl + n> shortcut to New button
-root.bind("<Control-n>", New)
+##root.bind("<Control-n>", New)
 # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
 root.bind("<Control-O>", Open)
 # Bind <Ctrl + s> shortcut to Save button
