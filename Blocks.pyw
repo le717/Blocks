@@ -353,22 +353,6 @@ def the_legend(*args):
     # Display the legend
     ttk.Label(legend_window, text=legend_text).grid()
 
-    #ttk.Label(legend_window, text='''                                        === Available Colors ===
-                              #R = Red, G = Green, B = Blue, Y = Yellow
-
-                                        #=== Available Types ===
-                                                  #F = Free Tile,
-                                              #BW = Blocked Wall,
-                                            #(R, G, B, Y)C = Cube,
-                                            #(R, G, B, Y)T = Tile,
-                                #RB = One-way, west-bound Red Cube
-
-                                                #=== Water ===
-                        #WH = Small Horizontal, WV = Small Vertical,
-                            #WI = Top, WJ = Left, WM = Right,
-                            #WT = Top Left, WL = Top Right,
-                            #WR = Bottom Left, WB = Bottom Right''').grid()
-
     def close_legend(*args):
         '''Closes Legend Window'''
         legend_window.destroy()

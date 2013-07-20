@@ -20,6 +20,7 @@ Released ?? ??, 2013
 * Broke level file opening and reading into separate functions
 * Small internal renaming and organization
 * Added new `new_level` variable to keep track if a new level is being created or not
+* Improved internal layout of Legend
 
 ### 0.8.5 ###
 Released July 4, 2013
@@ -32,7 +33,7 @@ Released July 4, 2013
 * Bound `<Ctrl> + <n>` shortcut to New button
 * Fixed error when `Save` button is pressed without opening a level first
 * Convert new level layout to uppercase (partial syntax checker)
-* Reworked save workflow to enable addition of layout syntax checker
+* Reworked save work flow to enable addition of layout syntax checker
 * Added syntax check for each item in layout, warns if error is present
 * Updated variables and comments in `write()`
 * Fixed outdated comment for Save button
