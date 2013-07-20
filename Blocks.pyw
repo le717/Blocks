@@ -37,7 +37,7 @@ except ImportError:
 
 
 def globals():
-    '''Dummy function for eas access to global variables'''
+    '''Dummy function for easy access to global variables'''
     pass
 
 # Global variables
@@ -46,6 +46,9 @@ majver = "0.8"
 minver = ".5.3"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
+
+# Global variable defining if a new level was created or not
+new_level = False
 
 try:
     # If the debug parameter is passed, enable the debugging messages
@@ -59,10 +62,42 @@ except IndexError:
     debug = False
 
 
+# ------------ Begin New Minigame Level ------------ #
+
+
+def New(*args):
+    '''Create a new Minigame Level'''
+
+    # Update variable saying a new level was created
+    global new_level
+    new_level = True
+
+    if debug:
+        print("\nA new level is being created.\n")
+
+    # Blank (free) layout for when starting a new level
+    blank_layout = ''' F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F'''
+
+    # Remove the old content
+    level.delete("1.0", "end")
+    # Add blank layout in edit box
+    level.insert("1.0", blank_layout)
+
+
+# ------------ End New Minigame Level  ------------ #
+
+
 # ------------ Begin Level Layout Reading ------------ #
 
 
-def read(*args):
+def Open(*args):
     '''Reads Minigame Level'''
 
     # File type label for dialog box
@@ -83,19 +118,31 @@ def read(*args):
         pass
     # The user selected a level
     else:
-       # Get just the file name, assign it as global
-        global level_file_name
-        level_file_name = os.path.basename(level_file)
-        level_name.set(level_file_name)
-        # Open file for reading
-        with open(level_file, "rt") as f:
-            lines = f.readlines()[:]
+        read(level_file)
 
-        # Skip nulls, since they cannot be printed,
-        # and display only the layout
-        layout = "".join(lines[1:9])
-        level.delete("1.0", "end")
-        level.insert("1.0", layout)
+
+def read(level_file):
+    '''Reads an existing level file'''
+
+    # Update new level variable to denote a pre-existing level
+    new_level = False
+    if debug:
+        print("\nA new level is not being created.\n")
+
+    # Get just the file name, assign it as global
+    global level_filename
+    level_filename = os.path.basename(level_file)
+    level_name.set(level_filename)
+
+    # Open file for reading
+    with open(level_file, "rt") as f:
+        lines = f.readlines()[:]
+
+    # Skip nulls, since they cannot be printed,
+    # and display only the layout
+    layout = "".join(lines[1:9])
+    level.delete("1.0", "end")
+    level.insert("1.0", layout)
 
 
 # ------------ End Level Layout Reading ------------ #
@@ -204,7 +251,7 @@ def write(new_layout):
             count += 1
             # Define backup filename
             backup_file = os.path.join(location, "{0}{1}{2}".format(
-                level_file_name, ".bak", str(count)))
+                level_filename, ".bak", str(count)))
 
         try:
             # Copy the file, try to preserve metadata
@@ -230,14 +277,14 @@ def write(new_layout):
 
             # Display sucess dialog
             tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-            .format(level_file_name, location))
+            .format(level_filename, location))
 
         # A level was edited directly in Program Files,
         # and Blocks was run without Admin rights
         except PermissionError:
             showerror("Insufficient User Rights!",
 '''Blocks does not have the user rights to save {0}!
-Please relaunch Blocks as an Administrator.'''.format(level_file_name))
+Please relaunch Blocks as an Administrator.'''.format(level_filename))
             if debug:
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
@@ -245,7 +292,7 @@ Please relaunch Blocks as an Administrator.'''.format(level_file_name))
         # Any other unhandled error occurred
         except Exception:
             showerror("An Error Has Occurred!",
-"Blocks ran into an unknown error while trying to {0}!".format(level_file_name))
+"Blocks ran into an unknown error while trying to {0}!".format(level_filename))
             if debug:
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
@@ -260,31 +307,6 @@ Please relaunch Blocks as an Administrator.'''.format(level_file_name))
 
 
 # ------------ End Level Layout Writing ------------ #
-
-
-# ------------ Begin New Minigame Level Details ------------ #
-
-
-def new(*args):
-    '''New Minigame Level'''
-
-    # Blank (free) layout for when starting a new level
-    blank_layout = ''' F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F'''
-
-    # Remove the old content
-    level.delete("1.0", "end")
-    # Add blank layout in edit box
-    level.insert("1.0", blank_layout)
-
-
-# ------------ End New Minigame Level Details ------------ #
 
 
 # ------------ Begin Level Legend Window ------------ #
@@ -414,10 +436,10 @@ about_blocks = ttk.Label(mainframe, text='''                 {0} {1}{2}
 about_blocks.grid(column=2, row=0, sticky=tk.N)
 
 # New button
-##new_button = ttk.Button(mainframe,text="New", command=new)
+##new_button = ttk.Button(mainframe,text="New", command=New)
 ##new_button.grid(column=2, row=1, sticky=tk.N)
 # Open button
-open_file = ttk.Button(mainframe, text="Open", command=read)
+open_file = ttk.Button(mainframe, text="Open", command=Open)
 open_file.grid(column=2, row=2, sticky=tk.N)
 # Save button
 save_file = ttk.Button(mainframe, text="Save", command=syntax_check)
@@ -443,9 +465,9 @@ def close(*args):
     raise SystemExit
 
 ## Bind <Ctrl + n> shortcut to New button
-##root.bind("<Control-n>", new)
+root.bind("<Control-n>", New)
 # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
-root.bind("<Control-O>", read)
+root.bind("<Control-O>", Open)
 # Bind <Ctrl + s> shortcut to Save button
 root.bind("<Control-s>", syntax_check)
 # Bind <Ctrl + q> shortcut to close function

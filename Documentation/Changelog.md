@@ -17,6 +17,9 @@ Released ?? ??, 2013
 * Fixed broken messages caused by previous change
 * Fixed message mistakenly displayed if the ``--debug`` parameter is not given
 * Changed variables for level size checker
+* Broke level file opening and reading into separate functions
+* Small internal renaming and organization
+* Added new `new_level` variable to keep track if a new level is being created or not
 
 ### 0.8.5 ###
 Released July 4, 2013
