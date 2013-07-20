@@ -252,4 +252,4 @@ level layout. High five! :raised_hand:
 
 *Unknown ETA*
 
-[Back To The Top](#table-of-contents)
+[Back To The Top](#building-with-blocks)
