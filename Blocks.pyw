@@ -58,7 +58,7 @@ try:
         import traceback
         print("\nDebug messages have been enabled.\n")
 except IndexError:
-    # The parameter was not passed, don't display debugging messages
+    # The debug parameter was not passed, don't display debugging messages
     debug = False
 
 
@@ -94,7 +94,7 @@ def New(*args):
 # ------------ End New Minigame Level  ------------ #
 
 
-# ------------ Begin Level Layout Reading ------------ #
+# ------------ Begin Level Layout Opening ------------ #
 
 
 def Open(*args):
@@ -119,6 +119,12 @@ def Open(*args):
     # The user selected a level
     else:
         read(level_file)
+
+
+# ------------ End Level Layout Opening ------------ #
+
+
+# ------------ Begin Level Layout Reading ------------ #
 
 
 def read(level_file):
@@ -152,7 +158,7 @@ def read(level_file):
 
 
 def syntax_check(*args):
-    '''Checks the Minigame Level Layout for syntax errors'''
+    '''Checks the  Level Layout for syntax errors'''
 
     # Get new layout from text box, minus the new line the text widget adds
     layout = level.get('1.0', 'end -2 chars')
@@ -327,9 +333,9 @@ def the_legend(*args):
     legend_window.lift()
     legend_window.focus()
 
-    # Legend display
-    ttk.Label(legend_window, text='''                                        === Available Colors ===
-                              R = Red, G = Green, B = Blue, Y = Yellow
+    # The legend itself
+    legend_text = '''\t\t        === Available Colors ===
+\t              R = Red, G = Green, B = Blue, Y = Yellow
 
                                         === Available Types ===
                                                   F = Free Tile,
@@ -342,7 +348,26 @@ def the_legend(*args):
                         WH = Small Horizontal, WV = Small Vertical,
                             WI = Top, WJ = Left, WM = Right,
                             WT = Top Left, WL = Top Right,
-                            WR = Bottom Left, WB = Bottom Right''').grid()
+                            WR = Bottom Left, WB = Bottom Right'''
+
+    # Display the legend
+    ttk.Label(legend_window, text=legend_text).grid()
+
+    #ttk.Label(legend_window, text='''                                        === Available Colors ===
+                              #R = Red, G = Green, B = Blue, Y = Yellow
+
+                                        #=== Available Types ===
+                                                  #F = Free Tile,
+                                              #BW = Blocked Wall,
+                                            #(R, G, B, Y)C = Cube,
+                                            #(R, G, B, Y)T = Tile,
+                                #RB = One-way, west-bound Red Cube
+
+                                                #=== Water ===
+                        #WH = Small Horizontal, WV = Small Vertical,
+                            #WI = Top, WJ = Left, WM = Right,
+                            #WT = Top Left, WL = Top Right,
+                            #WR = Bottom Left, WB = Bottom Right''').grid()
 
     def close_legend(*args):
         '''Closes Legend Window'''
