@@ -43,7 +43,7 @@ def globals():
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".6"
+minver = ".6.1"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -182,7 +182,8 @@ def syntax_check(*args):
         if debug:
             print("\nThe level is too big! It must be only 8 lines, and yours is {0} lines!\n".format(lineno + 1))
         # Display error message to user telling them the level is too big
-        showerror("Level Error!", '''The level layout must be no more than 8 lines.
+        showerror("Level Error!",
+'''The level layout must be no more than 8 lines.
 Your layout takes up {0} lines!'''.format(lineno + 1))
 
         # Return False so the saving process will not continue on
@@ -201,6 +202,25 @@ Your layout is only {0} lines!'''.format(lineno + 1))
 
         # Return False so the saving process will not continue on
         return False
+
+    # How long is each line?
+    len_of_line = len(linetext)
+
+    if (  # The line is more than 38 characters (counting spaces)
+        # Techinally, they can be longer, but odd, undocumented stuff happens
+        len_of_line > 38 or
+        # All lines must be at least 38 characters (counting spaces)
+        len_of_line < 38):
+
+            # If more than one lines are too long
+            if layout_size.index(linetext) > 1:
+                # TODO: Trying to figure out exactly what to do here
+                pass
+
+            # Only one line is too long
+            else:
+                # TODO: Trying to figure out exactly what to do here
+                pass
 
     # Split the text at each space
     layout_syntax = layout.split(" ")

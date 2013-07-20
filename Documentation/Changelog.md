@@ -1,6 +1,11 @@
 Blocks Change Log
 =================
 
+### 0.8.6.1 ###
+Released ?? ??, 2013
+
+* Added skeleton of line length syntax check 
+
 ### 0.8.6 ###
 Released July 20, 2013
 
