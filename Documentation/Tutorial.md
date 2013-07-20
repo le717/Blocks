@@ -248,8 +248,10 @@ And finally, we test it. If the game loaded, and you can complete it, your mod w
 > **Recap:** You leaned about a `One-way, west-bound Red Cube`, the special properties it has and doesn't have, how it got it's name, and you used it in a 
 level layout. High five! :raised_hand:
 
+[:arrow_up:](#building-with-blocks)
+
 ### Task #4: Water ###
 
 *Unknown ETA*
 
-[Back To The Top](#building-with-blocks)
+[Back To Top](#building-with-blocks)
