@@ -216,8 +216,8 @@ Since we are adding a `One-way, west-bound Red Cube`, it also must be located so
 ***"Wait a second, le! You haven't said what the code for this cube is!***
 
 Indeed I haven't, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I *could* just tell you to 
-look at the Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, R meaning Red, and B marking 
-its distinctiveness from the other, normal cubes.
+look at the Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, `R` meaning Red, and `B` marking 
+its distinctiveness from the other, normal cubes (`C`).
 
 NOW that we have the code, let's add this cube on the 3rd column of the 4th row, so that the lines now look like:
 
@@ -225,6 +225,19 @@ NOW that we have the code, let's add this cube on the 3rd column of the 4th row,
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F RB  F  F  F  F  F  F  F RT  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
+```
+
+Now, just for fun, we'll add a few Blocked Walls and a Cube in the layout to make this level a bit less sparse...
+
+```
+ F  F BW BW BW BW  F  F BW  F BW  F BW
+ F  F  F  F  F BW  F  F  F  F  F  F BW
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F RB  F  F BC  F  F  F  F RT  F  F
+ F  F  F  F  F  F  F  F  F BW BW  F BW
+ BW BW BW F BW  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F BW BW BW  F  F  F  F  F  F  F  F
 ```
 
 *Coming Soon.*
