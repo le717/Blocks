@@ -211,17 +211,19 @@ Let's start by placing a Red Tile (`RT`) at the 11th column of the 4th row (reme
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Since we are adding a `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Let's add it at the 3rd column....
+Since we are adding a `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Let's add it at...
 
 ***"Wait a second, le! You haven't said what the code for this cube is!***
 
-Indeed I haven't, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. 
+Indeed I haven't, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I *could* just tell you to 
+look at the Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, R meaning Red, and B marking 
+its distinctiveness from the other, normal cubes.
 
- so that the lines now look like:
+NOW that we have the code, let's add this cube on the 3rd column of the 4th row, so that the lines now look like:
 
 ```
  F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F RT  F  F
+ F  F RB  F  F  F  F  F  F  F RT  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
