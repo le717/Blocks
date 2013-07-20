@@ -176,7 +176,7 @@ You are probably wondering,
 
 Well, I'll tell you.
 A One-way, west-bound Red Cube is a unique cube in *Island Xtreme Stunts*. They are only found in Maggie Post's *Trouble in Store* minigame 
-(that is, only in an unmodded copy),it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special, and even have 
+(that is, only in an unmodded copy), it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special, and even have 
 special properties, since it only move ones direction, to the right of the layout. If you think about the level in terms of a map, and have a standard NSEW 
 compass, we can call the top of the level North, the bottom South, the left side East, and the right side West, you'll find this cube only moves West. You 
 can't push it North or South, and clearly not East, only West. But despite all this special-ness about the cube, it still validates a Red Tile, and it can be 
@@ -203,15 +203,27 @@ and use a fresh layout, containing nothing but Free tiles.
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Let's start by placing a Red Tile (`RT`) at the 10th column of the 4th row (remember, indention matters!). Lines 3 and 5 now look like this:
+Let's start by placing a Red Tile (`RT`) at the 11th column of the 4th row (remember, indention matters!). Lines 3 and 5 now look like this:
 
 ```
  F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F RT  F  F  F
+ F  F  F  F  F  F  F  F  F  F RT  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Since we are adding a `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Let's add it
+Since we are adding a `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Let's add it at the 3rd column....
+
+***"Wait a second, le! You haven't said what the code for this cube is!***
+
+Indeed I haven't, have I? Thanks for pointing that out.
+
+ so that the lines now look like:
+
+```
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F RT  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+```
 
 *Coming Soon.*
 
