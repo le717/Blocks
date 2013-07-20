@@ -120,6 +120,8 @@ If you didn't, then the game will crash. Even with this little bit of knowledge,
 
 Now we will dive into some lessons to learn a few things that will help us in our quest for modding.
 
+[:arrow_up:](#building-with-blocks)
+
 #### Lesson #2: Making Sure It All Works ####
 
 How do you know your mod will work or not? I mean, if it is not properly created, it won't work, will it? 
@@ -167,6 +169,8 @@ So adding a cube on the left corner affects the most (if not the entire) indenti
 
 > **Recap:** You just learned how to add a cube on the left corner, the proper indention for the cube, and the effects it has on the line! Be proud of 
 yourself! :thumbsup:
+
+[:arrow_up:](#building-with-blocks)
 
 ### Task #3: Adding a One-way, west-bound Red Cube ###
 
@@ -248,7 +252,7 @@ And finally, we test it. If the game loaded, and you can complete it, your mod w
 > **Recap:** You leaned about a `One-way, west-bound Red Cube`, the special properties it has and doesn't have, how it got it's name, and you used it in a 
 level layout. High five! :raised_hand:
 
-[:arrow_up:](#building-with-blocks)
+[:arrow_up: Back to Top](#building-with-blocks)
 
 ### Task #4: Water ###
 
