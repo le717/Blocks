@@ -215,7 +215,7 @@ Since we are adding a `One-way, west-bound Red Cube`, it also must be located so
 
 ***"Wait a second, le! You haven't said what the code for this cube is!***
 
-Indeed I haven't, have I? Thanks for pointing that out.
+Indeed I haven't, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. 
 
  so that the lines now look like:
 
