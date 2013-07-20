@@ -174,16 +174,18 @@ You are probably wondering,
 > "What on earth is a `One-way, west-bound Red Cube`, and what is with that name??
 
 Well, I'll tell you.
-A One-way, west-bound Red Cube is a unique cube in *Island Xtreme Stunts*. They are only found in Maggie Post's *Trouble in Store* minigame (that is, only in an unmodded copy),
-it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special, and even have special properties,
-since it only move ones direction, to the right of the layout. If you think about the level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, 
-the bottom South, the left side East, and the right side West, you'll find this cube only moves West. You can't push it North or South, and clearly not East, only West. But despite all this 
-special-ness about the cube, it still validates a Red Tile, and it can be sunk in Water. As for the name of the cube: After I was told about this by Xiron, another modder, 
-and was adding it into the Character Legend, I was unable to write a better description for it. I asked around for a new name, to no avail, until I finally had this thought:
+A One-way, west-bound Red Cube is a unique cube in *Island Xtreme Stunts*. They are only found in Maggie Post's *Trouble in Store* minigame 
+(that is, only in an unmodded copy),it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special, and even have 
+special properties, since it only move ones direction, to the right of the layout. If you think about the level in terms of a map, and have a standard NSEW 
+compass, we can call the top of the level North, the bottom South, the left side East, and the right side West, you'll find this cube only moves West. You 
+can't push it North or South, and clearly not East, only West. But despite all this special-ness about the cube, it still validates a Red Tile, and it can be 
+sunk in Water. As for the name of the cube: After I was told about this by Xiron, another modder, and was adding it into the Character Legend, I was unable to 
+write a better description for it. I asked around for a new name, to no avail, until I finally had this thought:
 
 > Since this cube is so unique and one-of-a-kind, why can't it have a unique name to match? 
 
-And that's how it got the name `One-way, west-bound Red Cube`. I'm sure if the *Island Xtreme Stunts* developer who added this cube saw this, they would probably laugh at the odd name. :P
+And that's how it got the name `One-way, west-bound Red Cube`. I'm sure if the *Island Xtreme Stunts* developer who added this cube saw this, 
+they would probably laugh at the odd fan name. :tongue:
 
 Now that we take taken care of, let's add this cube into our layout. Since it only moves West, we'll be mindful of players and place it where they can use it.
 
