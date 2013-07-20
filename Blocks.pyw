@@ -337,12 +337,12 @@ def the_legend(*args):
     legend_text = '''\t\t        === Available Colors ===
 \t              R = Red, G = Green, B = Blue, Y = Yellow
 
-                                        === Available Types ===
-                                                  F = Free Tile,
-                                              BW = Blocked Wall,
-                                            (R, G, B, Y)C = Cube,
-                                            (R, G, B, Y)T = Tile,
-                                RB = One-way, west-bound Red Cube
+\t\t        === Available Types ===
+\t\t\t  F = Free Tile,
+\t\t              BW = Blocked Wall,
+\t\t            (R, G, B, Y)C = Cube,
+\t\t            (R, G, B, Y)T = Tile,
+\t\tRB = One-way, west-bound Red Cube
 
                                                 === Water ===
                         WH = Small Horizontal, WV = Small Vertical,
