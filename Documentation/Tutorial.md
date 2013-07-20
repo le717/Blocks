@@ -97,7 +97,7 @@ Well, now that we know a bit about indention, let's add our Blocked Wall!
 the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank). If you are editing the level straight from Program Files,
 be sure to run either program with Administrator rights, otherwise you will be unable to save your edit!
 
-* Once the level is open in your editor of choice, find the square we want to edit (top row, eight column). Start by removing the `F` that is currently 
+* Once the level is open in your editor of choice, find the square we want to edit (1st row, 8th column). Start by removing the `F` that is currently 
 sitting in that location, in addition to a single space (what did we talk about in Lesson #1?). Now type `BW`, ensuring the `W` is lined up with the
 `F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
 
@@ -135,10 +135,10 @@ when you reach that level. Thus, ensuring you edit correctly really pays off in 
 
 ### Task #2: Adding a Blocked Wall on the Left Corner ###
 
-This is that special circumstance I mentioned in Lesson #1. Adding a Blocked Wall on the left corner of the level is not much harder than adding one
-anywhere else, it's just different.
+This is that special circumstance I mentioned in Lesson #1. Adding a Blocked Wall on the left corner (1st column of any row) 
+of the level is not much harder than adding one anywhere else, it's just different.
 
-To make this special edit a bit clearer, we'll edit the same line from Task #1, including the Blocked Wall we added, but we'll incude the second line
+To make this special edit a bit clearer, we'll edit the same line from Task #1, including the Blocked Wall we added, but we'll include the second line
 to show that alignment counts.
 
 Now you recall I said in Lesson #1 that for the first letter of a BW (or any non-Free tile) the code is offset to the left of the free tile code directly
@@ -202,6 +202,16 @@ and use a fresh layout, containing nothing but Free tiles.
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
+
+Let's start by placing a Red Tile (`RT`) at the 10th column of the 4th row (remember, indention matters!). Lines 3 and 5 now look like this:
+
+```
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F RT  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+```
+
+Since we are adding a `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Let's add it
 
 *Coming Soon.*
 
