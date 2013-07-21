@@ -25,7 +25,6 @@ The next `9` (nine) lines are the level itself (laid out in a 13x8 grid). The la
 However, blocks on the left corner must be indented to the right, with the second letter offset to the right of the other letter, also in a blank area 
 (more on that in [**Building With Blocks**](Tutorial.md))
 
-
 * If a barrier wall is on the left corner, another barrier wall can be added directly to its right, provided the second follows the same indention.
 This is possible until either the end of the row or the first block indented to the left is reached.
 
@@ -42,6 +41,8 @@ This is possible until either the end of the row or the first block indented to 
 to their proper location will complete the level.
 
 * There is a special block, `RB`, that is present only in Red, and moves only to the right of the level.
+
+* The line length for every line in a file must equal 38 characters, counting spaces.
 
 ### Needs More Research
 
