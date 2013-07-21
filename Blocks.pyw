@@ -212,15 +212,22 @@ Your layout is only {0} lines!'''.format(lineno + 1))
         # All lines must be at least 38 characters (counting spaces)
         len_of_line < 38):
 
-            # If more than one lines are too long
-            if layout_size.index(linetext) > 1:
-                # TODO: Trying to figure out exactly what to do here
-                pass
-
             # Only one line is too long
+            if layout_size.index(linetext) < 1:
+                # TODO: Trying to figure out exactly what to do here
+                ##pass
+                message = "Line {0}is".format(str(lineno))
+
+                print(message)
+                return False
+
+
+            # If more than one lines are too long
             else:
                 # TODO: Trying to figure out exactly what to do here
-                pass
+                message = "Lines {0} are too long!".format(str(lineno) + ",")
+                print(message)
+                return False
 
     # Split the text at each space
     layout_syntax = layout.split(" ")
