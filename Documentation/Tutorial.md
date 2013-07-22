@@ -256,6 +256,7 @@ level layout. High five! :raised_hand:
 
 ### Task #4: Water ###
 
-*Unknown ETA*
+#### While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me from
+writing it at this time. I'm sorry for any inconvenience this may have caused you. ####
 
 [:arrow_up: Back to Top](#building-with-blocks)
