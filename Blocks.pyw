@@ -180,7 +180,8 @@ def syntax_check(*args):
     if lineno > 7:
         # Display error message in console if debug messages are enabled
         if debug:
-            print("\nThe level is too big! It must be only 8 lines, and yours is {0} lines!\n".format(lineno + 1))
+            print('''\nThe level is too big! It must be only 8 lines,
+and yours is {0} lines!\n'''.format(lineno + 1))
         # Display error message to user telling them the level is too big
         showerror("Level Error!",
 '''The level layout must be no more than 8 lines.
@@ -195,7 +196,8 @@ Your layout takes up {0} lines!'''.format(lineno + 1))
     if lineno < 7:
         # Display error message in console if debug messages are enabled
         if debug:
-            print("\nThe level is too small! It must be 8 lines, and yours is {0} lines!\n".format(lineno + 1))
+            print('''\nThe level is too small! It must be 8 lines,
+and yours is {0} lines!\n'''.format(lineno + 1))
         # Display error message to user telling them the level is too small
         showerror("Error!", '''The level layout must be 8 lines.
 Your layout is only {0} lines!'''.format(lineno + 1))
@@ -205,29 +207,29 @@ Your layout is only {0} lines!'''.format(lineno + 1))
 
     # How long is each line?
     len_of_line = len(linetext)
+    print(len_of_line)
 
-    if (  # The line is more than 38 characters (counting spaces)
+    #if (  # The line is more than 38 characters (counting spaces)
         # Techinally, they can be longer, but odd, undocumented stuff happens
-        len_of_line > 38 or
+        #len_of_line > 38): # or
         # All lines must be at least 38 characters (counting spaces)
-        len_of_line < 38):
+        #len_of_line < 38):
 
-            # Only one line is too long
-            if layout_size.index(linetext) < 1:
-                # TODO: Trying to figure out exactly what to do here
-                ##pass
-                message = "Line {0}is".format(str(lineno))
+        # Only one line is too long
+        #if layout_size.index(linetext) < 1:
+            ## TODO: Trying to figure out exactly what to do here
+            ###pass
+            #message = "Line {0} is".format(str(lineno))
 
-                print(message)
-                return False
+            #print(message)
+            #return False
 
-
-            # If more than one lines are too long
-            else:
-                # TODO: Trying to figure out exactly what to do here
-                message = "Lines {0} are too long!".format(str(lineno) + ",")
-                print(message)
-                return False
+        ## If more than one lines are too long
+        #elif layout_size.index(linetext) > 1:
+            ## TODO: Trying to figure out exactly what to do here
+            #message = "Lines {0} are too long!".format(str(lineno) + ",")
+            #print(message)
+            #return False
 
     # Split the text at each space
     layout_syntax = layout.split(" ")
