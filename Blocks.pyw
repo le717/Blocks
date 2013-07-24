@@ -43,7 +43,7 @@ def globals():
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".6.1"
+minver = ".6.5"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -83,7 +83,7 @@ def New(*args):
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F'''
+ F  F  F  F  F  F  F  F  F  F  F  F  F '''
 
     # Remove the old content
     level.delete("1.0", "end")
@@ -163,6 +163,8 @@ def syntax_check(*args):
     # Get new layout from text box, minus the new line the text widget adds
     layout = level.get('1.0', 'end -2 chars')
 
+    # --- Begin Level Size Check --- #
+
     # Split the layout at each new line
     layout_size = layout.split("\n")
 
@@ -170,66 +172,98 @@ def syntax_check(*args):
     if debug:
         print("The new layout is: \n")
     for lineno, linetext in enumerate(layout_size):
+
         # Display line number and line content if debug messages are enabled
         if debug:
             print(lineno, linetext)
         # Do nothing else, all we need are the indices
         pass
 
+    # The actual line number
+    lineno += 1
+
     # If lineno is more than 7, AKA the level is more than 8 lines
-    if lineno > 7:
+    if lineno > 8:
         # Display error message in console if debug messages are enabled
         if debug:
             print('''\nThe level is too big! It must be only 8 lines,
-and yours is {0} lines!\n'''.format(lineno + 1))
+and yours is {0} lines!\n'''.format(lineno))
         # Display error message to user telling them the level is too big
-        showerror("Level Error!",
+        showerror("Size Error!",
 '''The level layout must be no more than 8 lines.
-Your layout takes up {0} lines!'''.format(lineno + 1))
+Your layout takes up {0} lines!'''.format(lineno))
 
         # Return False so the saving process will not continue on
         return False
 
     # On the flip side, if the index equals 0, AKA the level area is blank
     # I could have merged these two messages, but I wanted to show different
-    # messages depending on the error. I still may split them...
-    if lineno < 7:
+    # messages depending on the error. I still may merge them...
+    if lineno < 8:
         # Display error message in console if debug messages are enabled
         if debug:
             print('''\nThe level is too small! It must be 8 lines,
-and yours is {0} lines!\n'''.format(lineno + 1))
+and yours is {0} lines!\n'''.format(lineno))
         # Display error message to user telling them the level is too small
-        showerror("Error!", '''The level layout must be 8 lines.
-Your layout is only {0} lines!'''.format(lineno + 1))
+        showerror("Size Error!", '''The level layout must be 8 lines.
+Your layout is only {0} lines!'''.format(lineno))
 
         # Return False so the saving process will not continue on
         return False
 
-    # How long is each line?
-    len_of_line = len(linetext)
-    print(len_of_line)
+    # --- End Level Size Check --- #
 
-    #if (  # The line is more than 38 characters (counting spaces)
-        # Techinally, they can be longer, but odd, undocumented stuff happens
-        #len_of_line > 38): # or
-        # All lines must be at least 38 characters (counting spaces)
-        #len_of_line < 38):
+    # --- Begin Line Length Check --- #
 
-        # Only one line is too long
-        #if layout_size.index(linetext) < 1:
-            ## TODO: Trying to figure out exactly what to do here
-            ###pass
-            #message = "Line {0} is".format(str(lineno))
+    """
+    FUN FACT!
+    I was listening to the Plastic Fantastic song
+    from IXS when I got this new line working
+    """
+    # Contains the number of lines that are too long/short
+    long_lines = []
 
-            #print(message)
-            #return False
+    # Bit of spacing for debug messages
+    if debug:
+        print()
 
-        ## If more than one lines are too long
-        #elif layout_size.index(linetext) > 1:
-            ## TODO: Trying to figure out exactly what to do here
-            #message = "Lines {0} are too long!".format(str(lineno) + ",")
-            #print(message)
-            #return False
+    # Repeat the enumeration, so we can check line length
+    # Use different variables so nothing conflicts
+    for linenum, linedata in enumerate(layout_size):
+
+        # The actual line number
+        linenum += 1
+
+        # How long is each line?
+        len_of_line = len(linedata)
+
+        # Display length of each line if debug messages are enabled
+        if debug:
+            print("Line {0} is {1} characters long".format(linenum, len_of_line))
+
+        if (  # The line is more than 38 characters (counting spaces)
+            #Techinally, they can be longer, but odd undocumented stuff occurs
+            len_of_line > 38 or
+            # All lines must be at least 38 characters (counting spaces)
+            len_of_line < 38):
+
+            # Add line number of all faulty lines to the list
+            long_lines.append(linenum)
+            if debug:
+                print("{0}\n".format(long_lines))
+
+            # Tell user the error
+            if debug:
+                length = "Line {0} is {1} characters! The line must be exactly 38 characters, including spaces.".format(linenum, len_of_line)
+            showerror("Length Error!", '''Line {0} is {1} characters!
+The line must be exactly 38 characters, including spaces.'''.format(linenum, len_of_line))
+
+            # Return False so the saving process will not continue on
+            return False
+
+    # --- End Line Length Check --- #
+
+    # --- Begin Character Syntax Check --- #
 
     # Split the text at each space
     layout_syntax = layout.split(" ")
@@ -242,18 +276,23 @@ Your layout is only {0} lines!'''.format(lineno + 1))
         # Remove \n, \t, and the like
         char = char.strip()
 
+        # The proper location of the character
+        index += 1
+
         # If any character in the layout is not in the list
         if char.upper() not in itemlist:
             if debug:
                 print('\nInvalid character "{0}" at position {1}\n'.format(
-                    char, index + 1))
+                    char, index))
             showerror("Syntax Error!",
-            'Invalid character: "{0}" at position {1}'.format(char, index + 1))
+            'Invalid character: "{0}" at position {1}'.format(char, index))
             # Return False so the saving process will not continue on
             return False
 
     # Remove the list, keep proper formatting
     fixed_layout = " ".join(layout_syntax)
+
+    # --- End Character Syntax Check --- #
 
     # Convert all text to uppercase
     upper_layout = fixed_layout.upper()
@@ -285,6 +324,8 @@ def write(new_layout):
             # Update count
             count += 1
             # Define backup filename
+			# TODO: Limit the number of backups made to 5,
+			# but preserve the first backup, AKA the oldest one
             backup_file = os.path.join(location, "{0}{1}{2}".format(
                 level_filename, ".bak", str(count)))
 
@@ -503,7 +544,7 @@ def close(*args):
     raise SystemExit
 
 ## Bind <Ctrl + n> shortcut to New button
-##root.bind("<Control-n>", New)
+root.bind("<Control-n>", New)
 # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
 root.bind("<Control-O>", Open)
 # Bind <Ctrl + s> shortcut to Save button

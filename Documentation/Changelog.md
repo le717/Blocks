@@ -1,16 +1,20 @@
 Blocks Change Log
 =================
 
-### 0.8.6.1 ###
+### 0.8.6.5 ###
 Released ?? ??, 2013
 
-* Added skeleton of line length syntax check 
+* Fixed New Level layout size
+* Added dividers for all syntax check operations
+* Cleaned up method of getting correct line numbers and location of characters
+* Updated titles on syntax check error boxes
+* Added line length to syntax check
 
 ### 0.8.6 ###
 Released July 20, 2013
 
 * Removed outdated comments left over from 0.8.5
-* Created blank (nothing but free tiles) layout for new level creation
+* Created blank (nothing but free tiles) layout for New Level creation
 * Reactivated Python Version check
 * Updated `setup.py` shebang to run with Python 3.3 x86 only
 * Added console window title when the ``--debug`` parameter is given
@@ -40,7 +44,7 @@ Released July 4, 2013
 * Fixed error when `Save` button is pressed without opening a level first
 * Convert new level layout to uppercase (partial syntax checker)
 * Reworked save work flow to enable addition of layout syntax checker
-* Added syntax check for each item in layout, warns if error is present
+* Added syntax check for each character in layout, warns if error is present
 * Updated variables and comments in `write()`
 * Fixed outdated comment for Save button
 * Disabled New button (until code to support it can be written)
