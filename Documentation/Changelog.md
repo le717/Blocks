@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.8.6.6 ###
+### 0.8.6.7 ###
 Released ?? ??, 2013
 
 * Fixed New Level layout size
@@ -10,6 +10,7 @@ Released ?? ??, 2013
 * Updated titles on syntax check error boxes
 * Added line length to syntax check
 * Merged level size error boxes
+* Improved display of About text on main window
 
 ### 0.8.6 ###
 Released July 20, 2013

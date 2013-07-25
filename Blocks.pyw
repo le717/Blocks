@@ -43,7 +43,7 @@ def globals():
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".6.6"
+minver = ".6.7"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -303,7 +303,7 @@ def write(new_layout):
             # Update count
             count += 1
             # Define backup filename
-            # TODO: Limit the number of backups made to 3,
+            # TODO in 0.8.7 release: Limit the number of backups made to 3,
             # but preserve the first backup, AKA the oldest one
             backup_file = os.path.join(location, "{0}{1}{2}".format(
                 level_filename, ".bak", str(count)))
@@ -489,12 +489,12 @@ level.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
 level.insert("1.0", "Minigame layout will be displayed here.")
 
 # About Blocks text
-about_blocks = ttk.Label(mainframe, text='''                 {0} {1}{2}
-    Created 2013 Triangle717'''.format(app, majver, minver))
+about_blocks = ttk.Label(mainframe, text='''           {0} {1}{2}
+  Created 2013 Triangle717'''.format(app, majver, minver))
 about_blocks.grid(column=2, row=0, sticky=tk.N)
 
 # New button
-##new_button = ttk.Button(mainframe,text="New", command=New)
+##new_button = ttk.Button(mainframe, text="New", command=NewLevel)
 ##new_button.grid(column=2, row=1, sticky=tk.N)
 # Open button
 open_file = ttk.Button(mainframe, text="Open", command=OpenLevel)
