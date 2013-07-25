@@ -170,7 +170,7 @@ def syntax_check(*args):
 
     # Get the index for each line in the layout
     if debug:
-        print("The new layout is: \n")
+        print("\nThe new layout is:\n")
     for lineno, linetext in enumerate(layout_size):
 
         # Display line number and line content if debug messages are enabled
@@ -215,14 +215,6 @@ Your layout is only {0} lines!'''.format(lineno))
 
     # --- Begin Line Length Check --- #
 
-    """
-    FUN FACT!
-    I was listening to the Plastic Fantastic song
-    from IXS when I got this new line working
-    """
-    # Contains the number of lines that are too long/short
-    long_lines = []
-
     # Bit of spacing for debug messages
     if debug:
         print()
@@ -239,7 +231,8 @@ Your layout is only {0} lines!'''.format(lineno))
 
         # Display length of each line if debug messages are enabled
         if debug:
-            print("Line {0} is {1} characters long".format(linenum, len_of_line))
+            print("Line {0} is {1} characters long".format(
+                linenum, len_of_line))
 
         if (  # The line is more than 38 characters (counting spaces)
             #Techinally, they can be longer, but odd undocumented stuff occurs
@@ -247,16 +240,13 @@ Your layout is only {0} lines!'''.format(lineno))
             # All lines must be at least 38 characters (counting spaces)
             len_of_line < 38):
 
-            # Add line number of all faulty lines to the list
-            long_lines.append(linenum)
-            if debug:
-                print("{0}\n".format(long_lines))
-
             # Tell user the error
             if debug:
-                length = "Line {0} is {1} characters! The line must be exactly 38 characters, including spaces.".format(linenum, len_of_line)
+                print('''Line {0} is {1} characters! The line must be exactly
+38 characters, including spaces.'''.format(linenum, len_of_line))
             showerror("Length Error!", '''Line {0} is {1} characters!
-The line must be exactly 38 characters, including spaces.'''.format(linenum, len_of_line))
+The line must be exactly 38 characters, including spaces.'''.format(
+    linenum, len_of_line))
 
             # Return False so the saving process will not continue on
             return False
