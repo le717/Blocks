@@ -65,7 +65,7 @@ except IndexError:
 # ------------ Begin New Minigame Level ------------ #
 
 
-def New(*args):
+def NewLevel(*args):
     '''Create a new Minigame Level'''
 
     # Update variable saying a new level was created
@@ -97,7 +97,7 @@ def New(*args):
 # ------------ Begin Level Layout Opening ------------ #
 
 
-def Open(*args):
+def OpenLevel(*args):
     '''Reads Minigame Level'''
 
     # File type label for dialog box
@@ -118,7 +118,7 @@ def Open(*args):
         pass
     # The user selected a level
     else:
-        read(level_file)
+        ReadLevel(level_file)
 
 
 # ------------ End Level Layout Opening ------------ #
@@ -127,7 +127,7 @@ def Open(*args):
 # ------------ Begin Level Layout Reading ------------ #
 
 
-def read(level_file):
+def ReadLevel(level_file):
     '''Reads an existing level file'''
 
     # Update new level variable to denote a pre-existing level
@@ -367,7 +367,7 @@ Please relaunch Blocks as an Administrator.'''.format(level_filename))
 # ------------ Begin Level Legend Window ------------ #
 
 
-def the_legend(*args):
+def CharLegend(*args):
     '''Contains Level Character Legend'''
 
     # Spawn a new window, parent it to main window
@@ -402,16 +402,16 @@ def the_legend(*args):
     # Display the legend
     ttk.Label(legend_window, text=legend_text).grid()
 
-    def close_legend(*args):
-        '''Closes Legend Window'''
+    def CloseCharLegend(*args):
+        '''Closes Character Legend Window'''
         legend_window.destroy()
 
     # Bind <Ctrl + q> shortcut to close the legend window
-    legend_window.bind('<Control-q>', close_legend)
+    legend_window.bind('<Control-q>', CloseCharLegend)
 
     # Close Legend button
     close_legend_button = ttk.Button(legend_window, default="active",
-        text="Close", command=close_legend)
+        text="Close", command=CloseCharLegend)
     close_legend_button.grid(column=1, row=1, sticky=tk.S)
 
 
@@ -433,8 +433,9 @@ if sys.version_info < (3, 3, 0):
     showerror("Unsupported Python Version!", '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
 .format(sys.version[0:5], app, majver, minver))
+
     # Opens only when user clicks OK
-    # New tab, raise browser window (if possible)
+    # New tab, raise browser windows
     webbrowser.open_new_tab("http://python.org/download/")
     # Close Blocks
     raise SystemExit
@@ -487,7 +488,6 @@ level = tk.Text(mainframe, height=8, width=40, wrap="none")
 level.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
 level.insert("1.0", "Minigame layout will be displayed here.")
 
-
 # About Blocks text
 about_blocks = ttk.Label(mainframe, text='''                 {0} {1}{2}
     Created 2013 Triangle717'''.format(app, majver, minver))
@@ -497,14 +497,14 @@ about_blocks.grid(column=2, row=0, sticky=tk.N)
 ##new_button = ttk.Button(mainframe,text="New", command=New)
 ##new_button.grid(column=2, row=1, sticky=tk.N)
 # Open button
-open_file = ttk.Button(mainframe, text="Open", command=Open)
+open_file = ttk.Button(mainframe, text="Open", command=OpenLevel)
 open_file.grid(column=2, row=2, sticky=tk.N)
 # Save button
 save_file = ttk.Button(mainframe, text="Save", command=syntax_check)
 save_file.grid(column=2, row=3, sticky=tk.N)
 # Character Legend button
 legend_button = ttk.Button(mainframe, text="Character Legend",
-command=the_legend)
+command=CharLegend)
 legend_button.grid(column=0, row=0, columnspan=2)
 
 # Blocks Logo
@@ -518,20 +518,20 @@ for child in mainframe.winfo_children():
     child.grid_configure(padx=2, pady=2)
 
 
-def close(*args):
+def Close(*args):
     '''Closes Blocks'''
     raise SystemExit
 
 ## Bind <Ctrl + n> shortcut to New button
-root.bind("<Control-n>", New)
+root.bind("<Control-n>", NewLevel)
 # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
-root.bind("<Control-O>", Open)
+root.bind("<Control-O>", OpenLevel)
 # Bind <Ctrl + s> shortcut to Save button
 root.bind("<Control-s>", syntax_check)
 # Bind <Ctrl + q> shortcut to close function
-root.bind("<Control-q>", close)
+root.bind("<Control-q>", Close)
 # Bind F12 key to Character Legend button
-root.bind('<F12>', the_legend)
+root.bind('<F12>', CharLegend)
 
 # Run program
 root.mainloop()
