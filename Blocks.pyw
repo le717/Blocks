@@ -324,8 +324,8 @@ def write(new_layout):
             # Update count
             count += 1
             # Define backup filename
-			# TODO: Limit the number of backups made to 5,
-			# but preserve the first backup, AKA the oldest one
+            # TODO: Limit the number of backups made to 3,
+            # but preserve the first backup, AKA the oldest one
             backup_file = os.path.join(location, "{0}{1}{2}".format(
                 level_filename, ".bak", str(count)))
 
