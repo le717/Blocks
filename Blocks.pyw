@@ -43,7 +43,7 @@ def globals():
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".6.5"
+minver = ".6.6"
 app_logo = os.path.join("Media", "BlocksIcon.gif")
 app_icon = os.path.join("Media", "Blocks.ico")
 
@@ -182,31 +182,20 @@ def syntax_check(*args):
     # The actual line number
     lineno += 1
 
-    # If lineno is more than 7, AKA the level is more than 8 lines
-    if lineno > 8:
+    if (  # The level is more than 8 lines
+        lineno > 8 or
+        # The level is less than 8 lines
+        lineno < 8):
+
         # Display error message in console if debug messages are enabled
         if debug:
-            print('''\nThe level is too big! It must be only 8 lines,
-and yours is {0} lines!\n'''.format(lineno))
-        # Display error message to user telling them the level is too big
+            print('''\nYour level contains {0} lines!
+The level must be exactly 8 lines.'''.format(lineno))
+
+        # Display error message to user telling them about the error
         showerror("Size Error!",
-'''The level layout must be no more than 8 lines.
-Your layout takes up {0} lines!'''.format(lineno))
-
-        # Return False so the saving process will not continue on
-        return False
-
-    # On the flip side, if the index equals 0, AKA the level area is blank
-    # I could have merged these two messages, but I wanted to show different
-    # messages depending on the error. I still may merge them...
-    if lineno < 8:
-        # Display error message in console if debug messages are enabled
-        if debug:
-            print('''\nThe level is too small! It must be 8 lines,
-and yours is {0} lines!\n'''.format(lineno))
-        # Display error message to user telling them the level is too small
-        showerror("Size Error!", '''The level layout must be 8 lines.
-Your layout is only {0} lines!'''.format(lineno))
+'''Your level contains {0} lines!
+The level must be exactly 8 lines.\n'''.format(lineno))
 
         # Return False so the saving process will not continue on
         return False
@@ -235,7 +224,7 @@ Your layout is only {0} lines!'''.format(lineno))
                 linenum, len_of_line))
 
         if (  # The line is more than 38 characters (counting spaces)
-            #Techinally, they can be longer, but odd undocumented stuff occurs
+            # Techinally, they can be longer, but odd, undocumented stuff occurs
             len_of_line > 38 or
             # All lines must be at least 38 characters (counting spaces)
             len_of_line < 38):
