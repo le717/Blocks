@@ -11,6 +11,7 @@ Released ?? ??, 2013
 * Added line length to syntax check
 * Merged level size error boxes
 * Improved display of About text on main window
+* Relicensed **Blocks** under the [MIT license](http://opensource.org/licenses/mit-license.php)
 
 ### 0.8.6 ###
 Released July 20, 2013
