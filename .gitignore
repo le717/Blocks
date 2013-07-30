@@ -21,3 +21,4 @@ Freeze/
 *.blend2
 *.bak*
 *.zip
+*.pyc

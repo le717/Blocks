@@ -32,10 +32,9 @@ import webbrowser
 # Blocks constants
 from constants import *
 
-
 # User is not running >= Python 3.3.0
 if sys.version_info < (3, 3, 0):
-    #Python 2 import
+    # Import Python 2 Tkinter library
     import Tkinter as tk
     import tkMessageBox
     root = tk.Tk()
@@ -281,15 +280,10 @@ The line must be exactly 38 characters, including spaces.'''.format(
             # Return False so the saving process will not continue on
             return False
 
-    # TODO: Can I kill this line?
-    # Remove the list, keep proper formatting
-    fixed_layout = " ".join(layout_syntax)
-
     # --- End Character Syntax Check --- #
 
-    # TODO: Can I kill this line too, and just convert the original source?
     # Convert all text to uppercase
-    upper_layout = fixed_layout.upper()
+    upper_layout = layout.upper()
 
     if debug:
         print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
