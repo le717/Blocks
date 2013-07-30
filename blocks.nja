@@ -6,7 +6,7 @@
   "name": "Blocks", 
   "license": "MIT License", 
   "url": "https://github.com/le717/Blocks#readme", 
-  "pythonPath": "py -3.3", 
+  "pythonPath": "py -3.3-32", 
   "preExecScript": "", 
   "additional_builtins": [], 
   "programParams": "--debug", 
