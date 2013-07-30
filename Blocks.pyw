@@ -24,36 +24,44 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
+
+# Import just what is needed at the moment
 import sys
 import os
-import shutil
 import webbrowser
+# Blocks constants
+from constants import *
 
-try:
-    # Python 3 import
-    import tkinter as tk
-    from tkinter.filedialog import askopenfilename
-    from tkinter import ttk
-    from tkinter.messagebox import showerror
-except ImportError:
-    # Python 2 import
+
+# User is not running >= Python 3.3.0
+if sys.version_info < (3, 3, 0):
+    #Python 2 import
     import Tkinter as tk
-    from tkMessageBox import showerror
+    import tkMessageBox
+    root = tk.Tk()
+    root.withdraw()
+    root.iconbitmap(app_icon)
+    tkMessageBox.showerror("Unsupported Python Version!",
+'''You are running Python {0}.
+You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
+.format(sys.version[0:5], app, majver, minver))
 
+    # Opens only when user clicks OK
+    # New tab, raise browser windows
+    webbrowser.open_new_tab("http://python.org/download/")
+    # Close Blocks
+    raise SystemExit
 
-def globals():
-    '''Dummy function for easy access to global variables'''
-    pass
+# Now that we know we are running Python 3.3+,
+# let's import everything else we needed
+import shutil
+import subprocess
 
-# Global variables
-app = "Blocks"
-majver = "0.8"
-minver = ".6.7"
-app_logo = os.path.join("Media", "BlocksIcon.gif")
-app_icon = os.path.join("Media", "Blocks.ico")
-
-# Global variable defining if a new level was created or not
-new_level = False
+# Tkinter GUI library
+import tkinter as tk
+from tkinter.filedialog import askopenfilename
+from tkinter import ttk
+from tkinter.messagebox import showerror
 
 try:
     # If the debug parameter is passed, enable the debugging messages
@@ -273,11 +281,13 @@ The line must be exactly 38 characters, including spaces.'''.format(
             # Return False so the saving process will not continue on
             return False
 
+    # TODO: Can I kill this line?
     # Remove the list, keep proper formatting
     fixed_layout = " ".join(layout_syntax)
 
     # --- End Character Syntax Check --- #
 
+    # TODO: Can I kill this line too, and just convert the original source?
     # Convert all text to uppercase
     upper_layout = fixed_layout.upper()
 
@@ -348,6 +358,12 @@ Please relaunch Blocks as an Administrator.'''.format(level_filename))
             if debug:
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
+
+            # TEMP CODE
+            admin = input("Reopen as Admin? ")
+            if admin.lower() == "y":
+                subprocess.call("RunAsAdmin.exe")
+                raise SystemExit
 
         # Any other unhandled error occurred
         except Exception:
@@ -423,32 +439,6 @@ def CharLegend(*args):
 # ------------ End Level Legend Window ------------ #
 
 
-# ------------ Begin Python Version Check ------------ #
-
-
-def PyVerCheck(*args):
-    '''Dummy function for easy access to Python Version Check code'''
-    pass
-
-# User is not running >= Python 3.3.0
-if sys.version_info < (3, 3, 0):
-    root = tk.Tk()
-    root.withdraw()
-    root.iconbitmap(app_icon)
-    showerror("Unsupported Python Version!", '''You are running Python {0}.
-You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
-.format(sys.version[0:5], app, majver, minver))
-
-    # Opens only when user clicks OK
-    # New tab, raise browser windows
-    webbrowser.open_new_tab("http://python.org/download/")
-    # Close Blocks
-    raise SystemExit
-
-
-# ------------ End Python Version Check ------------ #
-
-
 # ------------ Begin Tkinter GUI Layout ------------ #
 
 
@@ -456,8 +446,6 @@ def GUI():
     '''Dummy function for easy access to GUI code'''
     pass
 
-# Run Python Version check
-PyVerCheck()
 # Root window settings
 root = tk.Tk()
 root.title("{0} {1}{2}".format(app, majver, minver))
