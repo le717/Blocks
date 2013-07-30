@@ -4,7 +4,7 @@
   "venv": "", 
   "relatedProjects": [], 
   "name": "Blocks", 
-  "license": "GNU General Public License v3", 
+  "license": "MIT License", 
   "url": "https://github.com/le717/Blocks#readme", 
   "pythonPath": "python", 
   "preExecScript": "", 
