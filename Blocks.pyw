@@ -60,7 +60,7 @@ import subprocess
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
 from tkinter import ttk
-from tkinter.messagebox import showerror
+from tkinter.messagebox import (showerror, askyesno)
 
 try:
     # If the debug parameter is passed, enable the debugging messages
@@ -119,10 +119,11 @@ def OpenLevel(*args):
     global level_file
     # Select the level file
     level_file = askopenfilename(
-    parent=root,
-    defaultextension=".TXT",
-    filetypes=formats,
-    title="Select a Minigame Layout")
+        parent=root,
+        defaultextension=".TXT",
+        filetypes=formats,
+        title="Select a Minigame Layout"
+    )
 
     # The user clicked the cancel button
     if not level_file:
@@ -235,6 +236,17 @@ The level must be exactly 8 lines.\n'''.format(lineno))
             print("Line {0} is {1} characters long".format(
                 linenum, len_of_line))
 
+        ## Convert the linedata to a list for a quick check
+        #temp_linedata = [linedata]
+
+    #if linedata[:-1] != " ":
+        #print(True)
+
+        #print(temp_linedata)
+        #temp_linedata.append(" ")
+        #print("\n\n\n", temp_linedata)
+        #return False
+
         if (  # The line is more than 38 characters (counting spaces)
             # Techinally, they can be longer, but odd, undocumented stuff occurs
             len_of_line > 38 or
@@ -245,6 +257,7 @@ The level must be exactly 8 lines.\n'''.format(lineno))
             if debug:
                 print('''Line {0} is {1} characters! The line must be exactly
 38 characters, including spaces.'''.format(linenum, len_of_line))
+
             showerror("Length Error!", '''Line {0} is {1} characters!
 The line must be exactly 38 characters, including spaces.'''.format(
     linenum, len_of_line))
@@ -299,6 +312,9 @@ The line must be exactly 38 characters, including spaces.'''.format(
 def write(new_layout):
     '''Writes Modded Minigame Level'''
 
+    # OPTIMIZE: This entire function, breaking it up,
+    # and allowing for the relaunch, new level, and maybe --open parameter
+
     try:
         # Get just the folder path to the file
         location = os.path.dirname(level_file)
@@ -312,7 +328,7 @@ def write(new_layout):
             # Update count
             count += 1
             # Define backup filename
-            # TODO in 0.8.7 release: Limit the number of backups made to 3,
+            # FIXME: in 0.8.7 release: Limit the number of backups made to 3,
             # but preserve the first backup, AKA the oldest one
             backup_file = os.path.join(location, "{0}{1}{2}".format(
                 level_filename, ".bak", str(count)))
@@ -353,11 +369,21 @@ Please relaunch Blocks as an Administrator.'''.format(level_filename))
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
 
-            # TEMP CODE
-            admin = input("Reopen as Admin? ")
-            if admin.lower() == "y":
-                subprocess.call("RunAsAdmin.exe")
+            # TODO: Possibly add ability to save temp file and reopen it?
+            admin = askyesno("Reload Blocks?",
+'''Would you like to relaunch Blocks with Administrator rights?
+Your level will be lost in the process!''')
+
+            # If user chooses to relaunch
+            if admin:
+                temp_file = temp_write(True, first_line, layout)
+                print(temp_file)
+                subprocess.call(["RunAsAdmin.exe", '--open "{0}"'.format(
+                    temp_file)])
                 raise SystemExit
+            # Return False so the saving process will not continue on
+            else:
+                return False
 
         # Any other unhandled error occurred
         except Exception:
@@ -374,6 +400,32 @@ Please relaunch Blocks as an Administrator.'''.format(level_filename))
         if debug:
             # Display complete traceback to console
             traceback.print_exc(file=sys.stderr)
+
+
+def temp_write(new=True, first_line=None, layout=None):
+    '''Saves the level to a temporary file'''
+
+    # Meaning we need to write a new temporary level
+    if new:
+        # Name and location of temp file
+        name = os.path.join(app_folder, "Temp_Level.TXT")
+
+        # Write the temp file, using binary mode
+        with open(name, "wb") as f:
+            # Rewrite the first line
+            f.write(first_line)
+            # Write the new layout
+            f.write(layout)
+            # Write requied ending line
+            f.write(b"\r\n ")
+
+        # Send back the path to the temporary level
+        print(name)
+        return name
+
+    # Meaning we need to remove a temporary level
+    elif not new:
+        os.unlink(name)
 
 
 # ------------ End Level Layout Writing ------------ #
@@ -504,13 +556,12 @@ image_frame.grid(column=2, row=3, sticky=tk.S)
 for child in mainframe.winfo_children():
     child.grid_configure(padx=2, pady=2)
 
-
 def Close(*args):
     '''Closes Blocks'''
     raise SystemExit
 
 ## Bind <Ctrl + n> shortcut to New button
-##root.bind("<Control-n>", NewLevel)
+root.bind("<Control-n>", NewLevel)
 # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
 root.bind("<Control-O>", OpenLevel)
 # Bind <Ctrl + s> shortcut to Save button
