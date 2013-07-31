@@ -22,3 +22,5 @@ Freeze/
 *.bak*
 *.zip
 *.pyc
+*.cfg
+*.exe
