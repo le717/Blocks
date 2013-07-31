@@ -236,16 +236,8 @@ The level must be exactly 8 lines.\n'''.format(lineno))
             print("Line {0} is {1} characters long".format(
                 linenum, len_of_line))
 
-        ## Convert the linedata to a list for a quick check
-        #temp_linedata = [linedata]
-
-    #if linedata[:-1] != " ":
-        #print(True)
-
-        #print(temp_linedata)
         #temp_linedata.append(" ")
         #print("\n\n\n", temp_linedata)
-        #return False
 
         if (  # The line is more than 38 characters (counting spaces)
             # Techinally, they can be longer, but odd, undocumented stuff occurs
@@ -264,6 +256,14 @@ The line must be exactly 38 characters, including spaces.'''.format(
 
             # Return False so the saving process will not continue on
             return False
+
+    # Convert the linedata to a list for a quick check
+    #temp_linedata = [linedata]
+    #print(temp_linedata)
+
+    #if linedata[:-304] != " ":
+        #print(True)
+        #return False
 
     # --- End Line Length Check --- #
 
@@ -303,6 +303,11 @@ The line must be exactly 38 characters, including spaces.'''.format(
             upper_layout))
     # Send the corrected layout for writing
     write(upper_layout)
+
+
+def line_length(layout):
+    '''Checks the length of each line'''
+    pass
 
 # ------------ End Level Layout Syntax Check ------------ #
 
