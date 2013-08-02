@@ -11,7 +11,6 @@ Released ?? ??, 2013
 * Added line length to syntax check
 * Merged level size error boxes
 * Improved display of About text on main window
-* Relicensed **Blocks** under the [MIT license](http://opensource.org/licenses/mit-license.php)
 * Split **Blocks** constants into a seperate script
 * Reworked Python version check, it now works as excepted
 * Improved method of uppercase conversion syntax check 
