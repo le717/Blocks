@@ -364,8 +364,8 @@ def backup(location, backup_file):
         try:
             # Copy the file, and try to preserve metadata
             shutil.copy2(level_file, backup_file)
-            # This has to be here so an infinite number of backups
-            # are not created
+            # This has to be here so an infinite number
+            # of backups are not created
             break
 
         # A level was edited directly in Program Files,
@@ -391,9 +391,6 @@ def write(new_layout):
         # Get just the folder path to the file
         location = os.path.dirname(level_file)
 
-        # They are the same, but this is needed to remove an error
-        backup_file = level_file
-
         try:
             # Read (original, not .bak*) file in binary mode
             with open(level_file, "rb") as f:
@@ -402,7 +399,7 @@ def write(new_layout):
                     first_line = f.readline()
 
             # Run process to backup the level
-            backup(location, backup_file)
+            backup(location, level_file)
 
             # Convert layout from str(ing) to binary
             layout = str.encode(new_layout, encoding="utf-8", errors="strict")
