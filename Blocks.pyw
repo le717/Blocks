@@ -345,11 +345,47 @@ def char_check(layout_syntax):
 
 # ------------ Begin Level Layout Writing ------------ #
 
+def backup(location, backup_file):
+    '''Makes a backup of the level before saving'''
+
+    # Used to rename the file if it already exists
+    count = 0
+    while os.path.exists(backup_file):
+
+        # Update count
+        count += 1
+
+        # Define backup filename
+        #FIXME: in 0.8.7 release: Limit the number of backups made to 3,
+        # but preserve the first backup, AKA the oldest one
+        backup_file = os.path.join(location, "{0}{1}{2}".format(
+            level_filename, ".bak", str(count)))
+
+        try:
+            # Copy the file, and try to preserve metadata
+            shutil.copy2(level_file, backup_file)
+            # This has to be here so an infinite number of backups
+            # are not created
+            break
+
+        # A level was edited directly in Program Files,
+        # or some other action that requried Admin rights
+        except PermissionError:
+
+            showerror("Insufficient User Rights2!",
+'''22Blocks does not have the user rights to save {0}!
+Please relaunch Blocks as an Administrator.22'''.format(level_filename))
+
+            if debug:
+                # Display complete traceback to console
+                traceback.print_exc(file=sys.stderr)
+
+
 def write(new_layout):
     '''Writes Modded Minigame Level'''
 
     #OPTIMIZE: This entire function, breaking it up,
-    # and allowing for the relaunch, new level, and maybe --open parameter
+    # allowing for the relaunch, new level, and maybe --open parameter
 
     try:
         # Get just the folder path to the file
@@ -358,26 +394,15 @@ def write(new_layout):
         # They are the same, but this is needed to remove an error
         backup_file = level_file
 
-        # Used to rename the file if it already exists
-        count = 0
-        while os.path.exists(backup_file):
-            # Update count
-            count += 1
-            # Define backup filename
-            #FIXME: in 0.8.7 release: Limit the number of backups made to 3,
-            # but preserve the first backup, AKA the oldest one
-            backup_file = os.path.join(location, "{0}{1}{2}".format(
-                level_filename, ".bak", str(count)))
-
         try:
-            # Copy the file, try to preserve metadata
-            shutil.copy2(level_file, backup_file)
-
             # Read (original, not .bak*) file in binary mode
             with open(level_file, "rb") as f:
                 # Read just the first line
                 for line in range(0, 1):
                     first_line = f.readline()
+
+            # Run process to backup the level
+            backup(location, backup_file)
 
             # Convert layout from str(ing) to binary
             layout = str.encode(new_layout, encoding="utf-8", errors="strict")
@@ -416,7 +441,7 @@ Your level will be lost in the process!''')
                 print(temp_file)
                 subprocess.call(["RunAsAdmin.exe", '--open "{0}"'.format(
                     temp_file)])
-                raise SystemExit
+                raise SystemExit(0)
             # Return False so the saving process will not continue on
             else:
                 return False
@@ -441,11 +466,11 @@ Your level will be lost in the process!''')
 def temp_write(new=True, first_line=None, layout=None):
     '''Saves the level to a temporary file'''
 
+    # Name and location of temp file
+    name = os.path.join(app_folder, "Temp_Level.TXT")
+
     # Meaning we need to write a new temporary level
     if new:
-        # Name and location of temp file
-        name = os.path.join(app_folder, "Temp_Level.TXT")
-
         # Write the temp file, using binary mode
         with open(name, "wb") as f:
             # Rewrite the first line
@@ -456,7 +481,6 @@ def temp_write(new=True, first_line=None, layout=None):
             f.write(b"\r\n ")
 
         # Send back the path to the temporary level
-        print(name)
         return name
 
     # Meaning we need to remove a temporary level

@@ -19,6 +19,8 @@ Released ?? ??, 2013
 * Fixed bug in line length check causing an extra space to be added after the last character in the layout
 * Split level size check into separate function
 * Split character check into separate function
+* Fixed deletion code in temporary file creation/deletion function
+* Split level backup process into separate function 
 
 ### 0.8.6 ###
 Released July 20, 2013
