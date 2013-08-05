@@ -175,18 +175,59 @@ itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
 def syntax_check(*args):
     '''Checks the  Level Layout for syntax errors'''
 
+    #OPTIMIZE: Entire function, breaking it into smaller chunks
+
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is requried to make everything work
     # Convert it to uppercase at the same time
     layout = level.get('1.0', 'end').upper()
 
-    # --- Begin Level Size Check --- #
-
     # Split the layout at each new line, removing the last two characters
     # This cannot be done above, it must be done here
     layout_size = layout[:-2].upper().split("\n")
 
-    # Get the index for each line in the layout
+    # Run level size check
+    size_check = level_size(layout_size)
+
+    # If the level size check returns an error,
+    if size_check == "Error":
+        # Return False so the saving process will not continue on
+        return False
+
+    # Run line length check
+    line_check = line_length(layout_size)
+
+    # If the line length check returns an error,
+    if line_check == "Error":
+        # Return False so the saving process will not continue on
+        return False
+
+    # Split the text at each space
+    layout_syntax = layout.split(" ")
+
+    # Run character check
+    valid_char = char_check(layout_syntax)
+
+    # If the character check returns an error,
+    if valid_char == "Error":
+        # Return False so the saving process will not continue on
+        return False
+
+    # Display final debug message for the syntax checker
+    if debug:
+        print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
+            layout))
+
+    # Send the corrected layout for writing
+    write(layout)
+
+
+# --- Begin Level Size Check --- #
+
+
+def level_size(layout_size):
+    '''Checks the size of the layout'''
+
     if debug:
         print("\nThe new layout is:\n")
 
@@ -217,59 +258,17 @@ The level must be exactly 8 lines.'''.format(lineno))
 '''Your level contains {0} lines!
 The level must be exactly 8 lines.\n'''.format(lineno))
 
-        # Return False so the saving process will not continue on
-        return False
+        # Return custom error message everything will work
+        return "Error"
 
-    # --- End Level Size Check --- #
+# --- End Level Size Check --- #
 
-    # Run line length check
-    line_check = line_length(layout_size)
 
-    # If the line length check returns an error,
-    if line_check == "Error":
-        # Return False so the saving process will not continue on
-        return False
-
-    # --- Begin Character Syntax Check --- #
-
-    # Split the text at each space
-    layout_syntax = layout.split(" ")
-
-    # Get indices and text for each line
-    for index, char in enumerate(layout_syntax):
-
-        # Remove \n, \t, and the like
-        char = char.strip()
-
-        # The proper location of the character
-        index += 1
-
-        # If any character in the layout is not in the list
-        if char.upper() not in itemlist:
-            if debug:
-                print('\nInvalid character "{0}" at position {1}\n'.format(
-                    char, index))
-            showerror("Syntax Error!",
-            'Invalid character: "{0}" at position {1}'.format(char, index))
-
-            # Return False so the saving process will not continue on
-            return False
-
-    # --- End Character Syntax Check --- #
-
-    # Display final debug message for the syntax checker
-    if debug:
-        print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
-            layout))
-
-    # Send the corrected layout for writing
-    write(layout)
+# --- Begin Line Length Check --- #
 
 
 def line_length(layout_size):
     '''Checks the length of each line'''
-
-    # --- Begin Line Length Check --- #
 
     # Bit of spacing for debug messages
     if debug:
@@ -308,7 +307,37 @@ The line must be exactly 38 characters, including spaces.'''.format(
             # Return custom error message everything will work
             return "Error"
 
-    # --- End Line Length Check --- #
+# --- End Line Length Check --- #
+
+
+# --- Begin Character Syntax Check --- #
+
+
+def char_check(layout_syntax):
+    '''Checks if each character in the layout is valid'''
+
+    # Get indices and text for each line
+    for index, char in enumerate(layout_syntax):
+
+        # Remove \n, \t, and the like
+        char = char.strip()
+
+        # The proper location of the character
+        index += 1
+
+        # If any character in the layout is not in the list
+        if char.upper() not in itemlist:
+            if debug:
+                print('\nInvalid character "{0}" at position {1}\n'.format(
+                    char, index))
+            showerror("Syntax Error!",
+            'Invalid character: "{0}" at position {1}'.format(char, index))
+
+            # Return custom error message everything will work
+            return "Error"
+
+
+# --- End Character Syntax Check --- #
 
 
 # ------------ End Level Layout Syntax Check ------------ #
