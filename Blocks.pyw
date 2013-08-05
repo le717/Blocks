@@ -179,8 +179,7 @@ def syntax_check(*args):
 
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is requried to make everything work
-    # Convert it to uppercase at the same time
-    layout = level.get('1.0', 'end').upper()
+    layout = level.get('1.0', 'end')
 
     # Split the layout at each new line, removing the last two characters
     # This cannot be done above, it must be done here
@@ -219,7 +218,10 @@ def syntax_check(*args):
             layout))
 
     # Send the corrected layout for writing
-    write(layout)
+    # new_layout[:-2] to remove the last line
+    # created by the Text Edit widget
+    # Also convert layout to uppercase so IXS won't crash
+    write(layout[:-2].upper())
 
 
 # --- Begin Level Size Check --- #
@@ -379,10 +381,8 @@ def write(new_layout):
                 for line in range(0, 1):
                     first_line = f.readline()
 
-            # Convert layout from string to binary
-            # new_layout[:-2] to remove the last line
-            # created by the Text Edit widget
-            layout = str.encode(new_layout[:-2], encoding="utf-8", errors="strict")
+            # Convert layout from str(ing) to binary
+            layout = str.encode(new_layout, encoding="utf-8", errors="strict")
 
             # Open the (original, not .bak*) level back up, again in binary mode
             with open(level_file, "wb") as f:
