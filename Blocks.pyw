@@ -175,8 +175,6 @@ itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
 def syntax_check(*args):
     '''Checks the  Level Layout for syntax errors'''
 
-    #OPTIMIZE: Entire function, breaking it into smaller chunks
-
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is requried to make everything work
     layout = level.get('1.0', 'end')
