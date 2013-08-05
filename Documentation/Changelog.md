@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.8.6.7 ###
+### 0.8.6.8 ###
 Released ?? ??, 2013
 
 * Fixed New Level layout size
@@ -11,9 +11,14 @@ Released ?? ??, 2013
 * Added line length to syntax check
 * Merged level size error boxes
 * Improved display of About text on main window
-* Split **Blocks** constants into a seperate script
+* Split **Blocks** constants into a separate script
 * Reworked Python version check, it now works as excepted
 * Improved method of uppercase conversion syntax check 
+* Moved list of allowed characters in a layout to the global name-space
+* Convert all level text to uppercase before all the syntax check begins, rather than at the end;
+Character checker is still case-insensitive
+* Split line length check into separate function
+* Fixed bug in line length check causing an extra space to be added after the last character in the layout
 
 ### 0.8.6 ###
 Released July 20, 2013

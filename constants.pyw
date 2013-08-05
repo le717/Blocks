@@ -6,7 +6,7 @@ import sys
 # Global variables
 app = "Blocks"
 majver = "0.8"
-minver = ".6.7"
+minver = ".6.8"
 
 # Name of Blocks Exe/Py
 exe_name = os.path.basename(sys.argv[0])

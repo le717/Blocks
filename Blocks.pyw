@@ -24,6 +24,7 @@
 import sys
 import os
 import webbrowser
+
 # Blocks constants
 from constants import *
 
@@ -43,6 +44,7 @@ You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
     # Opens only when user clicks OK
     # New tab, raise browser windows
     webbrowser.open_new_tab("http://python.org/download/")
+
     # Close Blocks
     raise SystemExit
 
@@ -164,21 +166,31 @@ def ReadLevel(level_file):
 
 # ------------ Begin Level Layout Syntax Check ------------ #
 
+# The allowed characters in a layout
+# This is in the global namespace because a couple of things reference it
+itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
+"GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV"]
+
 
 def syntax_check(*args):
     '''Checks the  Level Layout for syntax errors'''
 
-    # Get new layout from text box, minus the new line the text widget adds
-    layout = level.get('1.0', 'end -2 chars')
+    # Get new layout from text box, including the extra line
+    # the Text Edit widget makes. This is requried to make everything work
+    # Convert it to uppercase at the same time
+    layout = level.get('1.0', 'end').upper()
 
     # --- Begin Level Size Check --- #
 
-    # Split the layout at each new line
-    layout_size = layout.split("\n")
+    # Split the layout at each new line, removing the last two characters
+    # This cannot be done above, it must be done here
+    layout_size = layout[:-2].upper().split("\n")
 
     # Get the index for each line in the layout
     if debug:
         print("\nThe new layout is:\n")
+
+    # Get the indices and text for each line
     for lineno, linetext in enumerate(layout_size):
 
         # Display line number and line content if debug messages are enabled
@@ -210,6 +222,53 @@ The level must be exactly 8 lines.\n'''.format(lineno))
 
     # --- End Level Size Check --- #
 
+    # Run line length check
+    line_check = line_length(layout_size)
+
+    # If the line length check returns an error,
+    if line_check == "Error":
+        # Return False so the saving process will not continue on
+        return False
+
+    # --- Begin Character Syntax Check --- #
+
+    # Split the text at each space
+    layout_syntax = layout.split(" ")
+
+    # Get indices and text for each line
+    for index, char in enumerate(layout_syntax):
+
+        # Remove \n, \t, and the like
+        char = char.strip()
+
+        # The proper location of the character
+        index += 1
+
+        # If any character in the layout is not in the list
+        if char.upper() not in itemlist:
+            if debug:
+                print('\nInvalid character "{0}" at position {1}\n'.format(
+                    char, index))
+            showerror("Syntax Error!",
+            'Invalid character: "{0}" at position {1}'.format(char, index))
+
+            # Return False so the saving process will not continue on
+            return False
+
+    # --- End Character Syntax Check --- #
+
+    # Display final debug message for the syntax checker
+    if debug:
+        print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
+            layout))
+
+    # Send the corrected layout for writing
+    write(layout)
+
+
+def line_length(layout_size):
+    '''Checks the length of each line'''
+
     # --- Begin Line Length Check --- #
 
     # Bit of spacing for debug messages
@@ -231,9 +290,6 @@ The level must be exactly 8 lines.\n'''.format(lineno))
             print("Line {0} is {1} characters long".format(
                 linenum, len_of_line))
 
-        #temp_linedata.append(" ")
-        #print("\n\n\n", temp_linedata)
-
         if (  # The line is more than 38 characters (counting spaces)
             # Techinally, they can be longer, but odd, undocumented stuff occurs
             len_of_line > 38 or
@@ -249,60 +305,11 @@ The level must be exactly 8 lines.\n'''.format(lineno))
 The line must be exactly 38 characters, including spaces.'''.format(
     linenum, len_of_line))
 
-            # Return False so the saving process will not continue on
-            return False
-
-    # Convert the linedata to a list for a quick check
-    #temp_linedata = [linedata]
-    #print(temp_linedata)
-
-    #if linedata[:-304] != " ":
-        #print(True)
-        #return False
+            # Return custom error message everything will work
+            return "Error"
 
     # --- End Line Length Check --- #
 
-    # --- Begin Character Syntax Check --- #
-
-    # Split the text at each space
-    layout_syntax = layout.split(" ")
-
-    # The allowed characters in a layout
-    itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
-    "GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV"]
-
-    for index, char in enumerate(layout_syntax):
-        # Remove \n, \t, and the like
-        char = char.strip()
-
-        # The proper location of the character
-        index += 1
-
-        # If any character in the layout is not in the list
-        if char.upper() not in itemlist:
-            if debug:
-                print('\nInvalid character "{0}" at position {1}\n'.format(
-                    char, index))
-            showerror("Syntax Error!",
-            'Invalid character: "{0}" at position {1}'.format(char, index))
-            # Return False so the saving process will not continue on
-            return False
-
-    # --- End Character Syntax Check --- #
-
-    # Convert all text to uppercase
-    upper_layout = layout.upper()
-
-    if debug:
-        print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
-            upper_layout))
-    # Send the corrected layout for writing
-    write(upper_layout)
-
-
-def line_length(layout):
-    '''Checks the length of each line'''
-    pass
 
 # ------------ End Level Layout Syntax Check ------------ #
 
@@ -312,7 +319,7 @@ def line_length(layout):
 def write(new_layout):
     '''Writes Modded Minigame Level'''
 
-    # OPTIMIZE: This entire function, breaking it up,
+    #OPTIMIZE: This entire function, breaking it up,
     # and allowing for the relaunch, new level, and maybe --open parameter
 
     try:
@@ -328,7 +335,7 @@ def write(new_layout):
             # Update count
             count += 1
             # Define backup filename
-            # FIXME: in 0.8.7 release: Limit the number of backups made to 3,
+            #FIXME: in 0.8.7 release: Limit the number of backups made to 3,
             # but preserve the first backup, AKA the oldest one
             backup_file = os.path.join(location, "{0}{1}{2}".format(
                 level_filename, ".bak", str(count)))
@@ -344,7 +351,9 @@ def write(new_layout):
                     first_line = f.readline()
 
             # Convert layout from string to binary
-            layout = str.encode(new_layout, encoding="utf-8", errors="strict")
+            # new_layout[:-2] to remove the last line
+            # created by the Text Edit widget
+            layout = str.encode(new_layout[:-2], encoding="utf-8", errors="strict")
 
             # Open the (original, not .bak*) level back up, again in binary mode
             with open(level_file, "wb") as f:
@@ -369,7 +378,7 @@ Please relaunch Blocks as an Administrator.'''.format(level_filename))
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
 
-            # TODO: Possibly add ability to save temp file and reopen it?
+            #TODO: Possibly add ability to save temp file and reopen it?
             admin = askyesno("Reload Blocks?",
 '''Would you like to relaunch Blocks with Administrator rights?
 Your level will be lost in the process!''')
@@ -555,6 +564,7 @@ image_frame.grid(column=2, row=3, sticky=tk.S)
 # Padding around all the elements
 for child in mainframe.winfo_children():
     child.grid_configure(padx=2, pady=2)
+
 
 def Close(*args):
     '''Closes Blocks'''
