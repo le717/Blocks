@@ -92,7 +92,7 @@ def NewLevel(*args):
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F '''
+ F  F  F  F  F  F  F  F  F  F  F  F  F'''
 
     # Remove the old content
     level.delete("1.0", "end")
@@ -128,6 +128,11 @@ def OpenLevel(*args):
         pass
     # The user selected a level
     else:
+
+        # Display  full path to the file
+        if debug:
+            print(level_file)
+        # Send the file off for reading
         ReadLevel(level_file)
 
 
@@ -154,10 +159,16 @@ def ReadLevel(level_file):
     with open(level_file, "rt") as f:
         lines = f.readlines()[:]
 
-    # Skip nulls, since they cannot be displayed,
-    # and display only the layout
+    # Skip nulls, since they cannot be displayed
     layout = "".join(lines[1:9])
+
+    # Remove the trailing new line so the syntax checker will work correctly
+    layout = layout.rstrip("\n")
+
+    # Remove all text in the widget
     level.delete("1.0", "end")
+
+    # (music) Put the layout in the widget and edit it all up (music)
     level.insert("1.0", layout)
 
 
@@ -191,13 +202,23 @@ def syntax_check(*args):
         # Return False so the saving process will not continue on
         return False
 
+    # Delete the list to free up resources
+    del layout_size[:]
+
+    # Split the layout at each new line, removing the last character
+    # This split has to be done again but differently for the check to work
+    line_size = layout[:-1].upper().split("\n")
+
     # Run line length check
-    line_check = line_length(layout_size)
+    line_check = line_length(line_size)
 
     # If the line length check returns an error,
     if line_check == "Error":
         # Return False so the saving process will not continue on
         return False
+
+    # Delete the list to free up resources
+    del line_size[:]
 
     # Split the text at each space
     layout_syntax = layout.split(" ")
@@ -210,16 +231,18 @@ def syntax_check(*args):
         # Return False so the saving process will not continue on
         return False
 
+    # Delete the list to free up resources
+    del layout_syntax[:]
+
     # Display final debug message for the syntax checker
     if debug:
         print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
             layout))
 
     # Send the corrected layout for writing
-    # new_layout[:-2] to remove the last line
-    # created by the Text Edit widget
+    # new_layout[:-1] so the last character is not left out
     # Also convert layout to uppercase so IXS won't crash
-    write(layout[:-2].upper())
+    write(layout[:-1].upper())
 
 
 # --- Begin Level Size Check --- #
@@ -267,16 +290,15 @@ The level must be exactly 8 lines.\n'''.format(lineno))
 # --- Begin Line Length Check --- #
 
 
-def line_length(layout_size):
+def line_length(line_size):
     '''Checks the length of each line'''
 
     # Bit of spacing for debug messages
     if debug:
         print()
 
-    # Repeat the enumeration, so we can check line length
-    # Use different variables so nothing conflicts
-    for linenum, linedata in enumerate(layout_size):
+    # Get the indices and text for each line
+    for linenum, linedata in enumerate(line_size):
 
         # The actual line number
         linenum += 1
@@ -289,11 +311,8 @@ def line_length(layout_size):
             print("Line {0} is {1} characters long".format(
                 linenum, len_of_line))
 
-        if (  # The line is more than 38 characters (counting spaces)
-            # Techinally, they can be longer, but odd, undocumented stuff occurs
-            len_of_line > 38 or
-            # All lines must be at least 38 characters (counting spaces)
-            len_of_line < 38):
+        # If the line is less than 38 characters, counting spaces
+        if len_of_line < 38:
 
             # Tell user the error
             if debug:
@@ -306,6 +325,14 @@ The line must be exactly 38 characters, including spaces.'''.format(
 
             # Return custom error message everything will work
             return "Error"
+
+            """
+            While all lines must be at least 38 characters, some levels has
+            lines that are 39 characters.
+            Techinally, they can be longer, but odd, undocumented stuff occurs
+            when extra characters are added
+            to the left or right side of the layout.
+            """
 
 # --- End Line Length Check --- #
 
@@ -372,9 +399,8 @@ def backup(location, backup_file):
         # or some other action that requried Admin rights
         except PermissionError:
 
-            showerror("Insufficient User Rights2!",
-'''22Blocks does not have the user rights to save {0}!
-Please relaunch Blocks as an Administrator.22'''.format(level_filename))
+            showerror("Insufficient User Right!",
+'''Blocks does not have the user rights to save {0}!'''.format(level_filename))
 
             if debug:
                 # Display complete traceback to console
@@ -410,8 +436,6 @@ def write(new_layout):
                 f.write(first_line)
                 # Write the new layout
                 f.write(layout)
-                # Write requied ending line
-                f.write(b"\r\n ")
 
             # Display sucess dialog
             tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
@@ -420,9 +444,7 @@ def write(new_layout):
         # A level was edited directly in Program Files,
         # and Blocks was run without Admin rights
         except PermissionError:
-            showerror("Insufficient User Rights!",
-'''Blocks does not have the user rights to save {0}!
-Please relaunch Blocks as an Administrator.'''.format(level_filename))
+
             if debug:
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
@@ -439,8 +461,9 @@ Your level will be lost in the process!''')
                 subprocess.call(["RunAsAdmin.exe", '--open "{0}"'.format(
                     temp_file)])
                 raise SystemExit(0)
-            # Return False so the saving process will not continue on
+
             else:
+                # Return False so the saving process will not continue on:
                 return False
 
         # Any other unhandled error occurred
@@ -474,8 +497,6 @@ def temp_write(new=True, first_line=None, layout=None):
             f.write(first_line)
             # Write the new layout
             f.write(layout)
-            # Write requied ending line
-            f.write(b"\r\n ")
 
         # Send back the path to the temporary level
         return name

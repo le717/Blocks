@@ -16,11 +16,13 @@ Released ?? ??, 2013
 * Improved method of uppercase conversion syntax check 
 * Moved list of allowed characters in a layout to the global name-space
 * Split line length check into separate function
-* Fixed bug in line length check causing an extra space to be added after the last character in the layout
 * Split level size check into separate function
 * Split character check into separate function
 * Fixed deletion code in temporary file creation/deletion function
-* Split level backup process into separate function 
+* Split level backup process into separate function
+* Fixed bug in line length check causing an extra space to be added after the last character in the layout
+* Delete lists created by syntax checks after the check is complete to free up system resources 
+* Removed writing of `\r\n` at the end of each level
 
 ### 0.8.6 ###
 Released July 20, 2013
