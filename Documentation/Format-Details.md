@@ -19,7 +19,7 @@ They do not exist in any other folders.
 * They consist of `10` (ten) lines: the first is a letter, followed by the Hex values `01 00 00`, and a number. 
 The next `9` (nine) lines are the level itself (laid out in a 13x8 grid). The last line ends with ```\r\n``` and a space.
 
-* The first and last lines of the files can be safely removed, without the game crashing.
+* The first and last lines of the files can be safely removed without the game crashing.
 
 * All blocks must be indented to the left, that is, the first letter must be to the left of the other letter in a blank area. 
 However, blocks on the left corner must be indented to the right, with the second letter offset to the right of the other letter, also in a blank area 
@@ -42,7 +42,8 @@ to their proper location will complete the level.
 
 * There is a special block, `RB`, that is present only in Red, and moves only to the right of the level.
 
-* The line length for every line in a file must equal 38 characters, counting spaces.
+* The line length for every line in a file must at least 38 characters, including spaces, but some levels in the Post Office have lines that are 39 characters,
+also including spaces.
 
 ### Needs More Research
 
