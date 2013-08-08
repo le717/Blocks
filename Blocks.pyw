@@ -448,11 +448,14 @@ def write(new_layout):
 
         # A level was edited directly in Program Files,
         # and Blocks was run without Admin rights
-        except PermissionError:
+        except PermissionError as Perm:
 
             if debug:
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
+
+            # Write error to log
+            ErrorLog(Perm)
 
             #TODO: Possibly add ability to save temp file and reopen it?
             admin = askyesno("Reload Blocks?",
@@ -472,20 +475,26 @@ Your level will be lost in the process!''')
                 return False
 
         # Any other unhandled error occurred
-        except Exception:
+        except Exception as Exc:
             showerror("An Error Has Occurred!",
 "Blocks ran into an unknown error while trying to {0}!".format(level_filename))
             if debug:
                 # Display complete traceback to console
                 traceback.print_exc(file=sys.stderr)
 
+            # Write error to log
+            ErrorLog(Exc)
+
     # The user tried to same a level without loading one first
-    except NameError:
+    except NameError as NE:
         showerror("Cannot Save Level!",
 "A minigame level has not been selected for editing!")
         if debug:
             # Display complete traceback to console
             traceback.print_exc(file=sys.stderr)
+
+        # Write error to log
+        ErrorLog(NE)
 
 
 def temp_write(new=True, first_line=None, layout=None):
