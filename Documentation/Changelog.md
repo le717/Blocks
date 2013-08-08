@@ -23,6 +23,8 @@ Released ?? ??, 2013
 * Fixed bug in line length check causing an extra space to be added after the last character in the layout
 * Delete lists created by syntax checks after the check is complete to free up system resources 
 * Removed writing of `\r\n` at the end of each level
+* Limited number of level backups to one (1), cleaned up backup code
+* Dump any errors to log
 
 ### 0.8.6 ###
 Released July 20, 2013

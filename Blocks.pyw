@@ -52,6 +52,7 @@ You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
 # let's import everything else we needed
 import shutil
 import subprocess
+import time
 
 # Tkinter GUI library
 import tkinter as tk
@@ -70,6 +71,19 @@ except IndexError:
     # The debug parameter was not passed, don't display debugging messages
     debug = False
 
+
+def ErrorLog(error):
+    '''Logs all errors'''
+
+    # Define log name and location
+    log_file = os.path.join(os.path.expanduser("~"), "Blocks.log")
+
+    # Get the current time, so we know when the error occured
+    cur_time = time.strftime("%H:%M:%S", time.localtime())
+
+    # Write the traceback, appending it to the existing log
+    with open(log_file, "at") as f:
+        f.write("{0} {1}\n".format(cur_time, error))
 
 # ------------ Begin New Minigame Level ------------ #
 
@@ -375,36 +389,27 @@ def char_check(layout_syntax):
 def backup(location, backup_file):
     '''Makes a backup of the level before saving'''
 
-    # Used to rename the file if it already exists
-    count = 0
-    while os.path.exists(backup_file):
+    # Define the name and location of the backup
+    backup_file = os.path.join(location, "{0}{1}".format(
+        level_filename, ".bak"))
 
-        # Update count
-        count += 1
+    try:
+        # Copy the file, and try to preserve metadata
+        shutil.copy2(level_file, backup_file)
 
-        # Define backup filename
-        #FIXME: in 0.8.7 release: Limit the number of backups made to 3,
-        # but preserve the first backup, AKA the oldest one
-        backup_file = os.path.join(location, "{0}{1}{2}".format(
-            level_filename, ".bak", str(count)))
+    # A level was edited directly in Program Files,
+    # or some other action that requried Admin rights
+    except PermissionError as Perm:
 
-        try:
-            # Copy the file, and try to preserve metadata
-            shutil.copy2(level_file, backup_file)
-            # This has to be here so an infinite number
-            # of backups are not created
-            break
-
-        # A level was edited directly in Program Files,
-        # or some other action that requried Admin rights
-        except PermissionError:
-
-            showerror("Insufficient User Right!",
+        showerror("Insufficient User Right!",
 '''Blocks does not have the user rights to save {0}!'''.format(level_filename))
 
-            if debug:
-                # Display complete traceback to console
-                traceback.print_exc(file=sys.stderr)
+        if debug:
+            # Display complete traceback to console
+            traceback.print_exc(file=sys.stderr)
+
+        # Write error to log
+        ErrorLog(Perm)
 
 
 def write(new_layout):
