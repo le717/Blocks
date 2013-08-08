@@ -30,12 +30,17 @@ from constants import *
 
 # User is not running >= Python 3.3.0
 if sys.version_info < (3, 3, 0):
+
     # Import Python 2 Tkinter library
     import Tkinter as tk
     import tkMessageBox
+
+    # Draw (and withdraw) root window
     root = tk.Tk()
     root.withdraw()
+    # Add icon
     root.iconbitmap(app_icon)
+    # Display error message
     tkMessageBox.showerror("Unsupported Python Version!",
 '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
@@ -53,6 +58,7 @@ You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
 import shutil
 import subprocess
 import time
+import argparse
 
 # Tkinter GUI library
 import tkinter as tk
