@@ -66,15 +66,34 @@ from tkinter.filedialog import askopenfilename
 from tkinter import ttk
 from tkinter.messagebox import (showerror, askyesno)
 
-try:
-    # If the debug parameter is passed, enable the debugging messages
-    if sys.argv[1] == "--debug":
-        debug = True
-        os.system("title Blocks {0}{1} - Debug".format(majver, minver))
-        import traceback
-        print("\nDebug messages have been enabled.\n")
-except IndexError:
-    # The debug parameter was not passed, don't display debugging messages
+parser = argparse.ArgumentParser(
+    description="{0} {1}{2} Command-line arguments".format(
+        app, majver, minver))
+
+# Debug message argument
+parser.add_argument("-d", "--debug",
+help='Dispay debugging messages',
+action="store_true")
+
+# Open file argument
+parser.add_argument("-o", help="Open a level file")
+
+# Register all the parameters
+args = parser.parse_args()
+
+# Declare parameters
+debugarg = args.debug
+openarg = args.o
+
+# If the debug parameter is passed, enable the debugging messages
+if debugarg:
+    debug = True
+    os.system("title Blocks {0}{1} - Debug".format(majver, minver))
+    import traceback
+    print("\nDebug messages have been enabled.\n")
+
+# The debug parameter was not passed, don't display debugging message
+else:
     debug = False
 
 

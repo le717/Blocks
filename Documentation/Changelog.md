@@ -25,6 +25,7 @@ Released ?? ??, 2013
 * Removed writing of `\r\n` at the end of each level
 * Limited number of level backups to one (1), cleaned up backup code
 * Dump any errors to log
+* Rewrote command-line arguments using `argparse`
 
 ### 0.8.6 ###
 Released July 20, 2013
