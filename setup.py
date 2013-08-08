@@ -38,7 +38,11 @@ if sys.maxsize == 2147483647:
 else:
     input('''\n64-bit binaries are not frozen.
 Please freeze Blocks using 32-bit Python 3.3.''')
-    raise SystemExit
+    raise SystemExit(0)
+
+# Write the required RunAsAdmin cfg file
+with open(os.path.join(destfolder, "RunAsAdmin.cfg"), "wt") as f:
+    f.write("Blocks.exe")
 
 build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
