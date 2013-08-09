@@ -24,14 +24,11 @@
 # and https://github.com/JrMasterModelBuilder/JAM-Extractor
 # With changes by Triangle717
 
-from cx_Freeze import setup, Executable
+from cx_Freeze import (setup, Executable)
 import sys
 import os
 
-# Append build command to command-line arguments.
-# Just type "python setup.py" and it will freeze
-if len(sys.argv) == 1:
-    sys.argv[1:] = ["build"]
+from constants import (majver, minver)
 
 if sys.maxsize == 2147483647:
     destfolder = os.path.join("Freeze", "Windows")
@@ -57,7 +54,7 @@ build_exe_options = {"build_exe": destfolder,
 
 setup(
     name="Blocks",
-    version="0.8.6",
+    version="{0}{1}".format(majver, minver),
     author="Triangle717",
     description="Island Xtreme Stunts Minigame Level Editor",
     license="GNU GPLv3",
