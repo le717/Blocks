@@ -14,7 +14,7 @@ Table of Contents
 <td><a href="#requirements">Requirements</a></td>
 <td><a href="#character-legend">Character Legend</a></td>
 <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
-<td><a href="#lesson-1-indention-matters">Lesson #1</a></td>
+<td><a href="#lesson-1-indentation-matters">Lesson #1</a></td>
 <td><a href="#lesson-2-making-sure-it-all-works">Lesson #2</a></td>
 <td><a href="#lesson-3-jumping-to-specific-levels">Lesson #3</a></td>
 <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
@@ -85,15 +85,15 @@ but use examples in addition to explaining why we do what we do. :smile:
 
 The first modding example we will do is add a Blocked Wall to the layout. We remember from our Legend a Blocked Wall is signified by a `BW`.
 (If you don't remember, fell free to peek back at the Legend any time you need to. :wink:) To start, we are going to add a Blocked Wall on 
-the top row, on the 8th column. However, before we add our wall, we need to speak a bit on indention.
+the top row, on the 8th column. However, before we add our wall, we need to speak a bit on indentation.
 
-#### Lesson #1: Indention Matters! ####
+#### Lesson #1: Indentation Matters! ####
 
 Look carefully at the level layout. You will notice that the code for any non-free tile consists of two letters, rather than one. 
 Also, the first letter of the code is offset to the left of the free tile code. Except in special circumstances (as we will see later), 
 the codes for *any* non-free cube/tile follow this pattern.
 
-Well, now that we know a bit about indention, let's add our Blocked Wall!
+Well, now that we know a bit about indentation, let's add our Blocked Wall!
 
 * Run **Blocks**, and open the level file (`<Ctrl + Shift + O>`), or  open it in **Notepad++** (`<Ctrl + o>`). If you don't remember where it is located, 
 the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank). If you are editing the level straight from Program Files,
@@ -115,7 +115,7 @@ but now, it should look like this:
 If you performed the editing correctly, the game will successfully load your modded level, and you will see a new Blocked Wall where you placed it!
 If you didn't, then the game will crash. Even with this little bit of knowledge, you can mod the minigame levels, as cubes and non-free tiles all work this way.
 
-> **Recap:** You just learned that indention matters, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
+> **Recap:** You just learned that indentation matters, how to open a level in **Blocks** or **Notepad++** add a Blocked Wall using the `BW` code, 
 > ensuring it is properly indented to the left of the other codes, saving it, and testing it out! Give yourself a pat on the back! :clap:
 
 Now we will dive into some lessons to learn a few things that will help us in our quest for modding.
@@ -159,15 +159,16 @@ corner is indented to the right, so the `W` is aligned with the `F` on the top a
  BW F  F  F  F  F  F BW  F  F  F  F  F
  F  F  F BW  F  F  F  F  F  F  F  F  F
 ``` 
-What's more, this right indention will continue until either the end of the line or the first free tile is reached. An example of this indention would look like:
+What's more, this right indentation will continue until either the end of the line or the first free tile is reached.
+An example of this indentation would look like:
 
 ```
  BW BW BW BW BW BW F BW  F  F  F  F  F
  F  F  F BW  F  F  F  F  F  F  F  F  F
 ``` 
-So adding a cube on the left corner affects the most (if not the entire) indention of the line!
+So adding a cube on the left corner affects the most (if not the entire) indentation of the line!
 
-> **Recap:** You just learned how to add a cube on the left corner, the proper indention for the cube, and the effects it has on the line! Be proud of 
+> **Recap:** You just learned how to add a cube on the left corner, the proper indentation for the cube, and the effects it has on the line! Be proud of 
 yourself! :thumbsup:
 
 [:arrow_up: Back to Top](#building-with-blocks)
@@ -186,7 +187,7 @@ An `One-way, west-bound Red Cube` is a unique cube in *Island Xtreme Stunts*. Th
 validates any color Tile (not only Red) and even have special properties, since it only move ones direction, to the right of the layout. If you think about the 
 level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, the bottom South, the left side East, and the right side 
 West, you'll find this cube only moves West. You can't push it North or South, and clearly not East, only West. The only un-special-ness about the 
-cube is that it can still be sunk in Water, it still follows all the indention rules, and you can't pull it (just all everything else, but since pulling is 
+cube is that it can still be sunk in Water, it still follows all the indentation rules, and you can't pull it (just all everything else, but since pulling is 
 clearly not possible, why do I even mention it?). As for the name of the cube: After I was told about this by Xiron, another modder, and was adding it into the 
 Character Legend, I was unable to write a better description for it. I asked around for a new name, to no avail, until I finally had this thought:
 
@@ -210,7 +211,7 @@ and use a fresh layout, containing nothing but Free tiles.
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Let's start by placing a Red Tile (`RT`) at the 11th column of the 4th row (remember, indention matters!). Lines 3 and 5 now look like this:
+Let's start by placing a Red Tile (`RT`) at the 11th column of the 4th row (remember, indentation matters!). Lines 3 and 5 now look like this:
 
 ```
  F  F  F  F  F  F  F  F  F  F  F  F  F
@@ -256,6 +257,7 @@ level layout. High five! :raised_hand:
 
 ### Task #4: Water ###
 
-#### While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me from writing it at this time. I'm sorry for any inconvenience this may have caused you. ####
+#### While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me
+from writing it at this time. I'm sorry for any inconvenience this may have caused you. ####
 
 [:arrow_up: Back to Top](#building-with-blocks)
