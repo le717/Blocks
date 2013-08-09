@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.8.6.8 ###
+### 0.8.7.8 ###
 Released ?? ??, 2013
 
 * Fixed New Level layout size

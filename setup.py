@@ -46,7 +46,7 @@ build_exe_options = {"build_exe": destfolder,
                      "include_files": [
                      "LICENSE.txt",
                      "Media/Blocks.ico",
-                     "Media/BlocksIcon.gif",
+                     "Media/Blocks.gif",
                      "Documentation/Changelog.md",
                      "Documentation/Format-Details.md",
                      "Documentation/Tutorial.md"]
