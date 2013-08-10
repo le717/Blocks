@@ -59,7 +59,6 @@ import shutil
 import subprocess
 import time
 import argparse
-import traceback
 
 # Tkinter GUI library
 import tkinter as tk
@@ -200,8 +199,8 @@ def ReadLevel(level_file, cmd=False):
     if debug:
         print("\nA new level is not being created.\n")
 
+    # If the command-line parameter was not invoked
     if not cmd:
-
         # Get just the file name, assign it as global
         global level_filename
         level_filename = os.path.basename(level_file)
@@ -224,16 +223,6 @@ def ReadLevel(level_file, cmd=False):
 
         # (music) Put the layout in the widget and edit it all up (music)
         level.insert("1.0", layout)
-
-    if cmd:
-        root.mainloop()
-
-        # Remove all text in the widget
-        level.delete("1.0", "end")
-
-        # (music) Put the layout in the widget and edit it all up (music)
-        level.insert("1.0", layout)
-
 
 
 # ------------ End Level Layout Reading ------------ #
@@ -455,10 +444,10 @@ def backup(location, backup_file):
 '''Blocks does not have the user rights to save {0}!'''.format(level_filename))
 
         if debug:
-            # Display complete traceback to console
-            traceback.print_exc(file=sys.stderr)
+            # Display traceback to console
+            print(Perm)
 
-        # Write error to log
+        # Write traceback to log
         ErrorLog(Perm)
 
 
@@ -501,13 +490,13 @@ def write(new_layout):
         except PermissionError as Perm:
 
             if debug:
-                # Display complete traceback to console
-                traceback.print_exc(file=sys.stderr)
+                # Display traceback in console
+                print(Perm)
 
-            # Write error to log
+            # Write traceback to log
             ErrorLog(Perm)
 
-            #TODO: Possibly add ability to save temp file and reopen it?
+            #FIXME: Finish adding ability to save temp file and reopen it
             admin = askyesno("Reload Blocks?",
 '''Would you like to relaunch Blocks with Administrator rights?
 Your level will be lost in the process!''')
@@ -529,10 +518,10 @@ Your level will be lost in the process!''')
             showerror("An Error Has Occurred!",
 "Blocks ran into an unknown error while trying to {0}!".format(level_filename))
             if debug:
-                # Display complete traceback to console
-                traceback.print_exc(file=sys.stderr)
+                # Display traceback in console
+                print(Exc)
 
-            # Write error to log
+            # Write traceback to log
             ErrorLog(Exc)
 
     # The user tried to same a level without loading one first
@@ -540,10 +529,10 @@ Your level will be lost in the process!''')
         showerror("Cannot Save Level!",
 "A minigame level has not been selected for editing!")
         if debug:
-            # Display complete traceback to console
-            traceback.print_exc(file=sys.stderr)
+            # Display traceback in console
+            print(NE)
 
-        # Write error to log
+        # Write traceback to log
         ErrorLog(NE)
 
 
@@ -630,14 +619,17 @@ def CharLegend(*args):
 # ------------ Begin Tkinter GUI Layout ------------ #
 
 
+def Close(*args):
+    '''Closes Blocks'''
+    raise SystemExit(0)
+
+
 def GUI(cmdfile=False):
-    '''Dummy function for easy access to GUI code'''
-    #pass
+    '''Tkinter GUI Code'''
 
-    def hide_me(event):
-        event.widget.grid_remove()
-
+    # Mark as global so everything works
     global root, level_name, level
+
     # Root window settings
     global root
     root = tk.Tk()
@@ -669,7 +661,7 @@ def GUI(cmdfile=False):
     ttk.Label(mainframe, textvariable=level_name).grid(
         column=0, row=2, columnspan=2)
 
-    # Where level is viewed and edited
+    # Where level is displayed and edited
     level = tk.Text(mainframe, height=8, width=40, wrap="none")
     level.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
     level.insert("1.0", "Minigame layout will be displayed here.")
@@ -706,10 +698,6 @@ def GUI(cmdfile=False):
     for child in mainframe.winfo_children():
         child.grid_configure(padx=2, pady=2)
 
-    def Close(*args):
-        '''Closes Blocks'''
-        raise SystemExit
-
     ## Bind <Ctrl + n> shortcut to New button
     root.bind("<Control-n>", NewLevel)
     # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
@@ -734,4 +722,5 @@ def GUI(cmdfile=False):
 # ------------ End Tkinter GUI Layout ------------ #
 
 if __name__ == "__main__":
+    # Activate command-line arguments
     CMD()
