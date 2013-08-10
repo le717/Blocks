@@ -216,13 +216,18 @@ def ReadLevel(level_file, cmd=False):
     # Remove the trailing new line so the syntax checker will work correctly
     layout = layout.rstrip("\n")
 
-    if not cmd:
+    # Remove all text in the widget
+    level.delete("1.0", "end")
 
-        # Remove all text in the widget
-        level.delete("1.0", "end")
+    # (music) Put the layout in the widget and edit it all up (music)
+    level.insert("1.0", layout)
 
-        # (music) Put the layout in the widget and edit it all up (music)
-        level.insert("1.0", layout)
+    # If the command-line parameter was invoked
+    if cmd:
+        # If the temporary level exists (safety check)
+        if os.path.exists(level_file):
+            # Delete it
+            os.unlink(level_file)
 
 
 # ------------ End Level Layout Reading ------------ #
@@ -295,7 +300,7 @@ def syntax_check(*args):
     # Send the corrected layout for writing
     # new_layout[:-1] so the last character is not left out
     # Also convert layout to uppercase so IXS won't crash
-    write(layout[:-1].upper())
+    SaveLevel(layout[:-1].upper())
 
 
 # --- Begin Level Size Check --- #
@@ -451,11 +456,12 @@ def backup(location, backup_file):
         ErrorLog(Perm)
 
 
-def write(new_layout):
+def SaveLevel(new_layout):
     '''Writes Modded Minigame Level'''
 
-    #OPTIMIZE: This entire function, breaking it up,
-    # allowing for the relaunch, new level, and maybe --open parameter
+    #FIXME: Path to save temporary level file
+
+    #OPTIMIZE: This entire function, breaking it up
 
     try:
         # Get just the folder path to the file
@@ -496,19 +502,25 @@ def write(new_layout):
             # Write traceback to log
             ErrorLog(Perm)
 
-            #FIXME: Finish adding ability to save temp file and reopen it
             admin = askyesno("Reload Blocks?",
 '''Would you like to relaunch Blocks with Administrator rights?
 Your level will be reloaded upon launch.''')
 
             # If user chooses to relaunch
             if admin:
-                temp_file = temp_write(True, first_line, layout)
-                print(temp_file)
+
+                # Save a temporary file
+                temp_file = temp_write(level_filename, first_line, layout, True)
+
+                # Launch RunAsAdmin to reload Blocks,
+                # invoke command-line parameter to reload the level
                 subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
                     temp_file)])
+
+                # Now we close Blocks, and let RunAsAdmin take over
                 raise SystemExit(0)
 
+            # The user did not want to relaunch
             else:
                 # Return False so the saving process will not continue on:
                 return False
@@ -536,27 +548,27 @@ Your level will be reloaded upon launch.''')
         ErrorLog(NE)
 
 
-def temp_write(new=True, first_line=None, layout=None):
+def temp_write(name, first_line=None, layout=None, new=True):
     '''Saves the level to a temporary file'''
 
     # Name and location of temp file
-    name = os.path.join(app_folder, "Temp_Level.TXT")
+    path = os.path.join(app_folder, name)
 
     # Meaning we need to write a new temporary level
     if new:
         # Write the temp file, using binary mode
-        with open(name, "wb") as f:
+        with open(path, "wb") as f:
             # Rewrite the first line
             f.write(first_line)
             # Write the new layout
             f.write(layout)
 
         # Send back the path to the temporary level
-        return name
+        return path
 
     # Meaning we need to remove a temporary level
     elif not new:
-        os.unlink(name)
+        os.unlink(path)
 
 
 # ------------ End Level Layout Writing ------------ #
@@ -714,7 +726,7 @@ def GUI(cmdfile=False):
         # Open it!
         if debug:
             print("\n{0}\nis being opened".format(cmdfile))
-        root.after(1, ReadLevel(cmdfile))
+        root.after(1, ReadLevel(cmdfile, True))
 
     # Run program
     root.mainloop()
