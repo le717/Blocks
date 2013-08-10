@@ -313,6 +313,7 @@ def level_size(layout_size):
         print("\nThe new layout is:\n")
 
     # Get the indices and text for each line
+    #TODO: Use len instead of this?
     for lineno, linetext in enumerate(layout_size):
 
         # Display line number and line content if debug messages are enabled
@@ -552,7 +553,7 @@ def temp_write(name, first_line=None, layout=None, new=True):
     '''Saves the level to a temporary file'''
 
     # Name and location of temp file
-    path = os.path.join(app_folder, name)
+    path = os.path.join(os.path.expanduser("~"), name)
 
     # Meaning we need to write a new temporary level
     if new:

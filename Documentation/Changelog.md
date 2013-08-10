@@ -31,6 +31,7 @@ Released ?? ??, 2013
 [@Anonymooseable](https://github.com/Anonymooseable) for _majorly_ helping with this by suggesting one single line of code!)
 * Removed usage of `traceback` module
 * Fixed Administrator relaunch and loading of temporary level save
+* Save temporary level to same location as log
 
 ### 0.8.6 ###
 Released July 20, 2013
