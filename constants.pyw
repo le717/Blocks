@@ -10,6 +10,7 @@ minver = ".7.8"
 
 # Name of Blocks Exe/Py
 exe_name = os.path.basename(sys.argv[0])
+
 # Location of Blocks! Exe/Py
 app_folder = os.path.dirname(sys.argv[0])
 

@@ -32,6 +32,9 @@ from constants import (majver, minver)
 
 if sys.maxsize == 2147483647:
     destfolder = os.path.join("Freeze", "Windows")
+    if not os.path.exists(destfolder):
+        os.makedirs(destfolder)
+
 else:
     input('''\n64-bit binaries are not frozen.
 Please freeze Blocks using 32-bit Python 3.3.''')

@@ -499,13 +499,13 @@ def write(new_layout):
             #FIXME: Finish adding ability to save temp file and reopen it
             admin = askyesno("Reload Blocks?",
 '''Would you like to relaunch Blocks with Administrator rights?
-Your level will be lost in the process!''')
+Your level will be reloaded upon launch.''')
 
             # If user chooses to relaunch
             if admin:
                 temp_file = temp_write(True, first_line, layout)
                 print(temp_file)
-                subprocess.call(["RunAsAdmin.exe", '--open "{0}"'.format(
+                subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
                     temp_file)])
                 raise SystemExit(0)
 
