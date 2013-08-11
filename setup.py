@@ -30,23 +30,29 @@ import os
 
 from constants import (majver, minver)
 
+# This is x86 Python
 if sys.maxsize == 2147483647:
     destfolder = os.path.join("Freeze", "Windows")
+
+    # Create the freeze path if it doesn't exist
     if not os.path.exists(destfolder):
         os.makedirs(destfolder)
 
+# This is x64 Python
 else:
     input('''\n64-bit binaries are not frozen.
 Please freeze Blocks using 32-bit Python 3.3.''')
     raise SystemExit(0)
 
-# Write the required RunAsAdmin cfg file
+# Write the required RunAsAdmin.cfg file
 with open(os.path.join(destfolder, "RunAsAdmin.cfg"), "wt") as f:
     f.write("Blocks.exe")
 
+# Copy required files
 build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
                      "include_files": [
+                     #TODO: Get copy of MIT License for RunAsAdmin
                      "LICENSE.txt",
                      "Media/Blocks.ico",
                      "Media/Blocks.gif",
@@ -60,7 +66,7 @@ setup(
     version="{0}{1}".format(majver, minver),
     author="Triangle717",
     description="Island Xtreme Stunts Minigame Level Editor",
-    license="GNU GPLv3",
+    license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("Blocks.pyw",
         targetName="Blocks.exe", base="Win32GUI")]
