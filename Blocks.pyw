@@ -313,7 +313,6 @@ def level_size(layout_size):
         print("\nThe new layout is:\n")
 
     # Get the indices and text for each line
-    #TODO: Use len instead of this?
     for lineno, linetext in enumerate(layout_size):
 
         # Display line number and line content if debug messages are enabled
@@ -454,13 +453,39 @@ def backup(location, backup_file):
             print(Perm)
 
         # Write traceback to log
-        ErrorLog(Perm)
+        ErrorLog("PermissionError: {0}".format(Perm))
+
+
+def AdminRun(level_filename, first_line, layout):
+    '''Reloads Blocks with administrator rights'''
+
+    admin = askyesno("Relaunch Blocks?",
+'''Would you like to relaunch Blocks with Administrator rights?
+Your level will be preserved between launch.''')
+
+    # If user chooses to relaunch
+    if admin:
+
+        # Save a temporary file
+        temp_file = temp_write(level_filename, first_line, layout, True)
+
+        # Launch RunAsAdmin to reload Blocks,
+        # invoke command-line parameter to reload the level
+        subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
+            temp_file)])
+
+        # Now we close Blocks, and let RunAsAdmin take over
+        raise SystemExit(0)
+
+    # User did not want to relaunch Blocks
+    else:
+        return False
 
 
 def SaveLevel(new_layout):
     '''Writes Modded Minigame Level'''
 
-    #FIXME: Path to save temporary level file
+    #FIXME: Path to resave temporary level file
 
     #OPTIMIZE: This entire function, breaking it up
 
@@ -469,7 +494,7 @@ def SaveLevel(new_layout):
         location = os.path.dirname(level_file)
 
         try:
-            # Read (original, not .bak*) file in binary mode
+            # Read original file in binary mode
             with open(level_file, "rb") as f:
                 # Read just the first line
                 for line in range(0, 1):
@@ -481,7 +506,7 @@ def SaveLevel(new_layout):
             # Convert layout from str(ing) to binary
             layout = str.encode(new_layout, encoding="utf-8", errors="strict")
 
-            # Open the (original, not .bak*) level back up, again in binary mode
+            # Open back up the original level, again in binary mode
             with open(level_file, "wb") as f:
                 # Rewrite the first line
                 f.write(first_line)
@@ -501,28 +526,12 @@ def SaveLevel(new_layout):
                 print(Perm)
 
             # Write traceback to log
-            ErrorLog(Perm)
+            ErrorLog("PermissionError: {0}".format(Perm))
 
-            admin = askyesno("Reload Blocks?",
-'''Would you like to relaunch Blocks with Administrator rights?
-Your level will be reloaded upon launch.''')
-
-            # If user chooses to relaunch
-            if admin:
-
-                # Save a temporary file
-                temp_file = temp_write(level_filename, first_line, layout, True)
-
-                # Launch RunAsAdmin to reload Blocks,
-                # invoke command-line parameter to reload the level
-                subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
-                    temp_file)])
-
-                # Now we close Blocks, and let RunAsAdmin take over
-                raise SystemExit(0)
+            admin = AdminRun(level_filename, first_line, layout)
 
             # The user did not want to relaunch
-            else:
+            if not admin:
                 # Return False so the saving process will not continue on:
                 return False
 
@@ -530,23 +539,25 @@ Your level will be reloaded upon launch.''')
         except Exception as Exc:
             showerror("An Error Has Occurred!",
 "Blocks ran into an unknown error while trying to {0}!".format(level_filename))
+
             if debug:
                 # Display traceback in console
                 print(Exc)
 
             # Write traceback to log
-            ErrorLog(Exc)
+            ErrorLog("Exception: {0}".format(Exc))
 
     # The user tried to same a level without loading one first
     except NameError as NE:
         showerror("Cannot Save Level!",
 "A minigame level has not been selected for editing!")
+
         if debug:
             # Display traceback in console
             print(NE)
 
         # Write traceback to log
-        ErrorLog(NE)
+        ErrorLog("NameError: {0}".format(NE))
 
 
 def temp_write(name, first_line=None, layout=None, new=True):

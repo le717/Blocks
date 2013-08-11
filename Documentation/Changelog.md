@@ -32,6 +32,8 @@ Released ?? ??, 2013
 * Removed usage of `traceback` module
 * Fixed Administrator relaunch and loading of temporary level save
 * Save temporary level to same location as log
+* Split Administrator relaunch into separate function 
+* Updated error logs
 
 ### 0.8.6 ###
 Released July 20, 2013
