@@ -29,7 +29,7 @@ Requirements
 ------------
 
 You will need a few items to complete this tutorial
-* A copy of [*Island Xtreme Stunts*](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-)
+* A copy of [*Island Xtreme Stunts*](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-) [(Video version)](http://www.youtube.com/watch?v=yMGIu-BOrO8)
 * The newest release of [**Blocks**](https://github.com/le717/Blocks/releases), or
 * A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org) (just **never** use Notepad!)
 * The minigame level format details, available in [Format-Details.md](Format-Details.md)
