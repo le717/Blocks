@@ -184,6 +184,7 @@ def ReadLevel(level_file, cmd=False):
     '''Reads an existing level file'''
 
     # Update new level variable to denote a pre-existing level
+    #TODO: Finish create new level code
     new_level = False
     if debug:
         print("\nA new level is not being created.\n")
@@ -479,8 +480,6 @@ def SaveLevel(new_layout):
 
     #FIXME: Path to resave temporary level file
 
-    #OPTIMIZE: This entire function, breaking it up
-
     try:
         # Get just the folder path to the file
         location = os.path.dirname(level_file)
@@ -557,6 +556,8 @@ def SaveLevel(new_layout):
         logging.exception("Something went wrong! Here's what happened\n",
             exc_info=True)
 
+        #TODO: in 0.8.8: Add ability to select path to resave temporary level
+
 
 def temp_write(name, first_line=None, layout=None, new=True):
     '''Saves the level to a temporary file'''
@@ -578,6 +579,7 @@ def temp_write(name, first_line=None, layout=None, new=True):
 
     # Meaning we need to remove a temporary level
     elif not new:
+        #TODO: Instead of delete, move to proper location?
         os.unlink(path)
 
 
