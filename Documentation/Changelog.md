@@ -29,11 +29,10 @@ Released ?? ??, 2013
 * Renamed `BlocksIcon.gif` to just `Blocks.gif`
 * Added open (`-o`) command-line argument, invoked when relaunching **Blocks** as Administrator (Special thanks to 
 [@Anonymooseable](https://github.com/Anonymooseable) for _majorly_ helping with this by suggesting one single line of code!)
-* Removed usage of `traceback` module
 * Fixed Administrator relaunch and loading of temporary level save
 * Save temporary level to same location as log
 * Split Administrator relaunch into separate function 
-* Updated error logs
+* Reworked error logging system
 
 ### 0.8.6 ###
 Released July 20, 2013

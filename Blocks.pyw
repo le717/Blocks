@@ -51,14 +51,15 @@ You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
     webbrowser.open_new_tab("http://python.org/download/")
 
     # Close Blocks
-    raise SystemExit
+    logging.shutdown()
+    raise SystemExit(0)
 
 # Now that we know we are running Python 3.3+,
 # let's import everything else we needed
 import shutil
 import subprocess
-import time
 import argparse
+import logging
 
 # Tkinter GUI library
 import tkinter as tk
@@ -68,6 +69,7 @@ from tkinter.messagebox import (showerror, askyesno)
 
 
 def CMD():
+    '''Command-line arguments parser'''
 
     parser = argparse.ArgumentParser(
         description="{0} {1}{2} Command-line arguments".format(
@@ -75,8 +77,8 @@ def CMD():
 
     # Debug message argument
     parser.add_argument("-d", "--debug",
-    help='Dispay debugging messages',
-    action="store_true")
+        help='Dispay debugging messages',
+        action="store_true")
 
     # Open file argument
     parser.add_argument("-o", help="Open a level file")
@@ -105,20 +107,6 @@ def CMD():
     # Otherwise, just run Blocks.
     else:
         GUI(False)
-
-
-def ErrorLog(error):
-    '''Logs all errors'''
-
-    # Define log name and location
-    log_file = os.path.join(os.path.expanduser("~"), "Blocks.log")
-
-    # Get the current time, so we know when the error occured
-    cur_time = time.strftime("%H:%M:%S", time.localtime())
-
-    # Write the traceback, appending it to the existing log
-    with open(log_file, "at") as f:
-        f.write("{0} {1}\n".format(cur_time, error))
 
 # ------------ Begin New Minigame Level ------------ #
 
@@ -175,12 +163,13 @@ def OpenLevel(*args):
     if not level_file:
         # Close dialog box
         pass
+
     # The user selected a level
     else:
-
         # Display  full path to the file
         if debug:
             print(level_file)
+
         # Send the file off for reading
         ReadLevel(level_file)
 
@@ -453,7 +442,9 @@ def backup(location, backup_file):
             print(Perm)
 
         # Write traceback to log
-        ErrorLog("PermissionError: {0}".format(Perm))
+        logging.debug("\n")
+        logging.exception("Something went wrong! Here's what happened\n",
+            exc_info=True)
 
 
 def AdminRun(level_filename, first_line, layout):
@@ -475,6 +466,7 @@ Your level will be preserved between launch.''')
             temp_file)])
 
         # Now we close Blocks, and let RunAsAdmin take over
+        logging.shutdown()
         raise SystemExit(0)
 
     # User did not want to relaunch Blocks
@@ -526,7 +518,9 @@ def SaveLevel(new_layout):
                 print(Perm)
 
             # Write traceback to log
-            ErrorLog("PermissionError: {0}".format(Perm))
+            logging.debug("\n")
+            logging.exception('''Something went wrong! Here's what happened
+''', exc_info=True)
 
             admin = AdminRun(level_filename, first_line, layout)
 
@@ -545,7 +539,9 @@ def SaveLevel(new_layout):
                 print(Exc)
 
             # Write traceback to log
-            ErrorLog("Exception: {0}".format(Exc))
+            logging.debug("\n")
+            logging.exception("Something went wrong! Here's what happened\n",
+                exc_info=True)
 
     # The user tried to same a level without loading one first
     except NameError as NE:
@@ -557,7 +553,9 @@ def SaveLevel(new_layout):
             print(NE)
 
         # Write traceback to log
-        ErrorLog("NameError: {0}".format(NE))
+        logging.debug("\n")
+        logging.exception("Something went wrong! Here's what happened\n",
+            exc_info=True)
 
 
 def temp_write(name, first_line=None, layout=None, new=True):
@@ -645,6 +643,7 @@ def CharLegend(*args):
 
 def Close(*args):
     '''Closes Blocks'''
+    logging.shutdown()
     raise SystemExit(0)
 
 
@@ -746,5 +745,20 @@ def GUI(cmdfile=False):
 # ------------ End Tkinter GUI Layout ------------ #
 
 if __name__ == "__main__":
+
+    # -- Begin Logging Configuration -- #
+
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(asctime)s : %(levelname)s: %(message)s",
+        # Define log name and location
+        filename=os.path.join(os.path.expanduser("~"), "Blocks.log"),
+        # "a" so the Logs is appended to and not overwritten
+        # and is created if it does not exist
+        filemode='a'
+    )
+
+# -- End Logging Configuration -- #
+
     # Activate command-line arguments
     CMD()
