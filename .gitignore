@@ -25,3 +25,4 @@ Freeze/
 *.cfg
 *.exe
 *.TXT
+!LICENSE.RunAsAdmin.txt

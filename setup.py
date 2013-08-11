@@ -52,8 +52,8 @@ with open(os.path.join(destfolder, "RunAsAdmin.cfg"), "wt") as f:
 build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
                      "include_files": [
-                     #TODO: Get copy of MIT License for RunAsAdmin
                      "LICENSE.txt",
+                     "LICENSE.RunAsAdmin.txt",
                      "Media/Blocks.ico",
                      "Media/Blocks.gif",
                      "Documentation/Changelog.md",
