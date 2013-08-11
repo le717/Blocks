@@ -13,15 +13,16 @@ Downloads
  
 * Format Details can be found at [`Format-Details.md`](Documentation/Format-Details.md)
 
-* All downloads can be found on the [**Blocks Releases** page.](https://github.com/le717/Blocks/releases)
+* All downloads can be found on the [**Releases** page](https://github.com/le717/Blocks/releases).
 
 Contributing
 ------------
 
-If you would like to contribute to the development of **Blocks**, please be sure to read [`CONTRIBUTING.md`](Documentation/CONTRIBUTING.md)
+If you would like to contribute to the development of **Blocks**, please read [`CONTRIBUTING.md`](Documentation/CONTRIBUTING.md)
 
 Credit
 ------
 ***Blocks*, created 2013 Triangle717, and released under the [GNU General Public License Version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).**
 
-**This project uses [*RunAsAdmin*](https://github.com/QuantumCD/RunAsAdmin), copyright 2013 [QuantumCD](http://contingencycoder.wordpress.com/).**
+**This project uses [*RunAsAdmin*](https://github.com/QuantumCD/RunAsAdmin), copyright 2013 [QuantumCD](http://contingencycoder.wordpress.com/), **
+**and released under the [MIT License](opensource.org/licenses/MIT).**
