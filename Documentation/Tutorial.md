@@ -1,6 +1,6 @@
 Building With Blocks
 ====================
-**Written by [Triangle717](https://github.com/le717)**
+**Written by [Triangle717](https://github.com/le717), with information provided by [Xiron](http://www.youtube.com/user/Segatendo12)**
 
 ### Warning: This tutorial is incomplete! ###
 
@@ -22,8 +22,8 @@ Table of Contents
 <td><a href="#task-4-water">Task #4</a></td>
 </table>
 
-This is a tutorial on modding the *Island Xtreme Stunts* minigame levels. It is a basic tutorial, and will not cover every single detail. 
-Instead, it attempts to explain the basics of the level layout, and advise you on what to and not to do in your modding experiences.
+**Building With Blocks** is a basic tutorial on modding the _Island Xtreme Stunts_ minigame levels, and will not cover every single detail. 
+Instead, it attempts to explain the basics of the level layout, and explain it in such a way that you will clearly understand the layout and improve your modding experiences.
 
 Requirements
 ------------
