@@ -619,7 +619,7 @@ def SavetheUnsaved(layout):
     # Reconstruct the filename to give it the proper extension
     level_resave = "{0}{1}".format(name, ext.upper())
 
-    # Write a temporary level file
+    # Write a temporary level file, using arbitrary first line
     temp_level = temp_write("BlocksTemp.TXT", b"C\x01\x00\x001\r\n", layout)
 
     # Copy the temporary level over the other level

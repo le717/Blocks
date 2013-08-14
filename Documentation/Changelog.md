@@ -22,7 +22,7 @@ Released ?? ??, 2013
 * Split level backup process into separate function
 * Fixed bug in line length check causing an extra space to be added after the last character in the layout
 * Delete lists created by syntax checks after the check is complete to free up system resources 
-* Limited number of level backups to one (1), cleaned up backup code
+* Limited number of level backups to one (`1`), cleaned up backup code
 * Dump any errors to log
 * Rewrote command-line arguments using `argparse`
 * Renamed `BlocksIcon.gif` to just `Blocks.gif`
@@ -32,6 +32,10 @@ Released ?? ??, 2013
 * Save temporary level to same location as log
 * Split Administrator relaunch into separate function 
 * Reworked error logging system
+* Added new logging messages at `Blocks` launch
+* Fixed bug with level file name not being set when open parameter was invoked
+* Moved a few variables around to improve work-flow
+* Added ability to select a file to save an unsaved level to, some code split from `temp_rewrite()`
 
 ### 0.8.6 ###
 Released July 20, 2013
