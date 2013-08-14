@@ -36,6 +36,8 @@ Released ?? ??, 2013
 * Fixed bug with level file name not being set when open parameter was invoked
 * Moved a few variables around to improve work-flow
 * Added ability to select a file to save an unsaved level to, some code split from `temp_write()`
+* Force level resave to use `.TXT` extension
+* Get Python implementation, write to log
 
 ### 0.8.6 ###
 Released July 20, 2013

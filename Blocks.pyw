@@ -81,10 +81,9 @@ def info():
         py_arch = "AMD64"
 
     logging.info("Begin logging to {0}".format(logging_file))
-    #TODO: Get Python implementation, i.e. CPython, jPython
-    logging.info("You are running Python {0} {1} on {2} {3}.".format(
-        py_arch, platform.python_version(), platform.machine(),
-         platform.platform()))
+    logging.info("You are running {0} {1} {2} on {3} {4}.".format(
+        platform.python_implementation(), py_arch, platform.python_version(),
+         platform.machine(), platform.platform()))
     logging.info('''
                                 #############################################
                                         {0} Version {1}{2}
@@ -542,8 +541,8 @@ def SaveLevel(new_layout):
             tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
             .format(level_filename, location))
 
-        # A level was edited directly in Program Files,
-        # and Blocks was run without Admin rights
+        # A level was edited directly in Program Files or something like that,
+        # and Blocks was run without Administrator rights
         except PermissionError as Perm:
 
             if debug:
@@ -577,7 +576,7 @@ def SaveLevel(new_layout):
             logging.exception("Something went wrong! Here's what happened\n",
                 exc_info=True)
 
-    # The user tried to same a level without loading one first
+    # The user tried to save a level without loading one first
     except NameError as NE:
         showerror("Cannot Save Level!",
 "A minigame level has not been selected for editing!")
@@ -598,7 +597,7 @@ def SaveLevel(new_layout):
 def SavetheUnsaved(layout):
     '''Save an unsaved level layout to file'''
 
-    ask_resave = tk.messagebox.askyesno("Select Level?",
+    ask_resave = tk.messagebox.askyesno("Save Level?",
     '''Would you like to create a new level or save over another?''')
 
     # User did not want to save the level
@@ -617,10 +616,11 @@ def SavetheUnsaved(layout):
     # Split the filename into name and extension
     name, ext = os.path.splitext(level_resave)
 
-    #TODO: Force save as .TXT
+    # If file does not end with .txt,
+    if not level_resave.lower().endswith(".txt"):
 
-    # Reconstruct the filename to give it the proper extension
-    level_resave = "{0}{1}".format(name, ext.upper())
+        # Append proper file extension to filename
+        level_resave = "{0}.TXT".format(level_resave)
 
     # Write a temporary level file, using arbitrary first line
     temp_level = temp_write("BlocksTemp.TXT", b"C\x01\x00\x001\r\n", layout)
