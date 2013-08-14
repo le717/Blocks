@@ -4,7 +4,7 @@ Minigame Level Format Details
 File Details
 ------------
 
-### Known For Sure
+### Known For Sure ###
 
 * The levels are nothing more than plain text written with [`ANSI (Windows-1252)`](http://en.wikipedia.org/wiki/Windows-1252) encoding, and can be changed to use 
 [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding. Any other encodings will crash *Island Xtreme Stunts*.
@@ -45,8 +45,9 @@ to their proper location will complete the level.
 * The line length for every line in a file must at least 38 characters, including spaces, but some levels in the Post Office have lines that are 39 characters,
 also including spaces.
 
-### Needs More Research
+### Needs More Research ###
 
+* Will files with a lowercase `.txt` be loaded and used?
 * What do the folders and files in the non-LEVELS folders go to in-game?
 * New level slots can be added using `LEVELS.TXT`?
 * The letter and number combination on the first line might identify something, but what?
