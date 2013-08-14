@@ -35,7 +35,7 @@ Released ?? ??, 2013
 * Added new logging messages at `Blocks` launch
 * Fixed bug with level file name not being set when open parameter was invoked
 * Moved a few variables around to improve work-flow
-* Added ability to select a file to save an unsaved level to, some code split from `temp_rewrite()`
+* Added ability to select a file to save an unsaved level to, some code split from `temp_write()`
 
 ### 0.8.6 ###
 Released July 20, 2013
