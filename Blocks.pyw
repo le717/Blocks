@@ -113,7 +113,9 @@ def CMD():
         action="store_true")
 
     # Open file argument
-    parser.add_argument("-o", help="Open a level file for editing")
+    parser.add_argument("-o", help='''Open a level file for editing.
+WARNING: any files loaded through this are deleted. Please use the Open button
+in the GUI instead!''')
 
     # Register all the parameters
     args = parser.parse_args()
@@ -615,6 +617,8 @@ def SavetheUnsaved(layout):
 
     # Split the filename into name and extension
     name, ext = os.path.splitext(level_resave)
+
+    #TODO: Force save as .TXT
 
     # Reconstruct the filename to give it the proper extension
     level_resave = "{0}{1}".format(name, ext.upper())
