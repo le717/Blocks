@@ -30,6 +30,11 @@ import os
 
 from constants import (majver, minver)
 
+# Append build command to command-line arguments.
+# Just type "python setup.py" and it will freeze
+if len(sys.argv) == 1:
+    sys.argv[1:] = ["build"]
+
 # This is x86 Python
 if sys.maxsize == 2147483647:
     destfolder = os.path.join("Freeze", "Windows")

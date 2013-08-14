@@ -7,6 +7,7 @@ import sys
 app = "Blocks"
 majver = "0.8"
 minver = ".7.8"
+creator = "Triangle717"
 
 # Name of Blocks Exe/Py
 exe_name = os.path.basename(sys.argv[0])

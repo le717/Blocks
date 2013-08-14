@@ -60,17 +60,49 @@ import shutil
 import subprocess
 import argparse
 import logging
+import platform
+import distutils.file_util
 
 # Tkinter GUI library
 import tkinter as tk
-from tkinter.filedialog import askopenfilename
 from tkinter import ttk
 from tkinter.messagebox import (showerror, askyesno)
+import tkinter.filedialog
+
+
+def info():
+    '''Python and OS checks'''
+
+    # Check if Python is x86 or x64
+    # Based on code from Python help for platform module and my own tests
+    if sys.maxsize == 2147483647:
+        py_arch = "x86"
+    else:
+        py_arch = "AMD64"
+
+    logging.info("Begin logging to {0}".format(logging_file))
+    #TODO: Get Python implementation, i.e. CPython, jPython
+    logging.info("You are running Python {0} {1} on {2} {3}.".format(
+        py_arch, platform.python_version(), platform.machine(),
+         platform.platform()))
+    logging.info('''
+                                #############################################
+                                        {0} Version {1}{2}
+                                          Created 2013 {3}
+                                                Blocks.log
+
+
+                                    If you run into a bug, open an issue at
+                                    https://github.com/le717/Blocks/issues
+                                    and attach this file for an quicker fix!
+                                #############################################
+                                '''.format(app, majver, minver, creator))
 
 
 def CMD():
     '''Command-line arguments parser'''
 
+    # Command-line arguments parser
     parser = argparse.ArgumentParser(
         description="{0} {1}{2} Command-line arguments".format(
             app, majver, minver))
@@ -81,7 +113,7 @@ def CMD():
         action="store_true")
 
     # Open file argument
-    parser.add_argument("-o", help="Open a level file")
+    parser.add_argument("-o", help="Open a level file for editing")
 
     # Register all the parameters
     args = parser.parse_args()
@@ -152,7 +184,7 @@ def OpenLevel(*args):
     # Assign selected file as global
     global level_file
     # Select the level file
-    level_file = askopenfilename(
+    level_file = tkinter.filedialog.askopenfilename(
         parent=root,
         defaultextension=".TXT",
         filetypes=formats,
@@ -184,17 +216,17 @@ def ReadLevel(level_file, cmd=False):
     '''Reads an existing level file'''
 
     # Update new level variable to denote a pre-existing level
-    #TODO: Finish create new level code
+    #TODO: Write new level code
     new_level = False
     if debug:
         print("\nA new level is not being created.\n")
 
-    # If the command-line parameter was not invoked
-    if not cmd:
-        # Get just the file name, assign it as global
-        global level_filename
-        level_filename = os.path.basename(level_file)
-        level_name.set(level_filename)
+    # Get just the file name, assign it as global
+    global level_filename
+    level_filename = os.path.basename(level_file)
+
+    # Set the filename display
+    level_name.set(level_filename)
 
     # Open file for reading
     with open(level_file, "rt") as f:
@@ -459,7 +491,7 @@ Your level will be preserved between launch.''')
     if admin:
 
         # Save a temporary file
-        temp_file = temp_write(level_filename, first_line, layout, True)
+        temp_file = temp_write(level_filename, first_line, layout)
 
         # Launch RunAsAdmin to reload Blocks,
         # invoke command-line parameter to reload the level
@@ -478,7 +510,8 @@ Your level will be preserved between launch.''')
 def SaveLevel(new_layout):
     '''Writes Modded Minigame Level'''
 
-    #FIXME: Path to resave temporary level file
+    # Convert layout from str(ing) to binary
+    layout = str.encode(new_layout, encoding="utf-8", errors="strict")
 
     try:
         # Get just the folder path to the file
@@ -494,15 +527,14 @@ def SaveLevel(new_layout):
             # Run process to backup the level
             backup(location, level_file)
 
-            # Convert layout from str(ing) to binary
-            layout = str.encode(new_layout, encoding="utf-8", errors="strict")
-
             # Open back up the original level, again in binary mode
             with open(level_file, "wb") as f:
                 # Rewrite the first line
                 f.write(first_line)
                 # Write the new layout
                 f.write(layout)
+                # Write the line ending
+                f.write(b"\r\n")
 
             # Display sucess dialog
             tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
@@ -521,6 +553,7 @@ def SaveLevel(new_layout):
             logging.exception('''Something went wrong! Here's what happened
 ''', exc_info=True)
 
+            # Run Admin relaunch process
             admin = AdminRun(level_filename, first_line, layout)
 
             # The user did not want to relaunch
@@ -556,31 +589,66 @@ def SaveLevel(new_layout):
         logging.exception("Something went wrong! Here's what happened\n",
             exc_info=True)
 
-        #TODO: in 0.8.8: Add ability to select path to resave temporary level
+        # Run process to save the temporary layout
+        SavetheUnsaved(layout)
 
 
-def temp_write(name, first_line=None, layout=None, new=True):
+def SavetheUnsaved(layout):
+    '''Save an unsaved level layout to file'''
+
+    #FIXME: Fix this message big time
+    ask_resave = tk.messagebox.askyesno("Select Level File?",
+    '''Would you like to to select a file to save your level over?''')
+
+    # User did not want to save the level
+    if not ask_resave:
+        # Stop the saving process
+        return False
+
+    # File selection dialog, allows for creation of new files
+    level_resave = tk.filedialog.asksaveasfilename()
+
+    # User did not select a file
+    if not level_resave:
+        # Stop to saving process
+        return False
+
+    # Split the filename into name and extension
+    name, ext = os.path.splitext(level_resave)
+
+    # Reconstruct the filename to give it the proper extension
+    level_resave = "{0}{1}".format(name, ext.upper())
+
+    # Write a temporary level file
+    temp_level = temp_write("BlocksTemp.TXT", b"C\x01\x00\x001\r\n", layout)
+
+    # Copy the temporary level over the other level
+    distutils.file_util.copy_file(temp_level, level_resave)
+
+    # After it is copied, delete the temporary file
+    os.unlink(temp_level)
+
+    # Load the newly saved level
+    ReadLevel(level_resave)
+
+
+def temp_write(name, first_line, layout):
     '''Saves the level to a temporary file'''
 
-    # Name and location of temp file
+    # Name and location of temporary file
     path = os.path.join(os.path.expanduser("~"), name)
 
-    # Meaning we need to write a new temporary level
-    if new:
-        # Write the temp file, using binary mode
-        with open(path, "wb") as f:
-            # Rewrite the first line
-            f.write(first_line)
-            # Write the new layout
-            f.write(layout)
+    # Write the temp file, using binary mode
+    with open(path, "wb") as f:
+        # Rewrite the first line
+        f.write(first_line)
+        # Write the new layout
+        f.write(layout)
+        # Write the line ending
+        f.write(b"\r\n")
 
-        # Send back the path to the temporary level
-        return path
-
-    # Meaning we need to remove a temporary level
-    elif not new:
-        #TODO: Instead of delete, move to proper location?
-        os.unlink(path)
+    # Send back the path to the temporary level
+    return path
 
 
 # ------------ End Level Layout Writing ------------ #
@@ -750,11 +818,13 @@ if __name__ == "__main__":
 
     # -- Begin Logging Configuration -- #
 
+    logging_file = os.path.join(os.path.expanduser("~"), "Blocks.log")
+
     logging.basicConfig(
         level=logging.DEBUG,
         format="%(asctime)s : %(levelname)s: %(message)s",
         # Define log name and location
-        filename=os.path.join(os.path.expanduser("~"), "Blocks.log"),
+        filename=logging_file,
         # "a" so the Logs is appended to and not overwritten
         # and is created if it does not exist
         filemode='a'
@@ -762,5 +832,7 @@ if __name__ == "__main__":
 
 # -- End Logging Configuration -- #
 
+    # Logging introduction
+    info()
     # Activate command-line arguments
     CMD()
