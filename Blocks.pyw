@@ -598,9 +598,8 @@ def SaveLevel(new_layout):
 def SavetheUnsaved(layout):
     '''Save an unsaved level layout to file'''
 
-    #FIXME: Fix this message big time
-    ask_resave = tk.messagebox.askyesno("Select Level File?",
-    '''Would you like to to select a file to save your level over?''')
+    ask_resave = tk.messagebox.askyesno("Select Level?",
+    '''Would you like to create a new level or save over another?''')
 
     # User did not want to save the level
     if not ask_resave:
