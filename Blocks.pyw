@@ -217,7 +217,7 @@ def ReadLevel(level_file, cmd=False):
     '''Reads an existing level file'''
 
     # Update new level variable to denote a pre-existing level
-    #TODO: Write new level code
+    #TODO: Finish writing new level code
     new_level = False
     if debug:
         print("\nA new level is not being created.\n")
@@ -735,7 +735,7 @@ def GUI(cmdfile=False):
 
     # The smallest size the window can be
     # Length x width
-    root.minsize("575", "225")
+    root.minsize("575", "250")
 
     # Frame settings
     mainframe = ttk.Frame(root, padding="7 7 7 7")
@@ -763,13 +763,13 @@ def GUI(cmdfile=False):
     level.insert("1.0", "Minigame layout will be displayed here.")
 
     # About Blocks text
-    about_blocks = ttk.Label(mainframe, text='''           {0} {1}{2}
+    about_blocks = ttk.Label(mainframe, text='''\t{0} {1}{2}
       Created 2013 Triangle717'''.format(app, majver, minver))
     about_blocks.grid(column=2, row=0, sticky=tk.N)
 
     # New button
-    ##new_button = ttk.Button(mainframe, text="New", command=NewLevel)
-    ##new_button.grid(column=2, row=1, sticky=tk.N)
+    new_button = ttk.Button(mainframe, text="New", command=NewLevel)
+    new_button.grid(column=2, row=1, sticky=tk.N)
 
     # Open button
     open_file = ttk.Button(mainframe, text="Open", command=OpenLevel)

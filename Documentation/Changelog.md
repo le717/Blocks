@@ -38,6 +38,8 @@ Released ?? ??, 2013
 * Added ability to select a file to save an unsaved level to, some code split from `temp_write()`
 * Force level resave to use `.TXT` extension
 * Get Python implementation, write to log
+* Enabled New button
+* Updated minimum size limit
 
 ### 0.8.6 ###
 Released July 20, 2013
