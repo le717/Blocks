@@ -1,7 +1,7 @@
 Blocks Change Log
 =================
 
-### 0.8.7.9 ###
+### 0.9 ###
 Released ?? ??, 2013
 
 * Fixed New Level layout size
@@ -41,6 +41,7 @@ Released ?? ??, 2013
 * Enabled New button
 * Updated minimum size limit
 * Updated location of Character Legend button
+* Use different window title for Character Legend window
 
 ### 0.8.6 ###
 Released July 20, 2013

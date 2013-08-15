@@ -665,6 +665,9 @@ def CharLegend(*args):
 
     # Spawn a new window, parent it to main window
     legend_window = tk.Toplevel(root)
+    # Use different window title
+    legend_window.title("Level Character Legend - Blocks {0}{1}".format(
+        majver, minver))
     # App Icon
     legend_window.iconbitmap(app_icon)
     # The window cannot be resized at all
