@@ -182,7 +182,7 @@ def OpenLevel(*args):
     # File type label for dialog box
     formats = [("IXS Minigame Layout", ".TXT")]
 
-    # Assign selected file as global
+    # Assign selected file as global variable
     global level_file
     # Select the level file
     level_file = tkinter.filedialog.askopenfilename(
@@ -233,7 +233,7 @@ def ReadLevel(level_file, cmd=False):
     with open(level_file, "rt") as f:
         lines = f.readlines()[:]
 
-    # Skip nulls, since they cannot be displayed
+    # Skip hex values, since they cannot be displayed
     layout = "".join(lines[1:9])
 
     # Remove the trailing new line so the syntax checker will work correctly
@@ -245,11 +245,11 @@ def ReadLevel(level_file, cmd=False):
     # (music) Put the layout in the widget and edit it all up (music)
     level.insert("1.0", layout)
 
-    # If the command-line parameter was invoked
+    # If the command-line parameter was invoked,
     if cmd:
-        # If the temporary level exists (safety check)
+        # If the temporary level exists (safety check),
         if os.path.exists(level_file):
-            # Delete it
+            # Then delete it.
             os.unlink(level_file)
 
 
@@ -259,7 +259,7 @@ def ReadLevel(level_file, cmd=False):
 # ------------ Begin Level Layout Syntax Check ------------ #
 
 # The allowed characters in a layout
-# This is in the global namespace because a couple of things reference it
+# This is in the global namespace because a couple of checks reference it
 itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
 "GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV"]
 
@@ -268,7 +268,7 @@ def syntax_check(*args):
     '''Checks the  Level Layout for syntax errors'''
 
     # Get new layout from text box, including the extra line
-    # the Text Edit widget makes. This is requried to make everything work
+    # the Text Edit widget makes. This is required to make everything work
     layout = level.get('1.0', 'end')
 
     # Split the layout at each new line, removing the last two characters
@@ -461,11 +461,11 @@ def backup(location, backup_file):
         level_filename, ".bak"))
 
     try:
-        # Copy the file, and try to preserve metadata
+        # Copy the file, and try to preserve time stamp
         shutil.copy2(level_file, backup_file)
 
     # A level was edited directly in Program Files,
-    # or some other action that requried Admin rights
+    # or some other action that required Admin rights
     except PermissionError as Perm:
 
         showerror("Insufficient User Right!",
@@ -537,7 +537,7 @@ def SaveLevel(new_layout):
                 # Write the line ending
                 f.write(b"\r\n")
 
-            # Display sucess dialog
+            # Display success dialog
             tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
             .format(level_filename, location))
 
@@ -616,14 +616,14 @@ def SavetheUnsaved(layout):
     # Split the filename into name and extension
     name, ext = os.path.splitext(level_resave)
 
-    # If file does not end with .txt,
+    # If file does not end with .TXT,
     if not level_resave.lower().endswith(".txt"):
 
         # Append proper file extension to filename
         level_resave = "{0}.TXT".format(level_resave)
 
     # Write a temporary level file, using arbitrary first line
-    temp_level = temp_write("BlocksTemp.TXT", b"C\x01\x00\x001\r\n", layout)
+    temp_level = temp_write("BlocksTempFile.txt", b"C\x01\x00\x001\r\n", layout)
 
     # Copy the temporary level over the other level
     distutils.file_util.copy_file(temp_level, level_resave)
@@ -730,6 +730,7 @@ def GUI(cmdfile=False):
     global root
     root = tk.Tk()
     root.title("{0} {1}{2}".format(app, majver, minver))
+
     # App icon
     root.iconbitmap(app_icon)
 
@@ -782,7 +783,7 @@ def GUI(cmdfile=False):
     # Character Legend button
     legend_button = ttk.Button(mainframe, text="Character Legend",
     command=CharLegend)
-    legend_button.grid(column=0, row=0, columnspan=2)
+    legend_button.grid(column=0, row=1, columnspan=2, sticky=tk.N)
 
     # Blocks Logo
     blocks_logo = tk.PhotoImage(file=app_logo)
@@ -794,7 +795,7 @@ def GUI(cmdfile=False):
     for child in mainframe.winfo_children():
         child.grid_configure(padx=2, pady=2)
 
-    ## Bind <Ctrl + n> shortcut to New button
+    # Bind <Ctrl + n> shortcut to New button
     root.bind("<Control-n>", NewLevel)
     # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
     root.bind("<Control-O>", OpenLevel)

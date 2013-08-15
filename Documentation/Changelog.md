@@ -40,6 +40,7 @@ Released ?? ??, 2013
 * Get Python implementation, write to log
 * Enabled New button
 * Updated minimum size limit
+* Updated location of Character Legend button
 
 ### 0.8.6 ###
 Released July 20, 2013
