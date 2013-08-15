@@ -2,7 +2,7 @@ Blocks Change Log
 =================
 
 ### 0.9 ###
-Released ?? ??, 2013
+Released August 15, 2013
 
 * Fixed New Level layout size
 * Added dividers for all syntax check operations

@@ -578,7 +578,7 @@ def SaveLevel(new_layout):
             logging.exception("Something went wrong! Here's what happened\n",
                 exc_info=True)
 
-            # Run process to save the temporary layout
+            # Run process to save the layout
             SavetheUnsaved(layout)
 
         # Any other unhandled error occurred
