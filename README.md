@@ -10,12 +10,14 @@ by [Triangle717](http://Triangle717.WordPress.com).
 
 Downloads
 ---------
+
+* All downloads can be found on the [Releases](https://github.com/le717/Blocks/releases) page
  
 * Format Details can be found at [`Format-Details.md`](Documentation/Format-Details.md)
 
 * The **Building With Blocks** tutorial is available at [`Tutorial.md`](Documentation/Tutorial.md)
 
-* All downloads can be found on the [**Releases** page](https://github.com/le717/Blocks/releases)
+* To read the changes in each release, please see [`Changelog.md`](Documentation/Changelog.md)
 
 Contributing
 ------------
