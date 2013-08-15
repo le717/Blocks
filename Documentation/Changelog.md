@@ -42,6 +42,7 @@ Released ?? ??, 2013
 * Updated minimum size limit
 * Updated location of Character Legend button
 * Use different window title for Character Legend window
+* Fix bug that triggered an unknown error message and would be stuck in an endless loop, making the level unsaveable
 
 ### 0.8.6 ###
 Released July 20, 2013

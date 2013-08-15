@@ -559,8 +559,27 @@ def SaveLevel(new_layout):
 
             # The user did not want to relaunch
             if not admin:
-                # Return False so the saving process will not continue on:
+                # Stop the saving process
                 return False
+
+        # Meaning the user the 'Cancel' buttton when opening a file
+        # Not catching this exception would trigger Exception
+        # and get stuck in an endless loop, so the level could NEVER be saved
+        except FileNotFoundError as FNFE:
+            showerror("Cannot Save Level!",
+"A minigame level has not been selected for editing!")
+
+            if debug:
+                # Display traceback in console
+                print(FNFE)
+
+            # Write traceback to log
+            logging.debug("\n")
+            logging.exception("Something went wrong! Here's what happened\n",
+                exc_info=True)
+
+            # Run process to save the temporary layout
+            SavetheUnsaved(layout)
 
         # Any other unhandled error occurred
         except Exception as Exc:
@@ -598,7 +617,7 @@ def SavetheUnsaved(layout):
     '''Save an unsaved level layout to file'''
 
     ask_resave = tk.messagebox.askyesno("Save Level?",
-    '''Would you like to create a new level or save over another?''')
+    '''Would you like to create a new level or save over another one?''')
 
     # User did not want to save the level
     if not ask_resave:
