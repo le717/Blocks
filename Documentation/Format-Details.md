@@ -21,6 +21,8 @@ The next `9` (nine) lines are the level itself (laid out in a 13x8 grid). The la
 
 * The first and last lines of the files can be safely removed without the game crashing.
 
+* Files with a lowercase `.txt` will be loaded and used.
+
 * All blocks must be indented to the left, that is, the first letter must be to the left of the other letter in a blank area. 
 However, blocks on the left corner must be indented to the right, with the second letter offset to the right of the other letter, also in a blank area 
 (more on that in [**Building With Blocks**](Tutorial.md))
@@ -47,7 +49,6 @@ also including spaces.
 
 ### Needs More Research ###
 
-* Will files with a lowercase `.txt` be loaded and used?
 * What do the folders and files in the non-LEVELS folders go to in-game?
 * New level slots can be added using `LEVELS.TXT`?
 * The letter and number combination on the first line might identify something, but what?
