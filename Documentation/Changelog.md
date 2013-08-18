@@ -1,6 +1,11 @@
 Blocks Change Log
 =================
 
+### 0.9.1 ###
+Released ?? ??, 2013
+
+* Renamed constants module
+
 ### 0.9 ###
 Released August 15, 2013
 

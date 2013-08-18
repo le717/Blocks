@@ -6,7 +6,7 @@ import sys
 # Global variables
 app = "Blocks"
 majver = "0.9"
-minver = ""
+minver = ".1"
 creator = "Triangle717"
 
 # Name of Blocks Exe/Py
