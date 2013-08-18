@@ -151,6 +151,9 @@ def NewLevel(*args):
     global new_level
     new_level = True
 
+    # Remove level name display, since there is no opened level
+    level_name.set("")
+
     if debug:
         print("\nA new level is being created.\n")
 
@@ -179,16 +182,13 @@ def NewLevel(*args):
 def OpenLevel(*args):
     '''Reads Minigame Level'''
 
-    # File type label for dialog box
-    formats = [("IXS Minigame Layout", ".TXT")]
-
     # Assign selected file as global variable
     global level_file
     # Select the level file
     level_file = tkinter.filedialog.askopenfilename(
         parent=root,
         defaultextension=".TXT",
-        filetypes=formats,
+        filetypes=[("IXS Minigame Layout", ".TXT")],
         title="Select a Minigame Layout"
     )
 
@@ -625,7 +625,12 @@ def SavetheUnsaved(layout):
         return False
 
     # File selection dialog, allows for creation of new files
-    level_resave = tk.filedialog.asksaveasfilename()
+    level_resave = tk.filedialog.asksaveasfilename(
+        parent=root,
+        defaultextension=".TXT",
+        filetypes=[("IXS Minigame Layout", ".TXT")],
+        title="Save your level"
+    )
 
     # User did not select a file
     if not level_resave:

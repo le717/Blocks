@@ -5,6 +5,9 @@ Blocks Change Log
 Released ?? ??, 2013
 
 * Renamed constants module
+* Small cleanup
+* Added Save New Level dialog attributes
+* Remove level name display when new level is created after a level is opened
 
 ### 0.9 ###
 Released August 15, 2013
