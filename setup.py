@@ -29,29 +29,53 @@ import sys
 import os
 
 from constants import (majver, minver)
+import files
 
 # Append build command to command-line arguments.
 # Just type "python setup.py" and it will freeze
 if len(sys.argv) == 1:
     sys.argv[1:] = ["build"]
 
-# This is x86 Python
-if sys.maxsize == 2147483647:
-    destfolder = os.path.join("Freeze", "Windows")
+# This is being frozen on Windows
+if sys.platform == "win32":
+
+    # Hide command window on Windows
+    base = "Win32GUI"
+
+    # This is x86 Python
+    if sys.maxsize == 2147483647:
+        destfolder = os.path.join("Freeze", "Windows")
+
+        # Create the freeze path if it doesn't exist
+        if not os.path.exists(destfolder):
+            os.makedirs(destfolder)
+
+        # Write RunAsAdmin.cfg  and Blocks.bat
+        files.Write(destfolder)
+
+    # This is x64 Python
+    else:
+        input('''\n64-bit binaries are not frozen.
+    Please freeze Blocks using 32-bit Python 3.3.''')
+        raise SystemExit(0)
+
+# This is being frozen on Mac OS X
+elif sys.platform == "darwin":
+    destfolder = os.path.join("Freeze", "Mac OS X")
+    base = None
 
     # Create the freeze path if it doesn't exist
     if not os.path.exists(destfolder):
         os.makedirs(destfolder)
 
-# This is x64 Python
+# This is some flavor of Linux (I've heard rumblings of cx_Freeze for Linux...)
 else:
-    input('''\n64-bit binaries are not frozen.
-Please freeze Blocks using 32-bit Python 3.3.''')
-    raise SystemExit(0)
+    destfolder = os.path.join("Freeze", "Other")
+    base = None
 
-# Write the required RunAsAdmin.cfg file
-with open(os.path.join(destfolder, "RunAsAdmin.cfg"), "wt") as f:
-    f.write("Blocks.exe")
+    # Create the freeze path if it doesn't exist
+    if not os.path.exists(destfolder):
+        os.makedirs(destfolder)
 
 # Copy required files
 build_exe_options = {"build_exe": destfolder,
@@ -74,5 +98,5 @@ setup(
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("Blocks.pyw",
-        targetName="Blocks.exe", base="Win32GUI")]
+        targetName="Blocks.exe", base=base)]
 )

@@ -2,12 +2,17 @@ Blocks Change Log
 =================
 
 ### 0.9.1 ###
-Released ?? ??, 2013
+Released August 18, 2013
 
 * Renamed constants module
 * Small cleanup
 * Added Save New Level dialog attributes
 * Remove level name display when new level is created after a level is opened
+* Added new script dividers
+* Fixed error with being unable to save a new level if a level was previously opened
+* Added batch script to launch Blocks for Windows
+* Created script to write various files for Blocks for Windows
+* Updated `setup.py` with possibly better cross-platform compatibility
 
 ### 0.9 ###
 Released August 15, 2013

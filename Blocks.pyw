@@ -69,6 +69,10 @@ from tkinter import ttk
 from tkinter.messagebox import (showerror, askyesno)
 import tkinter.filedialog
 
+#TODO: Finish writing new level code
+
+# ------------ Begin Preload Checks And Arguments ------------ #
+
 
 def info():
     '''Python and OS checks'''
@@ -140,6 +144,9 @@ in the GUI instead!''')
     # Otherwise, just run Blocks.
     else:
         GUI(False)
+
+# ------------ End Preload Checks And Arguments ------------ #
+
 
 # ------------ Begin New Minigame Level ------------ #
 
@@ -217,7 +224,7 @@ def ReadLevel(level_file, cmd=False):
     '''Reads an existing level file'''
 
     # Update new level variable to denote a pre-existing level
-    #TODO: Finish writing new level code
+    global new_level
     new_level = False
     if debug:
         print("\nA new level is not being created.\n")
@@ -451,34 +458,7 @@ def char_check(layout_syntax):
 # ------------ End Level Layout Syntax Check ------------ #
 
 
-# ------------ Begin Level Layout Writing ------------ #
-
-def backup(location, backup_file):
-    '''Makes a backup of the level before saving'''
-
-    # Define the name and location of the backup
-    backup_file = os.path.join(location, "{0}{1}".format(
-        level_filename, ".bak"))
-
-    try:
-        # Copy the file, and try to preserve time stamp
-        shutil.copy2(level_file, backup_file)
-
-    # A level was edited directly in Program Files,
-    # or some other action that required Admin rights
-    except PermissionError as Perm:
-
-        showerror("Insufficient User Right!",
-'''Blocks does not have the user rights to save {0}!'''.format(level_filename))
-
-        if debug:
-            # Display traceback to console
-            print(Perm)
-
-        # Write traceback to log
-        logging.debug("\n")
-        logging.exception("Something went wrong! Here's what happened\n",
-            exc_info=True)
+# ------------ Begin RunAsAdmin Intergration ------------ #
 
 
 def AdminRun(level_filename, first_line, layout):
@@ -508,6 +488,39 @@ Your level will be preserved between launch.''')
         return False
 
 
+# ------------ End RunAsAdmin Intergration ------------ #
+
+
+# ------------ Begin Level Layout Saving ------------ #
+
+def Backup(location, backup_file):
+    '''Makes a backup of the level before saving'''
+
+    # Define the name and location of the backup
+    backup_file = os.path.join(location, "{0}{1}".format(
+        level_filename, ".bak"))
+
+    try:
+        # Copy the file, and try to preserve time stamp
+        shutil.copy2(level_file, backup_file)
+
+    # A level was edited directly in Program Files,
+    # or some other action that required Admin rights
+    except PermissionError as Perm:
+
+        showerror("Insufficient User Right!",
+'''Blocks does not have the user rights to save {0}!'''.format(level_filename))
+
+        if debug:
+            # Display traceback to console
+            print(Perm)
+
+        # Write traceback to log
+        logging.debug("\n")
+        logging.exception("Something went wrong! Here's what happened\n",
+            exc_info=True)
+
+
 def SaveLevel(new_layout):
     '''Writes Modded Minigame Level'''
 
@@ -515,6 +528,11 @@ def SaveLevel(new_layout):
     layout = str.encode(new_layout, encoding="utf-8", errors="strict")
 
     try:
+
+        # If a new level is being created, raise NameError so we can save it
+        if new_level:
+            raise NameError
+
         # Get just the folder path to the file
         location = os.path.dirname(level_file)
 
@@ -526,7 +544,7 @@ def SaveLevel(new_layout):
                     first_line = f.readline()
 
             # Run process to backup the level
-            backup(location, level_file)
+            Backup(location, level_file)
 
             # Open back up the original level, again in binary mode
             with open(level_file, "wb") as f:
@@ -613,6 +631,9 @@ def SaveLevel(new_layout):
         SavetheUnsaved(layout)
 
 
+# ------------ Begin New Level Saving ------------ #
+
+
 def SavetheUnsaved(layout):
     '''Save an unsaved level layout to file'''
 
@@ -634,7 +655,7 @@ def SavetheUnsaved(layout):
 
     # User did not select a file
     if not level_resave:
-        # Stop to saving process
+        # Stop the saving process
         return False
 
     # Split the filename into name and extension
@@ -659,6 +680,11 @@ def SavetheUnsaved(layout):
     ReadLevel(level_resave)
 
 
+# ------------ End New Level Saving ------------ #
+
+
+# ------------ Begin Temporary Level Saving ------------ #
+
 def temp_write(name, first_line, layout):
     '''Saves the level to a temporary file'''
 
@@ -678,7 +704,10 @@ def temp_write(name, first_line, layout):
     return path
 
 
-# ------------ End Level Layout Writing ------------ #
+# ------------ End Temporary Level Saving ------------ #
+
+
+# ------------ End Level Layout Saving ------------ #
 
 
 # ------------ Begin Level Legend Window ------------ #
@@ -692,12 +721,14 @@ def CharLegend(*args):
     # Use different window title
     legend_window.title("Level Character Legend - Blocks {0}{1}".format(
         majver, minver))
-    # App Icon
+    # Window Icon
     legend_window.iconbitmap(app_icon)
+
     # The window cannot be resized at all
     # Length x width
     legend_window.minsize("400", "260")
     legend_window.maxsize("400", "260")
+
     # Lift it above main window, give it focus
     legend_window.lift()
     legend_window.focus()
@@ -758,7 +789,7 @@ def GUI(cmdfile=False):
     root = tk.Tk()
     root.title("{0} {1}{2}".format(app, majver, minver))
 
-    # App icon
+    # App window icon
     root.iconbitmap(app_icon)
 
     # The smallest size the window can be
@@ -849,14 +880,16 @@ if __name__ == "__main__":
 
     # -- Begin Logging Configuration -- #
 
+    # Location and name of log file
     logging_file = os.path.join(os.path.expanduser("~"), "Blocks.log")
 
     logging.basicConfig(
+        # Set logging level
         level=logging.DEBUG,
         format="%(asctime)s : %(levelname)s: %(message)s",
         # Define log name and location
         filename=logging_file,
-        # "a" so the Logs is appended to and not overwritten
+        # "a" so the log is appended to and not overwritten
         # and is created if it does not exist
         filemode='a'
     )
