@@ -75,8 +75,7 @@ import tkinter.filedialog
 
 
 def info():
-    '''Python and OS checks'''
-
+    """Python and OS checks"""
     # Check if Python is x86 or x64
     # Based on code from Python help for platform module and my own tests
     if sys.maxsize == 2147483647:
@@ -103,8 +102,7 @@ def info():
 
 
 def CMD():
-    '''Command-line arguments parser'''
-
+    """Command-line arguments parser"""
     # Command-line arguments parser
     parser = argparse.ArgumentParser(
         description="{0} {1}{2} Command-line arguments".format(
@@ -152,8 +150,7 @@ in the GUI instead!''')
 
 
 def NewLevel(*args):
-    '''Create a new Minigame Level'''
-
+    """Create a new Minigame Level"""
     # Update variable saying a new level was created
     global new_level
     new_level = True
@@ -187,8 +184,7 @@ def NewLevel(*args):
 
 
 def OpenLevel(*args):
-    '''Reads Minigame Level'''
-
+    """Reads Minigame Level"""
     # Assign selected file as global variable
     global level_file
     # Select the level file
@@ -221,8 +217,7 @@ def OpenLevel(*args):
 
 
 def ReadLevel(level_file, cmd=False):
-    '''Reads an existing level file'''
-
+    """Reads an existing level file"""
     # Update new level variable to denote a pre-existing level
     global new_level
     new_level = False
@@ -272,7 +267,7 @@ itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
 
 
 def syntax_check(*args):
-    '''Checks the  Level Layout for syntax errors'''
+    """Checks the  Level Layout for syntax errors"""
 
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is required to make everything work
@@ -337,8 +332,7 @@ def syntax_check(*args):
 
 
 def level_size(layout_size):
-    '''Checks the size of the layout'''
-
+    """Checks the size of the layout"""
     if debug:
         print("\nThe new layout is:\n")
 
@@ -379,8 +373,7 @@ The level must be exactly 8 lines.\n'''.format(lineno))
 
 
 def line_length(line_size):
-    '''Checks the length of each line'''
-
+    """Checks the length of each line"""
     # Bit of spacing for debug messages
     if debug:
         print()
@@ -429,8 +422,7 @@ The line must be exactly 38 characters, including spaces.'''.format(
 
 
 def char_check(layout_syntax):
-    '''Checks if each character in the layout is valid'''
-
+    """Checks if each character in the layout is valid"""
     # Get indices and text for each line
     for index, char in enumerate(layout_syntax):
 
@@ -461,16 +453,15 @@ def char_check(layout_syntax):
 # ------------ Begin RunAsAdmin Intergration ------------ #
 
 
-def AdminRun(level_filename, first_line, layout):
-    '''Reloads Blocks with administrator rights'''
-
+def launch(level_filename, first_line, layout):
+    """Reloads Blocks with administrator rights"""
+    #FIXME: Don't run this on Mac OS X and Linux
     admin = askyesno("Relaunch Blocks?",
 '''Would you like to relaunch Blocks with Administrator rights?
 Your level will be preserved between launch.''')
 
     # If user chooses to relaunch
     if admin:
-
         # Save a temporary file
         temp_file = temp_write(level_filename, first_line, layout)
 
@@ -494,8 +485,7 @@ Your level will be preserved between launch.''')
 # ------------ Begin Level Layout Saving ------------ #
 
 def Backup(location, backup_file):
-    '''Makes a backup of the level before saving'''
-
+    """Makes a backup of the level before saving"""
     # Define the name and location of the backup
     backup_file = os.path.join(location, "{0}{1}".format(
         level_filename, ".bak"))
@@ -522,8 +512,7 @@ def Backup(location, backup_file):
 
 
 def SaveLevel(new_layout):
-    '''Writes Modded Minigame Level'''
-
+    """Writes Modded Minigame Level"""
     # Convert layout from str(ing) to binary
     layout = str.encode(new_layout, encoding="utf-8", errors="strict")
 
@@ -573,7 +562,7 @@ def SaveLevel(new_layout):
 ''', exc_info=True)
 
             # Run Admin relaunch process
-            admin = AdminRun(level_filename, first_line, layout)
+            admin = launch(level_filename, first_line, layout)
 
             # The user did not want to relaunch
             if not admin:
@@ -635,8 +624,7 @@ def SaveLevel(new_layout):
 
 
 def SavetheUnsaved(layout):
-    '''Save an unsaved level layout to file'''
-
+    """Save an unsaved level layout to file"""
     ask_resave = tk.messagebox.askyesno("Save Level?",
     '''Would you like to create a new level or save over another one?''')
 
@@ -686,8 +674,7 @@ def SavetheUnsaved(layout):
 # ------------ Begin Temporary Level Saving ------------ #
 
 def temp_write(name, first_line, layout):
-    '''Saves the level to a temporary file'''
-
+    """Saves the level to a temporary file"""
     # Name and location of temporary file
     path = os.path.join(os.path.expanduser("~"), name)
 
@@ -714,8 +701,7 @@ def temp_write(name, first_line, layout):
 
 
 def CharLegend(*args):
-    '''Contains Level Character Legend'''
-
+    """Contains Level Character Legend"""
     # Spawn a new window, parent it to main window
     legend_window = tk.Toplevel(root)
     # Use different window title
@@ -754,7 +740,7 @@ def CharLegend(*args):
     ttk.Label(legend_window, text=legend_text).grid()
 
     def CloseCharLegend(*args):
-        '''Closes Character Legend Window'''
+        """Closes Character Legend Window"""
         legend_window.destroy()
 
     # Bind <Ctrl + q> shortcut to close the legend window
@@ -773,14 +759,13 @@ def CharLegend(*args):
 
 
 def Close(*args):
-    '''Closes Blocks'''
+    """Closes Blocks"""
     logging.shutdown()
     raise SystemExit(0)
 
 
 def GUI(cmdfile=False):
-    '''Tkinter GUI Code'''
-
+    """Tkinter GUI Code"""
     # Mark as global so everything works
     global root, level_name, level
 
@@ -877,7 +862,6 @@ def GUI(cmdfile=False):
 # ------------ End Tkinter GUI Layout ------------ #
 
 if __name__ == "__main__":
-
     # -- Begin Logging Configuration -- #
 
     # Location and name of log file

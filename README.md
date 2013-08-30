@@ -26,7 +26,7 @@ If you would like to contribute to the development of **Blocks**, please read [`
 
 Credit
 ------
-***Blocks*, created 2013 Triangle717, and released under the [GNU General Public License Version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).**
+***Blocks*, created 2013 Triangle717, and released under the [General Public License Version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).**
 
-**This project uses [*RunAsAdmin*](https://github.com/QuantumCD/RunAsAdmin#readme), copyright :copyright: 2013 [QuantumCD](
-http://contingencycoder.wordpress.com/), and released under the [MIT License](http://opensource.org/licenses/MIT).**
+**This project uses [*RunAsAdmin*](https://github.com/QuantumCD/RunAsAdmin#readme), copyright :copyright: 2013 
+[QuantumCD](http://contingencycoder.wordpress.com/), and released under the [MIT License](http://opensource.org/licenses/MIT).**

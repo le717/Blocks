@@ -1,6 +1,12 @@
 Blocks Change Log
 =================
 
+### 0.9.2 ###
+Released ?? ??, 2013
+
+* Improved `setup.py` OS detection, actions and whitespace 
+* Updated docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
+
 ### 0.9.1 ###
 Released August 18, 2013
 

@@ -1,5 +1,6 @@
-#! python3.3-32
+#! usr/bin/env python3.3-32
 # -*- coding: utf-8 -*-
+# <pep8-80 compliant>
 """
     Blocks - Island Xtreme Stunts Minigame Level Editor
     Created 2013 Triangle717
@@ -36,22 +37,18 @@ import files
 if len(sys.argv) == 1:
     sys.argv[1:] = ["build"]
 
+# Do we hide the console window, or not?
+base = None
+
 # This is being frozen on Windows
 if sys.platform == "win32":
 
-    # Hide command window on Windows
+    # On Windows, yes, hide the console window
     base = "Win32GUI"
 
     # This is x86 Python
     if sys.maxsize == 2147483647:
         destfolder = os.path.join("Freeze", "Windows")
-
-        # Create the freeze path if it doesn't exist
-        if not os.path.exists(destfolder):
-            os.makedirs(destfolder)
-
-        # Write RunAsAdmin.cfg  and Blocks.bat
-        files.Write(destfolder)
 
     # This is x64 Python
     else:
@@ -62,33 +59,31 @@ if sys.platform == "win32":
 # This is being frozen on Mac OS X
 elif sys.platform == "darwin":
     destfolder = os.path.join("Freeze", "Mac OS X")
-    base = None
 
-    # Create the freeze path if it doesn't exist
-    if not os.path.exists(destfolder):
-        os.makedirs(destfolder)
-
-# This is some flavor of Linux (I've heard rumblings of cx_Freeze for Linux...)
+# This is some flavor of Linux
 else:
-    destfolder = os.path.join("Freeze", "Other")
-    base = None
+    destfolder = os.path.join("Freeze", "Linux")
 
-    # Create the freeze path if it doesn't exist
-    if not os.path.exists(destfolder):
-        os.makedirs(destfolder)
+# Create the freeze path if it doesn't exist
+if not os.path.exists(destfolder):
+    os.makedirs(destfolder)
+
+# # Write RunAsAdmin.cfg  and Blocks.bat on Windows only
+if base is not None:
+    files.Write(destfolder)
 
 # Copy required files
 build_exe_options = {"build_exe": destfolder,
-                     "icon": "Media/Blocks.ico",
-                     "include_files": [
-                     "LICENSE.txt",
-                     "LICENSE.RunAsAdmin.txt",
-                     "Media/Blocks.ico",
-                     "Media/Blocks.gif",
-                     "Documentation/Changelog.md",
-                     "Documentation/Format-Details.md",
-                     "Documentation/Tutorial.md"]
-                     }
+                    "icon": "Media/Blocks.ico",
+                    "include_files": [
+                    "LICENSE.txt",
+                    "LICENSE.RunAsAdmin.txt",
+                    "Media/Blocks.ico",
+                    "Media/Blocks.gif",
+                    "Documentation/Changelog.md",
+                    "Documentation/Format-Details.md",
+                    "Documentation/Tutorial.md"]
+                    }
 
 setup(
     name="Blocks",
