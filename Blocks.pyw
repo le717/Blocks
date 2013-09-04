@@ -103,15 +103,13 @@ def info():
 
 def CMD():
     """Command-line arguments parser"""
-    # Command-line arguments parser
     parser = argparse.ArgumentParser(
         description="{0} {1}{2} Command-line arguments".format(
             app, majver, minver))
 
     # Debug message argument
     parser.add_argument("-d", "--debug",
-        help='Dispay debugging messages',
-        action="store_true")
+        help='Dispay debugging messages', action="store_true")
 
     # Open file argument
     parser.add_argument("-o", help='''Open a level file for editing.
