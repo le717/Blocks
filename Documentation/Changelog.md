@@ -6,6 +6,7 @@ Released ?? ??, 2013
 
 * Improved `setup.py` OS detection, actions and whitespace 
 * Updated docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
+* Fixed visual indentation errors
 
 ### 0.9.1 ###
 Released August 18, 2013
@@ -32,7 +33,7 @@ Released August 15, 2013
 * Improved display of About text on main window
 * Split **Blocks** constants into a separate script
 * Reworked Python version check, it now works as excepted
-* Improved method of uppercase conversion syntax check 
+* Improved method of uppercase conversion syntax check
 * Moved list of allowed characters in a layout to the global name-space
 * Split line length check into separate function
 * Split level size check into separate function
@@ -40,7 +41,7 @@ Released August 15, 2013
 * Fixed deletion code in temporary file creation/deletion function
 * Split level backup process into separate function
 * Fixed bug in line length check causing an extra space to be added after the last character in the layout
-* Delete lists created by syntax checks after the check is complete to free up system resources 
+* Delete lists created by syntax checks after the check is complete to free up system resources
 * Limited number of level backups to one (`1`), cleaned up backup code
 * Dump any errors to log
 * Rewrote command-line arguments using `argparse`
@@ -49,7 +50,7 @@ Released August 15, 2013
 [@Anonymooseable](https://github.com/Anonymooseable) for _majorly_ helping with this by suggesting one single line of code!)
 * Fixed Administrator relaunch and loading of temporary level save
 * Save temporary level to same location as log
-* Split Administrator relaunch into separate function 
+* Split Administrator relaunch into separate function
 * Reworked error logging system
 * Added new logging messages at `Blocks` launch
 * Fixed bug with level file name not being set when open parameter was invoked
@@ -125,12 +126,12 @@ Released May 26, 2013
 * Bound `Escape` key to exit button
 * Changed binding of Open button to lowercase `o` (as in, "Oh!")
 * Open web browser to `http://python.org/download/` if run on any version of Python below 3.3.0
-* Added script dividers 
+* Added script dividers
 * Bound lowercase `s` key to Save button
 * Restricted selectable files for viewing to `.TXT`
 * Added ability to copy selected level file, append `.bak` to it
 * Added ability to update copied filename if it already exists
-* Changed bindings of Open and Save buttons to `<Ctrl> + <o>` and `<Ctrl> + <s>` shortcuts, respectively. 
+* Changed bindings of Open and Save buttons to `<Ctrl> + <o>` and `<Ctrl> + <s>` shortcuts, respectively.
 * Limited the amount of level file read (it pulled out two too many lines)
 * Added error message if user tries to save a level without opening one first
 * Resized Blocks logo, moved location of logo in program, resized program window

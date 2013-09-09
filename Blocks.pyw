@@ -42,9 +42,9 @@ if sys.version_info < (3, 3, 0):
     root.iconbitmap(app_icon)
     # Display error message
     tkMessageBox.showerror("Unsupported Python Version!",
-'''You are running Python {0}.
+                           '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
-.format(sys.version[0:5], app, majver, minver))
+                           .format(sys.version[0:5], app, majver, minver))
 
     # Opens only when user clicks OK
     # New tab, raise browser windows
@@ -109,7 +109,7 @@ def CMD():
 
     # Debug message argument
     parser.add_argument("-d", "--debug",
-        help='Dispay debugging messages', action="store_true")
+                        help='Dispay debugging messages', action="store_true")
 
     # Open file argument
     parser.add_argument("-o", help='''Open a level file for editing.
@@ -261,7 +261,7 @@ def ReadLevel(level_file, cmd=False):
 # The allowed characters in a layout
 # This is in the global namespace because a couple of checks reference it
 itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
-"GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV"]
+            "GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV"]
 
 
 def syntax_check(*args):
@@ -348,8 +348,8 @@ def level_size(layout_size):
 
     if (  # The level is more than 8 lines
         lineno > 8 or
-        # The level is less than 8 lines
-        lineno < 8):
+            # The level is less than 8 lines
+            lineno < 8):
 
         # Display error message in console if debug messages are enabled
         if debug:
@@ -358,7 +358,7 @@ The level must be exactly 8 lines.'''.format(lineno))
 
         # Display error message to user telling them about the error
         showerror("Size Error!",
-'''Your level contains {0} lines!
+                  '''Your level contains {0} lines!
 The level must be exactly 8 lines.\n'''.format(lineno))
 
         # Return custom error message everything will work
@@ -400,7 +400,7 @@ def line_length(line_size):
 
             showerror("Length Error!", '''Line {0} is {1} characters!
 The line must be exactly 38 characters, including spaces.'''.format(
-    linenum, len_of_line))
+                      linenum, len_of_line))
 
             # Return custom error message everything will work
             return "Error"
@@ -436,7 +436,8 @@ def char_check(layout_syntax):
                 print('\nInvalid character "{0}" at position {1}\n'.format(
                     char, index))
             showerror("Syntax Error!",
-            'Invalid character: "{0}" at position {1}'.format(char, index))
+                      'Invalid character: "{0}" at position {1}'.format(
+                      char, index))
 
             # Return custom error message everything will work
             return "Error"
@@ -455,7 +456,7 @@ def launch(level_filename, first_line, layout):
     """Reloads Blocks with administrator rights"""
     #FIXME: Don't run this on Mac OS X and Linux
     admin = askyesno("Relaunch Blocks?",
-'''Would you like to relaunch Blocks with Administrator rights?
+                     '''Would you like to relaunch Blocks with Administrator rights?
 Your level will be preserved between launch.''')
 
     # If user chooses to relaunch
@@ -497,7 +498,8 @@ def Backup(location, backup_file):
     except PermissionError as Perm:
 
         showerror("Insufficient User Right!",
-'''Blocks does not have the user rights to save {0}!'''.format(level_filename))
+                  '''Blocks does not have the user rights to save {0}!'''
+                  .format(level_filename))
 
         if debug:
             # Display traceback to console
@@ -506,7 +508,7 @@ def Backup(location, backup_file):
         # Write traceback to log
         logging.debug("\n")
         logging.exception("Something went wrong! Here's what happened\n",
-            exc_info=True)
+                          exc_info=True)
 
 
 def SaveLevel(new_layout):
@@ -544,7 +546,7 @@ def SaveLevel(new_layout):
 
             # Display success dialog
             tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-            .format(level_filename, location))
+                                   .format(level_filename, location))
 
         # A level was edited directly in Program Files or something like that,
         # and Blocks was run without Administrator rights
@@ -572,7 +574,7 @@ def SaveLevel(new_layout):
         # and get stuck in an endless loop, so the level could NEVER be saved
         except FileNotFoundError as FNFE:
             showerror("Cannot Save Level!",
-"A minigame level has not been selected for editing!")
+                      "A minigame level has not been selected for editing!")
 
             if debug:
                 # Display traceback in console
@@ -581,7 +583,7 @@ def SaveLevel(new_layout):
             # Write traceback to log
             logging.debug("\n")
             logging.exception("Something went wrong! Here's what happened\n",
-                exc_info=True)
+                              exc_info=True)
 
             # Run process to save the layout
             SavetheUnsaved(layout)
@@ -589,7 +591,8 @@ def SaveLevel(new_layout):
         # Any other unhandled error occurred
         except Exception as Exc:
             showerror("An Error Has Occurred!",
-"Blocks ran into an unknown error while trying to {0}!".format(level_filename))
+                      "Blocks ran into an unknown error while trying to {0}!"
+                      .format(level_filename))
 
             if debug:
                 # Display traceback in console
@@ -598,12 +601,12 @@ def SaveLevel(new_layout):
             # Write traceback to log
             logging.debug("\n")
             logging.exception("Something went wrong! Here's what happened\n",
-                exc_info=True)
+                              exc_info=True)
 
     # The user tried to save a level without loading one first
     except NameError as NE:
         showerror("Cannot Save Level!",
-"A minigame level has not been selected for editing!")
+                  "A minigame level has not been selected for editing!")
 
         if debug:
             # Display traceback in console
@@ -612,7 +615,7 @@ def SaveLevel(new_layout):
         # Write traceback to log
         logging.debug("\n")
         logging.exception("Something went wrong! Here's what happened\n",
-            exc_info=True)
+                          exc_info=True)
 
         # Run process to save the temporary layout
         SavetheUnsaved(layout)
@@ -624,7 +627,7 @@ def SaveLevel(new_layout):
 def SavetheUnsaved(layout):
     """Save an unsaved level layout to file"""
     ask_resave = tk.messagebox.askyesno("Save Level?",
-    '''Would you like to create a new level or save over another one?''')
+        '''Would you like to create a new level or save over another one?''')
 
     # User did not want to save the level
     if not ask_resave:
@@ -746,7 +749,7 @@ def CharLegend(*args):
 
     # Close Legend button
     close_legend_button = ttk.Button(legend_window, default="active",
-        text="Close", command=CloseCharLegend)
+                                     text="Close", command=CloseCharLegend)
     close_legend_button.grid(column=1, row=1, sticky=tk.S)
 
 
@@ -823,7 +826,7 @@ def GUI(cmdfile=False):
 
     # Character Legend button
     legend_button = ttk.Button(mainframe, text="Character Legend",
-    command=CharLegend)
+                               command=CharLegend)
     legend_button.grid(column=0, row=1, columnspan=2, sticky=tk.N)
 
     # Blocks Logo
