@@ -89,7 +89,7 @@ def info():
          platform.machine(), platform.platform()))
     logging.info('''
                                 #############################################
-                                        {0} Version {1}{2}
+                                            {0} Version {1}{2}
                                           Created 2013 {3}
                                                 Blocks.log
 
