@@ -573,8 +573,6 @@ def SaveLevel(new_layout):
         # Not catching this exception would trigger Exception
         # and get stuck in an endless loop, so the level could NEVER be saved
         except FileNotFoundError as FNFE:
-            showerror("Cannot Save Level!",
-                      "A minigame level has not been selected for editing!")
 
             if debug:
                 # Display traceback in console
@@ -605,8 +603,6 @@ def SaveLevel(new_layout):
 
     # The user tried to save a level without loading one first
     except NameError as NE:
-        showerror("Cannot Save Level!",
-                  "A minigame level has not been selected for editing!")
 
         if debug:
             # Display traceback in console
@@ -626,14 +622,6 @@ def SaveLevel(new_layout):
 
 def SavetheUnsaved(layout):
     """Save an unsaved level layout to file"""
-    ask_resave = tk.messagebox.askyesno("Save Level?",
-        '''Would you like to create a new level or save over another one?''')
-
-    # User did not want to save the level
-    if not ask_resave:
-        # Stop the saving process
-        return False
-
     # File selection dialog, allows for creation of new files
     level_resave = tk.filedialog.asksaveasfilename(
         parent=root,

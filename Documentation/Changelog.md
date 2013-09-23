@@ -7,6 +7,7 @@ Released ?? ??, 2013
 * Improved `setup.py` OS detection, actions and whitespace 
 * Updated docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
 * Fixed visual indentation errors
+* Removed unneed error and prompt dialogs when attempting to save a level without opening one first
 
 ### 0.9.1 ###
 Released August 18, 2013
