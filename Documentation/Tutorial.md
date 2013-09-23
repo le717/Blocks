@@ -79,15 +79,29 @@ From looking at our [Legend](#character-legend), we can see this level contains
 You may notice it also contains the code for the first and last lines of the file. We will not worry ourselves with them, and will instead 
 focus on the layout itself. 
 
-Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly if I do not purely use explanations, 
-but use examples in addition to explaining why we do what we do. :smile:
+Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly if I do not purely use 
+explanations, but use examples in addition to explaining why we do what we do. :smile:
 
 #### Lesson #1: "Why Not Notepad?"####
 
 I need to address this before we begin. You may be wonder why I said to **never** use Notepad to mod the levels. Despite the claims of some people,
 Notepad is **not** a good modding, programming, and sometimes even writing tool. During the writing of both this tutorial and **Blocks**, I was
 asked more than once why I advise against using Notepad. While I had a legitimate point from the beginning, sure-fire evidence against its usage
-came in the form of a bug report.
+came in the form of a bug report. Someone had tried to mod a level using Notepad, since the files are plain text with just an odd first line.
+In doing this, the level formatting (which we will discuss) became broken, and any attempts to load the level would crash the game. Moreover,
+when the same file was loaded in **Blocks** or **Notepad++**, the formatting was correct, but it would still not load in-game. We never solved the issue,
+much figure out how it happened. However, not one report has come back about **Blocks** or **Notepad++** breaking the level layout and rendering it unplayable.
+That is why I strongly advise against any use of Notepad for modding.
+
+Now you may be thinking,
+
+> "If Notepad++ doesn't break the levels like Notepad does, then why do I need to use Blocks?
+
+Well, there isn't! Using **Notepad++** instead of **Blocks** is your choice. I myself use **Notepad++** a good amount! However, **Blocks** contains safeguards
+that **Notepad++** does not contain. These safeguards help ensure you level layout is valid, and can be used in-game and by others. Discussing those safeguards
+is off-topic, but in the course of this tutorial you will be taught about them and what you can do to ensure your level will not be invalid. Though **Blocks**
+could be viewed as worthless for advanced modders or "a fancy text editor", it exists to help, not restrict, your modding. If you feel it is limiting you,
+you are under no pressure to use it, but it is handy for both beginner and advanced modders alike.
 
 ### Task #1: Adding a Blocked Wall ###
 
