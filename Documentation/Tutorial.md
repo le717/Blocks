@@ -9,14 +9,15 @@ Table of Contents
 
 <table>
 <tr>
-<th colspan="9">Table of Contents</th>
+<th colspan="10">Table of Contents</th>
 </tr>
 <td><a href="#requirements">Requirements</a></td>
 <td><a href="#character-legend">Character Legend</a></td>
+<td><a href="#lesson-1-">Lesson #1</a></td>
 <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
-<td><a href="#lesson-1-indentation-matters">Lesson #1</a></td>
-<td><a href="#lesson-2-making-sure-it-all-works">Lesson #2</a></td>
-<td><a href="#lesson-3-jumping-to-specific-levels">Lesson #3</a></td>
+<td><a href="#lesson-2-indentation-matters">Lesson #2</a></td>
+<td><a href="#lesson-3-making-sure-it-all-works">Lesson #3</a></td>
+<td><a href="#lesson-4-jumping-to-specific-levels">Lesson #4</a></td>
 <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
 <td><a href="#task-3-adding-a-one-way-west-bound-red-cube">Task #3</a></td>
 <td><a href="#task-4-water">Task #4</a></td>
@@ -29,7 +30,7 @@ Requirements
 ------------
 
 You will need a few items to complete this tutorial
-* A copy of [*Island Xtreme Stunts*](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-) [(Video version)](http://www.youtube.com/watch?v=yMGIu-BOrO8)
+* A copy of [_Island Xtreme Stunts_](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-) [(video tutorial)](http://www.youtube.com/watch?v=yMGIu-BOrO8)
 * The newest release of [**Blocks**](https://github.com/le717/Blocks/releases), or
 * A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org) (just **never** use Notepad!)
 * The minigame level format details, available in [Format-Details.md](Format-Details.md)
@@ -87,7 +88,7 @@ The first modding example we will do is add a Blocked Wall to the layout. We rem
 (If you don't remember, fell free to peek back at the Legend any time you need to. :wink:) To start, we are going to add a Blocked Wall on 
 the top row, on the 8th column. However, before we add our wall, we need to speak a bit on indentation.
 
-#### Lesson #1: Indentation Matters! ####
+#### Lesson #2: Indentation Matters! ####
 
 Look carefully at the level layout. You will notice that the code for any non-free tile consists of two letters, rather than one. 
 Also, the first letter of the code is offset to the left of the free tile code. Except in special circumstances (as we will see later), 
@@ -122,7 +123,7 @@ Now we will dive into some lessons to learn a few things that will help us in ou
 
 [:arrow_up: Back to Top](#building-with-blocks)
 
-#### Lesson #2: Making Sure It All Works ####
+#### Lesson #3: Making Sure It All Works ####
 
 How do you know your mod will work or not? I mean, if it is not properly created, it won't work, will it? 
 
@@ -133,7 +134,7 @@ More specifically, the game will crash when you try to load a broken level if th
 already completed, it won't crash, but it would if you loaded that one. If the broken level is ahead of the current level, then the game will crash
 when you reach that level. Thus, ensuring you edit correctly really pays off in the long run!
 
-#### Lesson #3: Jumping to Specific Levels ####
+#### Lesson #4: Jumping to Specific Levels ####
 
 *Coming Soon.*
 
