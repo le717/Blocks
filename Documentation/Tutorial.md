@@ -82,6 +82,13 @@ focus on the layout itself.
 Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly if I do not purely use explanations, 
 but use examples in addition to explaining why we do what we do. :smile:
 
+#### Lesson #1: ####
+
+I need to address this before we begin. You may be wonder why I said to **never** use Notepad to mod the levels. Despite the claims of some people,
+Notepad is **not** a good modding, programming, and sometimes even writing tool. During the writing of both this tutorial and **Blocks**, I was
+asked more than once why I advise against using Notepad. While I had a legitimate point from the beginning, sure-fire evidence against its usage
+came in the form of a bug report.
+
 ### Task #1: Adding a Blocked Wall ###
 
 The first modding example we will do is add a Blocked Wall to the layout. We remember from our Legend a Blocked Wall is signified by a `BW`.
