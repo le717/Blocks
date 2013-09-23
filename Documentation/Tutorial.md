@@ -54,7 +54,7 @@ You will need a few items to complete this tutorial
                                         WR = Bottom Left, WB = Bottom Right
 ```
 
-For the majority of this tutorial, we will be using level 3 of *Trouble in Store*, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
+For the majority of this tutorial, we will be using level 3 of _Trouble in Store_, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
 
 ```
 C 01 00 00 1
@@ -91,7 +91,7 @@ the top row, on the 8th column. However, before we add our wall, we need to spea
 
 Look carefully at the level layout. You will notice that the code for any non-free tile consists of two letters, rather than one. 
 Also, the first letter of the code is offset to the left of the free tile code. Except in special circumstances (as we will see later), 
-the codes for *any* non-free cube/tile follow this pattern.
+the codes for _any_ non-free cube/tile follow this pattern.
 
 Well, now that we know a bit about indentation, let's add our Blocked Wall!
 
@@ -101,7 +101,7 @@ be sure to run either program with Administrator rights, otherwise you will be u
 
 * Once the level is open in your editor of choice, find the square we want to edit (1st row, 8th column). Start by removing the `F` that is currently 
 sitting in that location, in addition to a single space (what did we talk about in Lesson #1?). Now type `BW`, ensuring the `W` is lined up with the
-`F` directly below it on the next row. Click Save (`<Ctrl> + <s>` in either program) to save your mod. 
+`F` directly below it on the next row. Click Save (`<Ctrl + s>` in either program) to save your mod. 
 
 The original line looked like this:
 
@@ -111,7 +111,7 @@ but now, it should look like this:
 
 ` F  F  F  F  F  F  F BW  F  F  F  F  F`
 
-* Open *Island Xtreme Stunts*, load your save, make your way to Jack O' Trade's store (if you aren't already there), and load the *Trouble in Store* minigame.
+* Open _Island Xtreme Stunts_, load your save, make your way to Jack O' Trade's store (if you aren't already there), and load the _Trouble in Store_ minigame.
 If you performed the editing correctly, the game will successfully load your modded level, and you will see a new Blocked Wall where you placed it!
 If you didn't, then the game will crash. Even with this little bit of knowledge, you can mod the minigame levels, as cubes and non-free tiles all work this way.
 
@@ -126,7 +126,7 @@ Now we will dive into some lessons to learn a few things that will help us in ou
 
 How do you know your mod will work or not? I mean, if it is not properly created, it won't work, will it? 
 
-Correct, your mod will not work if is not properly created, but how do you know if it works? *Island Xtreme Stunts* has a pretty simple way of 
+Correct, your mod will not work if is not properly created, but how do you know if it works? _Island Xtreme Stunts_ has a pretty simple way of 
 telling you if your mod is not correctly created: it crashes! :stuck_out_tongue:
 
 More specifically, the game will crash when you try to load a broken level if that level is the current level. If the broken level is one you have
@@ -179,10 +179,10 @@ This one is gonna be fun, and in a good way. :stuck_out_tongue:
 
 You are probably wondering, 
 
-> "What on earth is a `One-way, west-bound Red Cube`, and what is with that name??
+> "What on earth is a `One-way, west-bound Red Cube`, and what is with that name??"
 
 Well, I'll tell you.
-An `One-way, west-bound Red Cube` is a unique cube in *Island Xtreme Stunts*. They are only found in Maggie Post's *Trouble in Store* minigame 
+An `One-way, west-bound Red Cube` is a unique cube in _Island Xtreme Stunts_. They are only found in Maggie Post's *Trouble in Store* minigame 
 (that is, only in an unmodded copy), it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special, 
 validates any color Tile (not only Red) and even have special properties, since it only move ones direction, to the right of the layout. If you think about the 
 level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, the bottom South, the left side East, and the right side 
@@ -221,9 +221,9 @@ Let's start by placing a Red Tile (`RT`) at the 11th column of the 4th row (reme
 
 Since we are adding an `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Let's add it at...
 
-***"Wait a second, le! You haven't said what the code for this cube is!***
+> "Wait a second, le717! You haven't said what the code for this cube is!"
 
-Indeed I haven't, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I *could* just tell you to 
+Indeed I haven't, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I _could_ just tell you to 
 look at the Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, `R` meaning Red, and `B` marking 
 its distinctiveness from the other, normal cubes (`C`).
 
@@ -257,7 +257,6 @@ level layout. High five! :raised_hand:
 
 ### Task #4: Water ###
 
-#### While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me
-from writing it at this time. I'm sorry for any inconvenience this may have caused you. ####
+#### While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me from writing it at this time. I'm sorry for any inconvenience this may have caused you. ####
 
 [:arrow_up: Back to Top](#building-with-blocks)
