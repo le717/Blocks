@@ -13,7 +13,7 @@ Table of Contents
 </tr>
 <td><a href="#requirements">Requirements</a></td>
 <td><a href="#character-legend">Character Legend</a></td>
-<td><a href="#lesson-1-">Lesson #1</a></td>
+<td><a href="#lesson-1-why-not-notepad">Lesson #1</a></td>
 <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
 <td><a href="#lesson-2-indentation-matters">Lesson #2</a></td>
 <td><a href="#lesson-3-making-sure-it-all-works">Lesson #3</a></td>
@@ -82,7 +82,7 @@ focus on the layout itself.
 Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly if I do not purely use explanations, 
 but use examples in addition to explaining why we do what we do. :smile:
 
-#### Lesson #1: ####
+#### Lesson #1: "Why Not Notepad?"####
 
 I need to address this before we begin. You may be wonder why I said to **never** use Notepad to mod the levels. Despite the claims of some people,
 Notepad is **not** a good modding, programming, and sometimes even writing tool. During the writing of both this tutorial and **Blocks**, I was
