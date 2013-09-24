@@ -94,24 +94,25 @@ asked more than once why I advise against using Notepad. While I had a legitimat
 came in the form of a bug report. Someone had tried to mod a level using Notepad, since the files are only plain text with an odd first line.
 In doing this, the level formatting (which we will later discuss) broke, and any attempts to load the level would crash the game. Moreover,
 when the same file was loaded in **Blocks** or **Notepad++**, the formatting would be correct, but it would still not load in-game. We never solved the issue,
-much less figured out how it happened. However, not one report has come back about **Blocks** or **Notepad++** breaking the level layout and rendering it unplayable.
-That is why I strongly advise against any use of Notepad for modding.
+much less figured out exactly how it happened. However, not one report has come back about **Blocks** or **Notepad++** breaking the level layout and rendering 
+it unplayable. That is why I strongly advise against any use of Notepad for modding.
 
 Now you may be thinking
 
 > "If Notepad++ does not break the levels like Notepad does, then why do I need to use Blocks?"
 
-Honestly, there is no need! Using **Notepad++** instead of **Blocks** is your choice. I myself use **Notepad++** a good amount when modding! However, **Blocks** contains safeguards
-that **Notepad++** does not. These safeguards help ensure you level layout is valid, and can be used in-game. Discussion of those safeguards
-is off-topic, but in the course of this tutorial you will be taught about the areas that are most prone to breakage and what you can do to ensure your level is not invalid. 
-Though **Blocks** could be viewed as worthless for advanced modders or "a fancy text editor", it exists to help, not restrict, your modding. If you feel it is limiting you,
-you are under no pressure to use it, but it is handy tool to have for both beginner and advanced modders alike.
+Honestly, there is no need! Using **Notepad++** instead of **Blocks** is your choice. I myself use **Notepad++** a good amount when modding! However, 
+**Blocks** contains safeguards that **Notepad++** does not. These safeguards help ensure your level layout is valid and can be used in-game. Discussion of 
+those safeguards is off-topic, but in the course of this tutorial you will be taught about the areas that are most prone to breakage and what you can do to 
+ensure your level is not invalid. Though **Blocks** could be viewed as worthless for advanced modders or "a fancy text editor", it exists to help, not 
+restrict, your modding. If you feel it is limiting you,you are under no pressure to use it; but it is handy tool to have for both beginner and advanced modders 
+alike.
 
 ### Task #1: Adding a Blocked Wall ###
 
 The first modding example we will do is add a Blocked Wall to the layout. We remember from the Legend a Blocked Wall is signified by a `BW`.
 (If at any time you do not remember a code, fell free to peek back at the Legend. :wink:) To start, we are going to add a Blocked Wall on 
-the top row, at the 8th column. However, before we add the wall, we need to speak a bit on indentation.
+the top row, at the 8th column. However, before we add the wall, we need to speak a bit about indentation.
 
 #### Lesson #2: Indentation Matters! ####
 
@@ -121,7 +122,7 @@ the codes for _any_ non-free cube/tile follow this pattern.
 
 ---
 
-Now that we know a bit about indentation, let us add the Blocked Wall!
+Now that we know a bit about indentation, it is time to add the Blocked Wall and make our first mod!
 
 * Run **Blocks**, and open the level file (`<Ctrl + Shift + O>`), or  open it in **Notepad++** (`<Ctrl + o>`). If you do not remember where it is located, 
 the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank). If you are editing the level straight from Program Files,
@@ -139,14 +140,16 @@ but your edits should now have it looking like this:
 
 ` F  F  F  F  F  F  F BW  F  F  F  F  F`
 
-* Open _Island Xtreme Stunts_, load your save game, make your way to Jack O' Trade's store (if you are not already there), and load the _Trouble in Store_ minigame.
+* Open _Island Xtreme Stunts_, load your save game, make your way to Jack O' Trade's store (if you are not already there), and load the _Trouble in Store_ 
+minigame.
 If you performed the editing correctly, the game will successfully load your modded level, and you will see a new Blocked Wall where you placed it!
-If you didn't, then the game will crash. Even with this little bit of knowledge, you can mod all of the minigame levels, as cubes and non-free tiles all work this way.
+If you didn't, then the game will crash. Even with this little bit of knowledge, you can mod all of the minigame levels, since all Cubes and non-Free tiles 
+alike work this way.
 
-> **Recap:** You just learned why to never use Notepad when modding, indentation matters, how to open a level in **Blocks** or **Notepad++**, add a Blocked Wall using the `BW` code, 
-> ensure it is properly indented to the left of the other codes, save and test it out! Give yourself a pat on the back! :clap:
+> **Recap:** You just learned why to never use Notepad when modding, indentation matters, how to open a level in **Blocks** or **Notepad++**, add a Blocked 
+> Wall using the `BW` code, ensure it is properly indented to the left of the other codes, save and test it out! Applaud yourself! :clap:
 
-Now we will dive into some lessons to learn a few things that will help us in our quest for successful modding.
+Now we will dive into some lessons to learn a few things that will help us in your quest for successful modding.
 
 [:arrow_up: Back to Top](#building-with-blocks)
 
@@ -169,13 +172,13 @@ when you reach that level. Thus, ensuring you edit correctly really pays off in 
 
 ### Task #2: Adding a Blocked Wall on the Left Corner ###
 
-This is that special circumstance I mentioned in Lesson #2. Adding a Blocked Wall on the left corner (1st column of any row) 
+This is that special circumstance I mentioned in Lesson #2. Adding a Blocked Wall on the left side (1st column of any row) 
 of the level is not much harder than adding one anywhere else, it is just different.
 
 To make this special edit a bit clearer, we will edit the same line from Task #1, including the Blocked Wall we added, but we'll include the second line
 to show that indentation matters.
 
-Recall I said in Lesson #2 that for the first letter of a BW (or any non-Free tile) the code is offset to the left of the Free tile code directly
+Recall I said in Lesson #2 that the first letter of a `BW` (or any non-Free tile) the code is offset to the left of the Free tile code directly
 above or below it. To make that a bit clearer (if you are confused), here is a correct alignment:
 
 ```
@@ -183,7 +186,7 @@ above or below it. To make that a bit clearer (if you are confused), here is a c
  F  F  F BW  F  F  F  F  F  F  F  F  F
 ```
 In every instance, the `B` is offset one character to the left of an `F`, and the same goes all non-`F` characters. However, a cube on the left 
-corner is indented to the right, so the `W` is aligned with the `F` on the top and bottom, like this:
+side is indented to the right, so the `B` is aligned with the `F` on the top and bottom, like this:
 
 ```
  BW F  F  F  F  F  F BW  F  F  F  F  F
@@ -198,8 +201,7 @@ An example of this indentation would look like:
 ``` 
 So adding a cube on the left corner affects most (if not the entire) indentation of a line!
 
-> **Recap:** You just learned how to add a cube on the left corner, the proper indentation for the cube, and the effects it has on a line! Be proud of 
-yourself! :thumbsup:
+> **Recap:** You just learned how to add a cube on the left corner, the proper indentation for a  Cube, and the effects it has on a line! Good job! :thumbsup:
 
 [:arrow_up: Back to Top](#building-with-blocks)
 
@@ -266,7 +268,7 @@ NOW that we have the code, We will place this cube on the 3rd column of the 4th 
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Just for fun, we will add a few Blocked Walls and a Cube in the layout to make this level a bit less sparse...
+Just for fun, we will add some Blocked Walls and a Cube in the layout to make this level a bit less sparse...
 
 ```
  F  F BW BW BW BW  F  F BW  F BW  F BW
