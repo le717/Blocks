@@ -9,7 +9,7 @@ Table of Contents
 
 <table>
 <tr>
-<th colspan="10">Table of Contents</th>
+<th colspan="10">Course Sections</th>
 </tr>
 <td><a href="#requirements">Requirements</a></td>
 <td><a href="#character-legend">Character Legend</a></td>
@@ -72,7 +72,7 @@ C 01 00 00 1
 \r\n 
 ```
 
-From looking at our [Legend](#character-legend), we can see this level contains
+From looking at our [Character Legend](#character-legend), we can see this level contains
  1. Free Tiles
  2. Blocked Walls
  3. a Yellow Tile
@@ -110,8 +110,8 @@ alike.
 
 ### Task #1: Adding a Blocked Wall ###
 
-The first modding example we will do is add a Blocked Wall to the layout. We remember from the Legend a Blocked Wall is signified by a `BW`.
-(If at any time you do not remember a code, fell free to peek back at the Legend. :wink:) To start, we are going to add a Blocked Wall on 
+The first modding example we will do is add a Blocked Wall to the layout. We remember from the Character Legend a Blocked Wall is signified by a `BW`.
+(If at any time you do not remember a code, fell free to peek back at the Character Legend. :wink:) To start, we are going to add a Blocked Wall on 
 the top row, at the 8th column. However, before we add the wall, we need to speak a bit about indentation.
 
 #### Lesson #2: Indentation Matters! ####
@@ -257,8 +257,8 @@ Since we are adding an `One-way, west-bound Red Cube`, it also must be located s
 > "Wait a second, le717! You have not said what the code for this cube is!"
 
 Indeed I have not, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I _could_ just tell you to 
-look at the Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, `R` meaning Red, and `B` marking 
-its distinctiveness from the other, normal cubes (`C`).
+look at the Character Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, `R` meaning Red, and `B` 
+marking its distinctiveness from the other, normal cubes (`C`).
 
 NOW that we have the code, We will place this cube on the 3rd column of the 4th row, so that the lines now look like:
 
