@@ -79,8 +79,10 @@ From looking at our [Legend](#character-legend), we can see this level contains
 You may notice it also contains the code for the first and last lines of the file. We will not worry ourselves with them, and will instead 
 focus on the layout itself. 
 
-Sometimes, it is better to teach by example, rather than explanations. I feel this tutorial will go much more smoothly if I do not purely use 
+Sometimes, it is better to teach by example rather than explanations. I feel this tutorial will go much more smoothly if I do not purely use 
 explanations, but use examples in addition to explaining why we do what we do. :smile:
+
+---
 
 #### Lesson #1: "Why Not Notepad?"####
 
@@ -93,9 +95,9 @@ when the same file was loaded in **Blocks** or **Notepad++**, the formatting was
 much figure out how it happened. However, not one report has come back about **Blocks** or **Notepad++** breaking the level layout and rendering it unplayable.
 That is why I strongly advise against any use of Notepad for modding.
 
-Now you may be thinking,
+Now you may be thinking
 
-> "If Notepad++ doesn't break the levels like Notepad does, then why do I need to use Blocks?
+> "If Notepad++ does not break the levels like Notepad does, then why do I need to use Blocks?"
 
 Well, there isn't! Using **Notepad++** instead of **Blocks** is your choice. I myself use **Notepad++** a good amount! However, **Blocks** contains safeguards
 that **Notepad++** does not contain. These safeguards help ensure you level layout is valid, and can be used in-game and by others. Discussing those safeguards
