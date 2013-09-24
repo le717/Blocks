@@ -43,24 +43,6 @@ You will need a few items to complete this tutorial
     <img src="images/Character-Legend.png" />
 </p>
 
-```
-                                              === Available Colors ===
-                                        R = Red, G = Green, B = Blue, Y = Yellow
-
-                                                === Available Types ===
-                                                    F = Free Tile,
-                                                  BW = Blocked Wall,
-                                                (R, G, B, Y)C = Cube,
-                                                (R, G, B, Y)T = Tile,
-                                          RB = One-way, west-bound Red Cube
-
-                                                    === Water ===
-                                    WH = Small Horizontal, WV = Small Vertical,
-                                        WI = Top, WJ = Left, WM = Right,
-                                        WT = Top Left, WL = Top Right,
-                                        WR = Bottom Left, WB = Bottom Right
-```
-
 For the majority of this tutorial, we will be using level 3 of _Trouble in Store_, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
 
 ```
