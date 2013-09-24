@@ -39,6 +39,10 @@ You will need a few items to complete this tutorial
 
 ### Character Legend ###
 
+<p align="center">
+    <img src="images/Character-Legend.png" />
+</p>
+
 ```
                                               === Available Colors ===
                                         R = Red, G = Green, B = Blue, Y = Yellow
