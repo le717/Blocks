@@ -609,8 +609,7 @@ def SaveLevel(new_layout):
             print(NE)
 
         # Write traceback to log
-        logging.debug("\n")
-        logging.exception("Something went wrong! Here's what happened\n",
+        logging.exception("\nSomething went wrong! Here's what happened\n",
                           exc_info=True)
 
         # Run process to save the temporary layout
