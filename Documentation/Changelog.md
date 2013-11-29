@@ -4,7 +4,7 @@ Blocks Change Log
 ### 0.9.2 ###
 Released ?? ??, 2013
 
-* Improved `setup.py` OS detection, actions and whitespace 
+* Improved `setup.py` OS detection, actions and whitespace
 * Updated docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
 * Fixed visual indentation errors
 * Removed unneed error and prompt dialogs when attempting to save a level without opening one first
@@ -47,7 +47,7 @@ Released August 15, 2013
 * Dump any errors to log
 * Rewrote command-line arguments using `argparse`
 * Renamed `BlocksIcon.gif` to just `Blocks.gif`
-* Added open (`-o`) command-line argument, invoked when relaunching **Blocks** as Administrator (Special thanks to 
+* Added open (`-o`) command-line argument, invoked when relaunching **Blocks** as Administrator (Special thanks to
 [@Anonymooseable](https://github.com/Anonymooseable) for _majorly_ helping with this by suggesting one single line of code!)
 * Fixed Administrator relaunch and loading of temporary level save
 * Save temporary level to same location as log
