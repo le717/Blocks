@@ -7,7 +7,10 @@ Released ?? ??, 2013
 * Improved `setup.py` OS detection, actions and whitespace
 * Updated docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
 * Fixed visual indentation errors
-* Removed unneed error and prompt dialogs when attempting to save a level without opening one first
+* Removed unneeded error and prompt dialogs when attempting to save a level without opening one first
+* Change root output path of frozen binary to `bin`
+* Copied script from [**PatchIt!**](http://le717.github.io/PatchIt) to remove
+unneeded Tkinter files after freezing a binary
 
 ### 0.9.1 ###
 Released August 18, 2013

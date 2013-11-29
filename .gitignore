@@ -17,6 +17,8 @@ Compile*/
 Testing/
 Archives/
 Freeze/
+bin/
+!Tools/bin
 *.blend1
 *.blend2
 *.bak*

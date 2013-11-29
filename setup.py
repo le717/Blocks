@@ -1,4 +1,4 @@
-#! usr/bin/env python3.3-32
+#! /usr/bin/python3.3-32
 # -*- coding: utf-8 -*-
 # <pep8-80 compliant>
 """
@@ -32,6 +32,9 @@ import os
 from constants import (majver, minver)
 import files
 
+# Grab script to remove unneeded Tkinter files
+from Tools.bin import cleanup
+
 # Append build command to command-line arguments.
 # Just type "python setup.py" and it will freeze
 if len(sys.argv) == 1:
@@ -48,7 +51,7 @@ if sys.platform == "win32":
 
     # This is x86 Python
     if sys.maxsize < 2 ** 32:
-        destfolder = os.path.join("Freeze", "Windows")
+        destfolder = os.path.join("bin", "Windows")
 
     # This is x64 Python
     else:
@@ -58,11 +61,11 @@ if sys.platform == "win32":
 
 # This is being frozen on Mac OS X
 elif sys.platform == "darwin":
-    destfolder = os.path.join("Freeze", "Mac OS X")
+    destfolder = os.path.join("bin", "Mac OS X")
 
 # This is some flavor of Linux
 else:
-    destfolder = os.path.join("Freeze", "Linux")
+    destfolder = os.path.join("bin", "Linux")
 
 # Create the freeze path if it doesn't exist
 if not os.path.exists(destfolder):
@@ -95,3 +98,6 @@ setup(
     executables=[Executable("Blocks.pyw",
             targetName="Blocks.exe", base=base)]
 )
+
+# Run script to remove unneeded Tkinter files
+cleanup.cleanup(destfolder)
