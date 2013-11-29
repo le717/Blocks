@@ -86,7 +86,7 @@ def info():
     logging.info("Begin logging to {0}".format(logging_file))
     logging.info("You are running {0} {1} {2} on {3} {4}.".format(
         platform.python_implementation(), py_arch, platform.python_version(),
-         platform.machine(), platform.platform()))
+        platform.machine(), platform.platform()))
     logging.info('''
                                 #############################################
                                             {0} Version {1}{2}
@@ -456,7 +456,7 @@ def launch(level_filename, first_line, layout):
     """Reloads Blocks with administrator rights"""
     #FIXME: Don't run this on Mac OS X and Linux
     admin = askyesno("Relaunch Blocks?",
-                     '''Would you like to relaunch Blocks with Administrator rights?
+                     '''Would you like to reload Blocks with Administrator rights?
 Your level will be preserved between launch.''')
 
     # If user chooses to relaunch
@@ -644,7 +644,8 @@ def SavetheUnsaved(layout):
         level_resave = "{0}.TXT".format(level_resave)
 
     # Write a temporary level file, using arbitrary first line
-    temp_level = temp_write("BlocksTempFile.txt", b"C\x01\x00\x001\r\n", layout)
+    temp_level = temp_write("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
+                                                  layout)
 
     # Copy the temporary level over the other level
     distutils.file_util.copy_file(temp_level, level_resave)
@@ -692,9 +693,11 @@ def CharLegend(*args):
     """Contains Level Character Legend"""
     # Spawn a new window, parent it to main window
     legend_window = tk.Toplevel(root)
+
     # Use different window title
     legend_window.title("Level Character Legend - Blocks {0}{1}".format(
         majver, minver))
+
     # Window Icon
     legend_window.iconbitmap(app_icon)
 
@@ -828,12 +831,16 @@ def GUI(cmdfile=False):
 
     # Bind <Ctrl + n> shortcut to New button
     root.bind("<Control-n>", NewLevel)
+
     # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
     root.bind("<Control-O>", OpenLevel)
+
     # Bind <Ctrl + s> shortcut to Save button
     root.bind("<Control-s>", syntax_check)
+
     # Bind <Ctrl + q> shortcut to close function
     root.bind("<Control-q>", Close)
+
     # Bind F12 key to Character Legend button
     root.bind('<F12>', CharLegend)
 
@@ -870,5 +877,6 @@ if __name__ == "__main__":
 
     # Logging introduction
     info()
+
     # Activate command-line arguments
     CMD()

@@ -50,7 +50,7 @@ rem GNU General Public License for more details.
 rem You should have received a copy of the GNU General Public License
 rem along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
-rem Launches Blocks for Windows
+rem Launches Blocks for Windows using RunAsAdmin
 
 rem Quotes in case there are spaces in the folder path
 cd "%~p0\Windows"

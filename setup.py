@@ -47,7 +47,7 @@ if sys.platform == "win32":
     base = "Win32GUI"
 
     # This is x86 Python
-    if sys.maxsize == 2147483647:
+    if sys.maxsize < 2 ** 32:
         destfolder = os.path.join("Freeze", "Windows")
 
     # This is x64 Python
@@ -74,16 +74,16 @@ if base is not None:
 
 # Copy required files
 build_exe_options = {"build_exe": destfolder,
-                    "icon": "Media/Blocks.ico",
-                    "include_files": [
-                    "LICENSE.txt",
-                    "LICENSE.RunAsAdmin.txt",
-                    "Media/Blocks.ico",
-                    "Media/Blocks.gif",
-                    "Documentation/Changelog.md",
-                    "Documentation/Format-Details.md",
-                    "Documentation/Tutorial.md"]
-                    }
+                     "icon": "Media/Blocks.ico",
+                     "include_files": [
+                     "LICENSE.txt",
+                     "LICENSE.RunAsAdmin.txt",
+                     "Media/Blocks.ico",
+                     "Media/Blocks.gif",
+                     "Documentation/Changelog.md",
+                     "Documentation/Format-Details.md",
+                     "Documentation/Tutorial.md"]
+                     }
 
 setup(
     name="Blocks",
@@ -93,5 +93,5 @@ setup(
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("Blocks.pyw",
-        targetName="Blocks.exe", base=base)]
+            targetName="Blocks.exe", base=base)]
 )
