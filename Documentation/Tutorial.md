@@ -1,43 +1,43 @@
-Building With Blocks
-====================
+# Building With Blocks #
+
 **Written by [Triangle717](https://github.com/le717), with information provided by [Xiron](http://www.youtube.com/user/Segatendo12)**
 
 ### Warning: This tutorial is incomplete! ###
 
-Table of Contents
------------------
+## Table of Contents ##
 
 <table>
-<tr>
-<th colspan="10">Course Sections</th>
-</tr>
-<td><a href="#requirements">Requirements</a></td>
-<td><a href="#character-legend">Character Legend</a></td>
-<td><a href="#lesson-1-why-not-notepad">Lesson #1</a></td>
-<td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
-<td><a href="#lesson-2-indentation-matters">Lesson #2</a></td>
-<td><a href="#lesson-3-making-sure-it-all-works">Lesson #3</a></td>
-<td><a href="#lesson-4-jumping-to-specific-levels">Lesson #4</a></td>
-<td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
-<td><a href="#task-3-adding-a-one-way-west-bound-red-cube">Task #3</a></td>
-<td><a href="#task-4-water">Task #4</a></td>
+    <tr>
+        <th colspan="10">Course Sections</th>
+    </tr>
+    <td><a href="#requirements">Requirements</a></td>
+    <td><a href="#character-legend">Character Legend</a></td>
+    <td><a href="#lesson-1-why-not-notepad">Lesson #1</a></td>
+    <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
+    <td><a href="#lesson-2-indentation-matters">Lesson #2</a></td>
+    <td><a href="#lesson-3-making-sure-it-all-works">Lesson #3</a></td>
+    <td><a href="#lesson-4-jumping-to-specific-levels">Lesson #4</a></td>
+    <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
+    <td><a href="#task-3-adding-a-one-way-west-bound-red-cube">Task #3</a></td>
+    <td><a href="#task-4-water">Task #4</a></td>
 </table>
 
-**Building With Blocks** is a basic tutorial on modding the _Island Xtreme Stunts_ _Trouble in Store_ minigame levels, and will not cover every single detail.
-Instead, it attempts to explain the basics of the level layout, and explain it in such a way that you will clearly understand the layout and improve your
-modding adventures.
+**Building With Blocks** is a basic tutorial on modding the _Island Xtreme Stunts_  _Trouble in Store_ minigame levels,
+and will not cover everysingle detail.
+Instead, it attempts to explain the basics of the level layout, and explain it in such a way that you will clearly understand the layout and improve your modding adventures.
 
-Requirements
-------------
+## Requirements ##
 
-You will need a few items to complete this tutorial
-* A copy of [_Island Xtreme Stunts_](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts), running [without the CD](http://www.rockraidersunited.org/topic/1301-)
+You will need a few items to complete this tutorial:
+
+* A copy of [_Island Xtreme Stunts_](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts)
+running [without the CD](http://www.rockraidersunited.org/topic/1301-)
 [(video tutorial)](http://www.youtube.com/watch?v=yMGIu-BOrO8)
 * The newest release of [**Blocks**](https://github.com/le717/Blocks/releases), or
 * A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org) (just **never** use Notepad!)
-* The minigame level format details, available in [Format-Details.md](Format-Details.md)
+* The minigame level format details, available in [`Format-Details.md`](Format-Details.md)
 
-### Character Legend ###
+## Character Legend ##
 
 <p align="center">
     <img src="images/Character-Legend.png" />
@@ -59,6 +59,7 @@ C 01 00 00 1
 ```
 
 From looking at our [Character Legend](#character-legend), we can see this level contains
+
  1. Free Tiles
  2. Blocked Walls
  3. a Yellow Tile
@@ -74,25 +75,26 @@ explanations, but use examples in addition to explaining why we do what we do. :
 
 #### Lesson #1: "Why Not Notepad?" ####
 
-I need to address this before we begin. You may be wondering why I said to **never** use Notepad to mod the levels. Despite the claims of some people,
-Notepad is **not** a good modding, programming, and sometimes even writing application. During the writing of both this tutorial and **Blocks**, I was
-asked more than once why I advise against using Notepad. While I had a legitimate point from the beginning, sure-fire evidence against its usage
-came in the form of a bug report. Someone had tried to mod a level using Notepad, since the files are only plain text with an odd first line.
-In doing this, the level formatting (which we will later discuss) broke, and any attempts to load the level would crash the game. Moreover,
-when the same file was loaded in **Blocks** or **Notepad++**, the formatting would be correct, but it would still not load in-game. We never solved the issue,
-much less figured out exactly how it happened. However, not one report has come back about **Blocks** or **Notepad++** breaking the level layout and rendering
-it unplayable. That is why I strongly advise against any use of Notepad for modding.
+I need to address this before we begin. You may be wondering why I said to **never** use Notepad to mod the levels. Despite the claims of some
+people, Notepad is **not** a good modding, programming, and sometimes even writing application.
+During the writing of both this tutorial and **Blocks**, I was asked more than once why I advise against using Notepad. While I had a legitimate
+point from the beginning, sure-fire evidence against its usage came in the form of a bug report.
+Someone had tried to mod a level using Notepad, since the files are only plain text with an odd first line. In doing this, the level formatting
+(which we will later discuss) broke, and any attempts to load the level would crash the game.
+Moreover, when the same file was loaded in **Blocks** or **Notepad++**, the formatting would be correct, but it would still not load in-game. We
+never solved the issue, much less figured out exactly how it happened. However, not one report has come back about **Blocks** or **Notepad++**
+breaking the level layout and rendering it unplayable. That is why I strongly advise against any use of Notepad for modding.
 
 Now you may be thinking
 
 > "If Notepad++ does not break the levels like Notepad does, then why do I need to use Blocks?"
 
-Honestly, there is no need! Using **Notepad++** instead of **Blocks** is your choice. I myself use **Notepad++** a good amount when modding! However,
-**Blocks** contains safeguards that **Notepad++** does not. These safeguards help ensure your level layout is valid and can be used in-game. Discussion of
-those safeguards is off-topic, but in the course of this tutorial you will be taught about the areas that are most prone to breakage and what you can do to
-ensure your level is not invalid. Though **Blocks** could be viewed as worthless for advanced modders or "a fancy text editor", it exists to help, not
-restrict, your modding. If you feel it is limiting you,you are under no pressure to use it; but it is handy tool to have for both beginner and advanced modders
-alike.
+Honestly, there is no need! Using **Notepad++** instead of **Blocks** is your choice. I myself use **Notepad++** a good amount when modding!
+However, **Blocks** contains safeguards that **Notepad++** does not.
+These safeguards help ensure your level layout is valid and can be used in-game. Discussion of those safeguards is off-topic, but in the course of
+this tutorial you will be taught about the areas that are most prone to breakage and what you can do to ensure your level is not invalid.
+Though **Blocks** could be viewed as worthless for advanced modders or "a fancy text editor", it exists to help, not restrict, your modding.
+If you feel it is limiting you,you are under no pressure to use it; but it is handy tool to have for both beginner and advanced modders alike.
 
 ### Task #1: Adding a Blocked Wall ###
 
@@ -110,12 +112,13 @@ the codes for _any_ non-free cube/tile follow this pattern.
 
 Now that we know a bit about indentation, it is time to add the Blocked Wall and make our first mod!
 
-* Run **Blocks**, and open the level file (`<Ctrl + Shift + O>`), or  open it in **Notepad++** (`<Ctrl + o>`). If you do not remember where it is located,
-the level we are editing is located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank). If you are editing the level straight from Program Files,
+* Run **Blocks**, and open the level file (`<Ctrl + Shift + O>`), or  open it in **Notepad++** (`<Ctrl + o>`).
+If you do not remember where it is located, the level we are editing is located at
+[`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank). If you are editing the level straight from Program Files,
 be sure to run either program with Administrator rights, otherwise you will be unable to save your edit!
-
-* Once the level is open in your editor of choice, find the square we want to edit (1st row, 8th column). Start by removing the `F` that is currently
-sitting in that location, in addition to a single space (remember what we talked about in Lesson #2?). Now type `BW`, ensuring the `W` is lined up with the
+* Once the level is open in your editor of choice, find the square we want to edit (1st row, 8th column).
+Start by removing the `F` that is currently sitting in that location, in addition to a single space (remember what we talked about in Lesson #2?).
+* Now type `BW`, ensuring the `W` is lined up with the
 `F` directly below it on the next row. Click Save (`<Ctrl + s>` in either program) to save your mod.
 
 Before you started editing, the line looked like this:
@@ -129,11 +132,11 @@ but your edits should now have it looking like this:
 * Open _Island Xtreme Stunts_, load your save game, make your way to Jack O' Trade's store (if you are not already there),
 and load the _Trouble in Store_ minigame.
 If you performed the editing correctly, the game will successfully load your modded level, and you will see a new Blocked Wall where you placed it!
-If you didn't, then the game will crash. Even with this little bit of knowledge, you can mod all of the minigame levels, since all Cubes and non-Free tiles
-alike work this way.
+If you didn't, then the game will crash. Even with this little bit of knowledge, you can mod all of the minigame levels,
+since all Cubes and non-Free tiles alike work this way.
 
-> **Recap:** You just learned why to never use Notepad when modding, indentation matters, how to open a level in **Blocks** or **Notepad++**, add a Blocked
-> Wall using the `BW` code, ensure it is properly indented to the left of the other codes, save and test it out! Applaud yourself! :clap:
+> **Recap:** You just learned why to never use Notepad when modding, indentation matters, how to open a level in **Blocks** or **Notepad++**, add a
+> Blocked  Wall using the `BW` code, ensure it is properly indented to the left of the other codes, save and test it out! Applaud yourself! :clap:
 
 Now we will dive into some lessons to learn a few things that will help us in your quest for successful modding.
 
@@ -147,12 +150,13 @@ Correct, your mod will not work if is not properly created, but how do you know 
 telling you if your mod is not correct: it crashes! :stuck_out_tongue:
 
 More specifically, the game will crash when you try to load a broken level if that level is the current level. If the broken level is one you have
-already completed, it will not crash, but it would if you loaded that one. If the broken level is ahead of the current level, then the game will crash
-when you reach that level. Thus, ensuring you edit correctly really pays off in the long run!
+already completed, it will not crash, but it would if you loaded that one.
+If the broken level is ahead of the current level, then the game will crash when you reach that level.
+Thus, ensuring you edit correctly really pays off in the long run!
 
 #### Lesson #4: Jumping to Specific Levels ####
 
-*Coming Soon.*
+_To be written._
 
 ---
 
@@ -161,8 +165,8 @@ when you reach that level. Thus, ensuring you edit correctly really pays off in 
 This is that special circumstance I mentioned in Lesson #2. Adding a Blocked Wall on the left side (1st column of any row)
 of the level is not much harder than adding one anywhere else, it is just different.
 
-To make this special edit a bit clearer, we will edit the same line from Task #1, including the Blocked Wall we added, but we'll include the second line
-to show that indentation matters.
+To make this special edit a bit clearer, we will edit the same line from Task #1, including the Blocked Wall we added, but we'll include the second 
+line to show that indentation matters.
 
 Recall I said in Lesson #2 that the first letter of a `BW` (or any non-Free tile) the code is offset to the left of the Free tile code directly
 above or below it. To make that a bit clearer (if you are confused), here is a correct alignment:
@@ -202,12 +206,13 @@ You are probably wondering,
 Let me tell you.
 An `One-way, west-bound Red Cube` is a unique cube in _Island Xtreme Stunts_. They are only found in Maggie Post's _Trouble in Store_ minigame
 (that is, only in an unmodded copy), it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special,
-validates any color Tile (not only Red) and even have special properties, since it only move ones direction, to the right of the layout. If you think about the
-level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, the bottom South, the left side East, and the right side
-West, you will find this cube only moves West. You cannot push it North or South, and clearly not East, only West. The only un-special-ness about the
-cube is that it can still be sunk in Water, it still follows all the indentation rules, and you cannot pull it (exactly like all the other cubes, but since
-pulling is clearly not possible, why do I even mention it?). As for the name of the cube: After I was told about this by Xiron, another modder, and was adding
-it into the Character Legend, I was unable to write a better description for it. I asked around for a new name, to no avail, until I finally had this thought:
+validates any color Tile (not only Red) and even have special properties, since it only move ones direction, to the right of the layout. 
+If you think about the level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, the bottom South, the 
+left side East, and the right side West, you will find this cube only moves West. You cannot push it North or South, and clearly not East, only West.
+The only un-special-ness about the cube is that it can still be sunk in Water, it still follows all the indentation rules, and you cannot pull it 
+(exactly like all the other cubes, but since pulling is clearly not possible, why do I even mention it?).
+As for the name of the cube: After I was told about this by Xiron, another modder, and was adding it into the Character Legend,
+I was unable to write a better description for it. I asked around for a new name, to no avail, until I finally had this thought:
 
 > Since this cube is so unique and one-of-a-kind, why can't it have a unique name to match?
 
@@ -216,8 +221,8 @@ they would probably laugh at the odd fan name. :tongue:
 
 Now that we take taken care of, we get to add this cube into our layout. Since it only moves West, we will be mindful of players and place it
 where they can use it.
-I said at the beginning we were using level 3 of _Trouble in Store_, from [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank), but we are going to stray for a minute
-and use a fresh layout, containing nothing but Free tiles.
+I said at the beginning we were using level 3 of _Trouble in Store_, from [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank),
+but we are going to stray for a minute and use a fresh layout, containing nothing but Free tiles.
 
 ```
  F  F  F  F  F  F  F  F  F  F  F  F  F
@@ -242,9 +247,9 @@ Since we are adding an `One-way, west-bound Red Cube`, it also must be located s
 
 > "Wait a second, le717! You have not said what the code for this cube is!"
 
-Indeed I have not, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I _could_ just tell you to
-look at the Character Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, `R` meaning Red, and `B`
-marking its distinctiveness from the other, normal cubes (`C`).
+Indeed I have not, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I _could_ just tell you 
+to look at the Character Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, `R` meaning 
+Red, and `B` marking its distinctiveness from the other, normal cubes (`C`).
 
 NOW that we have the code, We will place this cube on the 3rd column of the 4th row, so that the lines now look like:
 
