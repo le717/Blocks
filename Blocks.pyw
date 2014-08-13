@@ -437,7 +437,7 @@ def char_check(layout_syntax):
                     char, index))
             showerror("Syntax Error!",
                       'Invalid character: "{0}" at position {1}'.format(
-                      char, index))
+                          char, index))
 
             # Return custom error message everything will work
             return "Error"
@@ -857,26 +857,15 @@ def GUI(cmdfile=False):
 # ------------ End Tkinter GUI Layout ------------ #
 
 if __name__ == "__main__":
-    # -- Begin Logging Configuration -- #
-
     # Location and name of log file
     logging_file = os.path.join(os.path.expanduser("~"), "Blocks.log")
-
     logging.basicConfig(
-        # Set logging level
         level=logging.DEBUG,
-        format="%(asctime)s : %(levelname)s: %(message)s",
-        # Define log name and location
-        filename=logging_file,
-        # "a" so the log is appended to and not overwritten
-        # and is created if it does not exist
-        filemode='a'
+        format="%(asctime)s : %(levelname)s : %(message)s",
+        filename=loggingFile,
+        filemode="a",
     )
 
-# -- End Logging Configuration -- #
-
-    # Logging introduction
+    # Start Blocks
     info()
-
-    # Activate command-line arguments
     CMD()
