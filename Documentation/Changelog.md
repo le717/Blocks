@@ -2,7 +2,7 @@ Blocks Change Log
 =================
 
 ### 0.9.2 ###
-Released ?? ??, 2013
+Released ?? ??, 201?
 
 * Improved `setup.py` OS detection, actions and whitespace
 * Updated docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
@@ -11,6 +11,8 @@ Released ?? ??, 2013
 * Change root output path of frozen binary to `bin`
 * Copied script from [**PatchIt!**](http://le717.github.io/PatchIt) to remove
 unneeded Tkinter files after freezing a binary
+* Fix `ImportError` in unsupported Python version message
+* Update constants import to use `import constants as const` syntax
 
 ### 0.9.1 ###
 Released August 18, 2013

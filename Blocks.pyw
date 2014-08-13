@@ -26,32 +26,29 @@ import os
 import webbrowser
 
 # Blocks constants
-from constants import *
+import constants as const
 
 # User is not running >= Python 3.3.0
 if sys.version_info < (3, 3, 0):
-
     # Import Python 2 Tkinter library
     import Tkinter as tk
     import tkMessageBox
 
-    # Draw (and withdraw) root window
     root = tk.Tk()
     root.withdraw()
     # Add icon
-    root.iconbitmap(app_icon)
+    root.iconbitmap(const.appIcon)
     # Display error message
     tkMessageBox.showerror("Unsupported Python Version!",
                            '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
-                           .format(sys.version[0:5], app, majver, minver))
+                           .format(sys.version[0:5], const.app, const.majVer, const.minVer))
 
     # Opens only when user clicks OK
     # New tab, raise browser windows
     webbrowser.open_new_tab("http://python.org/download/")
 
     # Close Blocks
-    logging.shutdown()
     raise SystemExit(0)
 
 # Now that we know we are running Python 3.3+,
@@ -78,12 +75,12 @@ def info():
     """Python and OS checks"""
     # Check if Python is x86 or x64
     # Based on code from Python help for platform module and my own tests
-    if sys.maxsize == 2147483647:
+    if sys.maxsize < 2 ** 32:
         py_arch = "x86"
     else:
         py_arch = "AMD64"
 
-    logging.info("Begin logging to {0}".format(logging_file))
+    logging.info("Begin logging to {0}".format(loggingFile))
     logging.info("You are running {0} {1} {2} on {3} {4}.".format(
         platform.python_implementation(), py_arch, platform.python_version(),
         platform.machine(), platform.platform()))
@@ -98,14 +95,14 @@ def info():
                                     https://github.com/le717/Blocks/issues
                                     and attach this file for an quicker fix!
                                 #############################################
-                                '''.format(app, majver, minver, creator))
+                                '''.format(const.app, const.majVer, const.minVer, const.creator))
 
 
 def CMD():
     """Command-line arguments parser"""
     parser = argparse.ArgumentParser(
         description="{0} {1}{2} Command-line arguments".format(
-            app, majver, minver))
+            const.app, const.majVer, const.minVer))
 
     # Debug message argument
     parser.add_argument("-d", "--debug",
@@ -124,14 +121,9 @@ in the GUI instead!''')
     openarg = args.o
     # If the debug parameter is passed, enable the debugging messages
     if debugarg:
-        global debug
-        debug = True
-        os.system("title Blocks {0}{1} - Debug".format(majver, minver))
+        const.debug = True
+        os.system("title Blocks {0}{1} - Debug".format(const.majVer, const.minVer))
         print("\nDebug messages have been enabled.\n")
-
-    # The debug parameter was not passed, don't display debugging message
-    else:
-        debug = False
 
     # If the open argument is valid,
     if openarg is not None:
@@ -150,13 +142,13 @@ in the GUI instead!''')
 def NewLevel(*args):
     """Create a new Minigame Level"""
     # Update variable saying a new level was created
-    global new_level
-    new_level = True
+    global newLevel
+    newLevel = True
 
     # Remove level name display, since there is no opened level
     level_name.set("")
 
-    if debug:
+    if const.debug:
         print("\nA new level is being created.\n")
 
     # Blank (free) layout for when starting a new level
@@ -201,7 +193,7 @@ def OpenLevel(*args):
     # The user selected a level
     else:
         # Display  full path to the file
-        if debug:
+        if const.debug:
             print(level_file)
 
         # Send the file off for reading
@@ -217,9 +209,9 @@ def OpenLevel(*args):
 def ReadLevel(level_file, cmd=False):
     """Reads an existing level file"""
     # Update new level variable to denote a pre-existing level
-    global new_level
-    new_level = False
-    if debug:
+    global newLevel
+    newLevel = False
+    if const.debug:
         print("\nA new level is not being created.\n")
 
     # Get just the file name, assign it as global
@@ -316,7 +308,7 @@ def syntax_check(*args):
     del layout_syntax[:]
 
     # Display final debug message for the syntax checker
-    if debug:
+    if const.debug:
         print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
             layout))
 
@@ -331,14 +323,14 @@ def syntax_check(*args):
 
 def level_size(layout_size):
     """Checks the size of the layout"""
-    if debug:
+    if const.debug:
         print("\nThe new layout is:\n")
 
     # Get the indices and text for each line
     for lineno, linetext in enumerate(layout_size):
 
         # Display line number and line content if debug messages are enabled
-        if debug:
+        if const.debug:
             print(lineno, linetext)
         # Do nothing else, all we need are the indices
         pass
@@ -352,7 +344,7 @@ def level_size(layout_size):
             lineno < 8):
 
         # Display error message in console if debug messages are enabled
-        if debug:
+        if const.debug:
             print('''\nYour level contains {0} lines!
 The level must be exactly 8 lines.'''.format(lineno))
 
@@ -373,7 +365,7 @@ The level must be exactly 8 lines.\n'''.format(lineno))
 def line_length(line_size):
     """Checks the length of each line"""
     # Bit of spacing for debug messages
-    if debug:
+    if const.debug:
         print()
 
     # Get the indices and text for each line
@@ -386,7 +378,7 @@ def line_length(line_size):
         len_of_line = len(linedata)
 
         # Display length of each line if debug messages are enabled
-        if debug:
+        if const.debug:
             print("Line {0} is {1} characters long".format(
                 linenum, len_of_line))
 
@@ -394,7 +386,7 @@ def line_length(line_size):
         if len_of_line < 38:
 
             # Tell user the error
-            if debug:
+            if const.debug:
                 print('''Line {0} is {1} characters! The line must be exactly
 38 characters, including spaces.'''.format(linenum, len_of_line))
 
@@ -432,7 +424,7 @@ def char_check(layout_syntax):
 
         # If any character in the layout is not in the list
         if char.upper() not in itemlist:
-            if debug:
+            if const.debug:
                 print('\nInvalid character "{0}" at position {1}\n'.format(
                     char, index))
             showerror("Syntax Error!",
@@ -501,7 +493,7 @@ def Backup(location, backup_file):
                   '''Blocks does not have the user rights to save {0}!'''
                   .format(level_filename))
 
-        if debug:
+        if const.debug:
             # Display traceback to console
             print(Perm)
 
@@ -519,7 +511,7 @@ def SaveLevel(new_layout):
     try:
 
         # If a new level is being created, raise NameError so we can save it
-        if new_level:
+        if const.newLevel:
             raise NameError
 
         # Get just the folder path to the file
@@ -552,7 +544,7 @@ def SaveLevel(new_layout):
         # and Blocks was run without Administrator rights
         except PermissionError as Perm:
 
-            if debug:
+            if const.debug:
                 # Display traceback in console
                 print(Perm)
 
@@ -574,7 +566,7 @@ def SaveLevel(new_layout):
         # and get stuck in an endless loop, so the level could NEVER be saved
         except FileNotFoundError as FNFE:
 
-            if debug:
+            if const.debug:
                 # Display traceback in console
                 print(FNFE)
 
@@ -592,7 +584,7 @@ def SaveLevel(new_layout):
                       "Blocks ran into an unknown error while trying to {0}!"
                       .format(level_filename))
 
-            if debug:
+            if const.debug:
                 # Display traceback in console
                 print(Exc)
 
@@ -604,7 +596,7 @@ def SaveLevel(new_layout):
     # The user tried to save a level without loading one first
     except NameError as NE:
 
-        if debug:
+        if const.debug:
             # Display traceback in console
             print(NE)
 
@@ -696,10 +688,10 @@ def CharLegend(*args):
 
     # Use different window title
     legend_window.title("Level Character Legend - Blocks {0}{1}".format(
-        majver, minver))
+       const.majVer, const.minVer))
 
     # Window Icon
-    legend_window.iconbitmap(app_icon)
+    legend_window.iconbitmap(const.appIcon)
 
     # The window cannot be resized at all
     # Length x width
@@ -763,10 +755,10 @@ def GUI(cmdfile=False):
     # Root window settings
     global root
     root = tk.Tk()
-    root.title("{0} {1}{2}".format(app, majver, minver))
+    root.title("{0} {1}{2}".format(const.app, const.majVer, const.minVer))
 
     # App window icon
-    root.iconbitmap(app_icon)
+    root.iconbitmap(const.appIcon)
 
     # The smallest size the window can be
     # Length x width
@@ -798,8 +790,8 @@ def GUI(cmdfile=False):
     level.insert("1.0", "Minigame layout will be displayed here.")
 
     # About Blocks text
-    about_blocks = ttk.Label(mainframe, text='''\t{0} {1}{2}
-      Created 2013 Triangle717'''.format(app, majver, minver))
+    about_blocks = ttk.Label(mainframe, text="""\t\t{0} {1}{2}
+      Created 2013-{3} Triangle717""".format(const.app, const.majVer, const.minVer, const.currentYear))
     about_blocks.grid(column=2, row=0, sticky=tk.N)
 
     # New button
@@ -820,7 +812,7 @@ def GUI(cmdfile=False):
     legend_button.grid(column=0, row=1, columnspan=2, sticky=tk.N)
 
     # Blocks Logo
-    blocks_logo = tk.PhotoImage(file=app_logo)
+    blocks_logo = tk.PhotoImage(file=const.appLogo)
     image_frame = ttk.Label(mainframe)
     image_frame['image'] = blocks_logo
     image_frame.grid(column=2, row=3, sticky=tk.S)
@@ -847,7 +839,7 @@ def GUI(cmdfile=False):
     # If the argument is a valid file
     if os.path.isfile(cmdfile):
         # Open it!
-        if debug:
+        if const.debug:
             print("\n{0}\nis being opened".format(cmdfile))
         root.after(1, ReadLevel(cmdfile, True))
 
@@ -858,7 +850,7 @@ def GUI(cmdfile=False):
 
 if __name__ == "__main__":
     # Location and name of log file
-    logging_file = os.path.join(os.path.expanduser("~"), "Blocks.log")
+    loggingFile = os.path.join(os.path.expanduser("~"), "Blocks.log")
     logging.basicConfig(
         level=logging.DEBUG,
         format="%(asctime)s : %(levelname)s : %(message)s",

@@ -23,22 +23,25 @@ Blocks Constants
 
 import os
 import sys
+from datetime import datetime
 
 # Global variables
 app = "Blocks"
-majver = "0.9"
-minver = ".2"
+majVer = "0.9"
+minVer = ".2"
 creator = "Triangle717"
+currentYear = datetime.now().year
 
 # Name of Blocks Exe/Py
-exe_name = os.path.basename(sys.argv[0])
+exeName = os.path.basename(sys.argv[0])
 
 # Location of Blocks! Exe/Py
-app_folder = os.path.dirname(sys.argv[0])
+appFolder = os.path.dirname(sys.argv[0])
 
 # Icons
-app_logo = os.path.join("Media", "Blocks.gif")
-app_icon = os.path.join("Media", "Blocks.ico")
+appLogo = os.path.join("Media", "Blocks.gif")
+appIcon = os.path.join("Media", "Blocks.ico")
 
 # Global variable defining if a new level was created or not
-new_level = None
+newLevel = None
+debug = False
