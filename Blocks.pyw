@@ -438,7 +438,7 @@ def charCheck(layoutSyntax):
 # ------------ Begin RunAsAdmin Intergration ------------ #
 
 
-def launch(level_filename, first_line, layout):
+def launch(levelFilename, firstLine, layout):
     """Reloads Blocks with administrator rights."""
     #FIXME: Don't run this on Mac OS X and Linux
     admin = askyesno("Relaunch Blocks?",
@@ -448,7 +448,7 @@ Your level will be preserved between launch.""")
     # If user chooses to relaunch
     if admin:
         # Save a temporary file
-        temp_file = tempWrite(level_filename, first_line, layout)
+        temp_file = tempWrite(levelFilename, firstLine, layout)
 
         # Launch RunAsAdmin to reload Blocks,
         # invoke command-line parameter to reload the level
@@ -644,7 +644,7 @@ def savetheUnsaved(layout):
 
 # ------------ Begin Temporary Level Saving ------------ #
 
-def tempWrite(name, first_line, layout):
+def tempWrite(name, firstLine, layout):
     """Saves the level to a temporary file."""
     # Name and location of temporary file
     path = os.path.join(os.path.expanduser("~"), name)
@@ -652,13 +652,11 @@ def tempWrite(name, first_line, layout):
     # Write the temp file, using binary mode
     with open(path, "wb") as f:
         # Rewrite the first line
-        f.write(first_line)
+        f.write(firstLine)
         # Write the new layout
         f.write(layout)
         # Write the line ending
         f.write(b"\r\n")
-
-    # Send back the path to the temporary level
     return path
 
 
@@ -712,16 +710,16 @@ def charLegend(*args):
     # Display the legend
     ttk.Label(legend_window, text=legend_text).grid()
 
-    def CloseCharLegend(*args):
+    def closeCharLegend(*args):
         """Closes Character Legend Window."""
         legend_window.destroy()
 
     # Bind <Ctrl + q> shortcut to close the legend window
-    legend_window.bind('<Control-q>', CloseCharLegend)
+    legend_window.bind('<Control-q>', closeCharLegend)
 
     # Close Legend button
     close_legend_button = ttk.Button(legend_window, default="active",
-                                     text="Close", command=CloseCharLegend)
+                                     text="Close", command=closeCharLegend)
     close_legend_button.grid(column=1, row=1, sticky=tk.S)
 
 

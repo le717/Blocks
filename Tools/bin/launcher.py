@@ -23,7 +23,7 @@
 import os
 
 
-def Write(destfolder):
+def writeBatch(destfolder):
     """Write files when freezing Blocks for Windows"""
     # Write the required RunAsAdmin.cfg file
     with open(os.path.join(destfolder, "RunAsAdmin.cfg"), "wt") as f:
@@ -31,28 +31,14 @@ def Write(destfolder):
 
     # Write a batch script to launch Blocks
     with open(os.path.join(os.path.dirname(destfolder), "Blocks.bat"),
-         "wt") as f:
-        f.write('''@echo off
+              "wt") as f:
+        f.write("""@echo off
 rem Blocks - Island Xtreme Stunts Minigame Level Editor
-rem Created 2013 Triangle717
+rem Created 2013-2014 Triangle717
 rem <http://Triangle717.WordPress.com/>
-
-rem Blocks is free software: you can redistribute it and/or modify
-rem it under the terms of the GNU General Public License as published by
-rem the Free Software Foundation, either version 3 of the License, or
-rem (at your option) any later version.
-
-rem Blocks is distributed in the hope that it will be useful,
-rem but WITHOUT ANY WARRANTY; without even the implied warranty of
-rem MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-rem GNU General Public License for more details.
-
-rem You should have received a copy of the GNU General Public License
-rem along with Blocks. If not, see <http://www.gnu.org/licenses/>.
-
-rem Launches Blocks for Windows using RunAsAdmin
 
 rem Quotes in case there are spaces in the folder path
 cd "%~p0\Windows"
 start Blocks.exe
-exit''')
+exit
+""")

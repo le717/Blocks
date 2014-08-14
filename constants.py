@@ -22,23 +22,20 @@ import os
 import sys
 from datetime import datetime
 
-# Global variables
 app = "Blocks"
 majVer = "0.9"
 minVer = ".2"
 creator = "Triangle717"
 currentYear = datetime.now().year
+debug = False
+newLevel = None
 
 # Name of Blocks Exe/Py
 exeName = os.path.basename(sys.argv[0])
 
-# Location of Blocks! Exe/Py
+# Location of Blocks Exe/Py
 appFolder = os.path.dirname(sys.argv[0])
 
 # Icons
 appLogo = os.path.join("Media", "Blocks.gif")
 appIcon = os.path.join("Media", "Blocks.ico")
-
-# Global variable defining if a new level was created or not
-newLevel = None
-debug = False
