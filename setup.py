@@ -73,7 +73,7 @@ build_exe_options = {"build_exe": destfolder,
                          "Documentation/Changelog.md",
                          "Documentation/Format-Details.md",
                          "Documentation/Tutorial.md"
-                        ]
+                         ]
                      }
 
 setup(
@@ -84,7 +84,7 @@ setup(
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("Blocks.pyw",
-            targetName="Blocks.exe", base=base)]
+                 targetName="Blocks.exe", base=base)]
 )
 
 # Run script to remove unneeded Tkinter files

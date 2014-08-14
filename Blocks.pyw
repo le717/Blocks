@@ -293,7 +293,7 @@ def syntaxCheck(*args):
         # Return False so the saving process will not continue on
         return False
 
-    # Delete now unuseds lists
+    # Delete now unused lists
     del layoutSize[:]
     del lineSize[:]
     del layoutSyntax[:]

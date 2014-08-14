@@ -26,11 +26,6 @@ class LevelChecks(object):
         self.__userLevelNormCase = userLevel
         self.__userLevel = userLevel.upper()
 
-        # Error results
-        self.__sizeError = False
-        self.__lineError = False
-        self.__charError = False
-
     def _levelSize(self):
         """Checks the size of the layout."""
         # Get the each line's number and text
@@ -39,12 +34,10 @@ class LevelChecks(object):
 
         # The level is more than or less than 8 lines
         if (lineNum > 8 or lineNum < 8):
-            self.__sizeError = True
             return (True, "Size Error!", """Your level contains {0} lines!
 The level must be exactly 8 lines.""".format(lineNum))
 
         # No error was found
-        self.__sizeError = False
         return (False, None, None)
 
     def _charCheck(self):
@@ -61,13 +54,11 @@ The level must be exactly 8 lines.""".format(lineNum))
 
             # If any character in the layout is not in the list
             if char.upper() not in cubeList:
-                self.__charError = True
                 return (True, "Syntax Error!",
                         """Invalid character "{0}" at position {1}"""
                         .format(char, index))
 
         # No error was found
-        self.__charError = False
         return (False, None, None)
 
     def _lineLength(self):
@@ -79,13 +70,11 @@ The level must be exactly 8 lines.""".format(lineNum))
 
             # If the line is less than 38 characters, counting spaces
             if lineLength < 38:
-                self.__lineError = True
                 return (True, "Line Error!", """Line {0} is {1} characters!
 The line must be exactly 38 characters, including spaces.""".format(
-    lineNum, lineLength))
+                        lineNum, lineLength))
 
         # No error was found
-        self.__lineError = False
         return (False, None, None)
 
         # NOTE:
@@ -95,20 +84,21 @@ The line must be exactly 38 characters, including spaces.""".format(
         # but odd, undocumented stuff occurs when extra characters are added
         # to the left or right sides of the level.
 
-    def runChecks(self):
-        print(self._levelSize()[1])
-        print(self._lineLength()[1])
-        print(self._charCheck()[2])
-       #return self.__userLevel[:-1]
+    def checkLevel(self):
+        """Public function to run syntax checks on a level."""
+        sizeCheck = self._levelSize()
+        lineCheck = self._lineLength()
+        cubeCheck = self._charCheck()
 
+        # Report any errors and return a corrected level if none were found
+        if sizeCheck[0]:
+            return (sizeCheck[1], sizeCheck[2])
+        elif lineCheck[0]:
+            return (lineCheck[1], lineCheck[2])
+        elif cubeCheck[0]:
+            return (cubeCheck[1], cubeCheck[2])
+        return self.__userLevel[:-1]
 
-blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F"""
-checks = LevelChecks(blankLayout)
-checks.runChecks()
+# print(type(self.__userLevel[:-1]))
+# checks = LevelChecks(blankLayout)
+# checks.checkLevel()
