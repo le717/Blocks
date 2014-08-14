@@ -94,7 +94,7 @@ def info():
                                            const.creator))
 
 
-def CMD():
+def commandLine():
     """Command-line arguments parser."""
     parser = argparse.ArgumentParser(
         description="{0} {1}{2} Command-line arguments".format(
@@ -135,7 +135,7 @@ in the GUI instead!""")
 # ------------ Begin New Minigame Level ------------ #
 
 
-def NewLevel(*args):
+def createNewLevel(*args):
     """Create a new Minigame Level."""
     # Update variable saying a new level was created
     global newLevel
@@ -169,7 +169,7 @@ def NewLevel(*args):
 # ------------ Begin Level Layout Opening ------------ #
 
 
-def OpenLevel(*args):
+def openLevel(*args):
     """Reads Minigame Level."""
     global level_file
     level_file = tkinter.filedialog.askopenfilename(
@@ -191,7 +191,7 @@ def OpenLevel(*args):
             print(level_file)
 
         # Send the file off for reading
-        ReadLevel(level_file)
+        readLevel(level_file)
 
 
 # ------------ End Level Layout Opening ------------ #
@@ -200,7 +200,7 @@ def OpenLevel(*args):
 # ------------ Begin Level Layout Reading ------------ #
 
 
-def ReadLevel(level_file, cmd=False):
+def readLevel(level_file, cmd=False):
     """Reads an existing level file."""
     # Update new level variable to denote a pre-existing level
     global newLevel
@@ -246,23 +246,23 @@ def ReadLevel(level_file, cmd=False):
 
 # The allowed characters in a layout
 # This is in the global namespace because a couple of checks reference it
-itemlist = ["", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
-            "GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV"]
+blockList = ("", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
+            "GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV")
 
 
-def syntax_check(*args):
-    """Checks the  Level Layout for syntax errors"""
+def syntaxCheck(*args):
+    """Checks the Level Layout for syntax errors."""
 
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is required to make everything work
-    layout = level.get('1.0', 'end')
+    layout = level.get("1.0", "end")
 
     # Split the layout at each new line, removing the last two characters
     # This cannot be done above, it must be done here
     layout_size = layout[:-2].upper().split("\n")
 
     # Run level size check
-    size_check = level_size(layout_size)
+    size_check = levelSize(layout_size)
 
     # If the level size check returns an error,
     if size_check == "Error":
@@ -277,7 +277,7 @@ def syntax_check(*args):
     line_size = layout[:-1].upper().split("\n")
 
     # Run line length check
-    line_check = line_length(line_size)
+    line_check = lineLength(line_size)
 
     # If the line length check returns an error,
     if line_check == "Error":
@@ -288,10 +288,10 @@ def syntax_check(*args):
     del line_size[:]
 
     # Split the text at each space
-    layout_syntax = layout.split(" ")
+    layoutSyntax = layout.split(" ")
 
     # Run character check
-    valid_char = char_check(layout_syntax)
+    valid_char = charCheck(layoutSyntax)
 
     # If the character check returns an error,
     if valid_char == "Error":
@@ -299,7 +299,7 @@ def syntax_check(*args):
         return False
 
     # Delete the list to free up resources
-    del layout_syntax[:]
+    del layoutSyntax[:]
 
     # Display final debug message for the syntax checker
     if const.debug:
@@ -309,14 +309,14 @@ def syntax_check(*args):
     # Send the corrected layout for writing
     # new_layout[:-1] so the last character is not left out
     # Also convert layout to uppercase so IXS won't crash
-    SaveLevel(layout[:-1].upper())
+    saveLevel(layout[:-1].upper())
 
 
 # --- Begin Level Size Check --- #
 
 
-def level_size(layout_size):
-    """Checks the size of the layout"""
+def levelSize(layout_size):
+    """Checks the size of the layout."""
     if const.debug:
         print("\nThe new layout is:\n")
 
@@ -339,13 +339,13 @@ def level_size(layout_size):
 
         # Display error message in console if debug messages are enabled
         if const.debug:
-            print('''\nYour level contains {0} lines!
-The level must be exactly 8 lines.'''.format(lineno))
+            print("""\nYour level contains {0} lines!
+The level must be exactly 8 lines.""".format(lineno))
 
         # Display error message to user telling them about the error
         showerror("Size Error!",
-                  '''Your level contains {0} lines!
-The level must be exactly 8 lines.\n'''.format(lineno))
+                  """Your level contains {0} lines!
+The level must be exactly 8 lines.\n""".format(lineno))
 
         # Return custom error message everything will work
         return "Error"
@@ -356,8 +356,8 @@ The level must be exactly 8 lines.\n'''.format(lineno))
 # --- Begin Line Length Check --- #
 
 
-def line_length(line_size):
-    """Checks the length of each line"""
+def lineLength(line_size):
+    """Checks the length of each line."""
     # Bit of spacing for debug messages
     if const.debug:
         print()
@@ -405,10 +405,10 @@ The line must be exactly 38 characters, including spaces.'''.format(
 # --- Begin Character Syntax Check --- #
 
 
-def char_check(layout_syntax):
-    """Checks if each character in the layout is valid"""
+def charCheck(layoutSyntax):
+    """Checks if each character in the layout is valid."""
     # Get indices and text for each line
-    for index, char in enumerate(layout_syntax):
+    for index, char in enumerate(layoutSyntax):
 
         # Remove \n, \t, and the like
         char = char.strip()
@@ -417,7 +417,7 @@ def char_check(layout_syntax):
         index += 1
 
         # If any character in the layout is not in the list
-        if char.upper() not in itemlist:
+        if char.upper() not in blockList:
             if const.debug:
                 print('\nInvalid character "{0}" at position {1}\n'.format(
                     char, index))
@@ -439,7 +439,7 @@ def char_check(layout_syntax):
 
 
 def launch(level_filename, first_line, layout):
-    """Reloads Blocks with administrator rights"""
+    """Reloads Blocks with administrator rights."""
     #FIXME: Don't run this on Mac OS X and Linux
     admin = askyesno("Relaunch Blocks?",
                      """Would you like to reload Blocks with Administrator rights?
@@ -448,7 +448,7 @@ Your level will be preserved between launch.""")
     # If user chooses to relaunch
     if admin:
         # Save a temporary file
-        temp_file = temp_write(level_filename, first_line, layout)
+        temp_file = tempWrite(level_filename, first_line, layout)
 
         # Launch RunAsAdmin to reload Blocks,
         # invoke command-line parameter to reload the level
@@ -469,15 +469,15 @@ Your level will be preserved between launch.""")
 
 # ------------ Begin Level Layout Saving ------------ #
 
-def Backup(location, backup_file):
-    """Makes a backup of the level before saving"""
+def createBackup(location, backupFile):
+    """Makes a backup of the level before saving."""
     # Define the name and location of the backup
-    backup_file = os.path.join(location, "{0}{1}".format(
+    backupFile = os.path.join(location, "{0}{1}".format(
         level_filename, ".bak"))
 
     try:
         # Copy the file, and try to preserve time stamp
-        shutil.copy2(level_file, backup_file)
+        shutil.copy2(level_file, backupFile)
 
     # A level was edited directly in Program Files,
     # or some other action that required Admin rights
@@ -497,9 +497,9 @@ def Backup(location, backup_file):
                           exc_info=True)
 
 
-def SaveLevel(new_layout):
-    """Writes Modded Minigame Level"""
-    # Convert layout from str(ing) to binary
+def saveLevel(new_layout):
+    """Writes Modded Minigame Level."""
+    # Convert layout from string to bytes
     layout = str.encode(new_layout, encoding="utf-8", errors="strict")
 
     try:
@@ -519,15 +519,12 @@ def SaveLevel(new_layout):
                     first_line = f.readline()
 
             # Run process to backup the level
-            Backup(location, level_file)
+            createBackup(location, level_file)
 
-            # Open back up the original level, again in binary mode
+            # Open back up the original level and rewrite it
             with open(level_file, "wb") as f:
-                # Rewrite the first line
                 f.write(first_line)
-                # Write the new layout
                 f.write(layout)
-                # Write the line ending
                 f.write(b"\r\n")
 
             # Display success dialog
@@ -537,7 +534,6 @@ def SaveLevel(new_layout):
         # A level was edited directly in Program Files or something like that,
         # and Blocks was run without Administrator rights
         except PermissionError as Perm:
-
             if const.debug:
                 # Display traceback in console
                 print(Perm)
@@ -570,7 +566,7 @@ def SaveLevel(new_layout):
                               exc_info=True)
 
             # Run process to save the layout
-            SavetheUnsaved(layout)
+            savetheUnsaved(layout)
 
         # Any other unhandled error occurred
         except Exception as Exc:
@@ -599,14 +595,14 @@ def SaveLevel(new_layout):
                           exc_info=True)
 
         # Run process to save the temporary layout
-        SavetheUnsaved(layout)
+        savetheUnsaved(layout)
 
 
 # ------------ Begin New Level Saving ------------ #
 
 
-def SavetheUnsaved(layout):
-    """Save an unsaved level layout to file"""
+def savetheUnsaved(layout):
+    """Save an unsaved level layout to file."""
     # File selection dialog, allows for creation of new files
     level_resave = tk.filedialog.asksaveasfilename(
         parent=root,
@@ -630,7 +626,7 @@ def SavetheUnsaved(layout):
         level_resave = "{0}.TXT".format(level_resave)
 
     # Write a temporary level file, using arbitrary first line
-    temp_level = temp_write("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
+    temp_level = tempWrite("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
                                                   layout)
 
     # Copy the temporary level over the other level
@@ -640,7 +636,7 @@ def SavetheUnsaved(layout):
     os.unlink(temp_level)
 
     # Load the newly saved level
-    ReadLevel(level_resave)
+    readLevel(level_resave)
 
 
 # ------------ End New Level Saving ------------ #
@@ -648,8 +644,8 @@ def SavetheUnsaved(layout):
 
 # ------------ Begin Temporary Level Saving ------------ #
 
-def temp_write(name, first_line, layout):
-    """Saves the level to a temporary file"""
+def tempWrite(name, first_line, layout):
+    """Saves the level to a temporary file."""
     # Name and location of temporary file
     path = os.path.join(os.path.expanduser("~"), name)
 
@@ -675,8 +671,8 @@ def temp_write(name, first_line, layout):
 # ------------ Begin Level Legend Window ------------ #
 
 
-def CharLegend(*args):
-    """Contains Level Character Legend"""
+def charLegend(*args):
+    """Contains Level Character Legend."""
     # Spawn a new window, parent it to main window
     legend_window = tk.Toplevel(root)
 
@@ -717,7 +713,7 @@ def CharLegend(*args):
     ttk.Label(legend_window, text=legend_text).grid()
 
     def CloseCharLegend(*args):
-        """Closes Character Legend Window"""
+        """Closes Character Legend Window."""
         legend_window.destroy()
 
     # Bind <Ctrl + q> shortcut to close the legend window
@@ -735,14 +731,14 @@ def CharLegend(*args):
 # ------------ Begin Tkinter GUI Layout ------------ #
 
 
-def Close(*args):
-    """Closes Blocks"""
+def closeBlocks(*args):
+    """Close Blocks."""
     logging.shutdown()
     raise SystemExit(0)
 
 
 def GUI(cmdfile=False):
-    """Tkinter GUI Code"""
+    """Tkinter GUI."""
     # Mark as global so everything works
     global root, level_name, level
 
@@ -784,26 +780,27 @@ def GUI(cmdfile=False):
     level.insert("1.0", "Minigame layout will be displayed here.")
 
     # About Blocks text
-    about_blocks = ttk.Label(mainframe, text="""\t\t{0} {1}{2}
-      Created 2013-{3} Triangle717""".format(
+    about_blocks = ttk.Label(mainframe, text="""      {0} {1}{2}
+Created 2013-{3}
+      Triangle717""".format(
         const.app, const.majVer, const.minVer, const.currentYear))
     about_blocks.grid(column=2, row=0, sticky=tk.N)
 
     # New button
-    new_button = ttk.Button(mainframe, text="New", command=NewLevel)
+    new_button = ttk.Button(mainframe, text="New", command=createNewLevel)
     new_button.grid(column=2, row=1, sticky=tk.N)
 
     # Open button
-    open_file = ttk.Button(mainframe, text="Open", command=OpenLevel)
+    open_file = ttk.Button(mainframe, text="Open", command=openLevel)
     open_file.grid(column=2, row=2, sticky=tk.N)
 
     # Save button
-    save_file = ttk.Button(mainframe, text="Save", command=syntax_check)
+    save_file = ttk.Button(mainframe, text="Save", command=syntaxCheck)
     save_file.grid(column=2, row=3, sticky=tk.N)
 
     # Character Legend button
     legend_button = ttk.Button(mainframe, text="Character Legend",
-                               command=CharLegend)
+                               command=charLegend)
     legend_button.grid(column=0, row=1, columnspan=2, sticky=tk.N)
 
     # Blocks Logo
@@ -817,26 +814,26 @@ def GUI(cmdfile=False):
         child.grid_configure(padx=2, pady=2)
 
     # Bind <Ctrl + n> shortcut to New button
-    root.bind("<Control-n>", NewLevel)
+    root.bind("<Control-n>", createNewLevel)
 
     # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
-    root.bind("<Control-O>", OpenLevel)
+    root.bind("<Control-O>", openLevel)
 
     # Bind <Ctrl + s> shortcut to Save button
-    root.bind("<Control-s>", syntax_check)
+    root.bind("<Control-s>", syntaxCheck)
 
     # Bind <Ctrl + q> shortcut to close function
-    root.bind("<Control-q>", Close)
+    root.bind("<Control-q>", closeBlocks)
 
     # Bind F12 key to Character Legend button
-    root.bind('<F12>', CharLegend)
+    root.bind('<F12>', charLegend)
 
     # If the argument is a valid file
     if os.path.isfile(cmdfile):
         # Open it!
         if const.debug:
             print("\n{0}\nis being opened".format(cmdfile))
-        root.after(1, ReadLevel(cmdfile, True))
+        root.after(1, readLevel(cmdfile, True))
 
     # Run program
     root.mainloop()
@@ -855,4 +852,4 @@ if __name__ == "__main__":
 
     # Start Blocks
     info()
-    CMD()
+    commandLine()
