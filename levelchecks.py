@@ -80,7 +80,7 @@ The line must be exactly 38 characters, including spaces.""".format(
         # NOTE:
         # While all lines must be at least 38 characters,
         # some levels have lines that are 39 characters.
-        # Techinally, line can be longer then the imposed 38 characters,
+        # Technically, a line can be longer then the imposed 38 characters,
         # but odd, undocumented stuff occurs when extra characters are added
         # to the left or right sides of the level.
 
