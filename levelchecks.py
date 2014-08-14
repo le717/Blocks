@@ -1,33 +1,41 @@
 # -*- coding: utf-8 -*-
+"""Blocks - Island Xtreme Stunts Minigame Level Editor.
+
+Created 2013-2014 Triangle717
+<http://Triangle717.WordPress.com/>
+
+Blocks is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Blocks is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Blocks. If not, see <http://www.gnu.org/licenses/>.
+
 """
-    Blocks - Island Xtreme Stunts Minigame Level Editor
-    Created 2013-2014 Triangle717
-    <http://Triangle717.WordPress.com/>
 
-    Blocks is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Blocks is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Blocks. If not, see <http://www.gnu.org/licenses/>.
-"""
+__all__ = ("LevelChecks")
 
 
 class LevelChecks(object):
-    """Run syntax checks on the user's level to ensure it is valid."""
+
+    """Level syntax checker object.
+
+    Run syntax checks on the user's level to ensure it is valid.
+    """
+
     def __init__(self, userLevel):
         """Initalize private variables."""
         self.__userLevelNormCase = userLevel
         self.__userLevel = userLevel.upper()
 
     def _levelSize(self):
-        """Checks the size of the layout."""
+        """Check the size of the layout."""
         # Get the each line's number and text
         for lineNum, lineText in enumerate(self.__userLevel[:-2].split("\n")):
             lineNum += 1
@@ -41,7 +49,7 @@ The level must be exactly 8 lines.""".format(lineNum))
         return (False, None, None)
 
     def _charCheck(self):
-        """Checks if each character in the layout is valid."""
+        """Check if each character in the layout is valid."""
         # Valid cubes that can be used
         cubeList = ("", "F", "BW", "YC", "YT", "RC", "RT",
                     "RB", "BC", "BT", "GT", "GC", "WB", "WH",
@@ -62,7 +70,7 @@ The level must be exactly 8 lines.""".format(lineNum))
         return (False, None, None)
 
     def _lineLength(self):
-        """Checks the length of each line."""
+        """Check the length of each line."""
         # Get the each line's number text, and length
         for lineNum, lineText in enumerate(self.__userLevel[:-1].split("\n")):
             lineNum += 1
