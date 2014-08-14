@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
     Blocks - Island Xtreme Stunts Minigame Level Editor
-    Created 2013 Triangle717
+    Created 2013-2014 Triangle717
     <http://Triangle717.WordPress.com/>
 
     Blocks is free software: you can redistribute it and/or modify
@@ -28,27 +28,21 @@ import webbrowser
 # Blocks constants
 import constants as const
 
-# User is not running >= Python 3.3.0
+# User is running Python 2, use that version's Tkinter
 if sys.version_info < (3, 3, 0):
-    # Import Python 2 Tkinter library
     import Tkinter as tk
     import tkMessageBox
 
+    # Display error message
     root = tk.Tk()
     root.withdraw()
-    # Add icon
     root.iconbitmap(const.appIcon)
-    # Display error message
     tkMessageBox.showerror("Unsupported Python Version!",
-                           '''You are running Python {0}.
-You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n'''
-                           .format(sys.version[0:5], const.app, const.majVer, const.minVer))
-
-    # Opens only when user clicks OK
-    # New tab, raise browser windows
+                           """You are running Python {0}.
+You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n"""
+                           .format(sys.version[0:5], const.app,
+                                   const.majVer, const.minVer))
     webbrowser.open_new_tab("http://python.org/download/")
-
-    # Close Blocks
     raise SystemExit(0)
 
 # Now that we know we are running Python 3.3+,
@@ -72,7 +66,7 @@ import tkinter.filedialog
 
 
 def info():
-    """Python and OS checks"""
+    """Python and OS checks."""
     # Check if Python is x86 or x64
     # Based on code from Python help for platform module and my own tests
     if sys.maxsize < 2 ** 32:
@@ -84,10 +78,10 @@ def info():
     logging.info("You are running {0} {1} {2} on {3} {4}.".format(
         platform.python_implementation(), py_arch, platform.python_version(),
         platform.machine(), platform.platform()))
-    logging.info('''
+    logging.info("""
                                 #############################################
                                             {0} Version {1}{2}
-                                          Created 2013 {3}
+                                          Created 2013-{3} {4}
                                                 Blocks.log
 
 
@@ -95,34 +89,36 @@ def info():
                                     https://github.com/le717/Blocks/issues
                                     and attach this file for an quicker fix!
                                 #############################################
-                                '''.format(const.app, const.majVer, const.minVer, const.creator))
+                                """.format(const.app, const.majVer,
+                                           const.minVer, const.currentYear,
+                                           const.creator))
 
 
 def CMD():
-    """Command-line arguments parser"""
+    """Command-line arguments parser."""
     parser = argparse.ArgumentParser(
         description="{0} {1}{2} Command-line arguments".format(
             const.app, const.majVer, const.minVer))
 
     # Debug message argument
     parser.add_argument("-d", "--debug",
-                        help='Dispay debugging messages', action="store_true")
+                        help="Dispay debugging messages", action="store_true")
 
     # Open file argument
-    parser.add_argument("-o", help='''Open a level file for editing.
+    parser.add_argument("-o", help="""Open a level file for editing.
 WARNING: any files loaded through this are deleted. Please use the Open button
-in the GUI instead!''')
+in the GUI instead!""")
 
-    # Register all the parameters
+    # Register parameters
     args = parser.parse_args()
-
-    # Declare parameters
     debugarg = args.debug
     openarg = args.o
+
     # If the debug parameter is passed, enable the debugging messages
     if debugarg:
         const.debug = True
-        os.system("title Blocks {0}{1} - Debug".format(const.majVer, const.minVer))
+        os.system("title Blocks {0}{1} - Debug".format(
+            const.majVer, const.minVer))
         print("\nDebug messages have been enabled.\n")
 
     # If the open argument is valid,
@@ -140,7 +136,7 @@ in the GUI instead!''')
 
 
 def NewLevel(*args):
-    """Create a new Minigame Level"""
+    """Create a new Minigame Level."""
     # Update variable saying a new level was created
     global newLevel
     newLevel = True
@@ -152,14 +148,14 @@ def NewLevel(*args):
         print("\nA new level is being created.\n")
 
     # Blank (free) layout for when starting a new level
-    blank_layout = ''' F  F  F  F  F  F  F  F  F  F  F  F  F
+    blank_layout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F'''
+ F  F  F  F  F  F  F  F  F  F  F  F  F"""
 
     # Remove the old content
     level.delete("1.0", "end")
@@ -174,10 +170,8 @@ def NewLevel(*args):
 
 
 def OpenLevel(*args):
-    """Reads Minigame Level"""
-    # Assign selected file as global variable
+    """Reads Minigame Level."""
     global level_file
-    # Select the level file
     level_file = tkinter.filedialog.askopenfilename(
         parent=root,
         defaultextension=".TXT",
@@ -207,7 +201,7 @@ def OpenLevel(*args):
 
 
 def ReadLevel(level_file, cmd=False):
-    """Reads an existing level file"""
+    """Reads an existing level file."""
     # Update new level variable to denote a pre-existing level
     global newLevel
     newLevel = False
@@ -448,8 +442,8 @@ def launch(level_filename, first_line, layout):
     """Reloads Blocks with administrator rights"""
     #FIXME: Don't run this on Mac OS X and Linux
     admin = askyesno("Relaunch Blocks?",
-                     '''Would you like to reload Blocks with Administrator rights?
-Your level will be preserved between launch.''')
+                     """Would you like to reload Blocks with Administrator rights?
+Your level will be preserved between launch.""")
 
     # If user chooses to relaunch
     if admin:
@@ -688,7 +682,7 @@ def CharLegend(*args):
 
     # Use different window title
     legend_window.title("Level Character Legend - Blocks {0}{1}".format(
-       const.majVer, const.minVer))
+                        const.majVer, const.minVer))
 
     # Window Icon
     legend_window.iconbitmap(const.appIcon)
@@ -791,7 +785,8 @@ def GUI(cmdfile=False):
 
     # About Blocks text
     about_blocks = ttk.Label(mainframe, text="""\t\t{0} {1}{2}
-      Created 2013-{3} Triangle717""".format(const.app, const.majVer, const.minVer, const.currentYear))
+      Created 2013-{3} Triangle717""".format(
+        const.app, const.majVer, const.minVer, const.currentYear))
     about_blocks.grid(column=2, row=0, sticky=tk.N)
 
     # New button
