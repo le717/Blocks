@@ -24,7 +24,7 @@ import os
 
 
 def writeBatch(destfolder):
-    """Write files when freezing Blocks for Windows"""
+    """Write files when freezing Blocks for Windows."""
     # Write the required RunAsAdmin.cfg file
     with open(os.path.join(destfolder, "RunAsAdmin.cfg"), "wt") as f:
         f.write("Blocks.exe")

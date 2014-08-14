@@ -27,7 +27,7 @@ import distutils.dir_util
 
 
 def cleanup(destfolder):
-    """Remove unneeded Tkinter files"""
+    """Remove unneeded Tkinter files."""
     # Small bit of whitespace
     print("\n")
     # Delete the unneeded items from the freeze

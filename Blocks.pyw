@@ -64,19 +64,24 @@ import tkinter.filedialog
 
 # ------------ Begin Preload Checks And Arguments ------------ #
 
+# Check if we are running some version of Windows
+isWindows = False
+if "Windows" in platform.platform():
+    isWindows = True
+
 
 def info():
     """Python and OS checks."""
     # Check if Python is x86 or x64
     # Based on code from Python help for platform module and my own tests
     if sys.maxsize < 2 ** 32:
-        py_arch = "x86"
+        pyArch = "x86"
     else:
-        py_arch = "AMD64"
+        pyArch = "AMD64"
 
     logging.info("Begin logging to {0}".format(loggingFile))
     logging.info("You are running {0} {1} {2} on {3} {4}.".format(
-        platform.python_implementation(), py_arch, platform.python_version(),
+        platform.python_implementation(), pyArch, platform.python_version(),
         platform.machine(), platform.platform()))
     logging.info("""
                                 #############################################
@@ -117,8 +122,9 @@ in the GUI instead!""")
     # If the debug parameter is passed, enable the debugging messages
     if debugarg:
         const.debug = True
-        os.system("title Blocks {0}{1} - Debug".format(
-            const.majVer, const.minVer))
+        if isWindows:
+            os.system("title Blocks {0}{1} - Debug".format(
+                const.majVer, const.minVer))
         print("\nDebug messages have been enabled.\n")
 
     # If the open argument is valid,
@@ -148,7 +154,7 @@ def createNewLevel(*args):
         print("\nA new level is being created.\n")
 
     # Blank (free) layout for when starting a new level
-    blank_layout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
+    blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
@@ -160,7 +166,7 @@ def createNewLevel(*args):
     # Remove the old content
     level.delete("1.0", "end")
     # Add blank layout in edit box
-    level.insert("1.0", blank_layout)
+    level.insert("1.0", blankLayout)
 
 
 # ------------ End New Minigame Level  ------------ #
@@ -181,12 +187,11 @@ def openLevel(*args):
 
     # The user clicked the cancel button
     if not level_file:
-        # Close dialog box
         pass
 
     # The user selected a level
     else:
-        # Display  full path to the file
+        # Display full path to the file
         if const.debug:
             print(level_file)
 
@@ -200,7 +205,7 @@ def openLevel(*args):
 # ------------ Begin Level Layout Reading ------------ #
 
 
-def readLevel(level_file, cmd=False):
+def readLevel(levelFile, cmd=False):
     """Reads an existing level file."""
     # Update new level variable to denote a pre-existing level
     global newLevel
@@ -210,13 +215,13 @@ def readLevel(level_file, cmd=False):
 
     # Get just the file name, assign it as global
     global level_filename
-    level_filename = os.path.basename(level_file)
+    level_filename = os.path.basename(levelFile)
 
     # Set the filename display
     level_name.set(level_filename)
 
     # Open file for reading
-    with open(level_file, "rt") as f:
+    with open(levelFile, "rt") as f:
         lines = f.readlines()[:]
 
     # Skip hex values, since they cannot be displayed
@@ -231,12 +236,10 @@ def readLevel(level_file, cmd=False):
     # (music) Put the layout in the widget and edit it all up (music)
     level.insert("1.0", layout)
 
-    # If the command-line parameter was invoked,
+    # If the temporary level exists, delete it
     if cmd:
-        # If the temporary level exists (safety check),
-        if os.path.exists(level_file):
-            # Then delete it.
-            os.unlink(level_file)
+        if os.path.exists(levelFile):
+            os.unlink(levelFile)
 
 
 # ------------ End Level Layout Reading ------------ #
@@ -255,61 +258,57 @@ def syntaxCheck(*args):
 
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is required to make everything work
-    layout = level.get("1.0", "end")
+    userLayout = level.get("1.0", "end")
 
     # Split the layout at each new line, removing the last two characters
     # This cannot be done above, it must be done here
-    layout_size = layout[:-2].upper().split("\n")
+    layoutSize = userLayout[:-2].upper().split("\n")
 
     # Run level size check
-    size_check = levelSize(layout_size)
+    sizeCheck = levelSize(layoutSize)
 
     # If the level size check returns an error,
-    if size_check == "Error":
+    if sizeCheck == "Error":
         # Return False so the saving process will not continue on
         return False
-
-    # Delete the list to free up resources
-    del layout_size[:]
 
     # Split the layout at each new line, removing the last character
     # This split has to be done again but differently for the check to work
-    line_size = layout[:-1].upper().split("\n")
+    lineSize = userLayout[:-1].upper().split("\n")
 
     # Run line length check
-    line_check = lineLength(line_size)
+    lineCheck = lineLength(lineSize)
 
     # If the line length check returns an error,
-    if line_check == "Error":
+    if lineCheck == "Error":
         # Return False so the saving process will not continue on
         return False
-
-    # Delete the list to free up resources
-    del line_size[:]
 
     # Split the text at each space
-    layoutSyntax = layout.split(" ")
+    layoutSyntax = userLayout.split(" ")
 
     # Run character check
-    valid_char = charCheck(layoutSyntax)
+    validChar = charCheck(layoutSyntax)
 
     # If the character check returns an error,
-    if valid_char == "Error":
+    if validChar == "Error":
         # Return False so the saving process will not continue on
         return False
 
-    # Delete the list to free up resources
+    # Delete now unuseds lists
+    del layoutSize[:]
+    del lineSize[:]
     del layoutSyntax[:]
 
     # Display final debug message for the syntax checker
     if const.debug:
         print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
-            layout))
+              userLayout))
 
     # Send the corrected layout for writing
-    # new_layout[:-1] so the last character is not left out
+    # [:-1] so the last character is not left out
     # Also convert layout to uppercase so IXS won't crash
-    saveLevel(layout[:-1].upper())
+    saveLevel(userLayout[:-1].upper())
 
 
 # --- Begin Level Size Check --- #
@@ -322,21 +321,16 @@ def levelSize(layout_size):
 
     # Get the indices and text for each line
     for lineno, linetext in enumerate(layout_size):
-
         # Display line number and line content if debug messages are enabled
         if const.debug:
             print(lineno, linetext)
-        # Do nothing else, all we need are the indices
         pass
 
-    # The actual line number
+    # Get the actual (read: non 0-index) lin enumber
     lineno += 1
 
-    if (  # The level is more than 8 lines
-        lineno > 8 or
-            # The level is less than 8 lines
-            lineno < 8):
-
+    # The level is more than or less than 8 lines
+    if (lineno > 8 or lineno < 8):
         # Display error message in console if debug messages are enabled
         if const.debug:
             print("""\nYour level contains {0} lines!
@@ -448,20 +442,17 @@ Your level will be preserved between launch.""")
     # If user chooses to relaunch
     if admin:
         # Save a temporary file
-        temp_file = tempWrite(levelFilename, firstLine, layout)
+        tempFile = tempWrite(levelFilename, firstLine, layout)
 
         # Launch RunAsAdmin to reload Blocks,
         # invoke command-line parameter to reload the level
         subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
-            temp_file)])
+            tempFile)])
 
         # Now we close Blocks, and let RunAsAdmin take over
         logging.shutdown()
         raise SystemExit(0)
-
-    # User did not want to relaunch Blocks
-    else:
-        return False
+    return False
 
 
 # ------------ End RunAsAdmin Intergration ------------ #
@@ -484,7 +475,7 @@ def createBackup(location, backupFile):
     except PermissionError as Perm:
 
         showerror("Insufficient User Right!",
-                  '''Blocks does not have the user rights to save {0}!'''
+                  """Blocks does not have the user rights to save {0}!"""
                   .format(level_filename))
 
         if const.debug:
@@ -555,7 +546,6 @@ def saveLevel(new_layout):
         # Not catching this exception would trigger Exception
         # and get stuck in an endless loop, so the level could NEVER be saved
         except FileNotFoundError as FNFE:
-
             if const.debug:
                 # Display traceback in console
                 print(FNFE)
@@ -585,7 +575,6 @@ def saveLevel(new_layout):
 
     # The user tried to save a level without loading one first
     except NameError as NE:
-
         if const.debug:
             # Display traceback in console
             print(NE)
@@ -604,7 +593,7 @@ def saveLevel(new_layout):
 def savetheUnsaved(layout):
     """Save an unsaved level layout to file."""
     # File selection dialog, allows for creation of new files
-    level_resave = tk.filedialog.asksaveasfilename(
+    levelResave = tk.filedialog.asksaveasfilename(
         parent=root,
         defaultextension=".TXT",
         filetypes=[("IXS Minigame Layout", ".TXT")],
@@ -612,31 +601,28 @@ def savetheUnsaved(layout):
     )
 
     # User did not select a file
-    if not level_resave:
+    if not levelResave:
         # Stop the saving process
         return False
 
     # Split the filename into name and extension
-    name, ext = os.path.splitext(level_resave)
+    name, ext = os.path.splitext(levelResave)
 
-    # If file does not end with .TXT,
-    if not level_resave.lower().endswith(".txt"):
-
-        # Append proper file extension to filename
-        level_resave = "{0}.TXT".format(level_resave)
+    # Append proper file extension to filename if needed
+    if not levelResave.upper().endswith(".TXT"):
+        levelResave = "{0}.TXT".format(levelResave)
 
     # Write a temporary level file, using arbitrary first line
-    temp_level = tempWrite("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
+    tempLevel = tempWrite("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
                                                   layout)
 
-    # Copy the temporary level over the other level
-    distutils.file_util.copy_file(temp_level, level_resave)
+    # Overwrite the old level with the new one
+    distutils.file_util.copy_file(tempLevel, levelResave)
 
     # After it is copied, delete the temporary file
-    os.unlink(temp_level)
-
-    # Load the newly saved level
-    readLevel(level_resave)
+    # and load the newly saved one
+    os.unlink(tempLevel)
+    readLevel(levelResave)
 
 
 # ------------ End New Level Saving ------------ #
@@ -644,10 +630,10 @@ def savetheUnsaved(layout):
 
 # ------------ Begin Temporary Level Saving ------------ #
 
-def tempWrite(name, firstLine, layout):
+def tempWrite(tempFileName, firstLine, layout):
     """Saves the level to a temporary file."""
     # Name and location of temporary file
-    path = os.path.join(os.path.expanduser("~"), name)
+    path = os.path.join(os.path.expanduser("~"), tempFileName)
 
     # Write the temp file, using binary mode
     with open(path, "wb") as f:

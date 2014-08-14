@@ -66,13 +66,14 @@ if base is not None:
 build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
                      "include_files": [
-                     "LICENSE.txt",
-                     "LICENSE.RunAsAdmin.txt",
-                     "Media/Blocks.ico",
-                     "Media/Blocks.gif",
-                     "Documentation/Changelog.md",
-                     "Documentation/Format-Details.md",
-                     "Documentation/Tutorial.md"]
+                         "LICENSE.txt",
+                         "LICENSE.RunAsAdmin.txt",
+                         "Media/Blocks.ico",
+                         "Media/Blocks.gif",
+                         "Documentation/Changelog.md",
+                         "Documentation/Format-Details.md",
+                         "Documentation/Tutorial.md"
+                        ]
                      }
 
 setup(
