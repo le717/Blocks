@@ -27,7 +27,7 @@ majVer = "0.9"
 minVer = ".2"
 creator = "Triangle717"
 currentYear = datetime.now().year
-debug = False
+debugMode = False
 newLevel = None
 
 # Name of Blocks Exe/Py

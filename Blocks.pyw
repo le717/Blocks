@@ -17,7 +17,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Blocks. If not, see <http://www.gnu.org/licenses/>.
-
 """
 
 # Import just what is needed at the moment
@@ -121,7 +120,7 @@ in the GUI instead!""")
 
     # If the debug parameter is passed, enable the debugging messages
     if debugarg:
-        const.debug = True
+        const.debugMode = True
         if isWindows:
             os.system("title Blocks {0}{1} - Debug".format(
                 const.majVer, const.minVer))
@@ -150,7 +149,7 @@ def createNewLevel(*args):
     # Remove level name display, since there is no opened level
     level_name.set("")
 
-    if const.debug:
+    if const.debugMode:
         print("\nA new level is being created.\n")
 
     # Blank (free) layout for when starting a new level
@@ -192,7 +191,7 @@ def openLevel(*args):
     # The user selected a level
     else:
         # Display full path to the file
-        if const.debug:
+        if const.debugMode:
             print(level_file)
 
         # Send the file off for reading
@@ -210,7 +209,7 @@ def readLevel(levelFile, cmd=False):
     # Update new level variable to denote a pre-existing level
     global newLevel
     newLevel = False
-    if const.debug:
+    if const.debugMode:
         print("\nA new level is not being created.\n")
 
     # Get just the file name, assign it as global
@@ -255,7 +254,6 @@ blockList = ("", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
 
 def syntaxCheck(*args):
     """Checks the Level Layout for syntax errors."""
-
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is required to make everything work
     userLayout = level.get("1.0", "end")
@@ -301,7 +299,7 @@ def syntaxCheck(*args):
     del layoutSyntax[:]
 
     # Display final debug message for the syntax checker
-    if const.debug:
+    if const.debugMode:
         print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
               userLayout))
 
@@ -316,13 +314,13 @@ def syntaxCheck(*args):
 
 def levelSize(layout_size):
     """Checks the size of the layout."""
-    if const.debug:
+    if const.debugMode:
         print("\nThe new layout is:\n")
 
     # Get the indices and text for each line
     for lineno, linetext in enumerate(layout_size):
         # Display line number and line content if debug messages are enabled
-        if const.debug:
+        if const.debugMode:
             print(lineno, linetext)
         pass
 
@@ -332,7 +330,7 @@ def levelSize(layout_size):
     # The level is more than or less than 8 lines
     if (lineno > 8 or lineno < 8):
         # Display error message in console if debug messages are enabled
-        if const.debug:
+        if const.debugMode:
             print("""\nYour level contains {0} lines!
 The level must be exactly 8 lines.""".format(lineno))
 
@@ -353,12 +351,11 @@ The level must be exactly 8 lines.\n""".format(lineno))
 def lineLength(line_size):
     """Checks the length of each line."""
     # Bit of spacing for debug messages
-    if const.debug:
+    if const.debugMode:
         print()
 
     # Get the indices and text for each line
     for linenum, linedata in enumerate(line_size):
-
         # The actual line number
         linenum += 1
 
@@ -366,15 +363,14 @@ def lineLength(line_size):
         len_of_line = len(linedata)
 
         # Display length of each line if debug messages are enabled
-        if const.debug:
+        if const.debugMode:
             print("Line {0} is {1} characters long".format(
                 linenum, len_of_line))
 
         # If the line is less than 38 characters, counting spaces
         if len_of_line < 38:
-
             # Tell user the error
-            if const.debug:
+            if const.debugMode:
                 print('''Line {0} is {1} characters! The line must be exactly
 38 characters, including spaces.'''.format(linenum, len_of_line))
 
@@ -403,7 +399,6 @@ def charCheck(layoutSyntax):
     """Checks if each character in the layout is valid."""
     # Get indices and text for each line
     for index, char in enumerate(layoutSyntax):
-
         # Remove \n, \t, and the like
         char = char.strip()
 
@@ -412,7 +407,7 @@ def charCheck(layoutSyntax):
 
         # If any character in the layout is not in the list
         if char.upper() not in blockList:
-            if const.debug:
+            if const.debugMode:
                 print('\nInvalid character "{0}" at position {1}\n'.format(
                     char, index))
             showerror("Syntax Error!",
@@ -478,7 +473,7 @@ def createBackup(location, backupFile):
                   """Blocks does not have the user rights to save {0}!"""
                   .format(level_filename))
 
-        if const.debug:
+        if const.debugMode:
             # Display traceback to console
             print(Perm)
 
@@ -525,7 +520,7 @@ def saveLevel(new_layout):
         # A level was edited directly in Program Files or something like that,
         # and Blocks was run without Administrator rights
         except PermissionError as Perm:
-            if const.debug:
+            if const.debugMode:
                 # Display traceback in console
                 print(Perm)
 
@@ -546,7 +541,7 @@ def saveLevel(new_layout):
         # Not catching this exception would trigger Exception
         # and get stuck in an endless loop, so the level could NEVER be saved
         except FileNotFoundError as FNFE:
-            if const.debug:
+            if const.debugMode:
                 # Display traceback in console
                 print(FNFE)
 
@@ -564,7 +559,7 @@ def saveLevel(new_layout):
                       "Blocks ran into an unknown error while trying to {0}!"
                       .format(level_filename))
 
-            if const.debug:
+            if const.debugMode:
                 # Display traceback in console
                 print(Exc)
 
@@ -575,7 +570,7 @@ def saveLevel(new_layout):
 
     # The user tried to save a level without loading one first
     except NameError as NE:
-        if const.debug:
+        if const.debugMode:
             # Display traceback in console
             print(NE)
 
@@ -815,7 +810,7 @@ Created 2013-{3}
     # If the argument is a valid file
     if os.path.isfile(cmdfile):
         # Open it!
-        if const.debug:
+        if const.debugMode:
             print("\n{0}\nis being opened".format(cmdfile))
         root.after(1, readLevel(cmdfile, True))
 
