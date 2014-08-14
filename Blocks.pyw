@@ -57,8 +57,9 @@ import distutils.file_util
 # Tkinter GUI library
 import tkinter as tk
 from tkinter import ttk
-from tkinter.messagebox import (showerror, askyesno)
 import tkinter.filedialog
+
+import levelchecks
 
 #TODO: Finish writing new level code
 
@@ -245,185 +246,23 @@ def readLevel(levelFile, cmd=False):
 # ------------ End Level Layout Reading ------------ #
 
 
-# ------------ Begin Level Layout Syntax Check ------------ #
-
-# The allowed characters in a layout
-# This is in the global namespace because a couple of checks reference it
-blockList = ("", "F", "BW", "YC", "YT", "RC", "RT", "RB", "BC", "BT", "GT",
-            "GC", "WB", "WH", "WI", "WJ", "WM", "WL", "WR", "WT", "WV")
-
-
 def syntaxCheck(*args):
     """Checks the Level Layout for syntax errors."""
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is required to make everything work
-    userLayout = level.get("1.0", "end")
+    userLevel = level.get("1.0", "end")
 
-    # Split the layout at each new line, removing the last two characters
-    # This cannot be done above, it must be done here
-    layoutSize = userLayout[:-2].upper().split("\n")
+    # Run the layout through various syntax checks
+    checks = levelchecks.LevelChecks(userLevel)
+    userLevel = checks.checkLevel()
 
-    # Run level size check
-    sizeCheck = levelSize(layoutSize)
-
-    # If the level size check returns an error,
-    if sizeCheck == "Error":
-        # Return False so the saving process will not continue on
+    # An error in the level was found, give user the details
+    if type(userLevel) == tuple:
+        tk.messagebox.showerror(userLevel[0], userLevel[1])
         return False
-
-    # Split the layout at each new line, removing the last character
-    # This split has to be done again but differently for the check to work
-    lineSize = userLayout[:-1].upper().split("\n")
-
-    # Run line length check
-    lineCheck = lineLength(lineSize)
-
-    # If the line length check returns an error,
-    if lineCheck == "Error":
-        # Return False so the saving process will not continue on
-        return False
-
-    # Split the text at each space
-    layoutSyntax = userLayout.split(" ")
-
-    # Run character check
-    validChar = charCheck(layoutSyntax)
-
-    # If the character check returns an error,
-    if validChar == "Error":
-        # Return False so the saving process will not continue on
-        return False
-
-    # Delete now unused lists
-    del layoutSize[:]
-    del lineSize[:]
-    del layoutSyntax[:]
-
-    # Display final debug message for the syntax checker
-    if const.debugMode:
-        print("\n\nThe new layout (after syntax checking) is: \n\n{0}".format(
-              userLayout))
 
     # Send the corrected layout for writing
-    # [:-1] so the last character is not left out
-    # Also convert layout to uppercase so IXS won't crash
-    saveLevel(userLayout[:-1].upper())
-
-
-# --- Begin Level Size Check --- #
-
-
-def levelSize(layout_size):
-    """Checks the size of the layout."""
-    if const.debugMode:
-        print("\nThe new layout is:\n")
-
-    # Get the indices and text for each line
-    for lineno, linetext in enumerate(layout_size):
-        # Display line number and line content if debug messages are enabled
-        if const.debugMode:
-            print(lineno, linetext)
-        pass
-
-    # Get the actual (read: non 0-index) lin enumber
-    lineno += 1
-
-    # The level is more than or less than 8 lines
-    if (lineno > 8 or lineno < 8):
-        # Display error message in console if debug messages are enabled
-        if const.debugMode:
-            print("""\nYour level contains {0} lines!
-The level must be exactly 8 lines.""".format(lineno))
-
-        # Display error message to user telling them about the error
-        showerror("Size Error!",
-                  """Your level contains {0} lines!
-The level must be exactly 8 lines.\n""".format(lineno))
-
-        # Return custom error message everything will work
-        return "Error"
-
-# --- End Level Size Check --- #
-
-
-# --- Begin Line Length Check --- #
-
-
-def lineLength(line_size):
-    """Checks the length of each line."""
-    # Bit of spacing for debug messages
-    if const.debugMode:
-        print()
-
-    # Get the indices and text for each line
-    for linenum, linedata in enumerate(line_size):
-        # The actual line number
-        linenum += 1
-
-        # How long is each line?
-        len_of_line = len(linedata)
-
-        # Display length of each line if debug messages are enabled
-        if const.debugMode:
-            print("Line {0} is {1} characters long".format(
-                linenum, len_of_line))
-
-        # If the line is less than 38 characters, counting spaces
-        if len_of_line < 38:
-            # Tell user the error
-            if const.debugMode:
-                print('''Line {0} is {1} characters! The line must be exactly
-38 characters, including spaces.'''.format(linenum, len_of_line))
-
-            showerror("Length Error!", '''Line {0} is {1} characters!
-The line must be exactly 38 characters, including spaces.'''.format(
-                      linenum, len_of_line))
-
-            # Return custom error message everything will work
-            return "Error"
-
-            """
-            While all lines must be at least 38 characters, some levels has
-            lines that are 39 characters.
-            Techinally, they can be longer, but odd, undocumented stuff occurs
-            when extra characters are added
-            to the left or right side of the layout.
-            """
-
-# --- End Line Length Check --- #
-
-
-# --- Begin Character Syntax Check --- #
-
-
-def charCheck(layoutSyntax):
-    """Checks if each character in the layout is valid."""
-    # Get indices and text for each line
-    for index, char in enumerate(layoutSyntax):
-        # Remove \n, \t, and the like
-        char = char.strip()
-
-        # The proper location of the character
-        index += 1
-
-        # If any character in the layout is not in the list
-        if char.upper() not in blockList:
-            if const.debugMode:
-                print('\nInvalid character "{0}" at position {1}\n'.format(
-                    char, index))
-            showerror("Syntax Error!",
-                      'Invalid character: "{0}" at position {1}'.format(
-                          char, index))
-
-            # Return custom error message everything will work
-            return "Error"
-
-
-# --- End Character Syntax Check --- #
-
-
-# ------------ End Level Layout Syntax Check ------------ #
-
+    saveLevel(userLevel)
 
 # ------------ Begin RunAsAdmin Intergration ------------ #
 
@@ -431,7 +270,7 @@ def charCheck(layoutSyntax):
 def launch(levelFilename, firstLine, layout):
     """Reloads Blocks with administrator rights."""
     #FIXME: Don't run this on Mac OS X and Linux
-    admin = askyesno("Relaunch Blocks?",
+    admin = tk.messagebox.askyesno("Relaunch Blocks?",
                      """Would you like to reload Blocks with Administrator rights?
 Your level will be preserved between launch.""")
 
@@ -469,8 +308,7 @@ def createBackup(location, backupFile):
     # A level was edited directly in Program Files,
     # or some other action that required Admin rights
     except PermissionError as Perm:
-
-        showerror("Insufficient User Right!",
+        tk.messagebox.showerror("Insufficient User Right!",
                   """Blocks does not have the user rights to save {0}!"""
                   .format(level_filename))
 
@@ -490,7 +328,6 @@ def saveLevel(new_layout):
     layout = str.encode(new_layout, encoding="utf-8", errors="strict")
 
     try:
-
         # If a new level is being created, raise NameError so we can save it
         if const.newLevel:
             raise NameError
@@ -552,11 +389,11 @@ def saveLevel(new_layout):
                               exc_info=True)
 
             # Run process to save the layout
-            savetheUnsaved(layout)
+            saveNewLevel(layout)
 
         # Any other unhandled error occurred
         except Exception as Exc:
-            showerror("An Error Has Occurred!",
+            tk.messagebox.showerror("An Error Has Occurred!",
                       "Blocks ran into an unknown error while trying to {0}!"
                       .format(level_filename))
 
@@ -580,13 +417,13 @@ def saveLevel(new_layout):
                           exc_info=True)
 
         # Run process to save the temporary layout
-        savetheUnsaved(layout)
+        saveNewLevel(layout)
 
 
 # ------------ Begin New Level Saving ------------ #
 
 
-def savetheUnsaved(layout):
+def saveNewLevel(layout):
     """Save an unsaved level layout to file."""
     # File selection dialog, allows for creation of new files
     levelResave = tk.filedialog.asksaveasfilename(

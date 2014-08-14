@@ -106,7 +106,3 @@ The line must be exactly 38 characters, including spaces.""".format(
         elif cubeCheck[0]:
             return (cubeCheck[1], cubeCheck[2])
         return self.__userLevel[:-1]
-
-# print(type(self.__userLevel[:-1]))
-# checks = LevelChecks(blankLayout)
-# checks.checkLevel()

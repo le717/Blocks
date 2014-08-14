@@ -7,3 +7,10 @@ install: pip install -r requirements.txt
 script:
   - flake8 --max-complexity 10 .
   - pep257 . --explain
+
+#notifications:
+#  email:
+#    recipients:
+#      - Blocks@noreply.github.com
+#      on_success: change
+#      on_failure: change
