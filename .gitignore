@@ -27,4 +27,5 @@ bin/
 *.cfg
 *.exe
 *.TXT
+!requirements.txt
 !LICENSE.RunAsAdmin.txt
