@@ -23,7 +23,7 @@ import os
 import sys
 from datetime import datetime
 
-app = "Blocks"
+appName = "Blocks"
 majVer = "0.9"
 minVer = ".2"
 creator = "Triangle717"

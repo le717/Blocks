@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Blocks - Island Xtreme Stunts Minigame Level Editor.
 
@@ -24,12 +24,20 @@ import os
 import distutils.dir_util
 
 
-def cleanup(destfolder):
+def main(destFolder):
     """Remove unneeded Tkinter files."""
-    # Small bit of whitespace
     print("\n")
-    # Delete the unneeded items from the freeze
-    distutils.dir_util.remove_tree(os.path.join(destfolder, "tcl", "tzdata"))
-    distutils.dir_util.remove_tree(os.path.join(destfolder, "tcl", "http1.0"))
-    distutils.dir_util.remove_tree(os.path.join(destfolder, "tk", "demos"))
-    distutils.dir_util.remove_tree(os.path.join(destfolder, "tk", "images"))
+    try:
+        # Delete the unneeded items from the freeze
+        distutils.dir_util.remove_tree(os.path.join(
+            destFolder, "tcl", "tzdata"))
+        distutils.dir_util.remove_tree(os.path.join(
+            destFolder, "tcl", "http1.0"))
+        distutils.dir_util.remove_tree(os.path.join(
+            destFolder, "tk", "demos"))
+        distutils.dir_util.remove_tree(os.path.join(
+            destFolder, "tk", "images"))
+
+    # There are no files to delete
+    except FileNotFoundError:
+        print("Nothing to delete! :D")

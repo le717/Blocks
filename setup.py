@@ -89,4 +89,4 @@ setup(
 )
 
 # Run script to remove unneeded Tkinter files
-cleanup.cleanup(destfolder)
+cleanup.main(destfolder)
