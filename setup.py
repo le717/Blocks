@@ -26,7 +26,7 @@ import sys
 import os
 
 import constants as const
-from Tools.bin import cleanup, launcher
+from Tools.bin import (cleanup, copyfiles, launcher)
 
 # Append build command to command-line arguments.
 # Just type "python setup.py" and it will freeze
@@ -68,12 +68,8 @@ build_exe_options = {"build_exe": destfolder,
                      "icon": "Media/Blocks.ico",
                      "include_files": [
                          "LICENSE.txt",
-                         "LICENSE.RunAsAdmin.txt",
-                         "Media/Blocks.ico",
-                         "Media/Blocks.gif",
-                         "Documentation/Changelog.md",
-                         "Documentation/Format-Details.md",
-                         "Documentation/Tutorial.md"
+                         "LICENSE.RunAsAdmin.txt"
+                         "RunAsAdmin.cfg"
                          ]
                      }
 
@@ -87,6 +83,16 @@ setup(
     executables=[Executable("Blocks.pyw",
                  targetName="Blocks.exe", base=base)]
 )
+
+# Copy any required files/directories
+filesForCopying = [
+    os.path.join("Media", "Blocks.gif"),
+    os.path.join("Media", "Blocks.ico"),
+    os.path.join("Documentation", "Changelog.md"),
+    os.path.join("Documentation", "Format-Details.md"),
+    os.path.join("Documentation", "Tutorial.md")
+]
+copyfiles.main(filesForCopying, destfolder)
 
 # Run script to remove unneeded Tkinter files
 cleanup.main(destfolder)
