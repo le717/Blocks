@@ -65,11 +65,6 @@ import levelchecks
 
 # ------------ Begin Preload Checks And Arguments ------------ #
 
-# Check if we are running some version of Windows
-isWindows = False
-if "Windows" in platform.platform():
-    isWindows = True
-
 
 def info():
     """Python and OS checks."""
@@ -106,35 +101,26 @@ def commandLine():
         description="{0} {1}{2} Command-line arguments".format(
             const.app, const.majVer, const.minVer))
 
-    # Debug message argument
-    parser.add_argument("-d", "--debug",
-                        help="Dispay debugging messages", action="store_true")
-
-    # Open file argument
-    parser.add_argument("-o", help="""Open a level file for editing.
-WARNING: any files loaded through this are deleted. Please use the Open button
-in the GUI instead!""")
+    # Debug message and file open arguments
+    parser.add_argument("-d", help="Dispay debugging messages",
+        action="store_true")
+    parser.add_argument("-o", help="Open a level file for editing.")
 
     # Register parameters
     args = parser.parse_args()
-    debugarg = args.debug
-    openarg = args.o
+    debugArg = args.d
+    openArg = args.o
 
-    # If the debug parameter is passed, enable the debugging messages
-    if debugarg:
+    # If the debug parameter is passed, enable debugging messages
+    if debugArg:
         const.debugMode = True
         if isWindows:
             os.system("title Blocks {0}{1} - Debug".format(
                 const.majVer, const.minVer))
-        print("\nDebug messages have been enabled.\n")
+        print("\nDebug messages have been enabled.")
 
-    # If the open argument is valid,
-    if openarg is not None:
-        # Open it!
-        GUI(openarg)
-    # Otherwise, just run Blocks.
-    else:
-        GUI(False)
+    # Return result of -o parameter
+    return openArg
 
 # ------------ End Preload Checks And Arguments ------------ #
 
@@ -149,7 +135,7 @@ def createNewLevel(*args):
     newLevel = True
 
     # Remove level name display, since there is no opened level
-    level_name.set("")
+    gui.levelName.set("")
 
     if const.debugMode:
         print("\nA new level is being created.\n")
@@ -165,9 +151,9 @@ def createNewLevel(*args):
  F  F  F  F  F  F  F  F  F  F  F  F  F"""
 
     # Remove the old content
-    level.delete("1.0", "end")
+    gui.levelArea.delete("1.0", "end")
     # Add blank layout in edit box
-    level.insert("1.0", blankLayout)
+    gui.levelArea.insert("1.0", blankLayout)
 
 
 # ------------ End New Minigame Level  ------------ #
@@ -206,7 +192,7 @@ def openLevel(*args):
 # ------------ Begin Level Layout Reading ------------ #
 
 
-def readLevel(levelFile, cmd=False):
+def readLevel(levelFile):
     """Reads an existing level file."""
     # Update new level variable to denote a pre-existing level
     global newLevel
@@ -219,7 +205,7 @@ def readLevel(levelFile, cmd=False):
     level_filename = os.path.basename(levelFile)
 
     # Set the filename display
-    level_name.set(level_filename)
+    gui.levelName.set(level_filename)
 
     # Open file for reading
     with open(levelFile, "rt") as f:
@@ -232,15 +218,10 @@ def readLevel(levelFile, cmd=False):
     layout = layout.rstrip("\n")
 
     # Remove all text in the widget
-    level.delete("1.0", "end")
+    gui.levelArea.delete("1.0", "end")
 
     # (music) Put the layout in the widget and edit it all up (music)
-    level.insert("1.0", layout)
-
-    # If the temporary level exists, delete it
-    if cmd:
-        if os.path.exists(levelFile):
-            os.unlink(levelFile)
+    gui.levelArea.insert("1.0", layout)
 
 
 # ------------ End Level Layout Reading ------------ #
@@ -250,7 +231,7 @@ def syntaxCheck(*args):
     """Checks the Level Layout for syntax errors."""
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is required to make everything work
-    userLevel = level.get("1.0", "end")
+    userLevel = gui.levelArea.get("1.0", "end")
 
     # Run the layout through various syntax checks
     checks = levelchecks.LevelChecks(userLevel)
@@ -364,8 +345,8 @@ def saveLevel(new_layout):
 
             # Write traceback to log
             logging.debug("\n")
-            logging.exception('''Something went wrong! Here's what happened
-''', exc_info=True)
+            logging.exception("""Something went wrong! Here's what happened
+""", exc_info=True)
 
             # Run Admin relaunch process
             admin = launch(level_filename, first_line, layout)
@@ -510,7 +491,7 @@ def charLegend(*args):
     legend_window.focus()
 
     # The legend itself
-    legend_text = '''\t\t        === Available Colors ===
+    legend_text = """\t\t        === Available Colors ===
 \t              R = Red, G = Green, B = Blue, Y = Yellow
 
 \t\t        === Available Types ===
@@ -524,7 +505,7 @@ def charLegend(*args):
 \t        WH = Small Horizontal, WV = Small Vertical,
 \t            WI = Top, WJ = Left, WM = Right,
 \t            WT = Top Left, WL = Top Right,
-\t            WR = Bottom Left, WB = Bottom Right'''
+\t            WR = Bottom Left, WB = Bottom Right"""
 
     # Display the legend
     ttk.Label(legend_window, text=legend_text).grid()
@@ -548,114 +529,201 @@ def charLegend(*args):
 # ------------ Begin Tkinter GUI Layout ------------ #
 
 
-def closeBlocks(*args):
-    """Close Blocks."""
-    logging.shutdown()
-    raise SystemExit(0)
+class BlocksGUI(tk.Frame):
 
+    """Tkinter-based GUI for Blocks.
 
-def GUI(cmdfile=False):
-    """Tkinter GUI."""
-    # Mark as global so everything works
-    global root, level_name, level
+    Provides public access to key visual areas including
+    file name and editing area.
+    """
 
-    # Root window settings
-    global root
-    root = tk.Tk()
-    root.title("{0} {1}{2}".format(const.app, const.majVer, const.minVer))
+    def __init__(self, parent):
+        """Draw the GUI."""
+        # Window settings
+        tk.Frame.__init__(self, parent)
+        parent.title("{0} {1}{2}".format(
+            const.app, const.majVer, const.minVer))
+        parent.iconbitmap(const.appIcon)
+        parent.minsize("575", "250")
+        self.__mainframe = ttk.Frame(root, padding="7 7 7 7")
+        self.__mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
-    # App window icon
-    root.iconbitmap(const.appIcon)
+        # Window resizing
+        parent.columnconfigure(0, weight=1)
+        self.__mainframe.columnconfigure(0, weight=1)
+        self.__mainframe.columnconfigure(1, weight=1)
+        self.__mainframe.columnconfigure(2, weight=1)
+        self.__mainframe.rowconfigure(0, weight=1)
+        self.__mainframe.rowconfigure(1, weight=1)
+        self.__mainframe.rowconfigure(2, weight=1)
 
-    # The smallest size the window can be
-    # Length x width
-    root.minsize("575", "250")
+        # Level (file) name display
+        self.levelName = tk.StringVar()
+        ttk.Label(self.__mainframe, textvariable=self.levelName).grid(
+            column=0, row=2, columnspan=2)
 
-    # Frame settings
-    mainframe = ttk.Frame(root, padding="7 7 7 7")
-    mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+        # Level editing area
+        self.levelArea = tk.Text(self.__mainframe,
+            height=8, width=40, wrap="none")
+        self.levelArea.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
+        self.levelArea.insert("1.0", "Minigame layout will be displayed here.")
 
-    # Resizing code
-    root.columnconfigure(0, weight=1)
-
-    mainframe.columnconfigure(0, weight=1)
-    mainframe.columnconfigure(1, weight=1)
-    mainframe.columnconfigure(2, weight=1)
-
-    mainframe.rowconfigure(0, weight=1)
-    mainframe.rowconfigure(1, weight=1)
-    mainframe.rowconfigure(2, weight=1)
-
-    # Level (file) name display
-    level_name = tk.StringVar()
-    ttk.Label(mainframe, textvariable=level_name).grid(
-        column=0, row=2, columnspan=2)
-
-    # Where level is displayed and edited
-    level = tk.Text(mainframe, height=8, width=40, wrap="none")
-    level.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
-    level.insert("1.0", "Minigame layout will be displayed here.")
-
-    # About Blocks text
-    about_blocks = ttk.Label(mainframe, text="""      {0} {1}{2}
+        # About Blocks text
+        self.__aboutBlocks = ttk.Label(self.__mainframe,
+            text="""      {0} {1}{2}
 Created 2013-{3}
-      Triangle717""".format(
-        const.app, const.majVer, const.minVer, const.currentYear))
-    about_blocks.grid(column=2, row=0, sticky=tk.N)
+      Triangle717""".format(const.app, const.majVer, const.minVer,
+          const.currentYear))
+        self.__aboutBlocks.grid(column=2, row=0, sticky=tk.N)
 
-    # New button
-    new_button = ttk.Button(mainframe, text="New", command=createNewLevel)
-    new_button.grid(column=2, row=1, sticky=tk.N)
+        # New, Open, Save, and Legend buttons
+        self.__buttonNew = ttk.Button(self.__mainframe, text="New",
+            command=createNewLevel)
+        self.__buttonNew.grid(column=2, row=1, sticky=tk.N)
+        self.__buttonOpen = ttk.Button(self.__mainframe, text="Open",
+            command=openLevel)
+        self.__buttonOpen.grid(column=2, row=2, sticky=tk.N)
+        self.__buttonSave = ttk.Button(self.__mainframe, text="Save",
+            command=syntaxCheck)
+        self.__buttonSave.grid(column=2, row=3, sticky=tk.N)
+        #self.__buttonLegend = ttk.Button(self.__mainframe, text="Character Legend",
+                                   #command=charLegend)
+        self.__buttonLegend = ttk.Button(self.__mainframe,
+            text="Character Legend")
+        self.__buttonLegend.grid(column=0, row=1, columnspan=2, sticky=tk.N)
 
-    # Open button
-    open_file = ttk.Button(mainframe, text="Open", command=openLevel)
-    open_file.grid(column=2, row=2, sticky=tk.N)
+        # Blocks Logo
+        self.__blocksLogo = tk.PhotoImage(file=const.appLogo)
+        self.__imageFrame = ttk.Label(self.__mainframe)
+        self.__imageFrame["image"] = self.__blocksLogo
+        self.__imageFrame.grid(column=2, row=3, sticky=tk.S)
 
-    # Save button
-    save_file = ttk.Button(mainframe, text="Save", command=syntaxCheck)
-    save_file.grid(column=2, row=3, sticky=tk.N)
+        # Some padding around all the elements
+        for child in self.__mainframe.winfo_children():
+            child.grid_configure(padx=1, pady=1)
 
-    # Character Legend button
-    legend_button = ttk.Button(mainframe, text="Character Legend",
-                               command=charLegend)
-    legend_button.grid(column=0, row=1, columnspan=2, sticky=tk.N)
+        # Bind keyboard shortcuts
+        parent.bind("<Control-n>", createNewLevel)
+        parent.bind("<Control-o>", openLevel)
+        parent.bind("<Control-s>", syntaxCheck)
+        parent.bind("<Control-q>", self.closeBlocks)
+        parent.bind("<F12>", charLegend)
 
-    # Blocks Logo
-    blocks_logo = tk.PhotoImage(file=const.appLogo)
-    image_frame = ttk.Label(mainframe)
-    image_frame['image'] = blocks_logo
-    image_frame.grid(column=2, row=3, sticky=tk.S)
+#        # If the argument is a valid file, open it
+#        if (cmdFile is not None and os.path.isfile(cmdFile)):
+#            if const.debugMode:
+#                print("\n{0}\nis being opened".format(cmdFile))
+#            root.after(1, readLevel(cmdFile))
 
-    # Padding around all the elements
-    for child in mainframe.winfo_children():
-        child.grid_configure(padx=2, pady=2)
+    def closeBlocks(*args):
+        """Close Blocks."""
+        logging.shutdown()
+        raise SystemExit(0)
 
-    # Bind <Ctrl + n> shortcut to New button
-    root.bind("<Control-n>", createNewLevel)
 
-    # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
-    root.bind("<Control-O>", openLevel)
-
-    # Bind <Ctrl + s> shortcut to Save button
-    root.bind("<Control-s>", syntaxCheck)
-
-    # Bind <Ctrl + q> shortcut to close function
-    root.bind("<Control-q>", closeBlocks)
-
-    # Bind F12 key to Character Legend button
-    root.bind('<F12>', charLegend)
-
-    # If the argument is a valid file
-    if os.path.isfile(cmdfile):
-        # Open it!
-        if const.debugMode:
-            print("\n{0}\nis being opened".format(cmdfile))
-        root.after(1, readLevel(cmdfile, True))
-
-    # Run program
-    root.mainloop()
+#def GUI(cmdfile=False):
+#    """Tkinter GUI."""
+#    # Mark as global so everything works
+#    global root, level_name, level
+#
+#    # Root window settings
+#    global root
+#    root = tk.Tk()
+#    root.title("{0} {1}{2}".format(const.app, const.majVer, const.minVer))
+#
+#    # App window icon
+#    root.iconbitmap(const.appIcon)
+#
+#    # The smallest size the window can be
+#    # Length x width
+#    root.minsize("575", "250")
+#
+#    # Frame settings
+#    mainframe = ttk.Frame(root, padding="7 7 7 7")
+#    mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+#
+#    # Resizing code
+#    root.columnconfigure(0, weight=1)
+#
+#    mainframe.columnconfigure(0, weight=1)
+#    mainframe.columnconfigure(1, weight=1)
+#    mainframe.columnconfigure(2, weight=1)
+#
+#    mainframe.rowconfigure(0, weight=1)
+#    mainframe.rowconfigure(1, weight=1)
+#    mainframe.rowconfigure(2, weight=1)
+#
+#    # Level (file) name display
+#    level_name = tk.StringVar()
+#    ttk.Label(mainframe, textvariable=level_name).grid(
+#        column=0, row=2, columnspan=2)
+#
+#    # Where level is displayed and edited
+#    level = tk.Text(mainframe, height=8, width=40, wrap="none")
+#    level.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
+#    level.insert("1.0", "Minigame layout will be displayed here.")
+#
+#    # About Blocks text
+#    about_blocks = ttk.Label(mainframe, text="""      {0} {1}{2}
+#Created 2013-{3}
+#      Triangle717""".format(
+#        const.app, const.majVer, const.minVer, const.currentYear))
+#    about_blocks.grid(column=2, row=0, sticky=tk.N)
+#
+#    # New button
+#    new_button = ttk.Button(mainframe, text="New", command=createNewLevel)
+#    new_button.grid(column=2, row=1, sticky=tk.N)
+#
+#    # Open button
+#    open_file = ttk.Button(mainframe, text="Open", command=openLevel)
+#    open_file.grid(column=2, row=2, sticky=tk.N)
+#
+#    # Save button
+#    save_file = ttk.Button(mainframe, text="Save", command=syntaxCheck)
+#    save_file.grid(column=2, row=3, sticky=tk.N)
+#
+#    # Character Legend button
+#    legend_button = ttk.Button(mainframe, text="Character Legend",
+#                               command=charLegend)
+#    legend_button.grid(column=0, row=1, columnspan=2, sticky=tk.N)
+#
+#    # Blocks Logo
+#    blocks_logo = tk.PhotoImage(file=const.appLogo)
+#    image_frame = ttk.Label(mainframe)
+#    image_frame['image'] = blocks_logo
+#    image_frame.grid(column=2, row=3, sticky=tk.S)
+#
+#    # Padding around all the elements
+#    for child in mainframe.winfo_children():
+#        child.grid_configure(padx=2, pady=2)
+#
+#    # Bind <Ctrl + n> shortcut to New button
+#    root.bind("<Control-n>", createNewLevel)
+#
+#    # Bind <Ctrl + Shift + O> (as in, Oh!) shortcut to Open button
+#    root.bind("<Control-O>", openLevel)
+#
+#    # Bind <Ctrl + s> shortcut to Save button
+#    root.bind("<Control-s>", syntaxCheck)
+#
+#    # Bind <Ctrl + q> shortcut to close function
+#    root.bind("<Control-q>", closeBlocks)
+#
+#    # Bind F12 key to Character Legend button
+#    root.bind('<F12>', charLegend)
+#
+#    # If the argument is a valid file
+#    if os.path.isfile(cmdfile):
+#        # Open it!
+#        if const.debugMode:
+#            print("\n{0}\nis being opened".format(cmdfile))
+#        root.after(1, readLevel(cmdfile, True))
+#
+#    # Run program
+#    root.mainloop()
 
 # ------------ End Tkinter GUI Layout ------------ #
+
 
 if __name__ == "__main__":
     # Location and name of log file
@@ -667,6 +735,14 @@ if __name__ == "__main__":
         filemode="a",
     )
 
+    # Check if we are running some version of Windows
+    isWindows = False
+    if "Windows" in platform.platform():
+        isWindows = True
+
     # Start Blocks
     info()
     commandLine()
+    root = tk.Tk()
+    gui = BlocksGUI(root)
+    root.mainloop()

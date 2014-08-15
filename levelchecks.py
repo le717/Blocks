@@ -55,7 +55,7 @@ The level must be exactly 8 lines.""".format(lineNum))
                     "RB", "BC", "BT", "GT", "GC", "WB", "WH",
                     "WI", "WJ", "WM", "WL", "WR", "WT", "WV")
 
-        # # Get the each character's index, removing any new lines on them
+        # Get the each character's index, removing any new lines on them
         for index, char in enumerate(self.__userLevelNormCase.split(" ")):
             char = char.strip()
             index += 1
