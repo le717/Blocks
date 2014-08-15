@@ -17,6 +17,7 @@ unneeded Tkinter files after freezing a binary
 * Updated `Tools/bin/cleanup.py` to latest revision
 * Moved and cleaned up level checks in new module
 * Fixed keyboard binding: Open button is now `<Ctrl + o>`, matching standards
+* Convert core Tkinter GUI to OOP
 
 ### 0.9.1 ###
 Released August 18, 2013
