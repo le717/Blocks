@@ -20,13 +20,9 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-# Import just what is needed at the moment
-import sys
 import os
+import sys
 import webbrowser
-
-# Blocks constants
-import constants as const
 
 # User is running Python 2, use that version's Tkinter
 if sys.version_info[:2] < (3, 3):
@@ -36,12 +32,10 @@ if sys.version_info[:2] < (3, 3):
     # Display error message
     root = tk.Tk()
     root.withdraw()
-    root.iconbitmap(const.appIcon)
     tkMessageBox.showerror("Unsupported Python Version!",
                            """You are running Python {0}.
-You need to download Python 3.3.0 or newer to run\n{1} {2}{3}.\n"""
-                           .format(sys.version[0:5], const.appName,
-                                   const.majVer, const.minVer))
+You need to download Python 3.3.0 or newer to run Blocks."""
+                           .format(sys.version[0:5]))
     webbrowser.open_new_tab("http://python.org/download/")
     raise SystemExit(0)
 
@@ -59,18 +53,14 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog, messagebox
 
-# Level syntax checking module
+# # Blocks constants and level syntax checking
+import constants as const
 import levelchecks
-
-# TODO Finish writing new level code
-
-# ------------ Begin Preload Checks And Arguments ------------ #
 
 
 def logger():
     """Python and OS checks."""
     # Check if Python is x86 or x64
-    # Based on code from Python help for platform module and my own tests
     if sys.maxsize < 2 ** 32:
         pyArch = "x86"
     else:
@@ -90,16 +80,16 @@ def logger():
         platform.python_implementation(), pyArch, platform.python_version(),
         platform.machine(), platform.platform()))
     logging.info("""
-                                #############################################
+                                ############################################
                                             {0} Version {1}{2}
                                           Created 2013-{3} {4}
                                                 Blocks.log
 
 
-                                    If you run into a bug, open an issue at
-                                    https://github.com/le717/Blocks/issues
-                                    and attach this file for an quicker fix!
-                                #############################################
+                                  If you run into a bug, open an issue at
+                                  https://github.com/le717/Blocks/issues
+                                  and attach this file for an quicker fix!
+                                ############################################
                                 """.format(const.appName, const.majVer,
                                            const.minVer, const.currentYear,
                                            const.creator))
@@ -131,9 +121,6 @@ def commandLine():
 
     # Return result of -o parameter
     return openArg
-
-# ------------ End Preload Checks And Arguments ------------ #
-
 
 # ------------ Begin New Minigame Level ------------ #
 
@@ -172,7 +159,7 @@ def createNewLevel(*args):
 def openLevel(*args):
     """Reads Minigame Level."""
     global level_file
-    level_file = tk.filedialog.askopenfilename(
+    level_file = filedialog.askopenfilename(
         parent=root,
         defaultextension=".TXT",
         filetypes=[("IXS Minigame Layout", ".TXT")],
@@ -232,42 +219,48 @@ def syntaxCheck(*args):
 
     # An error in the level was found, give user the details
     if type(userLevel) == tuple:
-        tk.messagebox.showerror(userLevel[0], userLevel[1])
+        messagebox.showerror(userLevel[0], userLevel[1])
         return False
 
     # Send the corrected layout for writing
     saveLevel(userLevel)
 
-# ------------ Begin RunAsAdmin Intergration ------------ #
 
-
-def launch(levelFilename, firstLine, layout):
-    """Reloads Blocks with administrator rights."""
-    # TODO Don't run this on Mac OS X and Linux
-    admin = tk.messagebox.askyesno("Relaunch Blocks?",
-                     """Would you like to reload Blocks with Administrator rights?
+def relaunch(levelFilename, firstLine, layout):
+    """
+    On Windows: Prompt to load Blocks on Windows with administrator rights.
+    On Mac OS X/Linux: Tell user that elevated privileges are required.
+    """
+    if isWindows:
+        admin = messagebox.askyesno(
+            "Relaunch Blocks?",
+            """Would you like to reload Blocks with Administrator rights?
 Your level will be preserved between launch.""")
 
-    # If user chooses to relaunch
-    if admin:
-        # Save a temporary file
-        tempFile = tempWrite(levelFilename, firstLine, layout)
+        # If user chooses to relaunch
+        if admin:
+            # Save a temporary file
+            tempFile = tempWrite(levelFilename, firstLine, layout)
 
-        # Launch RunAsAdmin to reload Blocks,
-        # invoke command-line parameter to reload the level
-        subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
-            tempFile)])
+            # Launch RunAsAdmin to reload Blocks,
+            # invoke command-line parameter to reload the level
+            subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
+                tempFile)])
 
-        # Now we close Blocks, and let RunAsAdmin take over
-        logging.shutdown()
-        raise SystemExit(0)
+            # Now we close Blocks, and let RunAsAdmin take over
+            logging.shutdown()
+            raise SystemExit(0)
+
+    # Mac OS X/Linux
+    messagebox.showerror(
+        "Insufficient Privileges!",
+        """Blocks does not have sufficient privileges to save in that location.
+Please choose a different location or reload Blocks with elevated privileges.
+""")
     return False
 
-
-# ------------ End RunAsAdmin Intergration ------------ #
-
-
 # ------------ Begin Level Layout Saving ------------ #
+
 
 def createBackup(location, backupFile):
     """Makes a backup of the level before saving."""
@@ -282,17 +275,17 @@ def createBackup(location, backupFile):
     # A level was edited directly in Program Files,
     # or some other action that required Admin rights
     except PermissionError as Perm:
-        tk.messagebox.showerror("Insufficient User Right!",
-                  """Blocks does not have the user rights to save {0}!"""
-                                .format(level_filename))
+        messagebox.showerror(
+            "Insufficient User Right!",
+            """Blocks does not have the user rights to save {0}!"""
+            .format(level_filename))
 
         if const.debugMode:
             # Display traceback to console
             print(Perm)
 
         # Write traceback to log
-        logging.debug("\n")
-        logging.exception("Something went wrong! Here's what happened\n",
+        logging.exception("\nSomething went wrong! Here's what happened\n",
                           exc_info=True)
 
 
@@ -326,8 +319,8 @@ def saveLevel(new_layout):
                 f.write(b"\r\n")
 
             # Display success dialog
-            tk.messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-                                   .format(level_filename, location))
+            messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
+                                .format(level_filename, location))
 
         # A level was edited directly in Program Files or something like that,
         # and Blocks was run without Administrator rights
@@ -337,12 +330,12 @@ def saveLevel(new_layout):
                 print(Perm)
 
             # Write traceback to log
-            logging.debug("\n")
-            logging.exception("""Something went wrong! Here's what happened
+            logging.exception("""
+Something went wrong! Here's what happened
 """, exc_info=True)
 
             # Run Admin relaunch process
-            admin = launch(level_filename, first_line, layout)
+            admin = relaunch(level_filename, first_line, layout)
 
             # The user did not want to relaunch
             if not admin:
@@ -358,8 +351,7 @@ def saveLevel(new_layout):
                 print(FNFE)
 
             # Write traceback to log
-            logging.debug("\n")
-            logging.exception("Something went wrong! Here's what happened\n",
+            logging.exception("\nSomething went wrong! Here's what happened\n",
                               exc_info=True)
 
             # Run process to save the layout
@@ -367,17 +359,17 @@ def saveLevel(new_layout):
 
         # Any other unhandled error occurred
         except Exception as Exc:
-            tk.messagebox.showerror("An Error Has Occurred!",
-                      "Blocks ran into an unknown error while trying to {0}!"
-                                    .format(level_filename))
+            messagebox.showerror(
+                "An Error Has Occurred!",
+                "Blocks ran into an unknown error while trying to {0}!"
+                .format(level_filename))
 
             if const.debugMode:
                 # Display traceback in console
                 print(Exc)
 
             # Write traceback to log
-            logging.debug("\n")
-            logging.exception("Something went wrong! Here's what happened\n",
+            logging.exception("n\Something went wrong! Here's what happened\n",
                               exc_info=True)
 
     # The user tried to save a level without loading one first
@@ -400,7 +392,7 @@ def saveLevel(new_layout):
 def saveNewLevel(layout):
     """Save an unsaved level layout to file."""
     # File selection dialog, allows for creation of new files
-    levelResave = tk.filedialog.asksaveasfilename(
+    levelResave = filedialog.asksaveasfilename(
         parent=root,
         defaultextension=".TXT",
         filetypes=[("IXS Minigame Layout", ".TXT")],
@@ -497,8 +489,9 @@ class BlocksGUI(tk.Frame):
         self.levelArea.insert("1.0", "Minigame layout will be displayed here.")
 
         # About Blocks text
-        self.__aboutBlocks = ttk.Label(self.__mainframe,
-                                       text="""      {0} {1}{2}
+        self.__aboutBlocks = ttk.Label(
+            self.__mainframe,
+            text="""      {0} {1}{2}
 Created 2013-{3}
       Triangle717""".format(const.appName, const.majVer, const.minVer,
                             const.currentYear))
@@ -537,7 +530,7 @@ Created 2013-{3}
                     os.path.abspath(cmdFile)))
             root.after(1, readLevel, cmdFile)
 
-    def _close(*args):
+    def _close(self, *args):
         """Close Blocks."""
         logging.shutdown()
         raise SystemExit(0)

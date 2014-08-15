@@ -20,6 +20,7 @@ unneeded Tkinter files after freezing a binary
 * Opened up `-o` command-line parameter for public use
 * Delete backup files after they are opened
 * Convert entire GUI to OOP
+* Do not attempt to relaunch with Administrator rights on non-Windows systems
 
 ### 0.9.1 ###
 Released August 18, 2013

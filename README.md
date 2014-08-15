@@ -1,4 +1,4 @@
-# Blocks #
+# Blocks [![Build Status](https://travis-ci.org/le717/Blocks.svg)](https://travis-ci.org/le717/Blocks) #
 
 <p align="center">
     <img src="Media/Blocks.png" />
