@@ -62,7 +62,7 @@ from tkinter import filedialog, messagebox
 # Level syntax checking module
 import levelchecks
 
-#TODO: Finish writing new level code
+# TODO Finish writing new level code
 
 # ------------ Begin Preload Checks And Arguments ------------ #
 
@@ -104,7 +104,7 @@ def commandLine():
 
     # Debug message and file open arguments
     parser.add_argument("-d", help="Dispay debugging messages",
-        action="store_true")
+                        action="store_true")
     parser.add_argument("-o", help="Open a level file for editing.")
 
     # Register parameters
@@ -198,7 +198,7 @@ def readLevel(levelFile):
     # Remove binary values, as they cannot be displayed
     levelLayout = "".join(levelLayout[1:9])
 
-    # Remove trailing new line so the syntax checker can work correctly
+    # Remove trailing new line so the syntax checking can work correctly
     levelLayout = levelLayout.rstrip()
 
     # Replace all text in the widget with the opened file contents
@@ -212,7 +212,7 @@ def readLevel(levelFile):
 
 
 def syntaxCheck(*args):
-    """Checks the Level Layout for syntax errors."""
+    """Check the Level Layout for syntax errors."""
     # Get new layout from text box, including the extra line
     # the Text Edit widget makes. This is required to make everything work
     userLevel = gui.levelArea.get("1.0", "end")
@@ -234,7 +234,7 @@ def syntaxCheck(*args):
 
 def launch(levelFilename, firstLine, layout):
     """Reloads Blocks with administrator rights."""
-    #FIXME: Don't run this on Mac OS X and Linux
+    # TODO Don't run this on Mac OS X and Linux
     admin = tk.messagebox.askyesno("Relaunch Blocks?",
                      """Would you like to reload Blocks with Administrator rights?
 Your level will be preserved between launch.""")
@@ -275,7 +275,7 @@ def createBackup(location, backupFile):
     except PermissionError as Perm:
         tk.messagebox.showerror("Insufficient User Right!",
                   """Blocks does not have the user rights to save {0}!"""
-                  .format(level_filename))
+                                .format(level_filename))
 
         if const.debugMode:
             # Display traceback to console
@@ -340,7 +340,7 @@ def saveLevel(new_layout):
                 # Stop the saving process
                 return False
 
-        # Meaning the user the 'Cancel' buttton when opening a file
+        # Meaning the user the 'Cancel' button when opening a file
         # Not catching this exception would trigger Exception
         # and get stuck in an endless loop, so the level could NEVER be saved
         except FileNotFoundError as FNFE:
@@ -360,7 +360,7 @@ def saveLevel(new_layout):
         except Exception as Exc:
             tk.messagebox.showerror("An Error Has Occurred!",
                       "Blocks ran into an unknown error while trying to {0}!"
-                      .format(level_filename))
+                                    .format(level_filename))
 
             if const.debugMode:
                 # Display traceback in console
@@ -412,7 +412,7 @@ def saveNewLevel(layout):
 
     # Write a temporary level file, using arbitrary first line
     tempLevel = tempWrite("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
-                                                  layout)
+                          layout)
 
     # Overwrite the old level with the new one
     distutils.file_util.copy_file(tempLevel, levelResave)
@@ -426,26 +426,18 @@ def saveNewLevel(layout):
 # ------------ End New Level Saving ------------ #
 
 
-# ------------ Begin Temporary Level Saving ------------ #
-
 def tempWrite(tempFileName, firstLine, layout):
     """Saves the level to a temporary file."""
     # Name and location of temporary file
     path = os.path.join(os.path.expanduser("~"), tempFileName)
 
-    # Write the temp file, using binary mode
+    # Write the temporary file, using binary mode, in the following order:
+    # First line, new level, file ending
     with open(path, "wb") as f:
-        # Rewrite the first line
         f.write(firstLine)
-        # Write the new layout
         f.write(layout)
-        # Write the line ending
         f.write(b"\r\n")
     return path
-
-
-# ------------ End Temporary Level Saving ------------ #
-
 
 # ------------ End Level Layout Saving ------------ #
 
@@ -456,23 +448,23 @@ def tempWrite(tempFileName, firstLine, layout):
 def charLegend(*args):
     """Contains Level Character Legend."""
     # Spawn a new window, parent it to main window
-    legend_window = tk.Toplevel(root)
+    legendWindow = tk.Toplevel(root)
 
     # Use different window title
-    legend_window.title("Level Character Legend - Blocks {0}{1}".format(
+    legendWindow.title("Level Character Legend - Blocks {0}{1}".format(
                         const.majVer, const.minVer))
 
     # Window Icon
-    legend_window.iconbitmap(const.appIcon)
+    legendWindow.iconbitmap(const.appIcon)
 
     # The window cannot be resized at all
     # Length x width
-    legend_window.minsize("400", "260")
-    legend_window.maxsize("400", "260")
+    legendWindow.minsize("400", "260")
+    legendWindow.maxsize("400", "260")
 
     # Lift it above main window, give it focus
-    legend_window.lift()
-    legend_window.focus()
+    legendWindow.lift()
+    legendWindow.focus()
 
     # The legend itself
     legend_text = """\t\t        === Available Colors ===
@@ -492,25 +484,22 @@ def charLegend(*args):
 \t            WR = Bottom Left, WB = Bottom Right"""
 
     # Display the legend
-    ttk.Label(legend_window, text=legend_text).grid()
+    ttk.Label(legendWindow, text=legend_text).grid()
 
     def closeCharLegend(*args):
         """Closes Character Legend Window."""
-        legend_window.destroy()
+        legendWindow.destroy()
 
     # Bind <Ctrl + q> shortcut to close the legend window
-    legend_window.bind('<Control-q>', closeCharLegend)
+    legendWindow.bind('<Control-q>', closeCharLegend)
 
     # Close Legend button
-    close_legend_button = ttk.Button(legend_window, default="active",
+    buttonLegendClose = ttk.Button(legendWindow, default="active",
                                      text="Close", command=closeCharLegend)
-    close_legend_button.grid(column=1, row=1, sticky=tk.S)
+    buttonLegendClose.grid(column=1, row=1, sticky=tk.S)
 
 
 # ------------ End Level Legend Window ------------ #
-
-
-# ------------ Begin Tkinter GUI Layout ------------ #
 
 
 class BlocksGUI(tk.Frame):
@@ -548,32 +537,32 @@ class BlocksGUI(tk.Frame):
 
         # Level editing area
         self.levelArea = tk.Text(self.__mainframe,
-            height=8, width=40, wrap="none")
+                                 height=8, width=40, wrap="none")
         self.levelArea.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
         self.levelArea.insert("1.0", "Minigame layout will be displayed here.")
 
         # About Blocks text
         self.__aboutBlocks = ttk.Label(self.__mainframe,
-            text="""      {0} {1}{2}
+                                       text="""      {0} {1}{2}
 Created 2013-{3}
       Triangle717""".format(const.appName, const.majVer, const.minVer,
-          const.currentYear))
+                            const.currentYear))
         self.__aboutBlocks.grid(column=2, row=0, sticky=tk.N)
 
         # New, Open, Save, and Legend buttons
         self.__buttonNew = ttk.Button(self.__mainframe, text="New",
-            command=createNewLevel)
+                                      command=createNewLevel)
         self.__buttonNew.grid(column=2, row=1, sticky=tk.N)
         self.__buttonOpen = ttk.Button(self.__mainframe, text="Open",
-            command=openLevel)
+                                       command=openLevel)
         self.__buttonOpen.grid(column=2, row=2, sticky=tk.N)
         self.__buttonSave = ttk.Button(self.__mainframe, text="Save",
-            command=syntaxCheck)
+                                       command=syntaxCheck)
         self.__buttonSave.grid(column=2, row=3, sticky=tk.N)
-        #self.__buttonLegend = ttk.Button(self.__mainframe, text="Character Legend",
-                                   #command=charLegend)
+        # self.__buttonLegend = ttk.Button(self.__mainframe, text="Character Legend",
+        # command=charLegend)
         self.__buttonLegend = ttk.Button(self.__mainframe,
-            text="Character Legend")
+                                         text="Character Legend")
         self.__buttonLegend.grid(column=0, row=1, columnspan=2, sticky=tk.N)
 
         # Blocks Logo
@@ -590,7 +579,7 @@ Created 2013-{3}
         parent.bind("<Control-n>", createNewLevel)
         parent.bind("<Control-o>", openLevel)
         parent.bind("<Control-s>", syntaxCheck)
-        parent.bind("<Control-q>", self.closeBlocks)
+        parent.bind("<Control-q>", self._close)
         parent.bind("<F12>", charLegend)
 
         # If the argument is a valid file, open it
@@ -600,13 +589,10 @@ Created 2013-{3}
                     os.path.abspath(cmdFile)))
             root.after(1, readLevel, cmdFile)
 
-    def closeBlocks(*args):
+    def _close(*args):
         """Close Blocks."""
         logging.shutdown()
         raise SystemExit(0)
-
-# ------------ End Tkinter GUI Layout ------------ #
-
 
 if __name__ == "__main__":
     # Location and name of log file
