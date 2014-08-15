@@ -67,7 +67,7 @@ import levelchecks
 # ------------ Begin Preload Checks And Arguments ------------ #
 
 
-def info():
+def logger():
     """Python and OS checks."""
     # Check if Python is x86 or x64
     # Based on code from Python help for platform module and my own tests
@@ -75,6 +75,15 @@ def info():
         pyArch = "x86"
     else:
         pyArch = "AMD64"
+
+    # Location and name of log file
+    loggingFile = os.path.join(os.path.expanduser("~"), "Blocks.log")
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(asctime)s : %(levelname)s : %(message)s",
+        filename=loggingFile,
+        filemode="a",
+    )
 
     logging.info("Begin logging to {0}".format(loggingFile))
     logging.info("You are running {0} {1} {2} on {3} {4}.".format(
@@ -442,66 +451,6 @@ def tempWrite(tempFileName, firstLine, layout):
 # ------------ End Level Layout Saving ------------ #
 
 
-# ------------ Begin Level Legend Window ------------ #
-
-
-def charLegend(*args):
-    """Contains Level Character Legend."""
-    # Spawn a new window, parent it to main window
-    legendWindow = tk.Toplevel(root)
-
-    # Use different window title
-    legendWindow.title("Level Character Legend - Blocks {0}{1}".format(
-                        const.majVer, const.minVer))
-
-    # Window Icon
-    legendWindow.iconbitmap(const.appIcon)
-
-    # The window cannot be resized at all
-    # Length x width
-    legendWindow.minsize("400", "260")
-    legendWindow.maxsize("400", "260")
-
-    # Lift it above main window, give it focus
-    legendWindow.lift()
-    legendWindow.focus()
-
-    # The legend itself
-    legend_text = """\t\t        === Available Colors ===
-\t              R = Red, G = Green, B = Blue, Y = Yellow
-
-\t\t        === Available Types ===
-\t\t\t  F = Free Tile,
-\t\t              BW = Blocked Wall,
-\t\t            (R, G, B, Y)C = Cube,
-\t\t            (R, G, B, Y)T = Tile,
-\t\tRB = One-way, west-bound Red Cube
-
-\t\t\t=== Water ===
-\t        WH = Small Horizontal, WV = Small Vertical,
-\t            WI = Top, WJ = Left, WM = Right,
-\t            WT = Top Left, WL = Top Right,
-\t            WR = Bottom Left, WB = Bottom Right"""
-
-    # Display the legend
-    ttk.Label(legendWindow, text=legend_text).grid()
-
-    def closeCharLegend(*args):
-        """Closes Character Legend Window."""
-        legendWindow.destroy()
-
-    # Bind <Ctrl + q> shortcut to close the legend window
-    legendWindow.bind('<Control-q>', closeCharLegend)
-
-    # Close Legend button
-    buttonLegendClose = ttk.Button(legendWindow, default="active",
-                                     text="Close", command=closeCharLegend)
-    buttonLegendClose.grid(column=1, row=1, sticky=tk.S)
-
-
-# ------------ End Level Legend Window ------------ #
-
-
 class BlocksGUI(tk.Frame):
 
     """Tkinter-based GUI for Blocks.
@@ -529,6 +478,12 @@ class BlocksGUI(tk.Frame):
         self.__mainframe.rowconfigure(0, weight=1)
         self.__mainframe.rowconfigure(1, weight=1)
         self.__mainframe.rowconfigure(2, weight=1)
+
+        # Blocks Logo
+        self.__blocksLogo = tk.PhotoImage(file=const.appLogo)
+        self.__imageFrame = ttk.Label(self.__mainframe)
+        self.__imageFrame["image"] = self.__blocksLogo
+        self.__imageFrame.grid(column=2, row=3, sticky=tk.S)
 
         # Level (file) name display
         self.levelName = tk.StringVar()
@@ -559,17 +514,10 @@ Created 2013-{3}
         self.__buttonSave = ttk.Button(self.__mainframe, text="Save",
                                        command=syntaxCheck)
         self.__buttonSave.grid(column=2, row=3, sticky=tk.N)
-        # self.__buttonLegend = ttk.Button(self.__mainframe, text="Character Legend",
-        # command=charLegend)
         self.__buttonLegend = ttk.Button(self.__mainframe,
-                                         text="Character Legend")
+                                         text="Character Legend",
+                                         command=self._charLegend)
         self.__buttonLegend.grid(column=0, row=1, columnspan=2, sticky=tk.N)
-
-        # Blocks Logo
-        self.__blocksLogo = tk.PhotoImage(file=const.appLogo)
-        self.__imageFrame = ttk.Label(self.__mainframe)
-        self.__imageFrame["image"] = self.__blocksLogo
-        self.__imageFrame.grid(column=2, row=3, sticky=tk.S)
 
         # Some padding around all the elements
         for child in self.__mainframe.winfo_children():
@@ -580,7 +528,7 @@ Created 2013-{3}
         parent.bind("<Control-o>", openLevel)
         parent.bind("<Control-s>", syntaxCheck)
         parent.bind("<Control-q>", self._close)
-        parent.bind("<F12>", charLegend)
+        parent.bind("<F12>", self._charLegend)
 
         # If the argument is a valid file, open it
         if (cmdFile is not None and os.path.isfile(cmdFile)):
@@ -594,23 +542,62 @@ Created 2013-{3}
         logging.shutdown()
         raise SystemExit(0)
 
-if __name__ == "__main__":
-    # Location and name of log file
-    loggingFile = os.path.join(os.path.expanduser("~"), "Blocks.log")
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(asctime)s : %(levelname)s : %(message)s",
-        filename=loggingFile,
-        filemode="a",
-    )
+    def _charLegend(self, *args):
+        """Chart stating valid cubes that can be used."""
+        # Spawn a new window, parent it to main window
+        self.__legendWindow = tk.Toplevel(root)
+        self.__legendWindow.iconbitmap(const.appIcon)
+        self.__legendWindow.title(
+            "Level Character Legend - Blocks {0}{1}".format(
+                const.majVer, const.minVer))
 
+        # The window is not resizable
+        self.__legendWindow.minsize("400", "260")
+        self.__legendWindow.maxsize("400", "260")
+
+        # Give it focus
+        self.__legendWindow.lift()
+        self.__legendWindow.focus()
+
+        # The legend itself
+        self.__legendText = """\t\t        === Available Colors ===
+\t              R = Red, G = Green, B = Blue, Y = Yellow
+
+\t\t        === Available Types ===
+\t\t\t  F = Free Tile,
+\t\t              BW = Blocked Wall,
+\t\t            (R, G, B, Y)C = Cube,
+\t\t            (R, G, B, Y)T = Tile,
+\t\tRB = One-way, west-bound Red Cube
+
+\t\t\t=== Water ===
+\t        WH = Small Horizontal, WV = Small Vertical,
+\t            WI = Top, WJ = Left, WM = Right,
+\t            WT = Top Left, WL = Top Right,
+\t            WR = Bottom Left, WB = Bottom Right"""
+
+        # Display the legend
+        ttk.Label(self.__legendWindow, text=self.__legendText).grid()
+
+        # Close button and keyboard shortcut
+        buttonLegendClose = ttk.Button(self.__legendWindow, default="active",
+                                       text="Close", command=self._closeLegend)
+        buttonLegendClose.grid(column=1, row=1, sticky=tk.S)
+        self.__legendWindow.bind("<Control-q>", self._closeLegend)
+
+    def _closeLegend(self, *args):
+        """Close cube legend window."""
+        self.__legendWindow.destroy()
+
+
+if __name__ == "__main__":
     # Check if we are running some version of Windows
     isWindows = False
     if "Windows" in platform.platform():
         isWindows = True
 
     # Start Blocks
-    info()
+    logger()
     root = tk.Tk()
     gui = BlocksGUI(root, commandLine())
     root.mainloop()
