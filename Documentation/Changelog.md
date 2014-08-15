@@ -15,9 +15,11 @@ unneeded Tkinter files after freezing a binary
 * Renamed constants to use camelCase
 * Moved batch script writing to `Tools/bin` folder
 * Updated `Tools/bin/cleanup.py` to latest revision
-* Moved and cleaned up level checks in new module
+* Moved level checks to new module and cleaned them up
 * Fixed keyboard binding: Open button is now `<Ctrl + o>`, matching standards
-* Convert core Tkinter GUI to OOP
+* Opened up `-o` command-line parameter for public use
+* Delete backup files after they are opened
+* Convert entire GUI to OOP
 
 ### 0.9.1 ###
 Released August 18, 2013
