@@ -29,7 +29,7 @@ import webbrowser
 import constants as const
 
 # User is running Python 2, use that version's Tkinter
-if sys.version_info < (3, 3, 0):
+if sys.version_info[:2] < (3, 3):
     import Tkinter as tk
     import tkMessageBox
 
@@ -160,9 +160,6 @@ def createNewLevel(*args):
 # ------------ End New Minigame Level  ------------ #
 
 
-# ------------ Begin Level Layout Opening ------------ #
-
-
 def openLevel(*args):
     """Reads Minigame Level."""
     global level_file
@@ -173,24 +170,13 @@ def openLevel(*args):
         title="Select a Minigame Layout"
     )
 
-    # The user clicked the cancel button
-    if not level_file:
-        pass
-
-    # The user selected a level
-    else:
+    if level_file:
         # Display full path to the file
         if const.debugMode:
             print(level_file)
 
         # Send the file off for reading
         readLevel(level_file)
-
-
-# ------------ End Level Layout Opening ------------ #
-
-
-# ------------ Begin Level Layout Reading ------------ #
 
 
 def readLevel(levelFile):
@@ -205,27 +191,24 @@ def readLevel(levelFile):
     global level_filename
     level_filename = os.path.basename(levelFile)
 
-    # Set the filename display
-    gui.levelName.set(level_filename)
-
-    # Open file for reading
+    # Read the level layout
     with open(levelFile, "rt") as f:
-        lines = f.readlines()[:]
+        levelLayout = f.readlines()[:]
 
-    # Skip hex values, since they cannot be displayed
-    layout = "".join(lines[1:9])
+    # Remove binary values, as they cannot be displayed
+    levelLayout = "".join(levelLayout[1:9])
 
-    # Remove the trailing new line so the syntax checker will work correctly
-    layout = layout.rstrip("\n")
+    # Remove trailing new line so the syntax checker can work correctly
+    levelLayout = levelLayout.rstrip()
 
-    # Remove all text in the widget
+    # Replace all text in the widget with the opened file contents
     gui.levelArea.delete("1.0", "end")
+    gui.levelName.set(level_filename)
+    gui.levelArea.insert("1.0", levelLayout)
 
-    # (music) Put the layout in the widget and edit it all up (music)
-    gui.levelArea.insert("1.0", layout)
-
-
-# ------------ End Level Layout Reading ------------ #
+    # If a temporary file was opened, delete it
+    if levelFile.endswith(".bak"):
+        os.unlink(levelFile)
 
 
 def syntaxCheck(*args):

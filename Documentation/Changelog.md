@@ -16,6 +16,7 @@ unneeded Tkinter files after freezing a binary
 * Moved batch script writing to `Tools/bin` folder
 * Updated `Tools/bin/cleanup.py` to latest revision
 * Moved and cleaned up level checks in new module
+* Fixed keyboard binding: Open button is now `<Ctrl + o>`, matching standards
 
 ### 0.9.1 ###
 Released August 18, 2013
@@ -80,7 +81,7 @@ Released July 20, 2013
 * Created blank (nothing but free tiles) layout for New Level creation
 * Reactivated Python Version check
 * Updated `setup.py` shebang to run with Python 3.3 x86 only
-* Added console window title when the ``--debug`` parameter is given
+* Added console window title when the `--debug` parameter is given
 * Fixed amount of text pulled from text box before writing (it was pulling out too many spaces)
 * Added level size check to syntax checker, warns about level being too big and too small
 * Updated debug messages present during the syntax check
@@ -99,11 +100,11 @@ Released July 20, 2013
 Released July 4, 2013
 
 * Updated Legend to identify `F` as a `Free Tile`
-* Added WT (Water Tile) to Legend (thanks Xiron)
+* Added `WT` (Water Tile) to Legend (thanks Xiron)
 * Added commented-out code for New button
 * More of the Legend (thanks Xiron)
 * Added New button, updated window size
-* Bound `<Ctrl> + <n>` shortcut to New button
+* Bound `<Ctrl + n>` shortcut to New button
 * Fixed error when `Save` button is pressed without opening a level first
 * Convert new level layout to uppercase (partial syntax checker)
 * Reworked save work flow to enable addition of layout syntax checker
@@ -157,7 +158,7 @@ Released May 26, 2013
 * Fixed bug where entire level layout was not being written to file
 * Fixed bug where extra line was being written the end of the file
 * Fixed bug where text box was too small to display all of the level layout
-* Changed binding of Open button to `<Ctrl> + <q>` (there is a bug with `<Ctrl> + <o>` adding spaces in the text area)
+* Changed binding of Open button to `<Ctrl + q>` (there is a bug with `<Ctrl + o>` adding spaces in the text area)
 * Added display of currently opened file name
 
 ### 0.5 ###
