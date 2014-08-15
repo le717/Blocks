@@ -1,5 +1,4 @@
-Blocks Change Log
-=================
+# Blocks Change Log #
 
 ### 0.9.2 ###
 Released ?? ??, 201?
@@ -13,6 +12,10 @@ Released ?? ??, 201?
 unneeded Tkinter files after freezing a binary
 * Fix `ImportError` in unsupported Python version message
 * Update constants import to use `import constants as const` syntax
+* Renamed constants to use camelCase
+* Moved batch script writing to `Tools/bin` folder
+* Updated `Tools/bin/cleanup.py` to latest revision
+* Moved and cleaned up level checks in new module
 
 ### 0.9.1 ###
 Released August 18, 2013
