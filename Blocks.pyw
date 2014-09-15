@@ -56,43 +56,7 @@ from tkinter import filedialog, messagebox
 # Blocks constants and level syntax checking
 import constants as const
 import levelchecks
-
-
-def logger():
-    """Python and OS checks."""
-    # Check if Python is x86 or x64
-    if sys.maxsize < 2 ** 32:
-        pyArch = "x86"
-    else:
-        pyArch = "AMD64"
-
-    # Location and name of log file
-    loggingFile = os.path.join(os.path.expanduser("~"), "Blocks.log")
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(asctime)s : %(levelname)s : %(message)s",
-        filename=loggingFile,
-        filemode="a",
-    )
-
-    logging.info("Begin logging to {0}".format(loggingFile))
-    logging.info("You are running {0} {1} {2} on {3} {4}.".format(
-        platform.python_implementation(), pyArch, platform.python_version(),
-        platform.machine(), platform.platform()))
-    logging.info("""
-                                ############################################
-                                            {0} Version {1}{2}
-                                          Created 2013-{3} {4}
-                                                Blocks.log
-
-
-                                  If you run into a bug, open an issue at
-                                  https://github.com/le717/Blocks/issues
-                                  and attach this file for an quicker fix!
-                                ############################################
-                                """.format(const.appName, const.majVer,
-                                           const.minVer, const.currentYear,
-                                           const.creator))
+import logfile
 
 
 def commandLine():
