@@ -53,7 +53,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog, messagebox
 
-# # Blocks constants and level syntax checking
+# Blocks constants and level syntax checking
 import constants as const
 import levelchecks
 
@@ -122,8 +122,6 @@ def commandLine():
     # Return result of -o parameter
     return openArg
 
-# ------------ Begin New Minigame Level ------------ #
-
 
 def createNewLevel(*args):
     """Create a new Minigame Level."""
@@ -147,13 +145,9 @@ def createNewLevel(*args):
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F"""
 
-    # Remove the old content
+    # Remove the old content and display blank layout in edit box
     gui.levelArea.delete("1.0", "end")
-    # Add blank layout in edit box
     gui.levelArea.insert("1.0", blankLayout)
-
-
-# ------------ End New Minigame Level  ------------ #
 
 
 def openLevel(*args):
@@ -258,8 +252,6 @@ Your level will be preserved between launch.""")
 Please choose a different location or reload Blocks with elevated privileges.
 """)
     return False
-
-# ------------ Begin Level Layout Saving ------------ #
 
 
 def createBackup(location, backupFile):
@@ -386,8 +378,6 @@ Something went wrong! Here's what happened
         saveNewLevel(layout)
 
 
-# ------------ Begin New Level Saving ------------ #
-
 
 def saveNewLevel(layout):
     """Save an unsaved level layout to file."""
@@ -424,9 +414,6 @@ def saveNewLevel(layout):
     readLevel(levelResave)
 
 
-# ------------ End New Level Saving ------------ #
-
-
 def tempWrite(tempFileName, firstLine, layout):
     """Saves the level to a temporary file."""
     # Name and location of temporary file
@@ -439,9 +426,6 @@ def tempWrite(tempFileName, firstLine, layout):
         f.write(layout)
         f.write(b"\r\n")
     return path
-
-# ------------ End Level Layout Saving ------------ #
-
 
 class BlocksGUI(tk.Frame):
 
