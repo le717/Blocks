@@ -27,42 +27,42 @@ import platform
 import constants as const
 
 
-class LogFile(object):
+class Utils(object):
 
     def __init__(self):
         self.__pythonArch = "x64"
         self.__loggingFile = os.path.join(os.path.expanduser("~"),
                                           "Blocks.log")
 
-    # Check if Python is x86
-    if sys.maxsize < 2 ** 32:
-        self.__pythonArch = "x86"
+        # Check if Python is x86
+        if sys.maxsize < 2 ** 32:
+            self.__pythonArch = "x86"
 
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(asctime)s : %(levelname)s : %(message)s",
-        filename=self.__loggingFile,
-        filemode="a"
-    )
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format="%(asctime)s : %(levelname)s : %(message)s",
+            filename=self.__loggingFile,
+            filemode="a"
+        )
 
-    logging.info("Begin logging to {0}".format(self.__loggingFile))
-    logging.info("You are running {0} {1} {2} on {3} {4}.".format(
-                 platform.python_implementation(),
-                 self.__pythonArch,
-                 platform.python_version(),
-                 platform.machine(),
-                 platform.platform())
-                )
-    logging.info("""\n            ############################################
-                                            {0} Version {1}{2}
-                                          Created 2013-{3} {4}
-                                                Blocks.log
+        logging.info("Begin logging to {0}".format(self.__loggingFile))
+        logging.info("You are running {0} {1} {2} on {3} {4}.".format(
+                     platform.python_implementation(),
+                     self.__pythonArch,
+                     platform.python_version(),
+                     platform.machine(),
+                     platform.platform())
+                    )
+        logging.info("""\n        ############################################
+                                              {0} Version {1}{2}
+                                            Created 2013-{3} {4}
+                                                  Blocks.log
 
 
-                                  If you run into a bug, open an issue at
-                                  https://github.com/le717/Blocks/issues
-                                  and attach this file for an quicker fix!
-                                ############################################
-                                """.format(const.appName, const.majVer,
-                                           const.minVer, const.currentYear,
-                                           const.creator))
+                                    If you run into a bug, open an issue at
+                                    https://github.com/le717/Blocks/issues
+                                    and attach this file for an quicker fix!
+                                  ############################################
+                                    """.format(const.appName, const.majVer,
+                                               const.minVer, const.currentYear,
+                                               const.creator))
