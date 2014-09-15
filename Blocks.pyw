@@ -56,7 +56,7 @@ from tkinter import filedialog, messagebox
 # Blocks constants and level syntax checking
 import constants as const
 import levelchecks
-import logfile
+import utils
 
 
 def commandLine():

@@ -31,8 +31,10 @@ class Utils(object):
 
     def __init__(self):
         self.__pythonArch = "x64"
-        self.__loggingFile = os.path.join(os.path.expanduser("~"),
-                                          "Blocks.log")
+
+    def _logger(self):
+        loggingFile = os.path.join(os.path.expanduser("~"),
+                                   "Blocks.log")
 
         # Check if Python is x86
         if sys.maxsize < 2 ** 32:
@@ -41,11 +43,11 @@ class Utils(object):
         logging.basicConfig(
             level=logging.DEBUG,
             format="%(asctime)s : %(levelname)s : %(message)s",
-            filename=self.__loggingFile,
+            filename=self.loggingFile,
             filemode="a"
         )
 
-        logging.info("Begin logging to {0}".format(self.__loggingFile))
+        logging.info("Begin logging to {0}".format(self.loggingFile))
         logging.info("You are running {0} {1} {2} on {3} {4}.".format(
                      platform.python_implementation(),
                      self.__pythonArch,
