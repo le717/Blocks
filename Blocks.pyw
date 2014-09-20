@@ -59,34 +59,6 @@ import levelchecks
 import utils
 
 
-def commandLine():
-    """Command-line arguments parser."""
-    parser = argparse.ArgumentParser(
-        description="{0} {1}{2} Command-line arguments".format(
-            const.appName, const.majVer, const.minVer))
-
-    # Debug message and file open arguments
-    parser.add_argument("-d", help="Dispay debugging messages",
-                        action="store_true")
-    parser.add_argument("-o", help="Open a level file for editing.")
-
-    # Register parameters
-    args = parser.parse_args()
-    debugArg = args.d
-    openArg = args.o
-
-    # If the debug parameter is passed, enable debugging messages
-    if debugArg:
-        const.debugMode = True
-        if isWindows:
-            os.system("title Blocks {0}{1} - Debug".format(
-                const.majVer, const.minVer))
-        print("\nDebug messages have been enabled.")
-
-    # Return result of -o parameter
-    return openArg
-
-
 def createNewLevel(*args):
     """Create a new Minigame Level."""
     # Update variable saying a new level was created
@@ -532,13 +504,8 @@ Created 2013-{3}
 
 
 if __name__ == "__main__":
-    # Check if we are running some version of Windows
-    isWindows = False
-    if "Windows" in platform.platform():
-        isWindows = True
-
-    # Start Blocks
-    logger()
+    init = utils.Utils()
+    isWindows = init.isWindows
     root = tk.Tk()
-    gui = BlocksGUI(root, commandLine())
+    gui = BlocksGUI(root, init.openArg)
     root.mainloop()

@@ -22,40 +22,89 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 import os
 import sys
 import logging
+import argparse
 import platform
 
 import constants as const
 
 
 class Utils(object):
+    """Utility functions.
+
+    Contains utility functions for Blocks, including:
+    * Windows platform check
+    * Logging initilzation
+    * Command-line paramater initilzation
+
+    Exposes two public properties:
+    * isWindows {boolean} True if the user is using the Windows platform.
+    * openArg {boolean} True if the open parameter was correctly invoked.
+    """
 
     def __init__(self):
-        self.__pythonArch = "x64"
+        self.isWindows = False
+        self.openArg = False
+        self._logger()
+        self._checkWindows()
+        self._commandLine()
+
+    def _checkWindows(self):
+        """Check if we are running some version of Windows."""
+        if "Windows" in platform.platform():
+            self.isWindows = True
+
+    def _commandLine(self):
+        """Command-line arguments parser."""
+        parser = argparse.ArgumentParser(
+            description="{0} {1}{2} Command-line arguments".format(
+                const.appName, const.majVer, const.minVer))
+
+        # Debug message and file open arguments
+        parser.add_argument("-d", help="Dispay debugging messages",
+                            action="store_true")
+        parser.add_argument("-o", help="Open a level file for editing.")
+
+        # Register parameters
+        args = parser.parse_args()
+        debugArgu = args.d
+        openArgu = args.o
+
+        # If the debug parameter is passed, enable debugging messages
+        if debugArgu:
+            const.debugMode = True
+            # Write a console title on Windows
+            if self.isWindows:
+                os.system("title Blocks {0}{1} - Debug".format(
+                    const.majVer, const.minVer))
+            print("\nDebug messages have been enabled.")
+        self.openArg = openArgu
 
     def _logger(self):
+        pythonArch = "x64"
         loggingFile = os.path.join(os.path.expanduser("~"),
                                    "Blocks.log")
 
         # Check if Python is x86
         if sys.maxsize < 2 ** 32:
-            self.__pythonArch = "x86"
+            pythonArch = "x86"
 
         logging.basicConfig(
             level=logging.DEBUG,
             format="%(asctime)s : %(levelname)s : %(message)s",
-            filename=self.loggingFile,
+            filename=loggingFile,
             filemode="a"
         )
 
-        logging.info("Begin logging to {0}".format(self.loggingFile))
+        logging.info("Begin logging to {0}".format(loggingFile))
         logging.info("You are running {0} {1} {2} on {3} {4}.".format(
                      platform.python_implementation(),
-                     self.__pythonArch,
+                     pythonArch,
                      platform.python_version(),
                      platform.machine(),
                      platform.platform())
                     )
-        logging.info("""\n        ############################################
+        logging.info("""
+\t\t\t\t\t\t\t      ############################################
                                               {0} Version {1}{2}
                                             Created 2013-{3} {4}
                                                   Blocks.log
@@ -64,7 +113,8 @@ class Utils(object):
                                     If you run into a bug, open an issue at
                                     https://github.com/le717/Blocks/issues
                                     and attach this file for an quicker fix!
-                                  ############################################
+\t\t\t\t\t\t\t      ############################################
                                     """.format(const.appName, const.majVer,
                                                const.minVer, const.currentYear,
                                                const.creator))
+        return True
