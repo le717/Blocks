@@ -29,12 +29,13 @@ import constants as const
 
 
 class Utils(object):
+
     """Utility functions.
 
     Contains utility functions for Blocks, including:
     * Windows platform check
-    * Logging initilzation
-    * Command-line paramater initilzation
+    * Logging initialization
+    * Command-line paramater initialization
 
     Exposes two public properties:
     * isWindows {boolean} True if the user is using the Windows platform.
@@ -42,6 +43,7 @@ class Utils(object):
     """
 
     def __init__(self):
+        """Initalize public properties and run utility functions."""
         self.isWindows = False
         self.openArg = False
         self._logger()
