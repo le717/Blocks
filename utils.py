@@ -104,7 +104,7 @@ class Utils(object):
                      platform.python_version(),
                      platform.machine(),
                      platform.platform())
-                    )
+                     )
         logging.info("""
 \t\t\t\t\t\t\t      ############################################
                                               {0} Version {1}{2}
