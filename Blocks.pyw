@@ -53,76 +53,10 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog, messagebox
 
-# # Blocks constants and level syntax checking
+# Blocks constants and level syntax checking
 import constants as const
 import levelchecks
-
-
-def logger():
-    """Python and OS checks."""
-    # Check if Python is x86 or x64
-    if sys.maxsize < 2 ** 32:
-        pyArch = "x86"
-    else:
-        pyArch = "AMD64"
-
-    # Location and name of log file
-    loggingFile = os.path.join(os.path.expanduser("~"), "Blocks.log")
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(asctime)s : %(levelname)s : %(message)s",
-        filename=loggingFile,
-        filemode="a",
-    )
-
-    logging.info("Begin logging to {0}".format(loggingFile))
-    logging.info("You are running {0} {1} {2} on {3} {4}.".format(
-        platform.python_implementation(), pyArch, platform.python_version(),
-        platform.machine(), platform.platform()))
-    logging.info("""
-                                ############################################
-                                            {0} Version {1}{2}
-                                          Created 2013-{3} {4}
-                                                Blocks.log
-
-
-                                  If you run into a bug, open an issue at
-                                  https://github.com/le717/Blocks/issues
-                                  and attach this file for an quicker fix!
-                                ############################################
-                                """.format(const.appName, const.majVer,
-                                           const.minVer, const.currentYear,
-                                           const.creator))
-
-
-def commandLine():
-    """Command-line arguments parser."""
-    parser = argparse.ArgumentParser(
-        description="{0} {1}{2} Command-line arguments".format(
-            const.appName, const.majVer, const.minVer))
-
-    # Debug message and file open arguments
-    parser.add_argument("-d", help="Dispay debugging messages",
-                        action="store_true")
-    parser.add_argument("-o", help="Open a level file for editing.")
-
-    # Register parameters
-    args = parser.parse_args()
-    debugArg = args.d
-    openArg = args.o
-
-    # If the debug parameter is passed, enable debugging messages
-    if debugArg:
-        const.debugMode = True
-        if isWindows:
-            os.system("title Blocks {0}{1} - Debug".format(
-                const.majVer, const.minVer))
-        print("\nDebug messages have been enabled.")
-
-    # Return result of -o parameter
-    return openArg
-
-# ------------ Begin New Minigame Level ------------ #
+import utils
 
 
 def createNewLevel(*args):
@@ -147,13 +81,9 @@ def createNewLevel(*args):
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F"""
 
-    # Remove the old content
+    # Remove the old content and display blank layout in edit box
     gui.levelArea.delete("1.0", "end")
-    # Add blank layout in edit box
     gui.levelArea.insert("1.0", blankLayout)
-
-
-# ------------ End New Minigame Level  ------------ #
 
 
 def openLevel(*args):
@@ -258,8 +188,6 @@ Your level will be preserved between launch.""")
 Please choose a different location or reload Blocks with elevated privileges.
 """)
     return False
-
-# ------------ Begin Level Layout Saving ------------ #
 
 
 def createBackup(location, backupFile):
@@ -386,8 +314,6 @@ Something went wrong! Here's what happened
         saveNewLevel(layout)
 
 
-# ------------ Begin New Level Saving ------------ #
-
 
 def saveNewLevel(layout):
     """Save an unsaved level layout to file."""
@@ -424,9 +350,6 @@ def saveNewLevel(layout):
     readLevel(levelResave)
 
 
-# ------------ End New Level Saving ------------ #
-
-
 def tempWrite(tempFileName, firstLine, layout):
     """Saves the level to a temporary file."""
     # Name and location of temporary file
@@ -439,9 +362,6 @@ def tempWrite(tempFileName, firstLine, layout):
         f.write(layout)
         f.write(b"\r\n")
     return path
-
-# ------------ End Level Layout Saving ------------ #
-
 
 class BlocksGUI(tk.Frame):
 
@@ -584,13 +504,8 @@ Created 2013-{3}
 
 
 if __name__ == "__main__":
-    # Check if we are running some version of Windows
-    isWindows = False
-    if "Windows" in platform.platform():
-        isWindows = True
-
-    # Start Blocks
-    logger()
+    init = utils.Utils()
+    isWindows = init.isWindows
     root = tk.Tk()
-    gui = BlocksGUI(root, commandLine())
+    gui = BlocksGUI(root, init.openArg)
     root.mainloop()
