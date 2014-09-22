@@ -19,11 +19,11 @@ Archives/
 Freeze/
 bin/
 !Tools/bin
+.brackets.json
 *.blend1
 *.blend2
 *.bak*
 *.zip
-*.pyc
 *.cfg
 *.exe
 *.TXT
