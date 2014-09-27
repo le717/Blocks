@@ -158,8 +158,9 @@ def syntaxCheck(*args):
 
 def relaunch(levelFilename, firstLine, layout):
     """
-    On Windows: Prompt to load Blocks on Windows with administrator rights.
+    On Windows: Prompt to reload with administrator rights.
     On Mac OS X/Linux: Tell user that elevated privileges are required.
+    TODO: Is this still required with Python 3.4 and later versions of 3.3?
     """
     if isWindows:
         admin = messagebox.askyesno(
@@ -327,7 +328,6 @@ def saveNewLevel(layout):
 
     # User did not select a file
     if not levelResave:
-        # Stop the saving process
         return False
 
     # Split the filename into name and extension
@@ -337,7 +337,7 @@ def saveNewLevel(layout):
     if not levelResave.upper().endswith(".TXT"):
         levelResave = "{0}.TXT".format(levelResave)
 
-    # Write a temporary level file, using arbitrary first line
+    # Write a temporary level file using arbitrary first line
     tempLevel = tempWrite("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
                           layout)
 
