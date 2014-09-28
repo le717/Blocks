@@ -114,8 +114,8 @@ def readLevel(levelFile):
         print("\nA new level is not being created.")
 
     # Get just the file name, assign it as global
-    global level_filename
-    level_filename = os.path.basename(levelFile)
+    global levelFileName
+    levelFileName = os.path.basename(levelFile)
 
     # Read the level layout
     with open(levelFile, "rt") as f:
@@ -127,13 +127,18 @@ def readLevel(levelFile):
     # Remove trailing new line so the syntax checking can work correctly
     levelLayout = levelLayout.rstrip()
 
+    # Strip the file extenion from the level name display
+    fileName, extension = os.path.splitext(levelFileName)
+    if fileName.lower().endswith(".txt"):
+      fileName = fileName.lower().rstrip(".txt")
+      
     # Replace all text in the widget with the opened file contents
     gui.levelArea.delete("1.0", "end")
-    gui.levelName.set(level_filename)
+    gui.levelName.set(fileName)
     gui.levelArea.insert("1.0", levelLayout)
 
     # If a temporary file was opened, delete it
-    if levelFile.endswith(".bak"):
+    if extension.lower() == ".bak":
         os.unlink(levelFile)
 
 
@@ -160,7 +165,7 @@ def relaunch(levelFilename, firstLine, layout):
     """
     On Windows: Prompt to reload with administrator rights.
     On Mac OS X/Linux: Tell user that elevated privileges are required.
-    TODO: Is this still required with Python 3.4 and later versions of 3.3?
+    # TODO: Is this still required with Python 3.4 and later versions of 3.3?
     """
     if isWindows:
         admin = messagebox.askyesno(
@@ -194,8 +199,8 @@ Please choose a different location or reload Blocks with elevated privileges.
 def createBackup(location, backupFile):
     """Makes a backup of the level before saving."""
     # Define the name and location of the backup
-    backupFile = os.path.join(location, "{0}{1}".format(
-        level_filename, ".bak"))
+    backupFile = os.path.join(location, "{0}.bak".format(
+        levelFileName))
 
     try:
         # Copy the file, and try to preserve time stamp
@@ -207,7 +212,7 @@ def createBackup(location, backupFile):
         messagebox.showerror(
             "Insufficient User Right!",
             """Blocks does not have the user rights to save {0}!"""
-            .format(level_filename))
+            .format(levelFileName))
 
         if const.debugMode:
             # Display traceback to console
@@ -249,7 +254,7 @@ def saveLevel(new_layout):
 
             # Display success dialog
             messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-                                .format(level_filename, location))
+                                .format(levelFileName, location))
 
         # A level was edited directly in Program Files or something like that,
         # and Blocks was run without Administrator rights
@@ -264,7 +269,7 @@ Something went wrong! Here's what happened
 """, exc_info=True)
 
             # Run Admin relaunch process
-            admin = relaunch(level_filename, first_line, layout)
+            admin = relaunch(levelFileName, first_line, layout)
 
             # The user did not want to relaunch
             if not admin:
@@ -291,7 +296,7 @@ Something went wrong! Here's what happened
             messagebox.showerror(
                 "An Error Has Occurred!",
                 "Blocks ran into an unknown error while trying to {0}!"
-                .format(level_filename))
+                .format(levelFileName))
 
             if const.debugMode:
                 # Display traceback in console
@@ -330,11 +335,8 @@ def saveNewLevel(layout):
     if not levelResave:
         return False
 
-    # Split the filename into name and extension
-    name, ext = os.path.splitext(levelResave)
-
     # Append proper file extension to filename if needed
-    if not levelResave.upper().endswith(".TXT"):
+    if not levelResave.lower().endswith(".txt"):
         levelResave = "{0}.TXT".format(levelResave)
 
     # Write a temporary level file using arbitrary first line

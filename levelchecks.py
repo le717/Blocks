@@ -36,9 +36,8 @@ class LevelChecks(object):
 
     def _levelSize(self):
         """Check the size of the layout."""
-        # Get the each line's number and text
-        for lineNum, lineText in enumerate(self.__userLevel[:-2].split("\n")):
-            lineNum += 1
+        # Get the length of each line
+        lineNum = len(self.__userLevel[:-2].split("\n"))
 
         # The level is more than or less than 8 lines
         if (lineNum > 8 or lineNum < 8):
@@ -85,8 +84,7 @@ The line must be exactly 38 characters, including spaces.""".format(
         # No error was found
         return (False, None, None)
 
-        # NOTE:
-        # While all lines must be at least 38 characters,
+        # NOTE While all lines must be at least 38 characters,
         # some levels have lines that are 39 characters.
         # Technically, a line can be longer then the imposed 38 characters,
         # but odd, undocumented stuff occurs when extra characters are added

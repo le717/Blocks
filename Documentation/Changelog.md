@@ -21,6 +21,8 @@ unneeded Tkinter files after freezing a binary
 * Delete backup files after they are opened
 * Convert entire GUI to OOP
 * Do not attempt to relaunch with Administrator rights on non-Windows systems
+* Split logging, command-line parameters, and Windows OS check into new `utils` module
+* Do not display the file extension when opening a file
 
 ### 0.9.1 ###
 Released August 18, 2013

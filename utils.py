@@ -54,6 +54,7 @@ class Utils(object):
         """Check if we are running some version of Windows."""
         if "Windows" in platform.platform():
             self.isWindows = True
+        return True
 
     def _commandLine(self):
         """Command-line arguments parser."""
@@ -80,6 +81,7 @@ class Utils(object):
                     const.majVer, const.minVer))
             print("\nDebug messages have been enabled.")
         self.openArg = openArgu
+        return True
 
     def _logger(self):
         pythonArch = "x64"
