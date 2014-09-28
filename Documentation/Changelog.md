@@ -1,6 +1,6 @@
 # Blocks Change Log #
 
-### 0.9.2 ###
+### 1.0.0 ###
 Released ?? ??, 201?
 
 * Improved `setup.py` OS detection, actions and whitespace

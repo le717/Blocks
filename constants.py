@@ -24,8 +24,7 @@ import sys
 from datetime import datetime
 
 appName = "Blocks"
-majVer = "0.9"
-minVer = ".2"
+version = "1.0.0"
 creator = "Triangle717"
 currentYear = datetime.now().year
 debugMode = False

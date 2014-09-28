@@ -75,7 +75,7 @@ build_exe_options = {"build_exe": destfolder,
 
 setup(
     name="Blocks",
-    version="{0}{1}".format(const.majVer, const.minVer),
+    version=const.version,
     author="Triangle717",
     description="Island Xtreme Stunts Minigame Level Editor",
     license="GPLv3",

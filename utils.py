@@ -59,8 +59,8 @@ class Utils(object):
     def _commandLine(self):
         """Command-line arguments parser."""
         parser = argparse.ArgumentParser(
-            description="{0} {1}{2} Command-line arguments".format(
-                const.appName, const.majVer, const.minVer))
+            description="{0} {1} Command-line arguments".format(
+                const.appName, const.version))
 
         # Debug message and file open arguments
         parser.add_argument("-d", help="Dispay debugging messages",
@@ -77,8 +77,8 @@ class Utils(object):
             const.debugMode = True
             # Write a console title on Windows
             if self.isWindows:
-                os.system("title Blocks {0}{1} - Debug".format(
-                    const.majVer, const.minVer))
+                os.system("title Blocks {0} - Debug".format(
+                    const.version))
             print("\nDebug messages have been enabled.")
         self.openArg = openArgu
         return True
@@ -109,8 +109,8 @@ class Utils(object):
                      )
         logging.info("""
 \t\t\t\t\t\t\t      ############################################
-                                              {0} Version {1}{2}
-                                            Created 2013-{3} {4}
+                                              {0} Version {1}
+                                            Created 2013-{2} {3}
                                                   Blocks.log
 
 
@@ -118,7 +118,7 @@ class Utils(object):
                                     https://github.com/le717/Blocks/issues
                                     and attach this file for an quicker fix!
 \t\t\t\t\t\t\t      ############################################
-                                    """.format(const.appName, const.majVer,
-                                               const.minVer, const.currentYear,
+                                    """.format(const.appName, const.version,
+                                               const.currentYear,
                                                const.creator))
         return True

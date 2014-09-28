@@ -377,8 +377,8 @@ class BlocksGUI(tk.Frame):
         """Draw the GUI."""
         # Window settings
         tk.Frame.__init__(self, parent)
-        parent.title("{0} {1}{2}".format(
-            const.appName, const.majVer, const.minVer))
+        parent.title("{0} {1}".format(
+            const.appName, const.version))
         parent.iconbitmap(const.appIcon)
         parent.minsize("575", "250")
         self.__mainframe = ttk.Frame(root, padding="7 7 7 7")
@@ -413,9 +413,9 @@ class BlocksGUI(tk.Frame):
         # About Blocks text
         self.__aboutBlocks = ttk.Label(
             self.__mainframe,
-            text="""      {0} {1}{2}
-Created 2013-{3}
-      Triangle717""".format(const.appName, const.majVer, const.minVer,
+            text="""      {0} {1}
+Created 2013-{2}
+      Triangle717""".format(const.appName, const.version,
                             const.currentYear))
         self.__aboutBlocks.grid(column=2, row=0, sticky=tk.N)
 
@@ -463,8 +463,8 @@ Created 2013-{3}
         self.__legendWindow = tk.Toplevel(root)
         self.__legendWindow.iconbitmap(const.appIcon)
         self.__legendWindow.title(
-            "Level Character Legend - Blocks {0}{1}".format(
-                const.majVer, const.minVer))
+            "Level Character Legend - Blocks {0}".format(
+                const.version))
 
         # The window is not resizable
         self.__legendWindow.minsize("400", "260")
