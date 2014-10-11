@@ -65,7 +65,22 @@ class Blocks(object):
 
         self.__levelPath = ""
         self.__levelName = ""
+        self.__levelLayout = ""
+        self.__firstLine = b""
         self.__newLevel = False
+
+    def _displayError(self, title, message, traceback):
+        """Display error message using a a Tkinter error dialog.
+
+        @param title {string} Dialog error title.
+        @param message {string} Dialog error message.
+        @param traceback {Exception} Exception alias for debugging.
+        """
+        if const.debugMode:
+            print(traceback)
+        logging.exception("\nAn error has occurred:\n", exc_info=True)
+        messagebox.showerror(title, message)
+        return False
 
     def createLevel(self, *args):
         """Create a new level layout using a layout template."""
@@ -89,21 +104,27 @@ class Blocks(object):
         # Remove the old content and display blank layout in edit box
         gui.levelArea.delete("1.0", "end")
         gui.levelArea.insert("1.0", blankLayout)
-
+        return True
 
     def _readLevel(self, levelFile):
         """Read a level file and get its contents."""
         if const.debugMode:
             print("\nA new level is not being created.")
 
-        # Remove hex values, as they cannot be displayed
-        with open(levelFile, "rt") as f:
-            levelLayout = f.readlines()[:]
-        return "".join(levelLayout[1:9])
+        # Read just the first line
+        with open(levelFile, "rb") as f1:
+            self.__firstLine = f1.readline()
 
+        # Remove hex values, as they cannot be displayed
+        with open(levelFile, "rt") as f2:
+            levelLayout = f2.readlines()[1:]
+        return "".join(levelLayout)
 
     def _displayLevel(self, levelFile):
+        """Dispay the level name and layout in the GUI.
 
+        @param levelFile {string} Absolute path to the file being opened.
+        """
         # Read the level, get just the file name
         levelLayout = self._readLevel(levelFile)
         self.__levelName = os.path.basename(levelFile)
@@ -121,8 +142,8 @@ class Blocks(object):
             fileName = fileName.lower().rstrip(".txt")
 
         # Replace all text in the widget with the opened file contents
-        gui.levelArea.delete("1.0", "end")
         gui.levelName.set(fileName)
+        gui.levelArea.delete("1.0", "end")
         gui.levelArea.insert("1.0", levelLayout)
 
         # If a temporary file was opened, delete it
@@ -130,6 +151,60 @@ class Blocks(object):
             os.unlink(levelFile)
         return True
 
+    def _writeFile(self, filePath, fileName, firstLine, layout, temporary=False):
+        """Write the level layout to file.
+
+        @param filePath {string} Absolute path to the resulting file.
+        @param firstLine {bytes} The first line for the file.
+        @param layout {bytes} The level layout to be written.
+        @param temporary {boolean} If set to True, a temporary file will be
+            created at "~".
+        @return {boolean|string} True if temporary is set to False;
+            the path to the temporary file.
+        """
+        # Name and location of the temporary file
+        if temporary:
+            filePath = os.path.join(os.path.expanduser("~"), fileName)
+
+        # Write the file using binary mode in the following order:
+        # First line, layout, file ending
+        with open(os.path.join(filePath, fileName), "wb") as f:
+            f.write(firstLine)
+            f.write(layout)
+            f.write(b"\r\n")
+
+        if temporary:
+            return filePath
+        return True
+
+    def _createBackup(self, location, backupFile):
+        """Make a backup of the level before saving."""
+        # Define the name and location of the backup
+        backupFile = os.path.join(location, "{0}.bak".format(
+            self.__levelName))
+
+        try:
+            # Copy the file
+            shutil.copy2(os.path.join(self.__levelPath, self.__levelName), backupFile)
+            return True
+
+        # A level was edited directly in Program Files
+        # or some other action that requires Administrator rights
+        except PermissionError as p:
+            self._displayError("Insufficient User Right!",
+                               "Blocks does not have the user rights to save {0}!"
+                               .format(levelFileName), p)
+            return False
+
+    def _syntaxCheck(self):
+        """Check the level layout for syntax errors."""
+        results = levelchecks.LevelChecks(self.__levelLayout).checkLevel()
+
+        # An error in the level was found, display the details
+        if type(results) == tuple:
+            messagebox.showerror(results[0], results[1])
+            return False
+        return True
 
     def openLevel(self, *args):
         """Display Tkinter open dialog for selecting a level file."""
@@ -142,56 +217,45 @@ class Blocks(object):
 
         # A file was selected, read the layout
         if filePath:
-            self.__levelPath = filePath
+            self.__levelPath = os.path.dirname(filePath)
             self._displayLevel(filePath)
+            return True
 
+    def saveLevel(self, *args):
 
-    def _writeFile(self, filePath, firstLine, layout, temporary=False):
-        """Write the level layout to file.
+        # Get new layout from text box, including the extra line
+        # the Text Edit widget makes. This is required to make everything work.
+        # TODO Is the above statement still true?
+        levelLayout = gui.levelArea.get("1.0", "end")
 
-        @param filePath {string} Absolute path to the resulting file.
-        @param firstLine {bytes} The first line for the file.
-        @param layout {bytes} The level layout to be written.
-        @param temporary {boolean} If set to True, a temporary file will be
-            created at "~".
-        @return {boolean|string} True if temporary is set to False;
-            the path to the temporary file.
-        """
-        if temporary:
-            # Name and location of the temporary file
-            filePath = os.path.join(os.path.expanduser("~"),
-                                os.path.basename(filePath))
+        # Store the layout for usage elsewhere
+        self.__levelLayout = levelLayout
 
-        # Write the file using binary mode in the following order:
-        # First line, layout, file ending
-        with open(filePath, "wb") as f:
-            f.write(firstLine)
-            f.write(layout)
-            f.write(b"\r\n")
+        # TODO General Exception handling
 
-        if temporary:
-            return filePath
-        return True
+        # The syntax checks passed
+        if self._syntaxCheck():
+            # TODO New level saving
+            # if self.__newLevel:
 
+            # Create a backup
+            if self._createBackup(self.__levelPath, self.__levelName):
 
-def syntaxCheck(*args):
-    """Check the Level Layout for syntax errors."""
-    # Get new layout from text box, including the extra line
-    # the Text Edit widget makes. This is required to make everything work
-    userLevel = gui.levelArea.get("1.0", "end")
+                # Create a bytes version of the layout for accurate writing
+                binaryLayout = str.encode(self.__levelLayout, encoding="utf-8", errors="strict")
 
-    # Run the layout through various syntax checks
-    checks = levelchecks.LevelChecks(userLevel)
-    userLevel = checks.checkLevel()
+                # Write the file to disc.
+                # PermissionError Exception handling is not needed here,
+                # for if a backup cannot be written, the new file
+                # certainly cannot be written.
+                self._writeFile(self.__levelPath, self.__levelName, self.__firstLine, binaryLayout)
+                messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
+                                .format(self.__levelName, self.__levelPath))
+                return True
 
-    # An error in the level was found, give user the details
-    if type(userLevel) == tuple:
-        messagebox.showerror(userLevel[0], userLevel[1])
-        return False
-
-    # Send the corrected layout for writing
-    saveLevel(userLevel)
-
+            # TODO We've hit a PermissionError, prompt to reload using RunAsAdmin.
+            else:
+                return False
 
 def relaunch(levelFilename, firstLine, layout):
     """
@@ -228,33 +292,6 @@ Please choose a different location or reload Blocks with elevated privileges.
     return False
 
 
-def createBackup(location, backupFile):
-    """Makes a backup of the level before saving."""
-    # Define the name and location of the backup
-    backupFile = os.path.join(location, "{0}.bak".format(
-        levelFileName))
-
-    try:
-        # Copy the file, and try to preserve time stamp
-        shutil.copy2(level_file, backupFile)
-
-    # A level was edited directly in Program Files,
-    # or some other action that required Admin rights
-    except PermissionError as Perm:
-        messagebox.showerror(
-            "Insufficient User Right!",
-            """Blocks does not have the user rights to save {0}!"""
-            .format(levelFileName))
-
-        if const.debugMode:
-            # Display traceback to console
-            print(Perm)
-
-        # Write traceback to log
-        logging.exception("\nSomething went wrong! Here's what happened\n",
-                          exc_info=True)
-
-
 def saveLevel(new_layout):
     """Writes Modded Minigame Level."""
     # Convert layout from string to bytes
@@ -287,10 +324,10 @@ def saveLevel(new_layout):
 
         # A level was edited directly in Program Files or something like that,
         # and Blocks was run without Administrator rights
-        except PermissionError as Perm:
+        except PermissionError as p:
             if const.debugMode:
                 # Display traceback in console
-                print(Perm)
+                print(p)
 
             # Write traceback to log
             logging.exception("""
@@ -444,7 +481,7 @@ Created 2013-{2}
                                        command=blocks.openLevel)
         self.__buttonOpen.grid(column=2, row=2, sticky=tk.N)
         self.__buttonSave = ttk.Button(self.__mainframe, text="Save",
-                                       command=syntaxCheck)
+                                       command=blocks.saveLevel)
         self.__buttonSave.grid(column=2, row=3, sticky=tk.N)
         self.__buttonLegend = ttk.Button(self.__mainframe,
                                          text="Character Legend",
@@ -458,7 +495,7 @@ Created 2013-{2}
         # Bind keyboard shortcuts
         parent.bind("<Control-n>", blocks.createLevel)
         parent.bind("<Control-o>", blocks.openLevel)
-        parent.bind("<Control-s>", syntaxCheck)
+        parent.bind("<Control-s>", blocks.saveLevel)
         parent.bind("<Control-q>", self._close)
         parent.bind("<F12>", self._charLegend)
 
