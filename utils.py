@@ -111,7 +111,6 @@ class Utils(object):
 \t\t\t\t\t\t\t      ############################################
                                               {0} Version {1}
                                             Created 2013-{2} {3}
-                                                  Blocks.log
 
 
                                     If you run into a bug, open an issue at

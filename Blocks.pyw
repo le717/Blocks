@@ -146,6 +146,34 @@ class Blocks(object):
             self._displayLevel(filePath)
 
 
+    def _writeFile(self, filePath, firstLine, layout, temporary=False):
+        """Write the level layout to file.
+
+        @param filePath {string} Absolute path to the resulting file.
+        @param firstLine {bytes} The first line for the file.
+        @param layout {bytes} The level layout to be written.
+        @param temporary {boolean} If set to True, a temporary file will be
+            created at "~".
+        @return {boolean|string} True if temporary is set to False;
+            the path to the temporary file.
+        """
+        if temporary:
+            # Name and location of the temporary file
+            filePath = os.path.join(os.path.expanduser("~"),
+                                os.path.basename(filePath))
+
+        # Write the file using binary mode in the following order:
+        # First line, layout, file ending
+        with open(filePath, "wb") as f:
+            f.write(firstLine)
+            f.write(layout)
+            f.write(b"\r\n")
+
+        if temporary:
+            return filePath
+        return True
+
+
 def syntaxCheck(*args):
     """Check the Level Layout for syntax errors."""
     # Get new layout from text box, including the extra line
@@ -180,7 +208,7 @@ Your level will be preserved between launch.""")
         # If user chooses to relaunch
         if admin:
             # Save a temporary file
-            tempFile = _tempWrite(levelFilename, firstLine, layout)
+            tempFile = self._writeFile(levelFilename, firstLine, layout, True)
 
             # Launch RunAsAdmin to reload Blocks,
             # invoke command-line parameter to reload the level
@@ -251,10 +279,7 @@ def saveLevel(new_layout):
             createBackup(location, level_file)
 
             # Open back up the original level and rewrite it
-            with open(level_file, "wb") as f:
-                f.write(first_line)
-                f.write(layout)
-                f.write(b"\r\n")
+            self._writeFile(level_file, firstLine, layout)
 
             # Display success dialog
             messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
@@ -342,8 +367,8 @@ def saveNewLevel(layout):
         levelResave = "{0}.TXT".format(levelResave)
 
     # Write a temporary level file using arbitrary first line
-    tempLevel = _tempWrite("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
-                          layout)
+    tempLevel = self._writeFile("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
+                          layout, True)
 
     # Overwrite the old level with the new one
     distutils.file_util.copy_file(tempLevel, levelResave)
@@ -352,20 +377,6 @@ def saveNewLevel(layout):
     # and load the newly saved one
     os.unlink(tempLevel)
     _readLevel(levelResave)
-
-
-def _tempWrite(tempFileName, firstLine, layout):
-    """Saves the level to a temporary file."""
-    # Name and location of temporary file
-    path = os.path.join(os.path.expanduser("~"), tempFileName)
-
-    # Write the temporary file, using binary mode, in the following order:
-    # First line, new level, file ending
-    with open(path, "wb") as f:
-        f.write(firstLine)
-        f.write(layout)
-        f.write(b"\r\n")
-    return path
 
 
 class BlocksGUI(tk.Frame):
