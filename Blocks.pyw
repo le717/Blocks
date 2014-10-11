@@ -82,30 +82,6 @@ class Blocks(object):
         messagebox.showerror(title, message)
         return False
 
-    def createLevel(self, *args):
-        """Create a new level layout using a layout template."""
-        # Blank (free) layout for when starting a new level
-        blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F"""
-
-        if const.debugMode:
-            print("\nA new level is being created.")
-
-        # Remove level name display, since there is no opened level
-        self.__newLevel = True
-        gui.levelName.set("")
-
-        # Remove the old content and display blank layout in edit box
-        gui.levelArea.delete("1.0", "end")
-        gui.levelArea.insert("1.0", blankLayout)
-        return True
-
     def _readLevel(self, levelFile):
         """Read a level file and get its contents."""
         if const.debugMode:
@@ -204,6 +180,30 @@ class Blocks(object):
         if type(results) == tuple:
             messagebox.showerror(results[0], results[1])
             return False
+        return True
+
+    def createLevel(self, *args):
+        """Create a new level layout using a layout template."""
+        # Blank (free) layout for when starting a new level
+        blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F
+ F  F  F  F  F  F  F  F  F  F  F  F  F"""
+
+        if const.debugMode:
+            print("\nA new level is being created.")
+
+        # Remove level name display, since there is no opened level
+        self.__newLevel = True
+        gui.levelName.set("")
+
+        # Remove the old content and display blank layout in edit box
+        gui.levelArea.delete("1.0", "end")
+        gui.levelArea.insert("1.0", blankLayout)
         return True
 
     def openLevel(self, *args):
