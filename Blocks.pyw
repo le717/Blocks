@@ -69,14 +69,14 @@ class Blocks(object):
         self.__firstLine = b""
         self.__newLevel = False
 
-    def _displayError(self, title, message, traceback):
+    def _displayError(self, title, message, traceback=None):
         """Display error message using a a Tkinter error dialog.
 
         @param title {string} Dialog error title.
         @param message {string} Dialog error message.
         @param traceback {Exception} Exception alias for debugging.
         """
-        if const.debugMode:
+        if const.debugMode and traceback is not None:
             print(traceback)
         logging.exception("\nAn error has occurred:\n", exc_info=True)
         messagebox.showerror(title, message)
@@ -174,7 +174,7 @@ class Blocks(object):
 
         # An error in the level was found, display the details
         if type(results) == tuple:
-            messagebox.showerror(results[0], results[1])
+            self._displayError(results[0], results[1])
             return False
         return True
 
@@ -276,11 +276,9 @@ Your level will be preserved between launch.""")
             raise SystemExit(0)
 
     # Mac OS X/Linux
-    messagebox.showerror(
-        "Insufficient Privileges!",
-        """Blocks does not have sufficient privileges to save in that location.
-Please choose a different location or reload Blocks with elevated privileges.
-""")
+    self._displayError("Insufficient Privileges!",
+                       """Blocks does not have sufficient privileges to save in that location.
+Please choose a different location or reload Blocks with elevated privileges.""")
     return False
 
 
@@ -350,17 +348,10 @@ Something went wrong! Here's what happened
             saveNewLevel(layout)
 
         # Any other unhandled error occurred
-        except Exception as Exc:
-            messagebox.showerror(
-                "An Error Has Occurred!",
-                "Blocks ran into an unknown error while trying to {0}!"
-                .format(levelFileName))
-
-            # Display traceback in console, write to log
-            logging.exception("n\Something went wrong! Here's what happened\n",
-                              exc_info=True)
-            if const.debugMode:
-                print(Exc)
+        except Exception as e:
+            self._displayError("An Error Has Occurred!",
+                               "Blocks ran into an unknown error while trying to {0}!"
+                               .format(levelFileName), e)
 
     # The user tried to save a level without loading one first
     except NameError as NE:
