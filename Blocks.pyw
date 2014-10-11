@@ -108,10 +108,6 @@ class Blocks(object):
         # We are not creating a new level
         self.__newLevel = False
 
-        # Remove trailing new line so syntax checking can work correctly
-        # TODO Move this to syntax checks
-        levelLayout = levelLayout.rstrip()
-
         # Strip the file extension from the level name display
         fileName, extension = os.path.splitext(self.__levelName)
         if fileName.lower().endswith(".txt"):
@@ -223,12 +219,8 @@ class Blocks(object):
 
     def saveLevel(self, *args):
 
-        # Get new layout from text box, including the extra line
-        # the Text Edit widget makes. This is required to make everything work.
-        # TODO Is the above statement still true?
-        levelLayout = gui.levelArea.get("1.0", "end")
-
-        # Store the layout for usage elsewhere
+        # Get new layout from text box, store it for later
+        levelLayout = gui.levelArea.get("1.0", "end -2 lines")
         self.__levelLayout = levelLayout
 
         # TODO General Exception handling
@@ -253,7 +245,7 @@ class Blocks(object):
                                 .format(self.__levelName, self.__levelPath))
                 return True
 
-            # TODO We've hit a PermissionError, prompt to reload using RunAsAdmin.
+            # TODO We've hit a PermissionError, possibly prompt to reload using RunAsAdmin.
             else:
                 return False
 

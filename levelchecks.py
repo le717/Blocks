@@ -37,7 +37,7 @@ class LevelChecks(object):
     def _levelSize(self):
         """Check the size of the layout."""
         # Get the length of each line
-        lineNum = len(self.__userLevel[:-2].split("\n"))
+        lineNum = len(self.__userLevelNormCase[:-2].split("\n"))
 
         # The level is more than or less than 8 lines
         if (lineNum > 8 or lineNum < 8):
@@ -71,7 +71,7 @@ The level must be exactly 8 lines.""".format(lineNum))
     def _lineLength(self):
         """Check the length of each line."""
         # Get the each line's number text, and length
-        for lineNum, lineText in enumerate(self.__userLevel[:-1].split("\n")):
+        for lineNum, lineText in enumerate(self.__userLevelNormCase[:-1].split("\n")):
             lineNum += 1
             lineLength = len(lineText)
 
