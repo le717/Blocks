@@ -59,20 +59,18 @@ import levelchecks
 import utils
 
 
-def createNewLevel(*args):
-    """Create a new Minigame Level."""
-    # Update variable saying a new level was created
-    global newLevel
-    newLevel = True
+class Blocks(object):
 
-    # Remove level name display, since there is no opened level
-    gui.levelName.set("")
+    def __init__(self):
 
-    if const.debugMode:
-        print("\nA new level is being created.")
+        self.__levelPath = ""
+        self.__levelName = ""
+        self.__newLevel = False
 
-    # Blank (free) layout for when starting a new level
-    blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
+    def createLevel(self, *args):
+        """Create a new level layout using a layout template."""
+        # Blank (free) layout for when starting a new level
+        blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
@@ -81,65 +79,71 @@ def createNewLevel(*args):
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F"""
 
-    # Remove the old content and display blank layout in edit box
-    gui.levelArea.delete("1.0", "end")
-    gui.levelArea.insert("1.0", blankLayout)
-
-
-def openLevel(*args):
-    """Reads Minigame Level."""
-    global level_file
-    level_file = filedialog.askopenfilename(
-        parent=root,
-        defaultextension=".TXT",
-        filetypes=[("IXS Minigame Layout", ".TXT")],
-        title="Select a Minigame Layout"
-    )
-
-    if level_file:
-        # Display full path to the file
         if const.debugMode:
-            print(level_file)
+            print("\nA new level is being created.")
 
-        # Send the file off for reading
-        readLevel(level_file)
+        # Remove level name display, since there is no opened level
+        self.__newLevel = True
+        gui.levelName.set("")
+
+        # Remove the old content and display blank layout in edit box
+        gui.levelArea.delete("1.0", "end")
+        gui.levelArea.insert("1.0", blankLayout)
 
 
-def readLevel(levelFile):
-    """Reads an existing level file."""
-    # Update new level variable to denote a pre-existing level
-    global newLevel
-    newLevel = False
-    if const.debugMode:
-        print("\nA new level is not being created.")
+    def _readLevel(self, levelFile):
+        """Read a level file and get its contents."""
+        if const.debugMode:
+            print("\nA new level is not being created.")
 
-    # Get just the file name, assign it as global
-    global levelFileName
-    levelFileName = os.path.basename(levelFile)
+        # Remove hex values, as they cannot be displayed
+        with open(levelFile, "rt") as f:
+            levelLayout = f.readlines()[:]
+        return "".join(levelLayout[1:9])
 
-    # Read the level layout
-    with open(levelFile, "rt") as f:
-        levelLayout = f.readlines()[:]
 
-    # Remove binary values, as they cannot be displayed
-    levelLayout = "".join(levelLayout[1:9])
+    def _displayLevel(self, levelFile):
 
-    # Remove trailing new line so the syntax checking can work correctly
-    levelLayout = levelLayout.rstrip()
+        # Read the level, get just the file name
+        levelLayout = self._readLevel(levelFile)
+        self.__levelName = os.path.basename(levelFile)
 
-    # Strip the file extenion from the level name display
-    fileName, extension = os.path.splitext(levelFileName)
-    if fileName.lower().endswith(".txt"):
-      fileName = fileName.lower().rstrip(".txt")
-      
-    # Replace all text in the widget with the opened file contents
-    gui.levelArea.delete("1.0", "end")
-    gui.levelName.set(fileName)
-    gui.levelArea.insert("1.0", levelLayout)
+        # We are not creating a new level
+        self.__newLevel = False
 
-    # If a temporary file was opened, delete it
-    if extension.lower() == ".bak":
-        os.unlink(levelFile)
+        # Remove trailing new line so syntax checking can work correctly
+        # TODO Move this to syntax checks
+        levelLayout = levelLayout.rstrip()
+
+        # Strip the file extension from the level name display
+        fileName, extension = os.path.splitext(self.__levelName)
+        if fileName.lower().endswith(".txt"):
+            fileName = fileName.lower().rstrip(".txt")
+
+        # Replace all text in the widget with the opened file contents
+        gui.levelArea.delete("1.0", "end")
+        gui.levelName.set(fileName)
+        gui.levelArea.insert("1.0", levelLayout)
+
+        # If a temporary file was opened, delete it
+        if extension.lower() == ".bak":
+            os.unlink(levelFile)
+        return True
+
+
+    def openLevel(self, *args):
+        """Display Tkinter open dialog for selecting a level file."""
+        filePath = filedialog.askopenfilename(
+          parent=root,
+          defaultextension=".TXT",
+          filetypes=[("IXS Minigame Layout", ".TXT")],
+          title="Select a Minigame Layout"
+        )
+
+        # A file was selected, read the layout
+        if filePath:
+            self.__levelPath = filePath
+            self._displayLevel(filePath)
 
 
 def syntaxCheck(*args):
@@ -176,7 +180,7 @@ Your level will be preserved between launch.""")
         # If user chooses to relaunch
         if admin:
             # Save a temporary file
-            tempFile = tempWrite(levelFilename, firstLine, layout)
+            tempFile = _tempWrite(levelFilename, firstLine, layout)
 
             # Launch RunAsAdmin to reload Blocks,
             # invoke command-line parameter to reload the level
@@ -298,13 +302,11 @@ Something went wrong! Here's what happened
                 "Blocks ran into an unknown error while trying to {0}!"
                 .format(levelFileName))
 
-            if const.debugMode:
-                # Display traceback in console
-                print(Exc)
-
-            # Write traceback to log
+            # Display traceback in console, write to log
             logging.exception("n\Something went wrong! Here's what happened\n",
                               exc_info=True)
+            if const.debugMode:
+                print(Exc)
 
     # The user tried to save a level without loading one first
     except NameError as NE:
@@ -340,7 +342,7 @@ def saveNewLevel(layout):
         levelResave = "{0}.TXT".format(levelResave)
 
     # Write a temporary level file using arbitrary first line
-    tempLevel = tempWrite("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
+    tempLevel = _tempWrite("BlocksTempFile.txt", b"C\x01\x00\x001\r\n",
                           layout)
 
     # Overwrite the old level with the new one
@@ -349,10 +351,10 @@ def saveNewLevel(layout):
     # After it is copied, delete the temporary file
     # and load the newly saved one
     os.unlink(tempLevel)
-    readLevel(levelResave)
+    _readLevel(levelResave)
 
 
-def tempWrite(tempFileName, firstLine, layout):
+def _tempWrite(tempFileName, firstLine, layout):
     """Saves the level to a temporary file."""
     # Name and location of temporary file
     path = os.path.join(os.path.expanduser("~"), tempFileName)
@@ -365,6 +367,7 @@ def tempWrite(tempFileName, firstLine, layout):
         f.write(b"\r\n")
     return path
 
+
 class BlocksGUI(tk.Frame):
 
     """Tkinter-based GUI for Blocks.
@@ -375,6 +378,9 @@ class BlocksGUI(tk.Frame):
 
     def __init__(self, parent, cmdFile):
         """Draw the GUI."""
+        # Create an instance of the backend code
+        blocks = Blocks()
+
         # Window settings
         tk.Frame.__init__(self, parent)
         parent.title("{0} {1}".format(
@@ -421,10 +427,10 @@ Created 2013-{2}
 
         # New, Open, Save, and Legend buttons
         self.__buttonNew = ttk.Button(self.__mainframe, text="New",
-                                      command=createNewLevel)
+                                      command=blocks.createLevel)
         self.__buttonNew.grid(column=2, row=1, sticky=tk.N)
         self.__buttonOpen = ttk.Button(self.__mainframe, text="Open",
-                                       command=openLevel)
+                                       command=blocks.openLevel)
         self.__buttonOpen.grid(column=2, row=2, sticky=tk.N)
         self.__buttonSave = ttk.Button(self.__mainframe, text="Save",
                                        command=syntaxCheck)
@@ -439,8 +445,8 @@ Created 2013-{2}
             child.grid_configure(padx=1, pady=1)
 
         # Bind keyboard shortcuts
-        parent.bind("<Control-n>", createNewLevel)
-        parent.bind("<Control-o>", openLevel)
+        parent.bind("<Control-n>", blocks.createLevel)
+        parent.bind("<Control-o>", blocks.openLevel)
         parent.bind("<Control-s>", syntaxCheck)
         parent.bind("<Control-q>", self._close)
         parent.bind("<F12>", self._charLegend)
