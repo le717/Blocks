@@ -63,24 +63,26 @@ class Utils(object):
                 const.appName, const.version))
 
         # Debug message and file open arguments
-        parser.add_argument("-d", help="Dispay debugging messages",
+        parser.add_argument("-d", "--debug",
+                            help="Dispay debugging messages",
                             action="store_true")
-        parser.add_argument("-o", help="Open a level file for editing.")
+        parser.add_argument("-o", "--open",
+                            help="Open a level file for editing.")
 
         # Register parameters
         args = parser.parse_args()
-        debugArgu = args.d
-        openArgu = args.o
+        debugArg = args.debug
+        openArg = args.open
 
         # If the debug parameter is passed, enable debugging messages
-        if debugArgu:
+        if debugArg:
             const.debugMode = True
             # Write a console title on Windows
             if self.isWindows:
                 os.system("title Blocks {0} - Debug".format(
                     const.version))
             print("\nDebug messages have been enabled.")
-        self.openArg = openArgu
+        self.openArg = openArg
         return True
 
     def _logger(self):

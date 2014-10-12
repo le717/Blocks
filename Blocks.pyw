@@ -529,6 +529,7 @@ Created 2013-{2}
                 const.version))
 
         # The window is not resizable
+        # FUTURE Make it resizable
         self.__legendWindow.minsize("400", "260")
         self.__legendWindow.maxsize("400", "260")
 
@@ -537,6 +538,7 @@ Created 2013-{2}
         self.__legendWindow.focus()
 
         # The legend itself
+        # TODO I hate this layout, ask for revision help
         self.__legendText = """\t\t        === Available Colors ===
 \t              R = Red, G = Green, B = Blue, Y = Yellow
 
