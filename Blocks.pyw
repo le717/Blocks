@@ -63,8 +63,8 @@ class Blocks(object):
 
     def __init__(self):
 
-        self.__levelPath = ""
-        self.__levelName = ""
+        self.__filePath = ""
+        self.__fileName = ""
         self.__levelLayout = ""
         self.__firstLine = b""
         self.__newLevel = False
@@ -83,7 +83,10 @@ class Blocks(object):
         return False
 
     def _readLevel(self, levelFile):
-        """Read a level file and get its contents."""
+        """Read a level file and get its contents.
+
+        @param levelFile {string} Absolute path to the file being opened.
+        """
         if const.debugMode:
             print("\nA new level is not being created.")
 
@@ -103,13 +106,13 @@ class Blocks(object):
         """
         # Read the level, get just the file name
         levelLayout = self._readLevel(levelFile)
-        self.__levelName = os.path.basename(levelFile)
+        self.__fileName = os.path.basename(levelFile)
 
         # We are not creating a new level
         self.__newLevel = False
 
         # Strip the file extension from the level name display
-        fileName, extension = os.path.splitext(self.__levelName)
+        fileName, extension = os.path.splitext(self.__fileName)
         if fileName.lower().endswith(".txt"):
             fileName = fileName.lower().rstrip(".txt")
 
@@ -127,12 +130,13 @@ class Blocks(object):
         """Write the level layout to file.
 
         @param filePath {string} Absolute path to the resulting file.
+        @param fileName {string} File name for the resulting file.
         @param firstLine {bytes} The first line for the file.
         @param layout {bytes} The level layout to be written.
         @param temporary {boolean} If set to True, a temporary file will be
             created at "~".
         @return {boolean|string} True if temporary is set to False;
-            the path to the temporary file.
+            Path to the temporary file.
         """
         # Name and location of the temporary file
         if temporary:
@@ -150,14 +154,18 @@ class Blocks(object):
         return True
 
     def _createBackup(self, location, backupFile):
-        """Make a backup of the level before saving."""
+        """Make a backup of the level before saving.
+
+        @param location {string} Absolute path to the file being opened.
+        @param backupFile File name for the backup file.
+        """
         # Define the name and location of the backup
         backupFile = os.path.join(location, "{0}.bak".format(
-            self.__levelName))
+            self.__fileName))
 
         try:
             # Copy the file
-            shutil.copy2(os.path.join(self.__levelPath, self.__levelName), backupFile)
+            shutil.copy2(os.path.join(self.__filePath, self.__fileName), backupFile)
             return True
 
         # A level was edited directly in Program Files
@@ -213,7 +221,7 @@ class Blocks(object):
 
         # A file was selected, read the layout
         if filePath:
-            self.__levelPath = os.path.dirname(filePath)
+            self.__filePath = os.path.dirname(filePath)
             self._displayLevel(filePath)
             return True
 
@@ -231,7 +239,7 @@ class Blocks(object):
             # if self.__newLevel:
 
             # Create a backup
-            if self._createBackup(self.__levelPath, self.__levelName):
+            if self._createBackup(self.__filePath, self.__fileName):
 
                 # Create a bytes version of the layout for accurate writing
                 binaryLayout = str.encode(self.__levelLayout, encoding="utf-8", errors="strict")
@@ -240,9 +248,9 @@ class Blocks(object):
                 # PermissionError Exception handling is not needed here,
                 # for if a backup cannot be written, the new file
                 # certainly cannot be written.
-                self._writeFile(self.__levelPath, self.__levelName, self.__firstLine, binaryLayout)
+                self._writeFile(self.__filePath, self.__fileName, self.__firstLine, binaryLayout)
                 messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-                                .format(self.__levelName, self.__levelPath))
+                                .format(self.__fileName, self.__filePath))
                 return True
 
             # TODO We've hit a PermissionError, possibly prompt to reload using RunAsAdmin.
@@ -405,6 +413,10 @@ class BlocksGUI(tk.Frame):
 
     Provides public access to key visual areas including
     file name and editing area.
+
+    @param parent {Tkinter} Tkinter frame all elements to which are parented.
+    @param cmdFile {string|None} Absolute path to the file being opened.
+        Passing None will not invoke the automatic opening.
     """
 
     def __init__(self, parent, cmdFile):
