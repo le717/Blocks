@@ -42,12 +42,12 @@ class LevelChecks(object):
     def _levelSize(self):
         """Check the size of the layout."""
         # Get the length of each line
-        lineNum = len(self.__layoutNormCase[:-2].split("\n"))
+        numOfLines = len(self.__layoutNormCase[:-2].split("\n"))
 
         # The level is more than or less than 8 lines
-        if (lineNum > 8 or lineNum < 8):
+        if (numOfLines > 8 or numOfLines < 8):
             return (True, "Size Error!", """Your level contains {0} lines!
-The level must be exactly 8 lines.""".format(lineNum))
+The level must be exactly 8 lines.""".format(numOfLines))
 
         # No error was found
         return (False, None, None)
@@ -67,7 +67,7 @@ The level must be exactly 8 lines.""".format(lineNum))
             # If any character in the layout is not in the list
             if char.upper() not in cubeList:
                 return (True, "Syntax Error!",
-                        """Invalid character "{0}" at position {1}"""
+                        """Invalid character "{0}" at position {1}."""
                         .format(char, index))
 
         # No error was found
@@ -108,4 +108,5 @@ The line must be exactly 38 characters, including spaces.""".format(
             return (lineCheck[1], lineCheck[2])
         elif cubeCheck[0]:
             return (cubeCheck[1], cubeCheck[2])
-        return self.__layout[:-1]
+        # Also strip any trailing new lines
+        return self.__layout.rstrip()
