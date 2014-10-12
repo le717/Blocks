@@ -26,7 +26,7 @@ import sys
 import os
 
 import constants as const
-from Tools.bin import (cleanup, copyfiles, launcher)
+from Tools.bin import (cleanup, copyfiles)
 
 # Append build command to command-line arguments.
 # Just type "python setup.py" and it will freeze
@@ -59,18 +59,9 @@ else:
 if not os.path.exists(destfolder):
     os.makedirs(destfolder)
 
-# # Write RunAsAdmin.cfg and Blocks.bat for Windows
-if base is not None:
-    launcher.writeBatch(destfolder)
-
 # Copy required files
 build_exe_options = {"build_exe": destfolder,
-                     "icon": "Media/Blocks.ico",
-                     "include_files": [
-                         "LICENSE.txt",
-                         "LICENSE.RunAsAdmin.txt"
-                         "RunAsAdmin.cfg"
-                         ]
+                     "icon": "Media/Blocks.ico"
                      }
 
 setup(
@@ -86,6 +77,9 @@ setup(
 
 # Copy any required files/directories
 filesForCopying = [
+    "LICENSE.txt",
+    "LICENSE.RunAsAdmin.txt",
+    "RunAsAdmin.cfg",
     os.path.join("Media", "Blocks.gif"),
     os.path.join("Media", "Blocks.ico"),
     os.path.join("Documentation", "Changelog.md"),
