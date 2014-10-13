@@ -75,6 +75,7 @@ class Blocks(object):
         @param title {string} Dialog error title.
         @param message {string} Dialog error message.
         @param traceback {Exception} Exception alias for debugging.
+        @return {boolean} Always returns False.
         """
         # Run Exception logging only if an exception occurred
         if traceback is not None:
@@ -93,6 +94,7 @@ class Blocks(object):
         """Read a level file and get its contents.
 
         @param filePath {string} Absolute path to the file being opened.
+        @return {string} The layout contained in the file.
         """
         if const.debugMode:
             print("\nA new level is not being created.")
@@ -110,6 +112,7 @@ class Blocks(object):
         """Display the level name and layout in the GUI.
 
         @param filePath {string} Absolute path to the file being opened.
+        @return {boolean} Always returns True.
         """
         # Read the level, get just the file name
         levelLayout = self._readLevel(filePath)
@@ -133,7 +136,8 @@ class Blocks(object):
             os.unlink(filePath)
         return True
 
-    def _writeFile(self, filePath, fileName, firstLine, layout, temporary=False):
+    def _writeFile(self, filePath, fileName, firstLine,
+                   layout, temporary=False):
         """Write the level layout to file.
 
         @param filePath {string} Absolute path to the resulting file.
@@ -143,8 +147,8 @@ class Blocks(object):
         @param temporary {boolean} If set to True, a temporary file will be
             created at "~".
         @return {boolean|string} True if temporary is set to False;
-            Path to the temporary file if temporary is set to True.
-            False if a PermissionError was hit;
+            Path to the temporary file if temporary is set to True;
+            False if a PermissionError was hit.
         """
         # Name and location of the temporary file
         if temporary:
@@ -174,6 +178,8 @@ class Blocks(object):
 
         @param location {string} Absolute path to the file being opened.
         @param backupFile File name for the backup file.
+        @return {boolean} True if a backup was successfully saved;
+            False if a PermissionError was hit.
         """
         # Define the name and location of the backup
         backupFile = os.path.join(location, "{0}.bak".format(
@@ -181,7 +187,8 @@ class Blocks(object):
 
         try:
             # Copy the file
-            shutil.copy2(os.path.join(self.__filePath, self.__fileName), backupFile)
+            shutil.copy2(os.path.join(self.__filePath, self.__fileName),
+                         backupFile)
             return True
 
         # We cannot save a file in this location
@@ -192,7 +199,11 @@ class Blocks(object):
             return False
 
     def _syntaxChecks(self):
-        """Check the level layout for syntax errors."""
+        """Check the level layout for syntax errors.
+
+        @return {boolean} False of a syntax error was found;
+            True otherwise.
+        """
         results = levelchecks.LevelChecks(self.__levelLayout).checkLevel()
 
         # An error in the level was found, display the details
@@ -202,7 +213,11 @@ class Blocks(object):
         return True
 
     def _selectDestFile(self):
-        """File selection dialog for new level file."""
+        """File selection dialog for new level file.
+
+        @return {boolean|string} Absolute path to the resulting file;
+            False otherwise.
+        """
         newFile = filedialog.asksaveasfilename(
             parent=root,
             defaultextension=".TXT",
@@ -218,7 +233,10 @@ class Blocks(object):
         return False
 
     def createLevel(self, *args):
-        """Create a new level layout using a layout template."""
+        """Create a new level layout using a layout template.
+
+        @return {boolean} Always returns True.
+        """
         # Blank (free) layout for when starting a new level
         blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
@@ -242,7 +260,11 @@ class Blocks(object):
         return True
 
     def openLevel(self, *args):
-        """Display Tkinter open dialog for selecting a level file."""
+        """Display Tkinter open dialog for selecting a level file.
+
+        @return {boolean} True if a file was selected for opening;
+            False otherwise.
+        """
         filePath = filedialog.askopenfilename(
           parent=root,
           defaultextension=".TXT",
@@ -258,7 +280,11 @@ class Blocks(object):
         return False
 
     def saveLevel(self, *args):
+        """
 
+        @return {boolean} False if any errors occurred;
+            True otherwise.
+        """
         # Get new layout from text box, store it for possible further editing
         levelLayout = gui.levelArea.get("1.0", "end -2 lines")
         self.__levelLayout = levelLayout
@@ -277,7 +303,8 @@ class Blocks(object):
         # The syntax checks passed
         else:
             # Create a bytes version of the layout for accurate writing
-            binaryLayout = str.encode(self.__levelLayout, encoding="utf-8", errors="strict")
+            binaryLayout = str.encode(self.__levelLayout, encoding="utf-8",
+                                      errors="strict")
 
             # We are saving an existing file, make a backup first
             if not self.__newLevel:
@@ -293,47 +320,57 @@ class Blocks(object):
 
             # Write the file to disc.
             # PermissionError Exception handling is not needed here,
-            # as it is handled in _writeFile().
+            # as it is handled in _writeFile()
             if self._writeFile(filePath, fileName, firstLine, binaryLayout):
                 messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-                                .format(fileName, filePath))
+                                    .format(fileName, filePath))
 
             # Since we just saved a new level, we now need to load it
             if self.__newLevel:
                 self._displayLevel(destFile)
             return True
 
-def relaunch(levelFilename, firstLine, layout):
-    """
-    On Windows: Prompt to reload with administrator rights.
-    On Mac OS X/Linux: Tell user that elevated privileges are required.
-    # TODO: Is this still required with Python 3.4 and later versions of 3.3?
-    """
-    if isWindows:
-        admin = messagebox.askyesno(
-            "Relaunch Blocks?",
-            """Would you like to reload Blocks with Administrator rights?
+    def _relaunch(self, filePath, fileName, firstLine, layout):
+        """Application relaunching.
+
+        On Windows: Prompt to reload with administrator rights.
+        On Mac OS X/Linux: Tell user that elevated privileges are required.
+        # TODO: Is this still required with Py3.4 and later versions of 3.3?
+
+        @param filePath {string} Absolute path to the resulting temporary file.
+        @param fileName {string} File name for the resulting temporary file.
+        @param firstLine {bytes} The first line for the file.
+        @param layout {bytes} The level layout to be written.
+        @return {!boolean} False if running on non-Windows OS.
+            Nothing otherwise.
+        """
+        if init.isWindows:
+            admin = messagebox.askyesno(
+                "Relaunch Blocks?",
+                """Would you like to reload Blocks with Administrator rights?
 Your level will be preserved between launch.""")
 
-        # If user chooses to relaunch
-        if admin:
-            # Save a temporary file
-            tempFile = self._writeFile(levelFilename, firstLine, layout, True)
+            # If user chooses to relaunch
+            if admin:
+                # Save a temporary file
+                tempFile = self._writeFile(filePath, fileName, firstLine,
+                                           layout, True)
 
-            # Launch RunAsAdmin to reload Blocks,
-            # invoke command-line parameter to reload the level
-            subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
-                tempFile)])
+                # Launch RunAsAdmin to reload Blocks,
+                # invoke command-line parameter to reload the level
+                subprocess.call(
+                    ["RunAsAdmin.exe", '--open "{0}"'.format(tempFile)]
+                )
 
-            # Now we close Blocks, and let RunAsAdmin take over
-            logging.shutdown()
-            raise SystemExit(0)
+                # Now we close Blocks and let RunAsAdmin take over
+                logging.shutdown()
+                raise SystemExit(0)
 
-    # Mac OS X/Linux
-    self._displayError("Insufficient Privileges!",
-                       """Blocks does not have sufficient privileges to save in that location.
+        # Mac OS X/Linux
+        self._displayError("Insufficient Privileges!",
+                           """Blocks does not have sufficient privileges to save in that location.
 Please choose a different location or reload Blocks with elevated privileges.""")
-    return False
+        return False
 
 #def saveLevel(new_layout):
 #    """Writes Modded Minigame Level."""
@@ -444,7 +481,8 @@ class BlocksGUI(tk.Frame):
         parent.iconbitmap(const.appIcon)
         parent.minsize("575", "250")
         self.__mainframe = ttk.Frame(root, padding="7 7 7 7")
-        self.__mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+        self.__mainframe.grid(column=0, row=0,
+                              sticky=(tk.N, tk.W, tk.E, tk.S))
 
         # Window resizing
         parent.columnconfigure(0, weight=1)
@@ -470,7 +508,8 @@ class BlocksGUI(tk.Frame):
         self.levelArea = tk.Text(self.__mainframe,
                                  height=8, width=40, wrap="none")
         self.levelArea.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
-        self.levelArea.insert("1.0", "Minigame layout will be displayed here.")
+        self.levelArea.insert("1.0",
+                              "Minigame layout will be displayed here.")
 
         # About Blocks text
         self.__aboutBlocks = ttk.Label(
@@ -520,7 +559,7 @@ Created 2013-{2}
         raise SystemExit(0)
 
     def _charLegend(self, *args):
-        """Chart stating valid cubes that can be used."""
+        """Chart listing valid cubes that can be used."""
         # Spawn a new window, parent it to main window
         self.__legendWindow = tk.Toplevel(root)
         self.__legendWindow.iconbitmap(const.appIcon)
@@ -528,8 +567,7 @@ Created 2013-{2}
             "Level Character Legend - Blocks {0}".format(
                 const.version))
 
-        # The window is not resizable
-        # FUTURE Make it resizable
+        # The dialog is not resizable
         self.__legendWindow.minsize("400", "260")
         self.__legendWindow.maxsize("400", "260")
 
@@ -559,19 +597,19 @@ Created 2013-{2}
         ttk.Label(self.__legendWindow, text=self.__legendText).grid()
 
         # Close button and keyboard shortcut
-        buttonLegendClose = ttk.Button(self.__legendWindow, default="active",
-                                       text="Close", command=self._closeLegend)
+        buttonLegendClose = ttk.Button(self.__legendWindow,
+                                       default="active", text="Close",
+                                       command=self._closeLegend)
         buttonLegendClose.grid(column=1, row=1, sticky=tk.S)
         self.__legendWindow.bind("<Control-q>", self._closeLegend)
 
     def _closeLegend(self, *args):
-        """Close cube legend window."""
+        """Close character legend window."""
         self.__legendWindow.destroy()
 
 
 if __name__ == "__main__":
     init = utils.Utils()
-    isWindows = init.isWindows
     root = tk.Tk()
     gui = BlocksGUI(root, init.openArg)
     root.mainloop()
