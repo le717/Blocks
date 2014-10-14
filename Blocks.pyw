@@ -533,7 +533,8 @@ Created 2013-{2}
         self.__buttonLegend = ttk.Button(self.__mainframe,
                                          text="Character Legend",
                                          command=self._charLegend)
-        self.__buttonLegend.grid(column=0, row=1, columnspan=2, sticky=tk.N)
+        self.__buttonLegend.grid(column=0, row=0, columnspan=2, rowspan=1,
+                                 sticky=(tk.N, tk.S))
 
         # Some padding around all the elements
         for child in self.__mainframe.winfo_children():
