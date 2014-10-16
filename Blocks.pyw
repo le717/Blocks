@@ -137,7 +137,7 @@ class Blocks(object):
         gui.levelArea.insert("1.0", levelLayout)
 
         # If a temporary file was opened, delete it
-        if extension.lower() == ".bak":
+        if extension.lower() == ".tmp":
             os.unlink(filePath)
         return True
 
@@ -157,7 +157,8 @@ class Blocks(object):
         """
         # Name and location of the temporary file
         if temporary:
-            filePath = os.path.join(os.path.expanduser("~"), fileName)
+            filePath = os.path.join(os.path.expanduser("~"),
+                                    "{0}.tmp".format(fileName))
 
         try:
             # Write the file using binary mode in the following order:
