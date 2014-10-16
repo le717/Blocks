@@ -36,8 +36,8 @@ class LevelChecks(object):
 
         @param layout {string} The level layout to be checked.
         """
-        self.__layoutNormCase = layout
-        self.__layout = layout.upper()
+        self.__layoutNormCase = layout.rstrip()
+        self.__layout = layout.rstrip().upper()
 
     def _levelSize(self):
         """Check the size of the layout."""
@@ -76,7 +76,7 @@ The level must be exactly 8 lines.""".format(numOfLines))
     def _lineLength(self):
         """Check the length of each line."""
         # Get the each line's number text, and length
-        for lineNum, lineText in enumerate(self.__layoutNormCase[:-1].split("\n")):
+        for lineNum, lineText in enumerate(self.__layoutNormCase.split("\n")):
             lineNum += 1
             lineLength = len(lineText)
 

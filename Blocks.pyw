@@ -137,13 +137,13 @@ class Blocks(object):
         return True
 
     def _writeFile(self, filePath, fileName, firstLine,
-                   layout, temporary=False):
+                   levelLayout, temporary=False):
         """Write the level layout to file.
 
         @param filePath {string} Absolute path to the resulting file.
         @param fileName {string} File name for the resulting file.
         @param firstLine {bytes} The first line for the file.
-        @param layout {bytes} The level layout to be written.
+        @param levelLayout {bytes} The level layout to be written.
         @param temporary {boolean} If set to True, a temporary file will be
             created at "~".
         @return {boolean|string} True if temporary is set to False;
@@ -159,7 +159,7 @@ class Blocks(object):
             # First line, layout, file ending
             with open(os.path.join(filePath, fileName), "wb") as f:
                 f.write(firstLine)
-                f.write(layout)
+                f.write(levelLayout)
                 f.write(b"\r\n")
 
             if temporary:
@@ -170,7 +170,7 @@ class Blocks(object):
         except PermissionError as p:
             self._displayError("Insufficient Access Rights!",
                                "Blocks does not have the access rights to save {0}!"
-                               .format(levelFileName), p)
+                               .format(fileName), p)
             return False
 
     def _createBackup(self, location, backupFile):
@@ -195,22 +195,25 @@ class Blocks(object):
         except PermissionError as p:
             self._displayError("Insufficient Access Rights!",
                                "Blocks does not have the access rights to save {0}!"
-                               .format(levelFileName), p)
+                               .format(backupFile), p)
             return False
 
-    def _syntaxChecks(self):
+    def _syntaxChecks(self, levelLayout):
         """Check the level layout for syntax errors.
 
+        @param levelLayout {bytes} The level layout to be written.
         @return {boolean} False of a syntax error was found;
-            True otherwise.
+            level layout suitable for saving.
         """
-        results = levelchecks.LevelChecks(self.__levelLayout).checkLevel()
+        results = levelchecks.LevelChecks(levelLayout).checkLevel()
 
         # An error in the level was found, display the details
         if type(results) == tuple:
+            if const.debugMode:
+                print(results[0], results[1])
             self._displayError(results[0], results[1])
             return False
-        return True
+        return results
 
     def _selectDestFile(self):
         """File selection dialog for new level file.
@@ -245,7 +248,7 @@ class Blocks(object):
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F\n\n"""
+ F  F  F  F  F  F  F  F  F  F  F  F  F\n"""
 
         if const.debugMode:
             print("\nA new level is being created.")
@@ -285,25 +288,27 @@ class Blocks(object):
         @return {boolean} False if any errors occurred;
             True otherwise.
         """
-        # Get new layout from text box, store it for possible further editing
-        levelLayout = gui.levelArea.get("1.0", "end -2 lines")
-        self.__levelLayout = levelLayout
+        # Get new layout from text box
+        levelLayout = gui.levelArea.get("1.0", "end")
 
         # We need to alias these in case a new file is being written
         filePath = self.__filePath
         fileName = self.__fileName
         firstLine = self.__firstLine
 
+        # Check the level layout for errors
+        levelLayout = self._syntaxChecks(levelLayout)
+
         # TODO Exception handling
 
         # The syntax checks failed
-        if not self._syntaxChecks():
+        if not levelLayout:
             return False
 
         # The syntax checks passed
         else:
             # Create a bytes version of the layout for accurate writing
-            binaryLayout = str.encode(self.__levelLayout, encoding="utf-8",
+            binaryLayout = str.encode(levelLayout, encoding="utf-8",
                                       errors="strict")
 
             # We are saving an existing file, make a backup first
@@ -324,6 +329,10 @@ class Blocks(object):
             if self._writeFile(filePath, fileName, firstLine, binaryLayout):
                 messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
                                     .format(fileName, filePath))
+
+            # Could not save the file
+            else:
+                return False
 
             # Since we just saved a new level, we now need to load it
             if self.__newLevel:
