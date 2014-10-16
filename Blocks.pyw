@@ -43,10 +43,7 @@ You need to download Python 3.3.0 or newer to run Blocks."""
 # let's import everything else we needed
 import shutil
 import subprocess
-import argparse
 import logging
-import platform
-import distutils.file_util
 
 # Tkinter GUI library
 import tkinter as tk
@@ -61,8 +58,16 @@ import utils
 
 class Blocks(object):
 
-    def __init__(self):
+    """Core Blocks code and actions.
 
+    Exposes public methods:
+    * createLevel: Entry point to creating a new, blank level.
+    * openLevel: Entry point to opening an existing level.
+    * saveLevel: Entry point to saving a level.
+    """
+
+    def __init__(self):
+        """Initalize private properties."""
         self.__filePath = ""
         self.__fileName = ""
         self.__levelLayout = ""
@@ -169,7 +174,7 @@ class Blocks(object):
         # We cannot save a file in this location
         except PermissionError as p:
             self._displayError("Insufficient Access Rights!",
-                               "Blocks does not have the access rights to save {0}!"
+                               "Blocks does not rights to save to {0}!"
                                .format(fileName), p)
             return False
 
@@ -194,7 +199,7 @@ class Blocks(object):
         # We cannot save a file in this location
         except PermissionError as p:
             self._displayError("Insufficient Access Rights!",
-                               "Blocks does not have the access rights to save {0}!"
+                               "Blocks does not rights to save to {0}!"
                                .format(backupFile), p)
             return False
 
@@ -269,10 +274,10 @@ class Blocks(object):
             False otherwise.
         """
         filePath = filedialog.askopenfilename(
-          parent=root,
-          defaultextension=".TXT",
-          filetypes=[("IXS Minigame Layout", ".TXT")],
-          title="Select a Minigame Layout"
+            parent=root,
+            defaultextension=".TXT",
+            filetypes=[("IXS Minigame Layout", ".TXT")],
+            title="Select a Minigame Layout"
         )
 
         # A file was selected, read the layout
@@ -283,7 +288,7 @@ class Blocks(object):
         return False
 
     def saveLevel(self, *args):
-        """
+        """Save the level layout.
 
         @return {boolean} False if any errors occurred;
             True otherwise.
@@ -377,11 +382,11 @@ Your level will be preserved between launch.""")
 
         # Mac OS X/Linux
         self._displayError("Insufficient Privileges!",
-                           """Blocks does not have sufficient privileges to save in that location.
-Please choose a different location or reload Blocks with elevated privileges.""")
+                           """Blocks does not have rights to save to that location!
+Please select a different location or reload Blocks with higher privileges.""")
         return False
 
-#def saveLevel(new_layout):
+# def saveLevel(new_layout):
 #    """Writes Modded Minigame Level."""
 #    # Convert layout from string to bytes
 #    layout = str.encode(new_layout, encoding="utf-8", errors="strict")
@@ -420,8 +425,8 @@ Please choose a different location or reload Blocks with elevated privileges."""
 #
 #            # Write traceback to log
 #            logging.exception("""
-#Something went wrong! Here's what happened
-#""", exc_info=True)
+# Something went wrong! Here's what happened
+# """, exc_info=True)
 #
 #            # Run Admin relaunch process
 #            admin = relaunch(levelFileName, first_line, layout)
@@ -561,7 +566,7 @@ Created 2013-{2}
             if const.debugMode:
                 print("\n{0}\nis being opened for reading.".format(
                     os.path.abspath(cmdFile)))
-            root.after(1, readLevel, cmdFile)
+            root.after(1, blocks.openLevel, cmdFile)
 
     def _close(self, *args):
         """Close Blocks."""
