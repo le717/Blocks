@@ -54,5 +54,5 @@ also including spaces.
 * The letter and number combination on the first line might identify something, but what?
 * Is there a separate file that controls the number of blocks that must be moved to complete a level?
 * If a new column is added on either the left or right, the entire layout shifts, using different values. Find out exactly how many squares they move, and how
-to tell where they end up. ([Standard size](http://www.brickshelf.com/gallery/le717/IXS/Minigame-Modding/Jack-O-Trades/Level-3/proof_of_concept.png),
-[One column added on right](http://www.brickshelf.com/gallery/le717/IXS/Minigame-Modding/Jack-O-Trades/Level-3/one_new_column_on_right.png))
+to tell where they end up. ([Standard size](http://www.bricksafe.com/files/le717/LEGO-Gaming/Island-Xtreme-Stunts/Modding/Jack-O-Trades/proof-of-concept.png),
+[One column added on right](http://www.bricksafe.com/files/le717/LEGO-Gaming/Island-Xtreme-Stunts/Modding/Jack-O-Trades/one-new-column-on-right.png))
