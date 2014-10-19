@@ -60,9 +60,10 @@ class Blocks(object):
 
     """Core Blocks code and actions.
 
-    Exposes public methods:
+    Exposes four public methods:
     * createLevel: Entry point to creating a new, blank level.
     * openLevel: Entry point to opening an existing level.
+    * openLevelAuto: GUI-less entry point to opening an existing level.
     * saveLevel: Entry point to saving a level.
     """
 
@@ -174,9 +175,10 @@ class Blocks(object):
 
         # We cannot save a file in this location
         except PermissionError as p:
-            self._displayError("Insufficient Access Rights!",
-                               "Blocks does not rights to save to {0}!"
-                               .format(fileName), p)
+            if self.__newLevel:
+                self._displayError("Insufficient Access Rights!",
+                                   "Blocks does not rights to save to {0}!"
+                                   .format(fileName), p)
             return False
 
     def _createBackup(self, location, backupFile):
@@ -200,8 +202,8 @@ class Blocks(object):
         # We cannot save a file in this location
         except PermissionError as p:
             self._displayError("Insufficient Access Rights!",
-                               "Blocks does not rights to save to {0}!"
-                               .format(backupFile), p)
+                               """Blocks does not rights to save to
+{0}!""".format(backupFile), p)
             return False
 
     def _syntaxChecks(self, levelLayout):
@@ -268,12 +270,21 @@ class Blocks(object):
         gui.levelArea.insert("1.0", blankLayout)
         return True
 
+    def openLevelAuto(self, filePath):
+        """Open a level file without a GUI dialog box.
+
+        @param location {string} Absolute path to the file being opened.
+        @return {boolean} Always returns True.
+        """
+        self.__filePath = os.path.dirname(filePath)
+        self._displayLevel(filePath)
+        return True
+
     def openLevel(self, *args):
         """Display Tkinter open dialog for selecting a level file.
 
         @return {boolean} True if a file was selected for opening;
-            False otherwise.
-        """
+            False otherwise."""
         filePath = filedialog.askopenfilename(
             parent=root,
             defaultextension=".TXT",
@@ -283,8 +294,7 @@ class Blocks(object):
 
         # A file was selected, read the layout
         if filePath:
-            self.__filePath = os.path.dirname(filePath)
-            self._displayLevel(filePath)
+            self.openLevelAuto(filePath)
             return True
         return False
 
@@ -324,6 +334,11 @@ class Blocks(object):
             # We are saving a new level, get the destination
             else:
                 destFile = self._selectDestFile()
+
+                # The user did not select a destination
+                if not destFile:
+                    return False
+
                 # Update the nesscessary values
                 filePath = os.path.dirname(destFile)
                 fileName = os.path.basename(destFile)
@@ -382,9 +397,11 @@ Your level will be preserved between launch.""")
                 raise SystemExit(0)
 
         # Mac OS X/Linux
-        self._displayError("Insufficient Privileges!",
-                           """Blocks does not have rights to save to that location!
-Please select a different location or reload Blocks with higher privileges.""")
+        self._displayError("Insufficient Access Rights!",
+                           """Blocks does not rights to save to {0}!
+Please select a different location
+or reload Blocks with higher privileges."""
+                           .format(filePath))
         return False
 
 # def saveLevel(new_layout):
@@ -567,7 +584,7 @@ Created 2013-{2}
             if const.debugMode:
                 print("\n{0}\nis being opened for reading.".format(
                     os.path.abspath(cmdFile)))
-            root.after(1, blocks.openLevel, cmdFile)
+            root.after(1, blocks.openLevelAuto, cmdFile)
 
     def _close(self, *args):
         """Close Blocks."""
