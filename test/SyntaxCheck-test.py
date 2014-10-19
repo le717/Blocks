@@ -62,7 +62,7 @@ class TestRunner(object):
         self.testsPassed += 1;
 
 # Create a test runner instance
-runner = TestRunner("syntax-check-files")
+runner = TestRunner("SyntaxCheck-test-files")
 runner.run("newLine", "line-new.txt", str, "should return the layout if the layout does have a new line")
 runner.run("noNewLine", "line-new-not.txt", str, "should return the layout if the layout does NOT have a new line")
 runner.run("shortLine", "line-too-short.txt", tuple, "should return an error if a line too short")
@@ -70,3 +70,8 @@ runner.run("missingLine", "line-missing.txt", tuple, "should return an error if 
 runner.run("badCharacter", "bad-character.txt", tuple, "should return an error if a the layout has an invalid character")
 
 print("\n\n{0} success, {1} failures.".format(runner.testsPassed, runner.testsSkipped))
+
+# Exit with proper error code
+if runner.testsSkipped > 0:
+    raise SystemExit(1)
+raise SystemExit(0)
