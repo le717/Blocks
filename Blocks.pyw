@@ -24,15 +24,22 @@ import os
 import sys
 import webbrowser
 
-# User is running Python 2, use that version's Tkinter
-if sys.version_info[:2] < (3, 3):
+# Tkinter GUI library
+try:
+    # Python 3
+    import tkinter as tk
+    from tkinter import ttk
+    from tkinter import filedialog, messagebox
+except ImportError:
+    # Python 2
     import Tkinter as tk
-    import tkMessageBox
+    import tkMessageBox as messagebox
 
-    # Display error message
+# User is running < Python 3.3.0
+if sys.version_info[:2] < (3, 3):
     root = tk.Tk()
     root.withdraw()
-    tkMessageBox.showerror("Unsupported Python Version!",
+    messagebox.showerror("Unsupported Python Version!",
                            """You are running Python {0}.
 You need to download Python 3.3.0 or newer to run Blocks."""
                            .format(sys.version[0:5]))
@@ -44,11 +51,6 @@ You need to download Python 3.3.0 or newer to run Blocks."""
 import shutil
 import subprocess
 import logging
-
-# Tkinter GUI library
-import tkinter as tk
-from tkinter import ttk
-from tkinter import filedialog, messagebox
 
 # Blocks-specific modules
 import constants as const
