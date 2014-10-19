@@ -509,6 +509,10 @@ Created 2013-{2}
         logging.shutdown()
         raise SystemExit(0)
 
+    def _closeLegend(self, *args):
+        """Close character legend window."""
+        self.__legendWindow.destroy()
+
     def _charLegend(self, *args):
         """Chart listing valid cubes that can be used."""
         # Spawn a new window, parent it to main window
@@ -553,10 +557,6 @@ Created 2013-{2}
                                        command=self._closeLegend)
         buttonLegendClose.grid(column=1, row=1, sticky=tk.S)
         self.__legendWindow.bind("<Control-q>", self._closeLegend)
-
-    def _closeLegend(self, *args):
-        """Close character legend window."""
-        self.__legendWindow.destroy()
 
 
 if __name__ == "__main__":
