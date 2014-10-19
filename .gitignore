@@ -27,6 +27,6 @@ bin/
 *.cfg
 *.exe
 *.TXT
-!tests/*-files/*.txt
+!test/*-files/*.txt
 !requirements.txt
 !LICENSE.RunAsAdmin.txt
