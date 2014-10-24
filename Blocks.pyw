@@ -178,9 +178,10 @@ class Blocks(object):
         # We cannot save a file in this location
         except PermissionError as p:
             if self.__newLevel:
-                self._displayError("Insufficient Access Rights!",
-                                   "Blocks does not rights to save to {0}!"
-                                   .format(fileName), p)
+              self._displayError("Insufficient Privileges!",
+                           """You can't save to {0}.
+Please run Blocks with administrator privileges to remedy this."""
+                                 .format(fileName), p)
             return False
 
     def _createBackup(self, location, backupFile):
@@ -203,9 +204,10 @@ class Blocks(object):
 
         # We cannot save a file in this location
         except PermissionError as p:
-            self._displayError("Insufficient Access Rights!",
-                               """Blocks does not rights to save to
-{0}!""".format(backupFile), p)
+          self._displayError("Insufficient Privileges!",
+                           """You can't save to {0}.
+Please run Blocks with administrator privileges to remedy this."""
+                           .format(backupFile), p)
             return False
 
     def _syntaxChecks(self, levelLayout):
@@ -399,10 +401,9 @@ Your level will be preserved between launch.""")
                 raise SystemExit(0)
 
         # Mac OS X/Linux
-        self._displayError("Insufficient Access Rights!",
-                           """Blocks does not rights to save to {0}!
-Please select a different location
-or reload Blocks with higher privileges."""
+        self._displayError("Insufficient Privileges!",
+                           """You can't save to {0}.
+Please run Blocks with administrator privileges to remedy this."""
                            .format(filePath))
         return False
 
