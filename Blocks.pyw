@@ -178,10 +178,10 @@ class Blocks(object):
         # We cannot save a file in this location
         except PermissionError as p:
             if self.__newLevel:
-              self._displayError("Insufficient Privileges!",
+                self._displayError("Insufficient Privileges!",
                            """You can't save to {0}.
 Please run Blocks with administrator privileges to remedy this."""
-                                 .format(fileName), p)
+                                 .format(fileName.replace("\\", "/")), p)
             return False
 
     def _createBackup(self, location, backupFile):
@@ -204,10 +204,10 @@ Please run Blocks with administrator privileges to remedy this."""
 
         # We cannot save a file in this location
         except PermissionError as p:
-          self._displayError("Insufficient Privileges!",
+            self._displayError("Insufficient Privileges!",
                            """You can't save to {0}.
 Please run Blocks with administrator privileges to remedy this."""
-                           .format(backupFile), p)
+                           .format(backupFile.replace("\\", "/")), p)
             return False
 
     def _syntaxChecks(self, levelLayout):
@@ -404,7 +404,7 @@ Your level will be preserved between launch.""")
         self._displayError("Insufficient Privileges!",
                            """You can't save to {0}.
 Please run Blocks with administrator privileges to remedy this."""
-                           .format(filePath))
+                           .format(filePath.replace("\\", "/")))
         return False
 
 
