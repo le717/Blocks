@@ -333,6 +333,7 @@ Please run Blocks with administrator privileges to remedy this."""
 
             # We are saving an existing file, make a backup first
             if not self.__newLevel:
+                # TODO "Save as" dialog
                 self._createBackup(filePath, fileName)
 
             # We are saving a new level, get the destination
@@ -343,7 +344,7 @@ Please run Blocks with administrator privileges to remedy this."""
                 if not destFile:
                     return False
 
-                # Update the nesscessary values
+                # Update the necessary values
                 filePath = os.path.dirname(destFile)
                 fileName = os.path.basename(destFile)
                 firstLine = b"C\x01\x00\x001\r\n"
