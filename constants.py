@@ -21,7 +21,6 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
-from datetime import datetime
 
 appName = "Blocks"
 version = "1.0.0"
