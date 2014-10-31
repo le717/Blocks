@@ -48,14 +48,15 @@ You need to download Python 3.3.0 or newer to run Blocks."""
 
 # Now that we know we are running Python 3.3+,
 # let's import everything else we needed
+import stat
 import shutil
-import subprocess
 import logging
+import subprocess
 
 # Blocks-specific modules
-import constants as const
-import levelchecks
 import utils
+import levelchecks
+import constants as const
 
 
 class Blocks(object):
@@ -76,6 +77,16 @@ class Blocks(object):
         self.__levelLayout = ""
         self.__firstLine = b""
         self.__newLevel = False
+
+    def _changePermissions(self, filePath, fileName):
+        """Change a file permissions to make it writable.
+
+          @param filePath {string} Absolute path to the file being changed.
+          @param fileName {string} File name for changing.
+          @return {boolean} Always returns True.
+          """
+        os.chmod(os.path.join(filePath, fileName), stat.S_IWRITE)
+        return True
 
     def _displayError(self, title, message, traceback=None):
         """Display error message using a a Tkinter error dialog.
