@@ -51,6 +51,7 @@ You need to download Python 3.3.0 or newer to run Blocks."""
 import stat
 import shutil
 import logging
+import traceback
 import subprocess
 
 # Blocks-specific modules
@@ -92,19 +93,19 @@ class Blocks(object):
             return True
         return False
 
-    def _displayError(self, title, message, traceback=None):
+    def _displayError(self, title, message, trace=None):
         """Display error message using a a Tkinter error dialog.
 
         @param title {string} Dialog error title.
         @param message {string} Dialog error message.
-        @param traceback {Exception} Exception alias for debugging.
+        @param trace {Exception} Exception alias for debugging.
         @return {boolean} Always returns False.
         """
         # Run Exception logging only if an exception occurred
-        if traceback is not None:
+        if trace is not None:
             logging.exception("\nAn error has occurred:\n", exc_info=True)
             if const.debugMode:
-                print(traceback)
+                print(traceback.format_exc())
 
         # Otherwise, log it as an error
         else:
@@ -201,8 +202,7 @@ class Blocks(object):
         except PermissionError as p:
             if self.__newLevel:
                 self._displayError("Insufficient Privileges!",
-                                   """You can't save to {0}
-Please run Blocks with administrator privileges to remedy this."""
+                                   "You can't save to {0}"
                                    .format(fileName.replace("\\", "/")), p)
             return False
 
@@ -227,8 +227,7 @@ Please run Blocks with administrator privileges to remedy this."""
         # We cannot save a file in this location
         except PermissionError as p:
             self._displayError("Insufficient Privileges!",
-                               """You can't save to {0}
-Please run Blocks with administrator privileges to remedy this."""
+                               "You can't save to {0}"
                                .format(backupFile.replace("\\", "/")), p)
             return False
 
