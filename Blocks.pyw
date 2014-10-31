@@ -380,50 +380,6 @@ Please run Blocks with administrator privileges to remedy this."""
                 self._displayLevel(destFile)
             return True
 
-    def _relaunch(self, filePath, fileName, firstLine, layout):
-        """Application relaunching.
-
-        On Windows: Prompt to reload with administrator rights.
-        On Mac OS X/Linux: Tell user that elevated privileges are required.
-        TODO: Is this still required with Py3.4 and later versions of 3.3?
-        le717/Blocks/issues/#8
-
-        @param filePath {string} Absolute path to the resulting temporary file.
-        @param fileName {string} File name for the resulting temporary file.
-        @param firstLine {bytes} The first line for the file.
-        @param layout {bytes} The level layout to be written.
-        @return {!boolean} False if running on non-Windows OS.
-            Nothing otherwise.
-        """
-        if init.isWindows:
-            admin = messagebox.askyesno(
-                "Relaunch Blocks?",
-                """Would you like to reload Blocks with Administrator rights?
-Your level will be preserved between launch.""")
-
-            # If user chooses to relaunch
-            if admin:
-                # Save a temporary file
-                tempFile = self._writeFile(filePath, fileName, firstLine,
-                                           layout, True)
-
-                # Launch RunAsAdmin to reload Blocks,
-                # invoke command-line parameter to reload the level
-                subprocess.call(
-                    ["RunAsAdmin.exe", '--open "{0}"'.format(tempFile)]
-                )
-
-                # Now we close Blocks and let RunAsAdmin take over
-                logging.shutdown()
-                raise SystemExit(0)
-
-        # Mac OS X/Linux
-        self._displayError("Insufficient Privileges!",
-                           """You can't save to {0}.
-Please run Blocks with administrator privileges to remedy this."""
-                           .format(filePath.replace("\\", "/")))
-        return False
-
 
 class BlocksGUI(tk.Frame):
 
