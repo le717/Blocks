@@ -71,7 +71,7 @@ class Blocks(object):
     """
 
     def __init__(self):
-        """Initalize private properties."""
+        """Initialize private properties."""
         self.__filePath = ""
         self.__fileName = ""
         self.__levelLayout = ""
@@ -330,7 +330,7 @@ Please run Blocks with administrator privileges to remedy this."""
         # Check the level layout for errors
         levelLayout = self._syntaxChecks(levelLayout)
 
-        # TODO Exception handling
+        # TODO Exception handling?
 
         # The syntax checks failed
         if not levelLayout:
@@ -344,7 +344,7 @@ Please run Blocks with administrator privileges to remedy this."""
 
             # We are saving an existing file, make a backup first
             if not self.__newLevel:
-                # TODO "Save as" dialog
+                # TODO "Save as" dialog if this fails
                 self._createBackup(filePath, fileName)
 
             # We are saving a new level, get the destination
@@ -360,8 +360,12 @@ Please run Blocks with administrator privileges to remedy this."""
                 fileName = os.path.basename(destFile)
                 firstLine = b"C\x01\x00\x001\r\n"
 
-            # Write the file to disc.
-            # PermissionError Exception handling is not needed here,
+            # Change the permissions of the file to make it writable.
+            # This should help reduce permission exceptions.
+            self._changePermissions(filePath, fileName)
+
+            # Write the file to disk.
+            # PermissionError handling is not needed here,
             # as it is handled in _writeFile()
             if self._writeFile(filePath, fileName, firstLine, binaryLayout):
                 messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
@@ -381,7 +385,7 @@ Please run Blocks with administrator privileges to remedy this."""
 
         On Windows: Prompt to reload with administrator rights.
         On Mac OS X/Linux: Tell user that elevated privileges are required.
-        # TODO: Is this still required with Py3.4 and later versions of 3.3?
+        # TODO: Is this still required with Py3.4 and later versions of 3.3? (#8)
 
         @param filePath {string} Absolute path to the resulting temporary file.
         @param fileName {string} File name for the resulting temporary file.
@@ -434,7 +438,7 @@ class BlocksGUI(tk.Frame):
 
     def __init__(self, parent, cmdFile):
         """Draw the GUI."""
-        # Create an instance of the backend code
+        # Create an instance of the back-end code
         blocks = Blocks()
 
         # Window settings
