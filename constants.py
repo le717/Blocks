@@ -26,7 +26,6 @@ from datetime import datetime
 appName = "Blocks"
 version = "1.0.0"
 creator = "Triangle717"
-currentYear = datetime.now().year
 debugMode = False
 newLevel = None
 

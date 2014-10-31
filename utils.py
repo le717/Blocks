@@ -112,7 +112,7 @@ class Utils(object):
         logging.info("""
 \t\t\t\t\t\t\t      ############################################
                                               {0} Version {1}
-                                            Created 2013-{2} {3}
+                                            Created 2013-2014 {3}
 
 
                                     If you run into a bug, open an issue at
@@ -120,6 +120,5 @@ class Utils(object):
                                     and attach this file for an quicker fix!
 \t\t\t\t\t\t\t      ############################################
                                     """.format(const.appName, const.version,
-                                               const.currentYear,
                                                const.creator))
         return True

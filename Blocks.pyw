@@ -439,9 +439,8 @@ class BlocksGUI(tk.Frame):
         self.__aboutBlocks = ttk.Label(
             self.__mainframe,
             text="""      {0} {1}
-Created 2013-{2}
-      Triangle717""".format(const.appName, const.version,
-                            const.currentYear))
+Created 2013-2014
+      Triangle717""".format(const.appName, const.version))
         self.__aboutBlocks.grid(column=2, row=0, sticky=tk.N)
 
         # New, Open, Save, and Legend buttons
