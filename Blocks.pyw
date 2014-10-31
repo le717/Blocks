@@ -40,9 +40,9 @@ if sys.version_info[:2] < (3, 3):
     root = tk.Tk()
     root.withdraw()
     messagebox.showerror("Unsupported Python Version!",
-                           """You are running Python {0}.
+                         """You are running Python {0}.
 You need to download Python 3.3.0 or newer to run Blocks."""
-                           .format(sys.version[0:5]))
+                         .format(sys.version[0:5]))
     webbrowser.open_new_tab("http://python.org/download/")
     raise SystemExit(0)
 
@@ -83,10 +83,14 @@ class Blocks(object):
 
           @param filePath {string} Absolute path to the file being changed.
           @param fileName {string} File name for changing.
-          @return {boolean} Always returns True.
+          @return {boolean} Returns True if the permissions could be changed,
+            False otherwise.
           """
-        os.chmod(os.path.join(filePath, fileName), stat.S_IWRITE)
-        return True
+        myFile = os.path.join(filePath, fileName)
+        if os.path.isfile(myFile):
+            os.chmod(myFile, stat.S_IWRITE)
+            return True
+        return False
 
     def _displayError(self, title, message, traceback=None):
         """Display error message using a a Tkinter error dialog.
@@ -190,9 +194,9 @@ class Blocks(object):
         except PermissionError as p:
             if self.__newLevel:
                 self._displayError("Insufficient Privileges!",
-                           """You can't save to {0}.
+                                   """You can't save to {0}.
 Please run Blocks with administrator privileges to remedy this."""
-                                 .format(fileName.replace("\\", "/")), p)
+                                   .format(fileName.replace("\\", "/")), p)
             return False
 
     def _createBackup(self, location, backupFile):
@@ -216,9 +220,9 @@ Please run Blocks with administrator privileges to remedy this."""
         # We cannot save a file in this location
         except PermissionError as p:
             self._displayError("Insufficient Privileges!",
-                           """You can't save to {0}.
+                               """You can't save to {0}.
 Please run Blocks with administrator privileges to remedy this."""
-                           .format(backupFile.replace("\\", "/")), p)
+                               .format(backupFile.replace("\\", "/")), p)
             return False
 
     def _syntaxChecks(self, levelLayout):
@@ -329,12 +333,10 @@ Please run Blocks with administrator privileges to remedy this."""
 
         # Check the level layout for errors
         levelLayout = self._syntaxChecks(levelLayout)
-
-        # TODO Exception handling?
-
-        # The syntax checks failed
         if not levelLayout:
             return False
+
+        # TODO Exception handling?
 
         # The syntax checks passed
         else:
@@ -342,16 +344,14 @@ Please run Blocks with administrator privileges to remedy this."""
             binaryLayout = str.encode(levelLayout, encoding="utf-8",
                                       errors="strict")
 
-            # We are saving an existing file, make a backup first
-            if not self.__newLevel:
-                # TODO "Save as" dialog if this fails
-                self._createBackup(filePath, fileName)
-
-            # We are saving a new level, get the destination
-            else:
+            # We are saving a new level or
+            # we are saving an existing file and the backup failed
+            if (self.__newLevel or
+                (not self.__newLevel and not
+                 self._createBackup(filePath, fileName))):
                 destFile = self._selectDestFile()
 
-                # The user did not select a destination
+                # The user did not select a new destination
                 if not destFile:
                     return False
 
@@ -385,7 +385,8 @@ Please run Blocks with administrator privileges to remedy this."""
 
         On Windows: Prompt to reload with administrator rights.
         On Mac OS X/Linux: Tell user that elevated privileges are required.
-        # TODO: Is this still required with Py3.4 and later versions of 3.3? (#8)
+        TODO: Is this still required with Py3.4 and later versions of 3.3?
+        le717/Blocks/issues/#8
 
         @param filePath {string} Absolute path to the resulting temporary file.
         @param fileName {string} File name for the resulting temporary file.
