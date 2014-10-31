@@ -112,7 +112,7 @@ class Utils(object):
         logging.info("""
 \t\t\t\t\t\t\t      ############################################
                                               {0} Version {1}
-                                            Created 2013-2014 {3}
+                                            Created 2013-2014 {2}
 
 
                                     If you run into a bug, open an issue at

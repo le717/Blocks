@@ -18,15 +18,24 @@ unneeded Tkinter files after freezing a binary
 * Move level checks to new module and cleaned them up
 * Fix keyboard binding: Open button is now `<Ctrl + o>`, matching standards
 * Open up `-o` command-line argument for public use
-* Delete backup files after they are opened
+* Delete temporary files after they are opened
 * Restructure entire GUI in OOP
 * Do not attempt to relaunch with Administrator rights on non-Windows systems
 * Split logging, command-line arguments, and Windows OS check into new `utils` module
 * Do not display the file extension when opening a file
 * Restructure core Blocks code in OOP
-* Minor tweaks to a few error messages
+* Reword error messages
 * Remove code to write a batch script launcher for Windows
 * Add `--open` and `--debug` forms of command-line arguments
+* Fix multiple regressions in file writer and syntax check:
+  * One too many trailing new lines written to file
+  * Removing last line in files that do not have trailing new lines
+  * Incorrectly reporting syntax errors in files lacking trailing new lines
+* Fix an `ImportError` in Python version check
+* Change a file's permissions to make it writable for saving
+* Show a "Save As" dialog when the user attempts to save in an restricted area
+* Remove RunAsAdmin integration
+* Do not re-read the level after saving
 
 ### 0.9.1 ###
 Released August 18, 2013

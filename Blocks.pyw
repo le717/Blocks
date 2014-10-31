@@ -131,15 +131,22 @@ class Blocks(object):
             levelLayout = f2.readlines()[1:]
         return "".join(levelLayout)
 
-    def _displayLevel(self, filePath):
+    def _displayLevel(self, filePath, readFile):
         """Display the level name and layout in the GUI.
+        It is not acceptable to call this directly,
+            access this by calling openLevelAuto() instead.
 
         @param filePath {string} Absolute path to the file being opened.
+        @param readFile {boolean} TODO.
         @return {boolean} Always returns True.
         """
         # Read the level, get just the file name
-        levelLayout = self._readLevel(filePath)
         self.__fileName = os.path.basename(filePath)
+        if readFile:
+            levelLayout = self._readLevel(filePath)
+        # Reuse the layout we already have
+        else:
+            levelLayout = self.__levelLayout
 
         # We are not creating a new level
         self.__newLevel = False
@@ -194,7 +201,7 @@ class Blocks(object):
         except PermissionError as p:
             if self.__newLevel:
                 self._displayError("Insufficient Privileges!",
-                                   """You can't save to {0}.
+                                   """You can't save to {0}
 Please run Blocks with administrator privileges to remedy this."""
                                    .format(fileName.replace("\\", "/")), p)
             return False
@@ -220,7 +227,7 @@ Please run Blocks with administrator privileges to remedy this."""
         # We cannot save a file in this location
         except PermissionError as p:
             self._displayError("Insufficient Privileges!",
-                               """You can't save to {0}.
+                               """You can't save to {0}
 Please run Blocks with administrator privileges to remedy this."""
                                .format(backupFile.replace("\\", "/")), p)
             return False
@@ -252,7 +259,7 @@ Please run Blocks with administrator privileges to remedy this."""
             parent=root,
             defaultextension=".TXT",
             filetypes=[("IXS Minigame Layout", ".TXT")],
-            title="Save your level"
+            title="Save As"
         )
 
         if newFile:
@@ -289,14 +296,15 @@ Please run Blocks with administrator privileges to remedy this."""
         gui.levelArea.insert("1.0", blankLayout)
         return True
 
-    def openLevelAuto(self, filePath):
+    def openLevelAuto(self, filePath, readAgain):
         """Open a level file without a GUI dialog box.
 
         @param location {string} Absolute path to the file being opened.
+        @param readFile {boolean} TODO.
         @return {boolean} Always returns True.
         """
-        self.__filePath = os.path.dirname(filePath)
-        self._displayLevel(filePath)
+        self.__filePath = os.path.dirname(os.path.abspath(filePath))
+        self._displayLevel(filePath, readAgain)
         return True
 
     def openLevel(self, *args):
@@ -308,12 +316,12 @@ Please run Blocks with administrator privileges to remedy this."""
             parent=root,
             defaultextension=".TXT",
             filetypes=[("IXS Minigame Layout", ".TXT")],
-            title="Select a Minigame Layout"
+            title="Open"
         )
 
         # A file was selected, read the layout
         if filePath:
-            self.openLevelAuto(filePath)
+            self.openLevelAuto(filePath, True)
             return True
         return False
 
@@ -325,11 +333,13 @@ Please run Blocks with administrator privileges to remedy this."""
         """
         # Get new layout from text box
         levelLayout = gui.levelArea.get("1.0", "end")
+        self.__levelLayout = levelLayout
 
         # We need to alias these in case a new file is being written
         filePath = self.__filePath
         fileName = self.__fileName
         firstLine = self.__firstLine
+        newFilePath = None
 
         # Check the level layout for errors
         levelLayout = self._syntaxChecks(levelLayout)
@@ -355,6 +365,10 @@ Please run Blocks with administrator privileges to remedy this."""
                 if not destFile:
                     return False
 
+                # Store the revised destination
+                if not self.__newLevel:
+                    newFilePath = os.path.dirname(destFile)
+
                 # Update the necessary values
                 filePath = os.path.dirname(destFile)
                 fileName = os.path.basename(destFile)
@@ -375,9 +389,10 @@ Please run Blocks with administrator privileges to remedy this."""
             else:
                 return False
 
-            # Since we just saved a new level, we now need to load it
-            if self.__newLevel:
-                self._displayLevel(destFile)
+            # Reload the level, swapping out destinations if necessary
+            if newFilePath is not None:
+                filePath = newFilePath
+            self.openLevelAuto(os.path.join(filePath, fileName), False)
             return True
 
 
@@ -475,7 +490,7 @@ Created 2013-2014
             if const.debugMode:
                 print("\n{0}\nis being opened for reading.".format(
                     os.path.abspath(cmdFile)))
-            root.after(1, blocks.openLevelAuto, cmdFile)
+            root.after(1, blocks.openLevelAuto, cmdFile, True)
 
     def _close(self, *args):
         """Close Blocks."""
