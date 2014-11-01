@@ -479,7 +479,7 @@ Created 2013-2014
 
         # Bind keyboard shortcuts
         parent.bind("<Control-n>", blocks.createLevel)
-        parent.bind("<Control-o>", blocks.openLevel)
+        parent.bind("<Control-O>", blocks.openLevel)
         parent.bind("<Control-s>", blocks.saveLevel)
         parent.bind("<Control-q>", self._close)
         parent.bind("<F12>", self._charLegend)

@@ -16,7 +16,6 @@ unneeded Tkinter files after freezing a binary
 * Move batch script writing to `Tools/bin` folder
 * Update `Tools/bin/cleanup.py` to latest revision
 * Move level checks to new module and cleaned them up
-* Fix keyboard binding: Open button is now `<Ctrl + o>`, matching standards
 * Open up `-o` command-line argument for public use
 * Delete temporary files after they are opened
 * Restructure entire GUI in OOP
