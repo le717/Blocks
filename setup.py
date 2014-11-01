@@ -73,6 +73,7 @@ setup(
 # Copy any required files/directories
 filesForCopying = [
     "LICENSE",
+    "README.md",
     os.path.join("Media", "Blocks.gif"),
     os.path.join("Media", "Blocks.ico"),
     os.path.join("Documentation", "Changelog.md"),
