@@ -27,22 +27,27 @@ class LevelChecks(object):
     """Level syntax checker object.
 
     Run syntax checks on the user's level to ensure it is valid.
+    Exposes one public method:
+    * checkLevel()
     """
 
-    def __init__(self, userLevel):
-        """Initalize private variables."""
-        self.__userLevelNormCase = userLevel
-        self.__userLevel = userLevel.upper()
+    def __init__(self, layout):
+        """Initalize syntax checks.
+
+        @param layout {string} The level layout to be checked.
+        """
+        self.__layoutNormCase = layout.rstrip()
+        self.__layout = layout.rstrip().upper()
 
     def _levelSize(self):
         """Check the size of the layout."""
         # Get the length of each line
-        lineNum = len(self.__userLevel[:-2].split("\n"))
+        numOfLines = len(self.__layoutNormCase[:-2].split("\n"))
 
         # The level is more than or less than 8 lines
-        if (lineNum > 8 or lineNum < 8):
+        if (numOfLines > 8 or numOfLines < 8):
             return (True, "Size Error!", """Your level contains {0} lines!
-The level must be exactly 8 lines.""".format(lineNum))
+The level must be exactly 8 lines.""".format(numOfLines))
 
         # No error was found
         return (False, None, None)
@@ -55,14 +60,14 @@ The level must be exactly 8 lines.""".format(lineNum))
                     "WI", "WJ", "WM", "WL", "WR", "WT", "WV")
 
         # Get the each character's index, removing any new lines on them
-        for index, char in enumerate(self.__userLevelNormCase.split(" ")):
+        for index, char in enumerate(self.__layoutNormCase.split(" ")):
             char = char.strip()
             index += 1
 
             # If any character in the layout is not in the list
             if char.upper() not in cubeList:
                 return (True, "Syntax Error!",
-                        """Invalid character "{0}" at position {1}"""
+                        """Invalid character "{0}" at position {1}."""
                         .format(char, index))
 
         # No error was found
@@ -71,7 +76,7 @@ The level must be exactly 8 lines.""".format(lineNum))
     def _lineLength(self):
         """Check the length of each line."""
         # Get the each line's number text, and length
-        for lineNum, lineText in enumerate(self.__userLevel[:-1].split("\n")):
+        for lineNum, lineText in enumerate(self.__layoutNormCase.split("\n")):
             lineNum += 1
             lineLength = len(lineText)
 
@@ -89,9 +94,10 @@ The line must be exactly 38 characters, including spaces.""".format(
         # Technically, a line can be longer then the imposed 38 characters,
         # but odd, undocumented stuff occurs when extra characters are added
         # to the left or right sides of the level.
+        # The checks should be revised once these anomalies are  documented.
 
     def checkLevel(self):
-        """Public function to run syntax checks on a level."""
+        """Public method to run syntax checks on a level."""
         sizeCheck = self._levelSize()
         lineCheck = self._lineLength()
         cubeCheck = self._charCheck()
@@ -103,4 +109,5 @@ The line must be exactly 38 characters, including spaces.""".format(
             return (lineCheck[1], lineCheck[2])
         elif cubeCheck[0]:
             return (cubeCheck[1], cubeCheck[2])
-        return self.__userLevel[:-1]
+        # Also strip any trailing new lines
+        return self.__layout.rstrip()

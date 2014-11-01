@@ -3,80 +3,93 @@
 ### 1.0.0 ###
 Released ?? ??, 201?
 
-* Improved `setup.py` OS detection, actions and whitespace
-* Updated docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
-* Fixed visual indentation errors
-* Removed unneeded error and prompt dialogs when attempting to save a level without opening one first
+* Improve `setup.py` OS detection, actions and whitespace
+* Update docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
+* Fix visual indentation errors
+* Remove unneeded error and prompt dialogs when attempting to save a level without opening one first
 * Change root output path of frozen binary to `bin`
-* Copied script from [**PatchIt!**](http://le717.github.io/PatchIt) to remove
+* Copy script from [**PatchIt!**](http://le717.github.io/PatchIt) to remove
 unneeded Tkinter files after freezing a binary
 * Fix `ImportError` in unsupported Python version message
 * Update constants import to use `import constants as const` syntax
-* Renamed constants to use camelCase
-* Moved batch script writing to `Tools/bin` folder
-* Updated `Tools/bin/cleanup.py` to latest revision
-* Moved level checks to new module and cleaned them up
-* Fixed keyboard binding: Open button is now `<Ctrl + o>`, matching standards
-* Opened up `-o` command-line parameter for public use
-* Delete backup files after they are opened
-* Convert entire GUI to OOP
+* Rename constants to use camelCase format
+* Move batch script writing to `Tools/bin` folder
+* Update `Tools/bin/cleanup.py` to latest revision
+* Move level checks to new module and cleaned them up
+* Fix keyboard binding: Open button is now `<Ctrl + o>`, matching standards
+* Open up `-o` command-line argument for public use
+* Delete temporary files after they are opened
+* Restructure entire GUI in OOP
 * Do not attempt to relaunch with Administrator rights on non-Windows systems
-* Split logging, command-line parameters, and Windows OS check into new `utils` module
+* Split logging, command-line arguments, and Windows OS check into new `utils` module
 * Do not display the file extension when opening a file
+* Restructure core Blocks code in OOP
+* Reword error messages
+* Remove code to write a batch script launcher for Windows
+* Add `--open` and `--debug` forms of command-line arguments
+* Fix multiple regressions in file writer and syntax check:
+  * One too many trailing new lines written to file
+  * Removing last line in files that do not have trailing new lines
+  * Incorrectly reporting syntax errors in files lacking trailing new lines
+* Fix an `ImportError` in Python version check
+* Change a file's permissions to make it writable for saving
+* Show a "Save As" dialog when the user attempts to save in an restricted area
+* Remove RunAsAdmin integration
+* Do not re-read the level after saving
 
 ### 0.9.1 ###
 Released August 18, 2013
 
-* Renamed constants module
+* Rename constants module
 * Small cleanup
-* Added Save New Level dialog attributes
+* Add Save New Level dialog attributes
 * Remove level name display when new level is created after a level is opened
-* Added new script dividers
-* Fixed error with being unable to save a new level if a level was previously opened
-* Added batch script to launch Blocks for Windows
-* Created script to write various files for Blocks for Windows
-* Updated `setup.py` with possibly better cross-platform compatibility
+* Add new script dividers
+* Fix error with being unable to save a new level if a level was previously opened
+* Add batch script to launch Blocks for Windows
+* Create script to write various files for Blocks for Windows
+* Update `setup.py` with possibly better cross-platform compatibility
 
 ### 0.9 ###
 Released August 15, 2013
 
-* Fixed New Level layout size
-* Added dividers for all syntax check operations
-* Cleaned up method of getting correct line numbers and location of characters
-* Updated titles on syntax check error boxes
-* Added line length to syntax check
-* Merged level size error boxes
-* Improved display of About text on main window
+* Fix New Level layout size
+* Add dividers for all syntax check operations
+* Clean up method of getting correct line numbers and location of characters
+* Update titles on syntax check error boxes
+* Add line length to syntax check
+* Merge level size error boxes
+* Improve display of About text on main window
 * Split **Blocks** constants into a separate script
-* Reworked Python version check, it now works as excepted
-* Improved method of uppercase conversion syntax check
-* Moved list of allowed characters in a layout to the global name-space
+* Rework Python version check, it now works as excepted
+* Improve method of uppercase conversion syntax check
+* Move list of allowed characters in a layout to the global name-space
 * Split line length check into separate function
 * Split level size check into separate function
 * Split character check into separate function
-* Fixed deletion code in temporary file creation/deletion function
+* Fix deletion code in temporary file creation/deletion function
 * Split level backup process into separate function
-* Fixed bug in line length check causing an extra space to be added after the last character in the layout
+* Fix bug in line length check causing an extra space to be added after the last character in the layout
 * Delete lists created by syntax checks after the check is complete to free up system resources
-* Limited number of level backups to one (`1`), cleaned up backup code
+* Limit the number of level backups to one (`1`), clean up backup code
 * Dump any errors to log
-* Rewrote command-line arguments using `argparse`
-* Renamed `BlocksIcon.gif` to just `Blocks.gif`
-* Added open (`-o`) command-line argument, invoked when relaunching **Blocks** as Administrator (Special thanks to
+* Rewrote command-line arguments using `argparse` module
+* Rename `BlocksIcon.gif` to just `Blocks.gif`
+* Add open (`-o`) command-line argument, invoked when relaunching **Blocks** as Administrator (Special thanks to
 [@Anonymooseable](https://github.com/Anonymooseable) for _majorly_ helping with this by suggesting one single line of code!)
-* Fixed Administrator relaunch and loading of temporary level save
+* Fix Administrator relaunch and loading of temporary level save
 * Save temporary level to same location as log
 * Split Administrator relaunch into separate function
-* Reworked error logging system
-* Added new logging messages at `Blocks` launch
-* Fixed bug with level file name not being set when open parameter was invoked
-* Moved a few variables around to improve work-flow
-* Added ability to select a file to save an unsaved level to, some code split from `temp_write()`
+* Rework error logging system
+* Add new logging messages at `Blocks` launch
+* Fixe bug with level file name not being set when open command-lineargument was invoked
+* Move a few variables around to improve work-flow
+* Add ability to select a file to save an unsaved level to, some code split from `temp_write()`
 * Force level resave to use `.TXT` extension
 * Get Python implementation, write to log
-* Enabled New button
-* Updated minimum size limit
-* Updated location of Character Legend button
+* Enable New button
+* Update minimum size limit
+* Update location of Character Legend button
 * Use different window title for Character Legend window
 * Fix bug that triggered an unknown error message and would be stuck in an endless loop, making the level unsaveable
 

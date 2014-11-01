@@ -21,12 +21,10 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
-from datetime import datetime
 
 appName = "Blocks"
 version = "1.0.0"
 creator = "Triangle717"
-currentYear = datetime.now().year
 debugMode = False
 newLevel = None
 

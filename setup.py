@@ -21,17 +21,12 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-from cx_Freeze import (setup, Executable)
-import sys
 import os
+import sys
+from cx_Freeze import (setup, Executable)
 
 import constants as const
-from Tools.bin import (cleanup, copyfiles, launcher)
-
-# Append build command to command-line arguments.
-# Just type "python setup.py" and it will freeze
-if len(sys.argv) == 1:
-    sys.argv[1:] = ["build"]
+from Tools.bin import (cleanup, copyfiles)
 base = None
 
 # Windows
@@ -59,25 +54,16 @@ else:
 if not os.path.exists(destfolder):
     os.makedirs(destfolder)
 
-# # Write RunAsAdmin.cfg and Blocks.bat for Windows
-if base is not None:
-    launcher.writeBatch(destfolder)
-
 # Copy required files
 build_exe_options = {"build_exe": destfolder,
-                     "icon": "Media/Blocks.ico",
-                     "include_files": [
-                         "LICENSE.txt",
-                         "LICENSE.RunAsAdmin.txt"
-                         "RunAsAdmin.cfg"
-                         ]
+                     "icon": "Media/Blocks.ico"
                      }
 
 setup(
-    name="Blocks",
+    name=const.appName,
     version=const.version,
-    author="Triangle717",
-    description="Island Xtreme Stunts Minigame Level Editor",
+    author=const.creator,
+    description=const.appName,
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("Blocks.pyw",
@@ -86,6 +72,8 @@ setup(
 
 # Copy any required files/directories
 filesForCopying = [
+    "LICENSE",
+    "README.md",
     os.path.join("Media", "Blocks.gif"),
     os.path.join("Media", "Blocks.ico"),
     os.path.join("Documentation", "Changelog.md"),
