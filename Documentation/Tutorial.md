@@ -1,25 +1,23 @@
 # Building With Blocks #
-
-**Written by [Triangle717](https://github.com/le717), with information provided by [Xiron](http://www.youtube.com/user/Segatendo12)**
+Written by Triangle717, with information provided by [Xiron](http://www.youtube.com/user/Segatendo12)
 
 ### Warning: This tutorial is incomplete! ###
 
 ## Table of Contents ##
-
 <table>
-    <tr>
-        <th colspan="10">Course Sections</th>
-    </tr>
+  <tr><th colspan="10">Course Sections</th></tr>
+  <tr>
     <td><a href="#requirements">Requirements</a></td>
     <td><a href="#character-legend">Character Legend</a></td>
     <td><a href="#lesson-1-why-not-notepad">Lesson #1</a></td>
-    <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
     <td><a href="#lesson-2-indentation-matters">Lesson #2</a></td>
+    <td><a href="#task-1-adding-a-blocked-wall">Task #1</a></td>
     <td><a href="#lesson-3-making-sure-it-all-works">Lesson #3</a></td>
     <td><a href="#lesson-4-jumping-to-specific-levels">Lesson #4</a></td>
     <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
     <td><a href="#task-3-adding-a-one-way-west-bound-red-cube">Task #3</a></td>
     <td><a href="#task-4-water">Task #4</a></td>
+  </tr>
 </table>
 
 **Building With Blocks** is a basic tutorial on modding the _Island Xtreme Stunts_  _Trouble in Store_ minigame levels,
@@ -27,21 +25,107 @@ and will not cover everysingle detail.
 Instead, it attempts to explain the basics of the level layout, and explain it in such a way that you will clearly understand the layout and improve your modding adventures.
 
 ## Requirements ##
-
 You will need a few items to complete this tutorial:
 
 * A copy of [_Island Xtreme Stunts_](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts)
 running [without the CD](http://www.rockraidersunited.org/topic/1301-)
 [(video tutorial)](http://www.youtube.com/watch?v=yMGIu-BOrO8)
 * The newest release of [**Blocks**](https://github.com/le717/Blocks/releases), or
-* A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org) (just **never** use Notepad!)
+* A source code editor, preferably [**Notepad++**](http://notepad-plus-plus.org) (never use Notepad!)
 * The minigame level format details, available in [`Format-Details.md`](Format-Details.md)
 
 ## Character Legend ##
+_Any color-cube or color-tile combination is acceptable (e.g. `RT`, `BC`, etc.). Water, free, wall, and `RB` are not assigned a color._
 
-<p align="center">
-    <img src="images/Character-Legend.png" />
-</p>
+<table>
+  <tr><th colspan="2">Character Legend</th></tr>
+  <tr>
+    <th>Color</th>
+    <th>Code</th>
+  </tr>
+  <tr>
+    <td>Red</td>
+    <td>R</td>
+  </tr>
+  <tr>
+    <td>Green</td>
+    <td>G</td>
+  </tr>
+  <tr>
+    <td>Blue</td>
+    <td>B</td>
+  </tr>
+  <tr>
+    <td>Yellow</td>
+    <td>Y</td>
+  </tr>
+
+  <tr>
+    <th>Block Type</th>
+    <th>Code</th>
+  </tr>
+  <tr>
+    <td>Tile</td>
+    <td>T</td>
+  </tr>
+  <tr>
+    <td>Cube</td>
+    <td>C</td>
+  </tr>
+  <tr>
+    <td>Free</td>
+    <td>F</td>
+  </tr>
+  <tr>
+    <td>Blocked Wall</td>
+    <td>BW</td>
+  </tr>
+  <tr>
+    <td>One way, west-bound Red Cube</td>
+    <td>RB</td>
+  </tr>
+
+  <tr>
+    <th>Water Type</th>
+    <th>Code</th>
+  </tr>
+  <tr>
+    <td>Top</td>
+    <td>WI</td>
+  </tr>
+  <tr>
+    <td>Left</td>
+    <td>WJ</td>
+  </tr>
+  <tr>
+    <td>Right</td>
+    <td>WM</td>
+  </tr>
+  <tr>
+    <td>Top Left</td>
+    <td>WT</td>
+  </tr>
+  <tr>
+    <td>Top Right</td>
+    <td>WL</td>
+  </tr>
+  <tr>
+    <td>Bottom Left</td>
+    <td>WR</td>
+  </tr>
+  <tr>
+    <td>Bottom Right</td>
+    <td>WB</td>
+  </tr>
+  <tr>
+  <tr>
+    <td>Small Vertical</td>
+    <td>WV</td>
+  </tr>
+    <td>Small Horizontal</td>
+    <td>WH</td>
+  </tr>
+</table>
 
 For the majority of this tutorial, we will be using level 3 of _Trouble in Store_, located at [`cdc\Z14WWH\LEVELS\LEVEL3.TXT`](about:blank)
 
@@ -68,13 +152,9 @@ From looking at our [Character Legend](#character-legend), we can see this level
 You may notice it also contains the code for the first and last lines of the file. We will not worry ourselves with them, and will instead
 focus on the layout itself.
 
-Sometimes, it is better to teach by example rather than explanations. I feel this tutorial will go much more smoothly if I do not purely use
-explanations, but use examples in addition to explaining why we do what we do. :smile:
-
 ---
 
-#### Lesson #1: "Why Not Notepad?" ####
-
+### Lesson #1: "Why Not Notepad?" ###
 I need to address this before we begin. You may be wondering why I said to **never** use Notepad to mod the levels. Despite the claims of some
 people, Notepad is **not** a good modding, programming, and sometimes even writing application.
 During the writing of both this tutorial and **Blocks**, I was asked more than once why I advise against using Notepad. While I had a legitimate
@@ -96,21 +176,17 @@ this tutorial you will be taught about the areas that are most prone to breakage
 Though **Blocks** could be viewed as worthless for advanced modders or "a fancy text editor", it exists to help, not restrict, your modding.
 If you feel it is limiting you,you are under no pressure to use it; but it is handy tool to have for both beginner and advanced modders alike.
 
-### Task #1: Adding a Blocked Wall ###
-
-The first modding example we will do is add a Blocked Wall to the layout. We remember from the Character Legend a Blocked Wall is signified by a `BW`.
-(If at any time you do not remember a code, fell free to peek back at the Character Legend. :wink:) To start, we are going to add a Blocked Wall on
-the top row, at the 8th column. However, before we add the wall, we need to speak a bit about indentation.
-
-#### Lesson #2: Indentation Matters! ####
-
-Look carefully at the level layout. You will notice that the code for any non-free tile consists of two letters, rather than one.
+### Lesson #2: Indentation Matters ###
+Look carefully at our level layout. You will notice that the code for any non-free tile consists of two letters, rather than one.
 Also, the first letter of the code is offset to the left of the free tile code. Except in special circumstances (as we will see later),
 the codes for _any_ non-free cube/tile follow this pattern.
 
 ---
 
-Now that we know a bit about indentation, it is time to add the Blocked Wall and make our first mod!
+### Task #1: Adding a Blocked Wall ###
+The first modding example we will do is add a Blocked Wall to the layout. We remember from the Character Legend a Blocked Wall is signified by a `BW`.
+(If at any time you do not remember a code, fell free to peek back at the Character Legend. :wink:) To start, we are going to add a Blocked Wall on
+the top row, at the 8th column, thus creating our first mod!
 
 * Run **Blocks**, and open the level file (`<Ctrl + Shift + O>`), or  open it in **Notepad++** (`<Ctrl + o>`).
 If you do not remember where it is located, the level we are editing is located at
@@ -140,10 +216,9 @@ since all Cubes and non-Free tiles alike work this way.
 
 Now we will dive into some lessons to learn a few things that will help us in your quest for successful modding.
 
-[:arrow_up: Back to Top](#building-with-blocks)
+[:arrow_up:](#building-with-blocks)
 
-#### Lesson #3: Making Sure It All Works ####
-
+### Lesson #3: Making Sure It All Works ###
 How do you know if your mod will work or not? I mean, if it is not properly created, it will not work, will it?
 
 Correct, your mod will not work if is not properly created, but how do you know if it does works? _Island Xtreme Stunts_ has a pretty simple way of
@@ -154,18 +229,16 @@ already completed, it will not crash, but it would if you loaded that one.
 If the broken level is ahead of the current level, then the game will crash when you reach that level.
 Thus, ensuring you edit correctly really pays off in the long run!
 
-#### Lesson #4: Jumping to Specific Levels ####
-
+### Lesson #4: Jumping to Specific Levels ###
 _To be written._
 
 ---
 
 ### Task #2: Adding a Blocked Wall on the Left Corner ###
-
 This is that special circumstance I mentioned in Lesson #2. Adding a Blocked Wall on the left side (1st column of any row)
 of the level is not much harder than adding one anywhere else, it is just different.
 
-To make this special edit a bit clearer, we will edit the same line from Task #1, including the Blocked Wall we added, but we'll include the second 
+To make this special edit a bit clearer, we will edit the same line from Task #1, including the Blocked Wall we added, but we'll include the second
 line to show that indentation matters.
 
 Recall I said in Lesson #2 that the first letter of a `BW` (or any non-Free tile) the code is offset to the left of the Free tile code directly
@@ -193,31 +266,30 @@ So adding a cube on the left corner affects most (if not the entire) indentation
 
 > **Recap:** You just learned how to add a cube on the left corner, the proper indentation for a  Cube, and the effects it has on a line! Good job! :thumbsup:
 
-[:arrow_up: Back to Top](#building-with-blocks)
+[:arrow_up:](#building-with-blocks)
 
-### Task #3: Adding a One-way, west-bound Red Cube ###
-
+### Task #3: Adding a one way, west-bound Red Cube ###
 This one is loads of fun, and in a good way. :stuck_out_tongue:
 
 You are probably wondering,
 
-> "What on earth is a `One-way, west-bound Red Cube`, and what is with that name??"
+> "What on earth is a `One way, west-bound Red Cube`, and what is with that name??"
 
 Let me tell you.
-An `One-way, west-bound Red Cube` is a unique cube in _Island Xtreme Stunts_. They are only found in Maggie Post's _Trouble in Store_ minigame
+An `One way, west-bound Red Cube` is a unique cube in _Island Xtreme Stunts_. They are only found in Maggie Post's _Trouble in Store_ minigame
 (that is, only in an unmodded copy), it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special,
-validates any color Tile (not only Red) and even have special properties, since it only move ones direction, to the right of the layout. 
-If you think about the level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, the bottom South, the 
+validates any color Tile (not only Red) and even have special properties, since it only move ones direction, to the right of the layout.
+If you think about the level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, the bottom South, the
 left side East, and the right side West, you will find this cube only moves West. You cannot push it North or South, and clearly not East, only West.
-The only un-special-ness about the cube is that it can still be sunk in Water, it still follows all the indentation rules, and you cannot pull it 
+The only un-special-ness about the cube is that it can still be sunk in Water, it still follows all the indentation rules, and you cannot pull it
 (exactly like all the other cubes, but since pulling is clearly not possible, why do I even mention it?).
 As for the name of the cube: After I was told about this by Xiron, another modder, and was adding it into the Character Legend,
 I was unable to write a better description for it. I asked around for a new name, to no avail, until I finally had this thought:
 
 > Since this cube is so unique and one-of-a-kind, why can't it have a unique name to match?
 
-And that's how it got the name `One-way, west-bound Red Cube`. I'm sure if the _Island Xtreme Stunts_ developer who added this cube saw this,
-they would probably laugh at the odd fan name. :tongue:
+And that's how it got the name `One way, west-bound Red Cube`. I'm sure if the _Island Xtreme Stunts_ developer who added this cube saw this,
+they would probably laugh at the odd fan name. :P
 
 Now that we take taken care of, we get to add this cube into our layout. Since it only moves West, we will be mindful of players and place it
 where they can use it.
@@ -243,12 +315,12 @@ Start by placing a Red Tile (`RT`) at the 11th column of the 4th row (remember, 
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Since we are adding an `One-way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Perhaps we should add it at...
+Since we are adding an `One way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Perhaps we should add it at...
 
 > "Wait a second, le717! You have not said what the code for this cube is!"
 
-Indeed I have not, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I _could_ just tell you 
-to look at the Character Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, `R` meaning 
+Indeed I have not, have I? Thanks for pointing that out. ~~Did I mention it has a one-of-a-kind code?~~ Yes, I did. Well, I _could_ just tell you
+to look at the Character Legend and get the code since it is listed there, but that would be laziness on my part. The code is `RB`, `R` meaning
 Red, and `B` marking its distinctiveness from the other, normal cubes (`C`).
 
 NOW that we have the code, We will place this cube on the 3rd column of the 4th row, so that the lines now look like:
@@ -272,15 +344,14 @@ Just for fun, we will add some Blocked Walls and a Cube in the layout to make th
  F  F BW BW BW  F  F  F  F  F  F  F  F
 ```
 
-And finally, we test it. If the game loaded, and you can complete it, your mod works, and you have successfully added an `One-way, west-bound Red Cube`!
+And finally, we test it. If the game loaded, and you can complete it, your mod works, and you have successfully added an `One way, west-bound Red Cube`!
 
-> **Recap:** You leaned about a `One-way, west-bound Red Cube`, the special properties it has (and does not have!), how it got it's unusual name, and how to
+> **Recap:** You leaned about a `One way, west-bound Red Cube`, the special properties it has (and does not have!), how it got it's unusual name, and how to
 responsibly use it in a level layout. High five! :raised_hand:
 
-[:arrow_up: Back to Top](#building-with-blocks)
+[:arrow_up:](#building-with-blocks)
 
 ### Task #4: Water ###
+While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me from writing it at this time. I'm sorry for any inconvenience this may have caused you. :(
 
-#### While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me from writing it at this time. I'm sorry for any inconvenience this may have caused you. ####
-
-[:arrow_up: Back to Top](#building-with-blocks)
+[:arrow_up:](#building-with-blocks)

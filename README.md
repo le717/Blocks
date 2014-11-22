@@ -9,4 +9,4 @@ An [_Island Xtreme Stunts_](http://en.wikipedia.org/wiki/Island_Xtreme_Stunts) T
 Contribution details are available in [CONTRIBUTING.md](Documentation/CONTRIBUTING.md)
 
 ## License ##
-Blocks, created 2013-2014 Triangle717, and released under the [GPLv3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).
+Blocks, created 2013-2014 [Triangle717](http://le717.github.io/), and released under the [GPLv3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).

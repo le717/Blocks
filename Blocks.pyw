@@ -527,7 +527,7 @@ Created 2013-2014
 \t\t              BW = Blocked Wall,
 \t\t            (R, G, B, Y)C = Cube,
 \t\t            (R, G, B, Y)T = Tile,
-\t\tRB = One-way, west-bound Red Cube
+\t\tRB = One way, west-bound Red Cube
 
 \t\t\t=== Water ===
 \t        WH = Small Horizontal, WV = Small Vertical,
