@@ -1,6 +1,5 @@
 # Contributing #
-
-If you want to to contribute Blocks, be sure to read this first.
+If you want to contribute to Blocks, be sure to read this first.
 
 * Download and install [Python 3.3](http://python.org) or newer, ensuring Tk/Tcl is installed as well.
 * Download and install [cx_Freeze](http://cx-freeze.sourceforge.net) if you would like to compile binaries.

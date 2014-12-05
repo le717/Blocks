@@ -34,7 +34,7 @@ class LevelChecks(object):
     def __init__(self, layout):
         """Initalize syntax checks.
 
-        @param layout {string} The level layout to be checked.
+        @param layout {String} The level layout to be checked.
         """
         self.__layoutNormCase = layout.rstrip()
         self.__layout = layout.rstrip().upper()
@@ -94,7 +94,7 @@ The line must be exactly 38 characters, including spaces.""".format(
         # Technically, a line can be longer then the imposed 38 characters,
         # but odd, undocumented stuff occurs when extra characters are added
         # to the left or right sides of the level.
-        # The checks should be revised once these anomalies are  documented.
+        # The checks should be revised once these anomalies are documented.
 
     def checkLevel(self):
         """Public method to run syntax checks on a level."""

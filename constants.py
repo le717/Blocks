@@ -26,14 +26,9 @@ appName = "Blocks"
 version = "1.0.0"
 creator = "Triangle717"
 debugMode = False
-newLevel = None
 
-# Name of Blocks Exe/Py
 exeName = os.path.basename(sys.argv[0])
-
-# Location of Blocks Exe/Py
 appFolder = os.path.dirname(sys.argv[0])
 
-# Icons
 appLogo = os.path.join("Media", "Blocks.gif")
 appIcon = os.path.join("Media", "Blocks.ico")
