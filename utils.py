@@ -38,8 +38,8 @@ class Utils(object):
     * Command-line paramater initialization
 
     Exposes two public properties:
-    * isWindows {boolean} True if the user is using the Windows platform.
-    * openArg {boolean} True if the open parameter was correctly invoked.
+    * isWindows {Boolean} True if the user is using the Windows platform.
+    * openArg {Boolean} True if the open parameter was correctly invoked.
     """
 
     def __init__(self):

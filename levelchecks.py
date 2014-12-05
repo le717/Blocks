@@ -34,7 +34,7 @@ class LevelChecks(object):
     def __init__(self, layout):
         """Initalize syntax checks.
 
-        @param layout {string} The level layout to be checked.
+        @param layout {String} The level layout to be checked.
         """
         self.__layoutNormCase = layout.rstrip()
         self.__layout = layout.rstrip().upper()
