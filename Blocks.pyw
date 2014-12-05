@@ -138,7 +138,7 @@ class Blocks(object):
             access this by calling openLevelAuto() instead.
 
         @param filePath {String} Absolute path to the file being opened.
-        @param readFile {Boolean} TODO.
+        @param readFile {Boolean} True if the file needs to be read from disk.
         @returns {Boolean} Always returns True.
         """
         # Read the level, get just the file name
@@ -268,6 +268,37 @@ class Blocks(object):
             return newFile
         return False
 
+    def _getDestDetails(self):
+        """Generate the destination's file details and save backup file.
+        Reuses the information if we are saving an existing file,
+            and prompts for new details if we are saving a new file or
+            the backup file could not be written.
+
+        @returns {Tuple.<String>} Three index tuple containing the file's
+             destination, fie nanme, and first line.
+        """
+        # We need to alias these in case a new file is being written
+        details = (self.__filePath, self.__fileName, self.__firstLine)
+
+        # We are saving a new level or
+        # we are saving an existing level
+        # but we don't have the permissions required
+        if (self.__newLevel or
+            (not self.__newLevel and not
+             self._createBackup(details[0], details[1]))):
+            destFile = self._selectDestFile()
+
+            # The user did not select a new destination
+            if not destFile:
+                return False
+
+            # Update the necessary values
+            details[0] = os.path.dirname(destFile)
+            details[1] = os.path.basename(destFile)
+            details[2] = b"C\x01\x00\x001\r\n"
+
+        return details
+
     def createLevel(self, *args):
         """Create a new level layout using a layout template.
 
@@ -298,8 +329,8 @@ class Blocks(object):
     def openLevelAuto(self, filePath, readAgain):
         """Open a level file without a GUI dialog box.
 
-        @param location {String} Absolute path to the file being opened.
-        @param readFile {Boolean} TODO.
+        @param filePath {String} Absolute path to the file being opened.
+        @param readAgain {Boolean} True if the file needs to be read from disk.
         @returns {Boolean} Always returns True.
         """
         self.__filePath = os.path.dirname(os.path.abspath(filePath))
@@ -330,48 +361,21 @@ class Blocks(object):
         @returns {Boolean} False if any errors occurred;
             True otherwise.
         """
-        # Get new layout from text box
+        # Get and store the new layout
         levelLayout = gui.levelArea.get("1.0", "end")
         self.__levelLayout = levelLayout
 
-        # We need to alias these in case a new file is being written
-        filePath = self.__filePath
-        fileName = self.__fileName
-        firstLine = self.__firstLine
-        newFilePath = None
+        # Get the destination details
+        filePath, fileName, firstLine = self._getDestDetails()
 
         # Check the level layout for errors
         levelLayout = self._syntaxChecks(levelLayout)
         if not levelLayout:
             return False
-
-        # TODO Exception handling?
-
-        # The syntax checks passed
         else:
             # Create a bytes version of the layout for accurate writing
             binaryLayout = str.encode(levelLayout, encoding="utf-8",
                                       errors="strict")
-
-            # We are saving a new level or
-            # we are saving an existing file and the backup failed
-            if (self.__newLevel or
-                (not self.__newLevel and not
-                 self._createBackup(filePath, fileName))):
-                destFile = self._selectDestFile()
-
-                # The user did not select a new destination
-                if not destFile:
-                    return False
-
-                # Store the revised destination
-                if not self.__newLevel:
-                    newFilePath = os.path.dirname(destFile)
-
-                # Update the necessary values
-                filePath = os.path.dirname(destFile)
-                fileName = os.path.basename(destFile)
-                firstLine = b"C\x01\x00\x001\r\n"
 
             # Change the permissions of the file to make it writable.
             # This should help reduce permission exceptions.
@@ -383,14 +387,11 @@ class Blocks(object):
             if self._writeFile(filePath, fileName, firstLine, binaryLayout):
                 messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
                                     .format(fileName, filePath))
-
-            # Could not save the file
             else:
+                # Could not save the file
                 return False
 
-            # Reload the level, swapping out destinations if necessary
-            if newFilePath is not None:
-                filePath = newFilePath
+            # Reload the level
             self.openLevelAuto(os.path.join(filePath, fileName), False)
             return True
 
