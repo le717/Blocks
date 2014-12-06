@@ -5,12 +5,14 @@ python:
 
 install: pip install -r requirements.txt
 script:
-  - flake8 --max-complexity 10 .
-  - pep257 . --explain
+  - flake8 Blocks.pyw
+  - flake8 constants.py
+  - flake8 levelchecks.py
+  - flake8 setup.py
+  - flake8 utils.py
 
-#notifications:
-#  email:
-#    recipients:
-#      - Blocks@noreply.github.com
-#      on_success: change
-#      on_failure: change
+  - pep257 Blocks.pyw --explain
+  - pep257 constants.py --explain
+  - pep257 levelchecks.py --explain
+  - pep257 setup.py --explain
+  - pep257 utils.py --explain
