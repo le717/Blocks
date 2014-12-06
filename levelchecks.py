@@ -28,7 +28,7 @@ class LevelChecks(object):
 
     Run syntax checks on the user's level to ensure it is valid.
     Exposes one public method:
-    * checkLevel()
+    * checkLevel() TODO.
     """
 
     def __init__(self, layout):
@@ -40,7 +40,10 @@ class LevelChecks(object):
         self.__layout = layout.rstrip().upper()
 
     def _levelSize(self):
-        """Check the size of the layout."""
+        """Check the size of the layout.
+
+        @returns TODO.
+        """
         # Get the length of each line
         numOfLines = len(self.__layoutNormCase[:-2].split("\n"))
 
@@ -53,7 +56,10 @@ The level must be exactly 8 lines.""".format(numOfLines))
         return (False, None, None)
 
     def _charCheck(self):
-        """Check if each character in the layout is valid."""
+        """Check if each character in the layout is valid.
+
+        @returns TODO.
+        """
         # Valid cubes that can be used
         cubeList = ("", "F", "BW", "YC", "YT", "RC", "RT",
                     "RB", "BC", "BT", "GT", "GC", "WB", "WH",
@@ -74,7 +80,10 @@ The level must be exactly 8 lines.""".format(numOfLines))
         return (False, None, None)
 
     def _lineLength(self):
-        """Check the length of each line."""
+        """Check the length of each line.
+
+        @returns TODO.
+        """
         # Get the each line's number text, and length
         for lineNum, lineText in enumerate(self.__layoutNormCase.split("\n")):
             lineNum += 1
@@ -97,7 +106,10 @@ The line must be exactly 38 characters, including spaces.""".format(
         # The checks should be revised once these anomalies are documented.
 
     def checkLevel(self):
-        """Public method to run syntax checks on a level."""
+        """Public method to run syntax checks on a level.
+
+        @returns {Tuple.<boolean,string>} TODO.
+        """
         sizeCheck = self._levelSize()
         lineCheck = self._lineLength()
         cubeCheck = self._charCheck()

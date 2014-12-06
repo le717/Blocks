@@ -38,26 +38,32 @@ class Utils(object):
     * Command-line paramater initialization
 
     Exposes two public properties:
-    * isWindows {Boolean} True if the user is using the Windows platform.
     * openArg {Boolean} True if the open parameter was correctly invoked.
+    * isWindows {Boolean} True if the user is using the Windows platform.
     """
 
     def __init__(self):
         """Initalize public properties and run utility functions."""
-        self.isWindows = False
         self.openArg = False
+        self.isWindows = False
         self._logger()
         self._checkWindows()
         self._commandLine()
 
     def _checkWindows(self):
-        """Check if we are running some version of Windows."""
+        """Check if we are running some version of Windows.
+
+        @returns {Boolean} Always returns True.
+        """
         if "Windows" in platform.platform():
             self.isWindows = True
         return True
 
     def _commandLine(self):
-        """Command-line arguments parser."""
+        """Command-line arguments parser.
+
+        @returns {Boolean} Always returns True.
+        """
         parser = argparse.ArgumentParser(
             description="{0} {1} Command-line arguments".format(
                 const.appName, const.version))
@@ -86,6 +92,10 @@ class Utils(object):
         return True
 
     def _logger(self):
+        """Initalize the logging system.
+
+        @returns {Boolean} Always returns True.
+        """
         pythonArch = "x64"
         loggingFile = os.path.join(os.path.expanduser("~"),
                                    "Blocks.log")
