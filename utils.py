@@ -52,13 +52,13 @@ class Utils(object):
 
     def __init__(self):
         """Initalize public properties and run utility functions."""
-        self.openArg = False
+        self.openArg = None
         self.isWindows = "Windows" in platform.platform()
+        self._commandLine()
         self.__configData = None
         self.__configPath = self._getConfigPath()
         self.__jsonFile = os.path.join(self.__configPath, "Blocks.json")
         self._logger()
-        self._commandLine()
         self._loadConfig()
 
     def _reloadApp(self):
@@ -191,14 +191,15 @@ and attach this file for an quicker fix!
     def runAsAdmin(self):
         """Check for and reload Blocks with administrator rights.
 
-        Immediately ends if the user is running a non-Windows platform.
+        Immediately ends if the user is running a non-Windows platform
+        or the open command-line parameter was used.
 
         @returns {?Boolean} False if running non-Windows platform,
             is already running with administrator rights, or the user
             does not want to reload the program.
         """
-        # Non-Windows platform
-        if not self.isWindows:
+        # Non-Windows platform or command-line was used
+        if not self.isWindows or self.openArg is not None:
             return False
 
         # We only need the ctypes module on Windows
