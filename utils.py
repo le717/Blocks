@@ -103,7 +103,8 @@ class Utils(object):
     def _saveConfig(self, value):
         """Write the JSON-based config file.
 
-        @returns {Boolean} True if the config file was written, False otherwise.
+        @returns {Boolean} True if the config file was written,
+            False otherwise.
         """
         try:
             jsonData = {"adminReload": value}
