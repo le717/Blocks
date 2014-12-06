@@ -27,8 +27,9 @@ class LevelChecks(object):
     """Level syntax checker object.
 
     Run syntax checks on the user's level to ensure it is valid.
+
     Exposes one public method:
-    * checkLevel() TODO.
+    * checkLevel {Method} Checks the level layout for syntax errors.
     """
 
     def __init__(self, layout):
@@ -42,7 +43,12 @@ class LevelChecks(object):
     def _levelSize(self):
         """Check the size of the layout.
 
-        @returns TODO.
+        @returns {Tuple.<boolean, string|None, string|None>}
+            A three index tuple containing the results of the level size check.
+            If there was an error, first index is True, second index
+            the error dialog title, and the third the exact error message.
+            Otherwise, first index is False,
+            while second index and third index are both None.
         """
         # Get the length of each line
         numOfLines = len(self.__layoutNormCase[:-2].split("\n"))
@@ -58,7 +64,13 @@ The level must be exactly 8 lines.""".format(numOfLines))
     def _charCheck(self):
         """Check if each character in the layout is valid.
 
-        @returns TODO.
+        @returns {Tuple.<boolean, string|None, string|None>}
+            A three index tuple containing the results
+            of the valid characters check.
+            If there was an error, first index is True, second index
+            the error dialog title, and the third the exact error message.
+            Otherwise, first index is False,
+            while second index and third index are both None.
         """
         # Valid cubes that can be used
         cubeList = ("", "F", "BW", "YC", "YT", "RC", "RT",
@@ -82,7 +94,13 @@ The level must be exactly 8 lines.""".format(numOfLines))
     def _lineLength(self):
         """Check the length of each line.
 
-        @returns TODO.
+        @returns {Tuple.<boolean, string|None, string|None>}
+            A three index tuple containing the results
+            of the line length check.
+            If there was an error, first index is True, second index
+            the error dialog title, and the third the exact error message.
+            Otherwise, first index is False,
+            while second index and third index are both None.
         """
         # Get the each line's number text, and length
         for lineNum, lineText in enumerate(self.__layoutNormCase.split("\n")):
@@ -98,7 +116,7 @@ The line must be exactly 38 characters, including spaces.""".format(
         # No error was found
         return (False, None, None)
 
-        # NOTE While all lines must be at least 38 characters,
+        # TODO While all lines must be at least 38 characters,
         # some levels have lines that are 39 characters.
         # Technically, a line can be longer then the imposed 38 characters,
         # but odd, undocumented stuff occurs when extra characters are added
@@ -108,7 +126,9 @@ The line must be exactly 38 characters, including spaces.""".format(
     def checkLevel(self):
         """Public method to run syntax checks on a level.
 
-        @returns {Tuple.<boolean,string>} TODO.
+        @returns {Tuple.<string>|String} If an error was found,
+            two index tuple, first index the error dialog title and the second
+            the exact error message. Otherwise, a layout suitable for writing.
         """
         sizeCheck = self._levelSize()
         lineCheck = self._lineLength()

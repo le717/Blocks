@@ -19,6 +19,8 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
+__all__ = ("Utils")
+
 import os
 import sys
 import json
@@ -174,15 +176,14 @@ class Utils(object):
                      platform.platform())
                      )
         logging.info("""
-\t\t\t\t\t\t\t      ############################################
-                                              {0} Version {1}
-                                            Created 2013-2014 {2}
+#########################################
+{0} v{1}
+Created 2013-2014 {2}
 
-
-                                    If you run into a bug, open an issue at
-                                    https://github.com/le717/Blocks/issues
-                                    and attach this file for an quicker fix!
-\t\t\t\t\t\t\t      ############################################
+If you run into a bug, open an issue at
+https://github.com/le717/Blocks/issues
+and attach this file for an quicker fix!
+#########################################
                                     """.format(const.appName, const.version,
                                                const.creator))
         return True

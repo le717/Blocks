@@ -20,6 +20,8 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
+__all__ = ("Blocks", "BlocksGUI")
+
 import os
 import sys
 import webbrowser
@@ -63,10 +65,10 @@ class Blocks(object):
     """Core Blocks code and actions.
 
     Exposes four public methods:
-    * createLevel: Entry point to creating a new, blank level.
-    * openLevel: Entry point to opening an existing level.
-    * openLevelAuto: GUI-less entry point to opening an existing level.
-    * saveLevel: Entry point to saving a level.
+    * createLevel {Method} Entry point to creating a new, blank level.
+    * openLevel {Method} Entry point to opening an existing level.
+    * openLevelAuto {Method} GUI-less entry point to opening an existing level.
+    * saveLevel {Method} Entry point to saving a level.
     """
 
     def __init__(self):
@@ -549,7 +551,6 @@ Created 2013-2014
 
 if __name__ == "__main__":
     init = utils.Utils()
-    # Before we do anything, we need to check for administrator rights
     init.runAsAdmin()
     root = tk.Tk()
     gui = BlocksGUI(root, init.openArg)
