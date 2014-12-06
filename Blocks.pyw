@@ -78,6 +78,7 @@ class Blocks(object):
         self.__levelLayout = ""
         self.__firstLine = b""
         self.__newLevel = False
+        self.__fileOpen = False
 
     def _changePermissions(self, filePath, fileName):
         """Change a file permissions to make it writable.
@@ -136,7 +137,7 @@ class Blocks(object):
         """Display the level name and layout in the GUI.
 
         It is not acceptable to call this directly,
-            access this by calling openLevelAuto() instead.
+            call openLevel() or openLevelAuto() instead.
 
         @param filePath {String} Absolute path to the file being opened.
         @param readFile {Boolean} True if the file needs to be read from disk.
@@ -152,6 +153,8 @@ class Blocks(object):
 
         # We are not creating a new level
         self.__newLevel = False
+        if const.debugMode:
+            print("\nEditing an existing level.")
 
         # Strip the file extension from the level name display
         fileName, extension = os.path.splitext(self.__fileName)
@@ -276,12 +279,12 @@ class Blocks(object):
             and prompts for new details if we are saving a new file or
             the backup file could not be written.
 
-        @returns {Tuple.<string|False>} Three index tuple containing the file's
+        @returns {List.<string|False>} Three index list containing the file's
              destination, file name, and first line if no error occurred,
              otherwise all three indexes all indexes are False.
         """
         # We need to alias these in case a new file is being written
-        details = (self.__filePath, self.__fileName, self.__firstLine)
+        details = [self.__filePath, self.__fileName, self.__firstLine]
 
         # We are saving a new level or
         # we are saving an existing level
@@ -321,6 +324,7 @@ class Blocks(object):
 
         # Remove level name display, since there is no opened level
         self.__newLevel = True
+        self.__fileOpen = True
         gui.levelName.set("")
 
         # Remove the old content and display blank layout in edit box
@@ -335,6 +339,7 @@ class Blocks(object):
         @param readAgain {Boolean} True if the file needs to be read from disk.
         @returns {Boolean} Always returns True.
         """
+        self.__fileOpen = True
         self.__filePath = os.path.dirname(os.path.abspath(filePath))
         self._displayLevel(filePath, readAgain)
         return True
@@ -364,7 +369,13 @@ class Blocks(object):
         @returns {Boolean} False if any errors occurred;
             True otherwise.
         """
-        # Get and store the new layout
+        # Do not permit saving before opening a file
+        if not self.__fileOpen:
+            self._displayError("No File!",
+                               "You need to open a level before saving!")
+            return False
+
+        # Store the new layout
         levelLayout = gui.levelArea.get("1.0", "end")
         self.__levelLayout = levelLayout
 
