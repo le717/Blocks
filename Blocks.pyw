@@ -93,6 +93,32 @@ class Blocks(object):
             return True
         return False
 
+    def _runAsAdmin(self, level_filename, first_line, layout):
+        """Reloads Blocks with administrator rights
+
+        @returns {?Boolean}
+        """
+        admin = False  # askyesno("Relaunch Blocks?",
+        # """Would you like to relaunch Blocks with Administrator rights?
+        # Your level will be preserved between launch.""")
+
+        # ctypes.windll.shell32.IsUserAnAdmin()
+
+        # If user chooses to relaunch
+        if admin:
+            # Save a temporary file
+            temp_file = temp_write(level_filename, first_line, layout)
+            # Launch RunAsAdmin to reload Blocks,
+            # invoke command-line parameter to reload the level
+            subprocess.call(["RunAsAdmin.exe", '-o "{0}"'.format(
+            temp_file)])
+            # Now we close Blocks, and let RunAsAdmin take over
+            logging.shutdown()
+            raise SystemExit(0)
+        # User did not want to relaunch Blocks
+        else:
+            return False
+
     def _displayError(self, title, message, trace=None):
         """Display error message using a a Tkinter error dialog.
 
@@ -270,6 +296,7 @@ class Blocks(object):
 
     def _getDestDetails(self):
         """Generate the destination's file details and save backup file.
+
         Reuses the information if we are saving an existing file,
             and prompts for new details if we are saving a new file or
             the backup file could not be written.

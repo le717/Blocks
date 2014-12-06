@@ -33,7 +33,6 @@ unneeded Tkinter files after freezing a binary
 * Fix an `ImportError` in Python version check
 * Change a file's permissions to make it writable for saving
 * Show a "Save As" dialog when the user attempts to save in an restricted area
-* Remove RunAsAdmin integration
 * Do not re-read the level after saving
 
 ### 0.9.1 ###
