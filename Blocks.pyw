@@ -12,7 +12,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 Blocks is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
@@ -20,18 +20,19 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
+__all__ = ("Blocks", "BlocksGUI")
+
 import os
 import sys
 import webbrowser
 
-# Tkinter GUI library
 try:
-    # Python 3
+    # Python 3 Tkinter
     import tkinter as tk
     from tkinter import ttk
     from tkinter import filedialog, messagebox
 except ImportError:
-    # Python 2
+    # Python 2 Tkinter
     import Tkinter as tk
     import tkMessageBox as messagebox
 
@@ -52,7 +53,6 @@ import stat
 import shutil
 import logging
 import traceback
-import subprocess
 
 # Blocks-specific modules
 import utils
@@ -65,10 +65,10 @@ class Blocks(object):
     """Core Blocks code and actions.
 
     Exposes four public methods:
-    * createLevel: Entry point to creating a new, blank level.
-    * openLevel: Entry point to opening an existing level.
-    * openLevelAuto: GUI-less entry point to opening an existing level.
-    * saveLevel: Entry point to saving a level.
+    * createLevel {Method} Entry point to creating a new, blank level.
+    * openLevel {Method} Entry point to opening an existing level.
+    * openLevelAuto {Method} GUI-less entry point to opening an existing level.
+    * saveLevel {Method} Entry point to saving a level.
     """
 
     def __init__(self):
@@ -78,15 +78,16 @@ class Blocks(object):
         self.__levelLayout = ""
         self.__firstLine = b""
         self.__newLevel = False
+        self.__fileOpen = False
 
     def _changePermissions(self, filePath, fileName):
         """Change a file permissions to make it writable.
 
-          @param filePath {String} Absolute path to the file being changed.
-          @param fileName {String} File name for changing.
-          @returns {Boolean} Returns True if the permissions could be changed,
-            False otherwise.
-          """
+        @param filePath {String} Absolute path to the file being changed.
+        @param fileName {String} File name for changing.
+        @returns {Boolean} Returns True if the permissions could be changed,
+          False otherwise.
+        """
         myFile = os.path.join(filePath, fileName)
         if os.path.isfile(myFile):
             os.chmod(myFile, stat.S_IWRITE)
@@ -134,8 +135,9 @@ class Blocks(object):
 
     def _displayLevel(self, filePath, readFile):
         """Display the level name and layout in the GUI.
+
         It is not acceptable to call this directly,
-            access this by calling openLevelAuto() instead.
+            call openLevel() or openLevelAuto() instead.
 
         @param filePath {String} Absolute path to the file being opened.
         @param readFile {Boolean} True if the file needs to be read from disk.
@@ -151,6 +153,8 @@ class Blocks(object):
 
         # We are not creating a new level
         self.__newLevel = False
+        if const.debugMode:
+            print("\nEditing an existing level.")
 
         # Strip the file extension from the level name display
         fileName, extension = os.path.splitext(self.__fileName)
@@ -270,15 +274,17 @@ class Blocks(object):
 
     def _getDestDetails(self):
         """Generate the destination's file details and save backup file.
+
         Reuses the information if we are saving an existing file,
             and prompts for new details if we are saving a new file or
             the backup file could not be written.
 
-        @returns {Tuple.<String>} Three index tuple containing the file's
-             destination, fie nanme, and first line.
+        @returns {List.<string|False>} Three index list containing the file's
+             destination, file name, and first line if no error occurred,
+             otherwise all three indexes all indexes are False.
         """
         # We need to alias these in case a new file is being written
-        details = (self.__filePath, self.__fileName, self.__firstLine)
+        details = [self.__filePath, self.__fileName, self.__firstLine]
 
         # We are saving a new level or
         # we are saving an existing level
@@ -290,13 +296,12 @@ class Blocks(object):
 
             # The user did not select a new destination
             if not destFile:
-                return False
+                return (False, False, False)
 
             # Update the necessary values
             details[0] = os.path.dirname(destFile)
             details[1] = os.path.basename(destFile)
             details[2] = b"C\x01\x00\x001\r\n"
-
         return details
 
     def createLevel(self, *args):
@@ -319,6 +324,7 @@ class Blocks(object):
 
         # Remove level name display, since there is no opened level
         self.__newLevel = True
+        self.__fileOpen = True
         gui.levelName.set("")
 
         # Remove the old content and display blank layout in edit box
@@ -333,6 +339,7 @@ class Blocks(object):
         @param readAgain {Boolean} True if the file needs to be read from disk.
         @returns {Boolean} Always returns True.
         """
+        self.__fileOpen = True
         self.__filePath = os.path.dirname(os.path.abspath(filePath))
         self._displayLevel(filePath, readAgain)
         return True
@@ -341,7 +348,8 @@ class Blocks(object):
         """Display Tkinter open dialog for selecting a level file.
 
         @returns {Boolean} True if a file was selected for opening;
-            False otherwise."""
+            False otherwise.
+        """
         filePath = filedialog.askopenfilename(
             parent=root,
             defaultextension=".TXT",
@@ -361,12 +369,20 @@ class Blocks(object):
         @returns {Boolean} False if any errors occurred;
             True otherwise.
         """
-        # Get and store the new layout
+        # Do not permit saving before opening a file
+        if not self.__fileOpen:
+            self._displayError("No File!",
+                               "You need to open a level before saving!")
+            return False
+
+        # Store the new layout
         levelLayout = gui.levelArea.get("1.0", "end")
         self.__levelLayout = levelLayout
 
         # Get the destination details
         filePath, fileName, firstLine = self._getDestDetails()
+        if not filePath:
+            return False
 
         # Check the level layout for errors
         levelLayout = self._syntaxChecks(levelLayout)
@@ -549,6 +565,7 @@ Created 2013-2014
 
 if __name__ == "__main__":
     init = utils.Utils()
+    init.runAsAdmin()
     root = tk.Tk()
     gui = BlocksGUI(root, init.openArg)
     root.mainloop()
