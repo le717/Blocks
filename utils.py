@@ -11,7 +11,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 Blocks is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
@@ -21,7 +21,7 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
-# import json
+import json
 import logging
 import argparse
 import platform
@@ -44,25 +44,74 @@ class Utils(object):
     Exposes two public properties and one public method:
     * openArg {Boolean} True if the open parameter was correctly invoked.
     * isWindows {Boolean} True if the user is using the Windows platform.
-    * runAsAdmin() TODO.
+    * runAsAdmin {Method} Tests for and prompts to reload
+        with administrator rights.
     """
 
     def __init__(self):
         """Initalize public properties and run utility functions."""
         self.openArg = False
-        self.isWindows = False
+        self.isWindows = "Windows" in platform.platform()
+        self.__configData = None
+        self.__configPath = self._getConfigPath()
+        self.__jsonFile = os.path.join(self.__configPath, "Blocks.json")
         self._logger()
-        self._checkWindows()
         self._commandLine()
+        self._loadConfig()
 
-    def _checkWindows(self):
-        """Check if we are running some version of Windows.
+    def _reloadApp(self):
+        """Reload Blocks with administrator rights."""
+        subprocess.call("RunAsAdmin.exe")
+        logging.shutdown()
+        raise SystemExit(0)
 
-        @returns {Boolean} Always returns True.
+    def _getConfigPath(self):
+        """Get the file path where configuration files will be stored.
+
+        @returns {String} The configuration path.
         """
-        if "Windows" in platform.platform():
-            self.isWindows = True
-        return True
+        if self.isWindows:
+            path = os.path.join(os.path.expandvars("%appdata%"),
+                                "Triangle717", "Blocks")
+
+            # Create the path if needed
+            if not os.path.exists(path):
+                os.makedirs(path)
+        else:
+            path = os.path.expanduser("~")
+        return path
+
+    def _loadConfig(self):
+        """Read and store the configuration file.
+
+        @returns {Boolean} True if the config file was read, False otherwise.
+        """
+        try:
+            # Make sure it exists
+            if os.path.exists(self.__jsonFile):
+                with open(self.__jsonFile, "rt", encoding="utf-8") as f:
+                    self.__configData = json.load(f)
+                return True
+            return False
+
+        # The file is not valid JSON, sliently fail
+        except ValueError:
+            return False
+
+    def _saveConfig(self, value):
+        """Write the JSON-based config file.
+
+        @returns {Boolean} True if the config file was written, False otherwise.
+        """
+        try:
+            jsonData = {"adminReload": value}
+            with open(self.__jsonFile, "wt", encoding="utf_8") as f:
+                f.write(json.dumps(jsonData, indent=4, sort_keys=True))
+            return True
+
+        # Silently fail
+        except PermissionError:
+            return False
 
     def _commandLine(self):
         """Command-line arguments parser.
@@ -88,10 +137,11 @@ class Utils(object):
         # If the debug parameter is passed, enable debugging messages
         if debugArg:
             const.debugMode = True
+
             # Write a console title on Windows
             if self.isWindows:
-                os.system("title Blocks {0} - Debug".format(
-                    const.version))
+                os.system("title {0} {1} - Debug".format(
+                          const.appName, const.version))
             print("\nDebug messages have been enabled.")
         self.openArg = openArg
         return True
@@ -102,8 +152,7 @@ class Utils(object):
         @returns {Boolean} Always returns True.
         """
         pythonArch = "x64"
-        loggingFile = os.path.join(os.path.expanduser("~"),
-                                   "Blocks.log")
+        loggingFile = os.path.join(self.__configPath, "Blocks.log")
 
         # Check if Python is x86
         if sys.maxsize < 2 ** 32:
@@ -158,23 +207,30 @@ class Utils(object):
         if ctypes.windll.shell32.IsUserAnAdmin() == 1:
             return False
 
-        # TODO Check if the user has answered this question already
+        # Make sure we have data
+        if self.__configData is not None:
+            # If the user chose to reload, do so
+            if self.__configData["adminReload"]:
+                self._reloadApp()
+
+            # Otherwise, continue on
+            return False
+
         # Ask to reload the program
         root = tk.Tk()
         root.withdraw()
-        reloadAsAdmin = tk.messagebox.askyesno("Reload Blocks?",
-        """Would you like to reload Blocks with Administrator rights?
+        reloadAsAdmin = tk.messagebox.askyesno(
+            "Reload Blocks?",
+            """Would you like to reload Blocks with Administrator rights?
  Not doing so may cause odd behavior when saving files!
  (You will only be asked this question once.)""")
         root.destroy()
 
         # No reloading is happening here
         if not reloadAsAdmin:
+            self._saveConfig(False)
             return False
 
-        # If user wants to reload, invoke RunAsAdmin
-        subprocess.call("RunAsAdmin.exe")
-
-        # Close program and let RunAsAdmin take over
-        logging.shutdown()
-        raise SystemExit(0)
+        # Save results and reload
+        self._saveConfig(True)
+        self._reloadApp()
