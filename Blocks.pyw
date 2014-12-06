@@ -276,8 +276,9 @@ class Blocks(object):
             and prompts for new details if we are saving a new file or
             the backup file could not be written.
 
-        @returns {Tuple.<string>} Three index tuple containing the file's
-             destination, fie nanme, and first line.
+        @returns {Tuple.<string|False>} Three index tuple containing the file's
+             destination, file name, and first line if no error occurred,
+             otherwise all three indexes all indexes are False.
         """
         # We need to alias these in case a new file is being written
         details = (self.__filePath, self.__fileName, self.__firstLine)
@@ -292,7 +293,7 @@ class Blocks(object):
 
             # The user did not select a new destination
             if not destFile:
-                return False
+                return (False, False, False)
 
             # Update the necessary values
             details[0] = os.path.dirname(destFile)
@@ -369,6 +370,8 @@ class Blocks(object):
 
         # Get the destination details
         filePath, fileName, firstLine = self._getDestDetails()
+        if not filePath:
+            return False
 
         # Check the level layout for errors
         levelLayout = self._syntaxChecks(levelLayout)
