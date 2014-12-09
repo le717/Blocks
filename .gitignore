@@ -13,19 +13,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 __pycache__/
-Compile*/
-Testing/
 Archives/
-Freeze/
 bin/
-!Tools/bin
-.brackets.json
-*.blend1
-*.blend2
-*.bak*
-*.zip
-*.cfg
-*.exe
-*.TXT
-!requirements.txt
-!LICENSE.RunAsAdmin.txt
+*.txt
+*.bak
