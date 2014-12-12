@@ -286,6 +286,10 @@ class Blocks(object):
         # We need to alias these in case a new file is being written
         details = [self.__filePath, self.__fileName, self.__firstLine]
 
+        # Ensure the file still exists
+        if not os.path.exists(os.path.join(details[0], details[1])):
+            self.__newLevel = True
+
         # We are saving a new level or
         # we are saving an existing level
         # but we don't have the permissions required
