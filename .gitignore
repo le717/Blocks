@@ -15,5 +15,6 @@ $RECYCLE.BIN/
 __pycache__/
 Archives/
 bin/
+Testing/
 *.txt
 *.bak
