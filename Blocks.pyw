@@ -286,6 +286,10 @@ class Blocks(object):
         # We need to alias these in case a new file is being written
         details = [self.__filePath, self.__fileName, self.__firstLine]
 
+        # Ensure the file still exists
+        if not os.path.exists(os.path.join(details[0], details[1])):
+            self.__newLevel = True
+
         # We are saving a new level or
         # we are saving an existing level
         # but we don't have the permissions required
@@ -388,28 +392,28 @@ class Blocks(object):
         levelLayout = self._syntaxChecks(levelLayout)
         if not levelLayout:
             return False
+
+        # Create a bytes version of the layout for accurate writing
+        binaryLayout = str.encode(levelLayout, encoding="utf-8",
+                                  errors="strict")
+
+        # Change the permissions of the file to make it writable.
+        # This should help reduce permission exceptions.
+        self._changePermissions(filePath, fileName)
+
+        # Write the file to disk.
+        # PermissionError handling is not needed here,
+        # as it is handled in _writeFile()
+        if self._writeFile(filePath, fileName, firstLine, binaryLayout):
+            messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
+                                .format(fileName, filePath))
         else:
-            # Create a bytes version of the layout for accurate writing
-            binaryLayout = str.encode(levelLayout, encoding="utf-8",
-                                      errors="strict")
+            # Could not save the file
+            return False
 
-            # Change the permissions of the file to make it writable.
-            # This should help reduce permission exceptions.
-            self._changePermissions(filePath, fileName)
-
-            # Write the file to disk.
-            # PermissionError handling is not needed here,
-            # as it is handled in _writeFile()
-            if self._writeFile(filePath, fileName, firstLine, binaryLayout):
-                messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-                                    .format(fileName, filePath))
-            else:
-                # Could not save the file
-                return False
-
-            # Reload the level
-            self.openLevelAuto(os.path.join(filePath, fileName), False)
-            return True
+        # Reload the level
+        self.openLevelAuto(os.path.join(filePath, fileName), False)
+        return True
 
 
 class BlocksGUI(tk.Frame):
