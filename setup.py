@@ -73,6 +73,7 @@ setup(
 # Copy any required files/directories
 filesForCopying = [
     "LICENSE",
+    "LICENSE.RunAsAdmin.txt",
     "README.md",
     os.path.join("Media", "Blocks.gif"),
     os.path.join("Media", "Blocks.ico"),
