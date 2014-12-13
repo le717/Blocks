@@ -72,6 +72,7 @@ class Utils(object):
 
         @returns {String} The configuration path.
         """
+        path = os.path.expanduser("~")
         if self.isWindows:
             path = os.path.join(os.path.expandvars("%appdata%"),
                                 "Triangle717", "Blocks")
@@ -79,8 +80,6 @@ class Utils(object):
             # Create the path if needed
             if not os.path.exists(path):
                 os.makedirs(path)
-        else:
-            path = os.path.expanduser("~")
         return path
 
     def _loadConfig(self):

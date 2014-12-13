@@ -1,7 +1,7 @@
 # Blocks Change Log #
 
 ### 1.0.0 ###
-Released ?? December, 2014
+Released 12 December, 2014
 
 * Improve `setup.py` OS detection, actions and whitespace
 * Update docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
