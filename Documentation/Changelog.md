@@ -5,12 +5,11 @@ Released ?? December, 2014
 
 * Improve `setup.py` OS detection, actions and whitespace
 * Update docstrings per [PEP 257](http://python.org/dev/peps/pep-0257)
-* Fix visual indentation errors
 * Remove unneeded error and prompt dialogs when attempting to save a level without opening one first
 * Change root output path of frozen binary to `bin`
 * Copy script from [**PatchIt!**](http://le717.github.io/PatchIt) to remove
 unneeded Tkinter files after freezing
-* Fix `ImportError` in unsupported Python version message
+* Fix `ImportError` in Python version check
 * Update constants import to use `import constants as const` syntax
 * Rename constants to use camelCase format
 * Move level checks to new module and cleaned them up
@@ -23,7 +22,6 @@ unneeded Tkinter files after freezing
 * Reword error messages
 * Remove batch script launcher for Windows
 * Add `--open` and `--debug` forms of command-line arguments
-* Fix an `ImportError` in Python version check
 * Change a file's permissions to make it writable for saving
 * Show a "Save As" dialog when the user attempts to save in an restricted area
 * Do not re-read the level after saving
