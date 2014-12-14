@@ -69,17 +69,20 @@ class Utils(object):
 
     def _getConfigPath(self):
         """Get the file path where configuration files will be stored.
+        
+        On Windows, the root folder is %AppData%, while on Mac OS X and Linux
+        it is ~. On all platforms, the rest of the path is Triangle717/Blocks.
 
         @returns {String} The configuration path.
         """
-        path = os.path.expanduser("~")
+        root = os.path.expanduser("~")
         if self.isWindows:
-            path = os.path.join(os.path.expandvars("%appdata%"),
-                                "Triangle717", "Blocks")
+            root = os.path.expandvars("%AppData%")
 
-            # Create the path if needed
-            if not os.path.exists(path):
-                os.makedirs(path)
+        # Create the path if needed
+        path = os.path.join(root, "Triangle717", "Blocks")
+        if not os.path.exists(path):
+            os.makedirs(path)
         return path
 
     def _loadConfig(self):

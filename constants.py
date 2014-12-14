@@ -23,7 +23,7 @@ import os
 import sys
 
 appName = "Blocks"
-version = "1.0.0"
+version = "1.0.1"
 creator = "Triangle717"
 debugMode = False
 

@@ -1,5 +1,10 @@
 # Blocks Change Log #
 
+### 1.0.1 ###
+Released 13 December, 2014
+
+* Fix issue with non-Windows config path not being consistent with Windows path
+
 ### 1.0.0 ###
 Released 12 December, 2014
 
@@ -23,9 +28,9 @@ unneeded Tkinter files after freezing
 * Remove batch script launcher for Windows
 * Add `--open` and `--debug` forms of command-line arguments
 * Change a file's permissions to make it writable for saving
-* Show a "Save As" dialog when the user attempts to save in an restricted area
+* Show a "Save As" dialog when the user attempts to save in a restricted area
 * Do not re-read the level after saving
-* Fix long-standing issue with Windows sliently redirecting attempted saves from `Program Files` to `%AppData%\VirtualStore`
+* Fix long-standing issue with Windows silently redirecting attempted saves from `Program Files` to `%AppData%\VirtualStore`
 * Only attempt to reload with Administrator rights on Windows systems
 * Store log file and JSON settings in `%AppData%` on Windows, `~` everywhere else
 * Do not permit saving before opening a file
