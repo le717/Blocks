@@ -69,7 +69,7 @@ class Utils(object):
 
     def _getConfigPath(self):
         """Get the file path where configuration files will be stored.
-        
+
         On Windows, the root folder is %AppData%, while on Mac OS X and Linux
         it is ~. On all platforms, the rest of the path is Triangle717/Blocks.
 
