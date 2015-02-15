@@ -24,40 +24,19 @@ __all__ = ("Blocks", "BlocksGUI")
 
 import os
 import sys
-import webbrowser
-
-try:
-    # Python 3 Tkinter
-    import tkinter as tk
-    from tkinter import ttk
-    from tkinter import filedialog, messagebox
-except ImportError:
-    # Python 2 Tkinter
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-
-# User is running < Python 3.3.0
-if sys.version_info[:2] < (3, 3):
-    root = tk.Tk()
-    root.withdraw()
-    messagebox.showerror("Unsupported Python Version!",
-                         """You are running Python {0}.
-You need to download Python 3.3.0 or newer to run Blocks."""
-                         .format(sys.version[0:5]))
-    webbrowser.open_new_tab("http://python.org/download/")
-    raise SystemExit(0)
-
-# Now that we know we are running Python 3.3+,
-# let's import everything else we needed
 import stat
 import shutil
 import logging
 import traceback
+import webbrowser
 
-# Blocks-specific modules
 import utils
 import levelchecks
 import constants as const
+
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
 
 
 class Blocks(object):
@@ -95,7 +74,7 @@ class Blocks(object):
         return False
 
     def _displayError(self, title, message, trace=None):
-        """Display error message using a a Tkinter error dialog.
+        """Display error message dialog.
 
         @param title {String} Dialog error title.
         @param message {String} Dialog error message.
