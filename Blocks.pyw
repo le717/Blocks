@@ -20,7 +20,7 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-__all__ = ("Blocks", "BlocksGUI")
+__all__ = ("Blocks", "UI")
 
 import os
 import sys
@@ -33,10 +33,13 @@ import webbrowser
 import utils
 import levelchecks
 import constants as const
+import ui.main as mainUi
 
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+
+from PyQt5 import QtWidgets
 
 
 class Blocks(object):
@@ -50,7 +53,7 @@ class Blocks(object):
     * saveLevel {Method} Entry point to saving a level.
     """
 
-    def __init__(self):
+    def __init__(self, ui):
         """Initialize private properties."""
         self.__filePath = ""
         self.__fileName = ""
@@ -58,6 +61,10 @@ class Blocks(object):
         self.__firstLine = b""
         self.__newLevel = False
         self.__fileOpen = False
+
+        self.__uiLevelName = ui.lbLevelName
+        self.__uiLevelArea = ui.pteLevelArea
+#        self.__uiErrors = QtWidgets.QErrorMessage()
 
     def _changePermissions(self, filePath, fileName):
         """Change a file permissions to make it writable.
@@ -92,6 +99,8 @@ class Blocks(object):
             logging.error("\nAn error has occurred:\n{0}".format(message))
 
         messagebox.showerror(title, message)
+#        self.__uiErrors.showMessage(title,  message)
+#        QtWidgets.QDialog().exec()
         return False
 
     def _readLevel(self, filePath):
@@ -141,9 +150,8 @@ class Blocks(object):
             fileName = fileName.lower().rstrip(".txt")
 
         # Replace all text in the widget with the opened file contents
-        gui.levelName.set(fileName)
-        gui.levelArea.delete("1.0", "end")
-        gui.levelArea.insert("1.0", levelLayout)
+        self.__uiLevelName.setText(fileName)
+        self.__uiLevelArea.setPlainText(levelLayout)
 
         # If a temporary file was opened, delete it
         if extension.lower() == ".tmp":
@@ -237,18 +245,15 @@ class Blocks(object):
         @returns {Boolean|String} Absolute path to the resulting file;
             False otherwise.
         """
-        newFile = filedialog.asksaveasfilename(
-            parent=root,
-            defaultextension=".TXT",
-            filetypes=[("IXS Minigame Layout", ".TXT")],
-            title="Save As"
+        newFile = QtWidgets.QFileDialog.getSaveFileName(
+            caption="Save As",
+            filter="Text files (*.txt)"
         )
 
-        if newFile:
-            # Append proper file extension to file name if needed
-            if not newFile.lower().endswith(".txt"):
-                newFile = "{0}.TXT".format(newFile)
-            return newFile
+        if newFile[0]:
+            # Uppercase the file extension
+            fileName = "{0}.TXT".format(newFile[0][:-4])
+            return fileName
         return False
 
     def _getDestDetails(self):
@@ -308,11 +313,10 @@ class Blocks(object):
         # Remove level name display, since there is no opened level
         self.__newLevel = True
         self.__fileOpen = True
-        gui.levelName.set("")
+        self.__uiLevelName.setText("")
 
         # Remove the old content and display blank layout in edit box
-        gui.levelArea.delete("1.0", "end")
-        gui.levelArea.insert("1.0", blankLayout)
+        self.__uiLevelArea.setPlainText(blankLayout)
         return True
 
     def openLevelAuto(self, filePath, readAgain):
@@ -333,16 +337,14 @@ class Blocks(object):
         @returns {Boolean} True if a file was selected for opening;
             False otherwise.
         """
-        filePath = filedialog.askopenfilename(
-            parent=root,
-            defaultextension=".TXT",
-            filetypes=[("IXS Minigame Layout", ".TXT")],
-            title="Open"
+        filePath = QtWidgets.QFileDialog.getOpenFileName(
+            caption="Open File",
+            filter="Text files (*.txt)"
         )
 
         # A file was selected, read the layout
-        if filePath:
-            self.openLevelAuto(filePath, True)
+        if filePath[0]:
+            self.openLevelAuto(filePath[0], True)
             return True
         return False
 
@@ -359,8 +361,7 @@ class Blocks(object):
             return False
 
         # Store the new layout
-        levelLayout = gui.levelArea.get("1.0", "end")
-        self.__levelLayout = levelLayout
+        self.__levelLayout = self.__uiLevelArea.toPlainText()
 
         # Get the destination details
         filePath, fileName, firstLine = self._getDestDetails()
@@ -368,12 +369,12 @@ class Blocks(object):
             return False
 
         # Check the level layout for errors
-        levelLayout = self._syntaxChecks(levelLayout)
-        if not levelLayout:
+        self.__levelLayout = self._syntaxChecks(self.__levelLayout)
+        if not self.__levelLayout:
             return False
 
         # Create a bytes version of the layout for accurate writing
-        binaryLayout = str.encode(levelLayout, encoding="utf-8",
+        binaryLayout = str.encode(self.__levelLayout, encoding="utf-8",
                                   errors="strict")
 
         # Change the permissions of the file to make it writable.
@@ -392,6 +393,74 @@ class Blocks(object):
 
         # Reload the level
         self.openLevelAuto(os.path.join(filePath, fileName), False)
+        return True
+
+
+class UI:
+
+    """PyQt 5-based GUI for Blocks.
+
+    Provides public access to key visual areas including
+    file name and editing area.
+    """
+
+    def __init__(self, openArg):
+        """Setup the GUI.
+
+        @param {String|None} openArg Absolute path to the file being opened.
+            Passing None will not invoke the automatic opening.
+        """
+        self.__openArg = openArg
+        self.__qApp = QtWidgets.QApplication(sys.argv)
+        self.__qApp.setStyle("fusion")
+        self.__MainWindow = QtWidgets.QMainWindow()
+        self.ui = mainUi.Ui_MainWindow()
+        self.ui.setupUi(self.__MainWindow)
+
+        # Create an instance of the back-end code
+        self.__blocks = Blocks(self.ui)
+
+        # Connect the buttons
+        self.ui.btnNew.clicked.connect(self.__blocks.createLevel)
+        self.ui.btnOpen.clicked.connect(self.__blocks.openLevel)
+        self.ui.btnSave.clicked.connect(self.__blocks.saveLevel)
+
+        # Connect the menu items
+        self.ui.actionNew.triggered.connect(self.__blocks.createLevel)
+        self.ui.actionOpen.triggered.connect(self.__blocks.openLevel)
+        self.ui.actionSave.triggered.connect(self.__blocks.saveLevel)
+        # Quit menu item is connected in generated main.py
+
+        # Display app details and run app
+        self._setDetails()
+        self._start()
+
+    def _start(self):
+        """Start the application."""
+        # Show the UI
+        self.__MainWindow.show()
+
+        # If the argument is a valid file, open it
+        if (self.__openArg is not None and os.path.isfile(self.__openArg)):
+            if const.debugMode:
+                print("\n{0}\nis being opened for reading.".format(
+                    os.path.abspath(self.__openArg)))
+            self.__blocks.openLevelAuto(self.__openArg, True)
+
+        # Run the application
+        self.__qApp.exec_()
+
+
+    def _setDetails(self):
+        """Set the program details in the GUI.
+
+        @return {Boolean} Always returns True.
+        """
+        self.__MainWindow.setWindowTitle(self.__MainWindow.windowTitle().replace("app-name", const.appName))
+        self.__MainWindow.setWindowTitle(self.__MainWindow.windowTitle().replace("app-ver", const.version))
+        self.ui.appDetails.setText(self.ui.appDetails.text().replace("app-name", const.appName))
+        self.ui.appDetails.setText(self.ui.appDetails.text().replace("app-ver", const.version))
+        self.ui.appCreator.setText(self.ui.appCreator.text().replace("app-creator", const.creator))
         return True
 
 
@@ -549,6 +618,4 @@ Created 2013-2014
 if __name__ == "__main__":
     init = utils.Utils()
     init.runAsAdmin()
-    root = tk.Tk()
-    gui = BlocksGUI(root, init.openArg)
-    root.mainloop()
+    UI(init.openArg)
