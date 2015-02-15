@@ -69,9 +69,9 @@ class Blocks(object):
     def _changePermissions(self, filePath, fileName):
         """Change a file permissions to make it writable.
 
-        @param filePath {String} Absolute path to the file being changed.
-        @param fileName {String} File name for changing.
-        @returns {Boolean} Returns True if the permissions could be changed,
+        @param {String} filePath Absolute path to the file being changed.
+        @param {String} fileName File name for changing.
+        @return {Boolean} Returns True if the permissions could be changed,
           False otherwise.
         """
         myFile = os.path.join(filePath, fileName)
@@ -83,10 +83,10 @@ class Blocks(object):
     def _displayError(self, title, message, trace=None):
         """Display error message dialog.
 
-        @param title {String} Dialog error title.
-        @param message {String} Dialog error message.
-        @param trace {Exception} Exception alias for debugging.
-        @returns {Boolean} Always returns False.
+        @param {String} title Dialog error title.
+        @param {String} message Dialog error message.
+        @param {Exception} [trace=None] Exception alias for debugging.
+        @return {Boolean} Always returns False.
         """
         # Run Exception logging only if an exception occurred
         if trace is not None:
@@ -106,8 +106,8 @@ class Blocks(object):
     def _readLevel(self, filePath):
         """Read a level file and get its contents.
 
-        @param filePath {String} Absolute path to the file being opened.
-        @returns {String} The layout contained in the file.
+        @param {String} filePath Absolute path to the file being opened.
+        @return {String} The layout contained in the file.
         """
         if const.debugMode:
             print("\nA new level is not being created.")
@@ -127,9 +127,9 @@ class Blocks(object):
         It is not acceptable to call this directly,
             call openLevel() or openLevelAuto() instead.
 
-        @param filePath {String} Absolute path to the file being opened.
-        @param readFile {Boolean} True if the file needs to be read from disk.
-        @returns {Boolean} Always returns True.
+        @param {String} filePath Absolute path to the file being opened.
+        @param {Boolean} readFile True if the file needs to be read from disk.
+        @return {Boolean} Always returns True.
         """
         # Read the level, get just the file name
         self.__fileName = os.path.basename(filePath)
@@ -162,13 +162,13 @@ class Blocks(object):
                    levelLayout, temporary=False):
         """Write the level layout to file.
 
-        @param filePath {String} Absolute path to the resulting file.
-        @param fileName {String} File name for the resulting file.
-        @param firstLine {Bytes} The first line for the file.
-        @param levelLayout {Bytes} The level layout to be written.
-        @param temporary {Boolean} If set to True, a temporary file will be
-            created at "~".
-        @returns {Boolean|String} True if temporary is set to False;
+        @param {String} filePath Absolute path to the resulting file.
+        @param {String} fileName File name for the resulting file.
+        @param {Bytes} firstLine The first line for the file.
+        @param {Bytes} levelLayout The level layout to be written.
+        @param {Boolean} [temporary=False] If set to True,
+            a temporary file will be created at "~".
+        @return {Boolean|String} True if temporary is set to False;
             Path to the temporary file if temporary is set to True;
             False if a PermissionError was hit.
         """
@@ -200,9 +200,9 @@ class Blocks(object):
     def _createBackup(self, location, backupFile):
         """Make a backup of the level before saving.
 
-        @param location {String} Absolute path to the file being opened.
-        @param backupFile File name for the backup file.
-        @returns {Boolean} True if a backup was successfully saved;
+        @param {String} location  Absolute path to the file being opened.
+        @param {String} backupFile File name for the backup file.
+        @return {Boolean} True if a backup was successfully saved;
             False if a PermissionError was hit.
         """
         # Define the name and location of the backup
@@ -225,8 +225,8 @@ class Blocks(object):
     def _syntaxChecks(self, levelLayout):
         """Check the level layout for syntax errors.
 
-        @param levelLayout {Bytes} The level layout to be written.
-        @returns {Boolean} False of a syntax error was found;
+        @param {Bytes} levelLayout The level layout to be written.
+        @return {Boolean} False of a syntax error was found;
             level layout suitable for saving.
         """
         results = levelchecks.LevelChecks(levelLayout).checkLevel()
@@ -242,7 +242,7 @@ class Blocks(object):
     def _selectDestFile(self):
         """File selection dialog for new level file.
 
-        @returns {Boolean|String} Absolute path to the resulting file;
+        @return {Boolean|String} Absolute path to the resulting file;
             False otherwise.
         """
         newFile = QtWidgets.QFileDialog.getSaveFileName(
@@ -263,7 +263,7 @@ class Blocks(object):
             and prompts for new details if we are saving a new file or
             the backup file could not be written.
 
-        @returns {List.<string|False>} Three index list containing the file's
+        @return {List.<string|False>} Three index list containing the file's
              destination, file name, and first line if no error occurred,
              otherwise all three indexes all indexes are False.
         """
@@ -295,7 +295,7 @@ class Blocks(object):
     def createLevel(self, *args):
         """Create a new level layout using a layout template.
 
-        @returns {Boolean} Always returns True.
+        @return {Boolean} Always returns True.
         """
         # Blank (free) layout for when starting a new level
         blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
@@ -322,9 +322,9 @@ class Blocks(object):
     def openLevelAuto(self, filePath, readAgain):
         """Open a level file without a GUI dialog box.
 
-        @param filePath {String} Absolute path to the file being opened.
-        @param readAgain {Boolean} True if the file needs to be read from disk.
-        @returns {Boolean} Always returns True.
+        @param {String} filePath Absolute path to the file being opened.
+        @param {Boolean} readAgain True if the file needs to be read from disk.
+        @return {Boolean} Always returns True.
         """
         self.__fileOpen = True
         self.__filePath = os.path.dirname(os.path.abspath(filePath))
@@ -334,7 +334,7 @@ class Blocks(object):
     def openLevel(self, *args):
         """Display Tkinter open dialog for selecting a level file.
 
-        @returns {Boolean} True if a file was selected for opening;
+        @return {Boolean} True if a file was selected for opening;
             False otherwise.
         """
         filePath = QtWidgets.QFileDialog.getOpenFileName(
@@ -351,7 +351,7 @@ class Blocks(object):
     def saveLevel(self, *args):
         """Save the level layout.
 
-        @returns {Boolean} False if any errors occurred;
+        @return {Boolean} False if any errors occurred;
             True otherwise.
         """
         # Do not permit saving before opening a file
