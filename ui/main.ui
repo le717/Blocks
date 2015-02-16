@@ -92,13 +92,25 @@ border: none;</string>
       <height>131</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 10pt;</string>
+    </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
+    <property name="lineWrapMode">
+     <enum>QPlainTextEdit::NoWrap</enum>
+    </property>
     <property name="plainText">
+     <string notr="true"/>
+    </property>
+    <property name="centerOnScroll">
+     <bool>false</bool>
+    </property>
+    <property name="placeholderText">
      <string notr="true">Minigame layout will be displayed here.</string>
     </property>
    </widget>
@@ -154,7 +166,7 @@ border: none;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 9pt;</string>
+     <string notr="true">font-size: 10pt;</string>
     </property>
     <property name="text">
      <string notr="true"/>

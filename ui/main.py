@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/Blocks.ui'
+# Form implementation generated from reading ui file 'ui\main.ui'
 #
-# Created: Sun Feb 15 17:51:46 2015
+# Created: Sun Feb 15 19:56:06 2015
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,9 +42,13 @@ class Ui_MainWindow(object):
         self.btnSave.setObjectName("btnSave")
         self.pteLevelArea = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.pteLevelArea.setGeometry(QtCore.QRect(60, 100, 321, 131))
+        self.pteLevelArea.setStyleSheet("font-size: 10pt;")
         self.pteLevelArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.pteLevelArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.pteLevelArea.setPlainText("Minigame layout will be displayed here.")
+        self.pteLevelArea.setLineWrapMode(QtWidgets.QPlainTextEdit.NoWrap)
+        self.pteLevelArea.setPlainText("")
+        self.pteLevelArea.setCenterOnScroll(False)
+        self.pteLevelArea.setPlaceholderText("Minigame layout will be displayed here.")
         self.pteLevelArea.setObjectName("pteLevelArea")
         self.appDetails = QtWidgets.QLabel(self.centralwidget)
         self.appDetails.setGeometry(QtCore.QRect(440, 0, 101, 20))
@@ -61,7 +65,7 @@ class Ui_MainWindow(object):
         self.appCreator.setObjectName("appCreator")
         self.lbLevelName = QtWidgets.QLabel(self.centralwidget)
         self.lbLevelName.setGeometry(QtCore.QRect(180, 70, 71, 16))
-        self.lbLevelName.setStyleSheet("font-size: 9pt;")
+        self.lbLevelName.setStyleSheet("font-size: 10pt;")
         self.lbLevelName.setText("")
         self.lbLevelName.setObjectName("lbLevelName")
         MainWindow.setCentralWidget(self.centralwidget)
