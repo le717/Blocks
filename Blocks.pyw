@@ -20,7 +20,6 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-__all__ = ("Blocks", "UI")
 
 import os
 import sys
@@ -28,18 +27,15 @@ import stat
 import shutil
 import logging
 import traceback
-import webbrowser
 
 import utils
 import levelchecks
 import constants as const
 import ui.main as mainUi
 
-import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
-
 from PyQt5 import QtWidgets
+
+__all__ = ("Blocks", "UI")
 
 
 class Blocks(object):
@@ -449,169 +445,173 @@ class UI:
         # Run the application
         self.__qApp.exec_()
 
-
     def _setDetails(self):
         """Set the program details in the GUI.
 
         @return {Boolean} Always returns True.
         """
-        self.__MainWindow.setWindowTitle(self.__MainWindow.windowTitle().replace("app-name", const.appName))
-        self.__MainWindow.setWindowTitle(self.__MainWindow.windowTitle().replace("app-ver", const.version))
-        self.ui.appDetails.setText(self.ui.appDetails.text().replace("app-name", const.appName))
-        self.ui.appDetails.setText(self.ui.appDetails.text().replace("app-ver", const.version))
-        self.ui.appCreator.setText(self.ui.appCreator.text().replace("app-creator", const.creator))
+        self.__MainWindow.setWindowTitle(
+            self.__MainWindow.windowTitle().replace("app-name", const.appName))
+        self.__MainWindow.setWindowTitle(
+            self.__MainWindow.windowTitle().replace("app-ver", const.version))
+        self.ui.appDetails.setText(
+            self.ui.appDetails.text().replace("app-name", const.appName))
+        self.ui.appDetails.setText(
+            self.ui.appDetails.text().replace("app-ver", const.version))
+        self.ui.appCreator.setText(
+            self.ui.appCreator.text().replace("app-creator", const.creator))
         return True
 
 
-class BlocksGUI(tk.Frame):
-
-    """Tkinter-based GUI for Blocks.
-
-    Provides public access to key visual areas including
-    file name and editing area.
-
-    @param parent {Tkinter} Tkinter frame all elements to which are parented.
-    @param cmdFile {String|None} Absolute path to the file being opened.
-        Passing None will not invoke the automatic opening.
-    """
-
-    def __init__(self, parent, cmdFile):
-        """Draw the GUI."""
-        # Create an instance of the back-end code
-        blocks = Blocks()
-
-        # Window settings
-        tk.Frame.__init__(self, parent)
-        parent.title("{0} {1}".format(
-            const.appName, const.version))
-        parent.iconbitmap(const.appIcon)
-        parent.minsize("575", "250")
-        self.__mainframe = ttk.Frame(root, padding="7 7 7 7")
-        self.__mainframe.grid(column=0, row=0,
-                              sticky=(tk.N, tk.W, tk.E, tk.S))
-
-        # Window resizing
-        parent.columnconfigure(0, weight=1)
-        self.__mainframe.columnconfigure(0, weight=1)
-        self.__mainframe.columnconfigure(1, weight=1)
-        self.__mainframe.columnconfigure(2, weight=1)
-        self.__mainframe.rowconfigure(0, weight=1)
-        self.__mainframe.rowconfigure(1, weight=1)
-        self.__mainframe.rowconfigure(2, weight=1)
-
-        # Blocks Logo
-        self.__blocksLogo = tk.PhotoImage(file=const.appLogo)
-        self.__imageFrame = ttk.Label(self.__mainframe)
-        self.__imageFrame["image"] = self.__blocksLogo
-        self.__imageFrame.grid(column=2, row=3, sticky=tk.S)
-
-        # Level (file) name display
-        self.levelName = tk.StringVar()
-        ttk.Label(self.__mainframe, textvariable=self.levelName).grid(
-            column=0, row=2, columnspan=2)
-
-        # Level editing area
-        self.levelArea = tk.Text(self.__mainframe,
-                                 height=8, width=40, wrap="none")
-        self.levelArea.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
-        self.levelArea.insert("1.0",
-                              "Minigame layout will be displayed here.")
-
-        # About Blocks text
-        self.__aboutBlocks = ttk.Label(
-            self.__mainframe,
-            text="""      {0} {1}
-Created 2013-2014
-      Triangle717""".format(const.appName, const.version))
-        self.__aboutBlocks.grid(column=2, row=0, sticky=tk.N)
-
-        # New, Open, Save, and Legend buttons
-        self.__buttonNew = ttk.Button(self.__mainframe, text="New",
-                                      command=blocks.createLevel)
-        self.__buttonNew.grid(column=2, row=1, sticky=tk.N)
-        self.__buttonOpen = ttk.Button(self.__mainframe, text="Open",
-                                       command=blocks.openLevel)
-        self.__buttonOpen.grid(column=2, row=2, sticky=tk.N)
-        self.__buttonSave = ttk.Button(self.__mainframe, text="Save",
-                                       command=blocks.saveLevel)
-        self.__buttonSave.grid(column=2, row=3, sticky=tk.N)
-        self.__buttonLegend = ttk.Button(self.__mainframe,
-                                         text="Character Legend",
-                                         command=self._charLegend)
-        self.__buttonLegend.grid(column=0, row=0, columnspan=2, rowspan=1,
-                                 sticky=(tk.N, tk.S))
-
-        # Some padding around all the elements
-        for child in self.__mainframe.winfo_children():
-            child.grid_configure(padx=1, pady=1)
-
-        # Bind keyboard shortcuts
-        parent.bind("<Control-n>", blocks.createLevel)
-        parent.bind("<Control-O>", blocks.openLevel)
-        parent.bind("<Control-s>", blocks.saveLevel)
-        parent.bind("<Control-q>", self._close)
-        parent.bind("<F12>", self._charLegend)
-
-        # If the argument is a valid file, open it
-        if (cmdFile is not None and os.path.isfile(cmdFile)):
-            if const.debugMode:
-                print("\n{0}\nis being opened for reading.".format(
-                    os.path.abspath(cmdFile)))
-            root.after(1, blocks.openLevelAuto, cmdFile, True)
-
-    def _close(self, *args):
-        """Close Blocks."""
-        logging.shutdown()
-        raise SystemExit(0)
-
-    def _closeLegend(self, *args):
-        """Close character legend window."""
-        self.__legendWindow.destroy()
-
-    def _charLegend(self, *args):
-        """Chart listing valid cubes that can be used."""
-        # Spawn a new window, parent it to main window
-        self.__legendWindow = tk.Toplevel(root)
-        self.__legendWindow.iconbitmap(const.appIcon)
-        self.__legendWindow.title(
-            "Level Character Legend - Blocks {0}".format(
-                const.version))
-
-        # The dialog is not resizable
-        self.__legendWindow.minsize("400", "260")
-        self.__legendWindow.maxsize("400", "260")
-
-        # Give it focus
-        self.__legendWindow.lift()
-        self.__legendWindow.focus()
-
-        # The legend itself
-        # TODO I hate this layout, ask for revision help
-        self.__legendText = """\t\t        === Available Colors ===
-\t              R = Red, G = Green, B = Blue, Y = Yellow
-
-\t\t        === Available Types ===
-\t\t\t  F = Free Tile,
-\t\t              BW = Blocked Wall,
-\t\t            (R, G, B, Y)C = Cube,
-\t\t            (R, G, B, Y)T = Tile,
-\t\tRB = One way, west-bound Red Cube
-
-\t\t\t=== Water ===
-\t        WH = Small Horizontal, WV = Small Vertical,
-\t            WI = Top, WJ = Left, WM = Right,
-\t            WT = Top Left, WL = Top Right,
-\t            WR = Bottom Left, WB = Bottom Right"""
-
-        # Display the legend
-        ttk.Label(self.__legendWindow, text=self.__legendText).grid()
-
-        # Close button and keyboard shortcut
-        buttonLegendClose = ttk.Button(self.__legendWindow,
-                                       default="active", text="Close",
-                                       command=self._closeLegend)
-        buttonLegendClose.grid(column=1, row=1, sticky=tk.S)
-        self.__legendWindow.bind("<Control-q>", self._closeLegend)
+# class BlocksGUI(tk.Frame):
+#
+#    """Tkinter-based GUI for Blocks.
+#
+#    Provides public access to key visual areas including
+#    file name and editing area.
+#
+#    @param parent {Tkinter} Tkinter frame all elements to which are parented.
+#    @param cmdFile {String|None} Absolute path to the file being opened.
+#        Passing None will not invoke the automatic opening.
+#    """
+#
+#    def __init__(self, parent, cmdFile):
+#        """Draw the GUI."""
+#        # Create an instance of the back-end code
+#        blocks = Blocks()
+#
+#        # Window settings
+#        tk.Frame.__init__(self, parent)
+#        parent.title("{0} {1}".format(
+#            const.appName, const.version))
+#        parent.iconbitmap(const.appIcon)
+#        parent.minsize("575", "250")
+#        self.__mainframe = ttk.Frame(root, padding="7 7 7 7")
+#        self.__mainframe.grid(column=0, row=0,
+#                              sticky=(tk.N, tk.W, tk.E, tk.S))
+#
+#        # Window resizing
+#        parent.columnconfigure(0, weight=1)
+#        self.__mainframe.columnconfigure(0, weight=1)
+#        self.__mainframe.columnconfigure(1, weight=1)
+#        self.__mainframe.columnconfigure(2, weight=1)
+#        self.__mainframe.rowconfigure(0, weight=1)
+#        self.__mainframe.rowconfigure(1, weight=1)
+#        self.__mainframe.rowconfigure(2, weight=1)
+#
+#        # Blocks Logo
+#        self.__blocksLogo = tk.PhotoImage(file=const.appLogo)
+#        self.__imageFrame = ttk.Label(self.__mainframe)
+#        self.__imageFrame["image"] = self.__blocksLogo
+#        self.__imageFrame.grid(column=2, row=3, sticky=tk.S)
+#
+#        # Level (file) name display
+#        self.levelName = tk.StringVar()
+#        ttk.Label(self.__mainframe, textvariable=self.levelName).grid(
+#            column=0, row=2, columnspan=2)
+#
+#        # Level editing area
+#        self.levelArea = tk.Text(self.__mainframe,
+#                                 height=8, width=40, wrap="none")
+#        self.levelArea.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
+#        self.levelArea.insert("1.0",
+#                              "Minigame layout will be displayed here.")
+#
+#        # About Blocks text
+#        self.__aboutBlocks = ttk.Label(
+#            self.__mainframe,
+#            text="""      {0} {1}
+# Created 2013-2014
+#      Triangle717""".format(const.appName, const.version))
+#        self.__aboutBlocks.grid(column=2, row=0, sticky=tk.N)
+#
+#        # New, Open, Save, and Legend buttons
+#        self.__buttonNew = ttk.Button(self.__mainframe, text="New",
+#                                      command=blocks.createLevel)
+#        self.__buttonNew.grid(column=2, row=1, sticky=tk.N)
+#        self.__buttonOpen = ttk.Button(self.__mainframe, text="Open",
+#                                       command=blocks.openLevel)
+#        self.__buttonOpen.grid(column=2, row=2, sticky=tk.N)
+#        self.__buttonSave = ttk.Button(self.__mainframe, text="Save",
+#                                       command=blocks.saveLevel)
+#        self.__buttonSave.grid(column=2, row=3, sticky=tk.N)
+#        self.__buttonLegend = ttk.Button(self.__mainframe,
+#                                         text="Character Legend",
+#                                         command=self._charLegend)
+#        self.__buttonLegend.grid(column=0, row=0, columnspan=2, rowspan=1,
+#                                 sticky=(tk.N, tk.S))
+#
+#        # Some padding around all the elements
+#        for child in self.__mainframe.winfo_children():
+#            child.grid_configure(padx=1, pady=1)
+#
+#        # Bind keyboard shortcuts
+#        parent.bind("<Control-n>", blocks.createLevel)
+#        parent.bind("<Control-O>", blocks.openLevel)
+#        parent.bind("<Control-s>", blocks.saveLevel)
+#        parent.bind("<Control-q>", self._close)
+#        parent.bind("<F12>", self._charLegend)
+#
+#        # If the argument is a valid file, open it
+#        if (cmdFile is not None and os.path.isfile(cmdFile)):
+#            if const.debugMode:
+#                print("\n{0}\nis being opened for reading.".format(
+#                    os.path.abspath(cmdFile)))
+#            root.after(1, blocks.openLevelAuto, cmdFile, True)
+#
+#    def _close(self, *args):
+#        """Close Blocks."""
+#        logging.shutdown()
+#        raise SystemExit(0)
+#
+#    def _closeLegend(self, *args):
+#        """Close character legend window."""
+#        self.__legendWindow.destroy()
+#
+#    def _charLegend(self, *args):
+#        """Chart listing valid cubes that can be used."""
+#        # Spawn a new window, parent it to main window
+#        self.__legendWindow = tk.Toplevel(root)
+#        self.__legendWindow.iconbitmap(const.appIcon)
+#        self.__legendWindow.title(
+#            "Level Character Legend - Blocks {0}".format(
+#                const.version))
+#
+#        # The dialog is not resizable
+#        self.__legendWindow.minsize("400", "260")
+#        self.__legendWindow.maxsize("400", "260")
+#
+#        # Give it focus
+#        self.__legendWindow.lift()
+#        self.__legendWindow.focus()
+#
+#        # The legend itself
+#        # TODO I hate this layout, ask for revision help
+#        self.__legendText = """\t\t        === Available Colors ===
+# \t              R = Red, G = Green, B = Blue, Y = Yellow
+#
+# \t\t        === Available Types ===
+# \t\t\t  F = Free Tile,
+# \t\t              BW = Blocked Wall,
+# \t\t            (R, G, B, Y)C = Cube,
+# \t\t            (R, G, B, Y)T = Tile,
+# \t\tRB = One way, west-bound Red Cube
+#
+# \t\t\t=== Water ===
+# \t        WH = Small Horizontal, WV = Small Vertical,
+# \t            WI = Top, WJ = Left, WM = Right,
+# \t            WT = Top Left, WL = Top Right,
+# \t            WR = Bottom Left, WB = Bottom Right"""
+#
+#        # Display the legend
+#        ttk.Label(self.__legendWindow, text=self.__legendText).grid()
+#
+#        # Close button and keyboard shortcut
+#        buttonLegendClose = ttk.Button(self.__legendWindow,
+#                                       default="active", text="Close",
+#                                       command=self._closeLegend)
+#        buttonLegendClose.grid(column=1, row=1, sticky=tk.S)
+#        self.__legendWindow.bind("<Control-q>", self._closeLegend)
 
 
 if __name__ == "__main__":
