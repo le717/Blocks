@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Blocks - Island Xtreme Stunts Minigame Level Editor.
 
-Created 2013-2014 Triangle717
+Created 2013-2015 Triangle717
 <http://Triangle717.WordPress.com/>
 
 Blocks is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@ class Blocks(object):
 
         self.__uiLevelName = ui.lbLevelName
         self.__uiLevelArea = ui.pteLevelArea
-#        self.__uiErrors = QtWidgets.QErrorMessage()
+        self.__uiErrors = QtWidgets.QMessageBox()
 
     def _changePermissions(self, filePath, fileName):
         """Change a file permissions to make it writable.
@@ -98,9 +98,7 @@ class Blocks(object):
         else:
             logging.error("\nAn error has occurred:\n{0}".format(message))
 
-        messagebox.showerror(title, message)
-#        self.__uiErrors.showMessage(title,  message)
-#        QtWidgets.QDialog().exec()
+        self.__uiErrors.critical(self.__uiErrors, title, message)
         return False
 
     def _readLevel(self, filePath):
@@ -385,8 +383,9 @@ class Blocks(object):
         # PermissionError handling is not needed here,
         # as it is handled in _writeFile()
         if self._writeFile(filePath, fileName, firstLine, binaryLayout):
-            messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-                                .format(fileName, filePath))
+            self.__uiErrors.information(self.__uiErrors, "Success!",
+                                        "Successfully saved {0} to {1}".
+                                        format(fileName, filePath))
         else:
             # Could not save the file
             return False

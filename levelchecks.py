@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Blocks - Island Xtreme Stunts Minigame Level Editor.
 
-Created 2013-2014 Triangle717
+Created 2013-2015 Triangle717
 <http://Triangle717.WordPress.com/>
 
 Blocks is free software: you can redistribute it and/or modify
