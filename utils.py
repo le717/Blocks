@@ -19,7 +19,6 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-__all__ = ("Utils")
 
 import os
 import sys
@@ -31,6 +30,8 @@ import subprocess
 import tkinter as tk
 
 import constants as const
+
+__all__ = ("Utils")
 
 
 class Utils(object):

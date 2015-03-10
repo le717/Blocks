@@ -62,7 +62,7 @@ class Blocks(object):
         self.__uiLevelArea = ui.pteLevelArea
         self.__uiErrors = QtWidgets.QMessageBox()
 
-    def _changePermissions(self, filePath, fileName):
+    def __changePermissions(self, filePath, fileName):
         """Change a file permissions to make it writable.
 
         @param {String} filePath Absolute path to the file being changed.
@@ -76,7 +76,7 @@ class Blocks(object):
             return True
         return False
 
-    def _displayError(self, title, message, trace=None):
+    def __displayError(self, title, message, trace=None):
         """Display error message dialog.
 
         @param {String} title Dialog error title.
@@ -97,7 +97,7 @@ class Blocks(object):
         self.__uiErrors.critical(self.__uiErrors, title, message)
         return False
 
-    def _readLevel(self, filePath):
+    def __readLevel(self, filePath):
         """Read a level file and get its contents.
 
         @param {String} filePath Absolute path to the file being opened.
@@ -115,7 +115,7 @@ class Blocks(object):
             levelLayout = f2.readlines()[1:]
         return "".join(levelLayout)
 
-    def _displayLevel(self, filePath, readFile):
+    def __displayLevel(self, filePath, readFile):
         """Display the level name and layout in the GUI.
 
         It is not acceptable to call this directly,
@@ -125,10 +125,10 @@ class Blocks(object):
         @param {Boolean} readFile True if the file needs to be read from disk.
         @return {Boolean} Always returns True.
         """
-        # Read the level, get just the file name
+        # Read the level, get just the file 
         self.__fileName = os.path.basename(filePath)
         if readFile:
-            levelLayout = self._readLevel(filePath)
+            levelLayout = self.__readLevel(filePath)
         # Reuse the layout we already have
         else:
             levelLayout = self.__levelLayout
@@ -152,7 +152,7 @@ class Blocks(object):
             os.unlink(filePath)
         return True
 
-    def _writeFile(self, filePath, fileName, firstLine,
+    def __writeFile(self, filePath, fileName, firstLine,
                    levelLayout, temporary=False):
         """Write the level layout to file.
 
@@ -186,12 +186,12 @@ class Blocks(object):
         # We cannot save a file in this location
         except PermissionError as p:
             if self.__newLevel:
-                self._displayError("Insufficient Privileges!",
+                self.__displayError("Insufficient Privileges!",
                                    "You can't save to {0}"
                                    .format(fileName.replace("\\", "/")), p)
             return False
 
-    def _createBackup(self, location, backupFile):
+    def __createBackup(self, location, backupFile):
         """Make a backup of the level before saving.
 
         @param {String} location  Absolute path to the file being opened.
@@ -211,12 +211,12 @@ class Blocks(object):
 
         # We cannot save a file in this location
         except PermissionError as p:
-            self._displayError("Insufficient Privileges!",
+            self.__displayError("Insufficient Privileges!",
                                "You can't save to {0}"
                                .format(backupFile.replace("\\", "/")), p)
             return False
 
-    def _syntaxChecks(self, levelLayout):
+    def __syntaxChecks(self, levelLayout):
         """Check the level layout for syntax errors.
 
         @param {Bytes} levelLayout The level layout to be written.
@@ -229,11 +229,11 @@ class Blocks(object):
         if type(results) == tuple:
             if const.debugMode:
                 print(results[0], results[1])
-            self._displayError(results[0], results[1])
+            self.__displayError(results[0], results[1])
             return False
         return results
 
-    def _selectDestFile(self):
+    def __selectDestFile(self):
         """File selection dialog for new level file.
 
         @return {Boolean|String} Absolute path to the resulting file;
@@ -250,7 +250,7 @@ class Blocks(object):
             return fileName
         return False
 
-    def _getDestDetails(self):
+    def __getDestDetails(self):
         """Generate the destination's file details and save backup file.
 
         Reuses the information if we are saving an existing file,
@@ -273,8 +273,8 @@ class Blocks(object):
         # but we don't have the permissions required
         if (self.__newLevel or
             (not self.__newLevel and not
-             self._createBackup(details[0], details[1]))):
-            destFile = self._selectDestFile()
+             self.__createBackup(details[0], details[1]))):
+            destFile = self.__selectDestFile()
 
             # The user did not select a new destination
             if not destFile:
@@ -299,7 +299,7 @@ class Blocks(object):
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F\n"""
+ F  F  F  F  F  F  F  F  F  F  F  F  F"""
 
         if const.debugMode:
             print("\nA new level is being created.")
@@ -322,7 +322,7 @@ class Blocks(object):
         """
         self.__fileOpen = True
         self.__filePath = os.path.dirname(os.path.abspath(filePath))
-        self._displayLevel(filePath, readAgain)
+        self.__displayLevel(filePath, readAgain)
         return True
 
     def openLevel(self, *args):
@@ -350,20 +350,21 @@ class Blocks(object):
         """
         # Do not permit saving before opening a file
         if not self.__fileOpen:
-            self._displayError("No File!",
+            self.__displayError("No File!",
                                "You need to open a level before saving!")
             return False
 
         # Store the new layout
         self.__levelLayout = self.__uiLevelArea.toPlainText()
+        print(self.__levelLayout)
 
         # Get the destination details
-        filePath, fileName, firstLine = self._getDestDetails()
+        filePath, fileName, firstLine = self.__getDestDetails()
         if not filePath:
             return False
 
         # Check the level layout for errors
-        self.__levelLayout = self._syntaxChecks(self.__levelLayout)
+        self.__levelLayout = self.__syntaxChecks(self.__levelLayout)
         if not self.__levelLayout:
             return False
 
@@ -373,12 +374,12 @@ class Blocks(object):
 
         # Change the permissions of the file to make it writable.
         # This should help reduce permission exceptions.
-        self._changePermissions(filePath, fileName)
+        self.__changePermissions(filePath, fileName)
 
         # Write the file to disk.
         # PermissionError handling is not needed here,
-        # as it is handled in _writeFile()
-        if self._writeFile(filePath, fileName, firstLine, binaryLayout):
+        # as it is handled in __writeFile()
+        if self.__writeFile(filePath, fileName, firstLine, binaryLayout):
             self.__uiErrors.information(self.__uiErrors, "Success!",
                                         "Successfully saved {0} to {1}".
                                         format(fileName, filePath))
