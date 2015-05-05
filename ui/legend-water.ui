@@ -214,16 +214,20 @@ qproperty-alignment: AlignCenter;</string>
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>30</y>
+     <y>40</y>
      <width>211</width>
      <height>311</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 75 9pt &quot;Open Sans&quot;;</string>
+    <string notr="true">font: 75 9pt &quot;Open Sans&quot;;
+qproperty-alignment: AlignTop;</string>
    </property>
    <property name="text">
-    <string notr="true">&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Water Blocks&lt;/span&gt; serve as an obstacle&lt;br&gt;to the player much like Blocked Walls&lt;br&gt;but with a notable exception:&lt;br&gt;cubes will sink when pushed in water,&lt;br&gt;allowing the player to walk and push&lt;br&gt;other cubesover the suken one.&lt;/p&gt;&lt;p&gt;Water Blocks are more complicated&lt;br&gt;than ordinary blocks. In addition to&lt;br&gt;their confusing codes,each block&lt;br&gt;can only be placed in their titular&lt;br&gt;positions, e.g., only &quot;top&quot; blocks&lt;br&gt;can be placed on the top row,&lt;br&gt;or &quot;top left&quot; in the top left corner&lt;br&gt;of the board.&lt;/p&gt;&lt;p&gt;&quot;Horizontal&quot; and &quot;Vertical&quot; blocks are&lt;br&gt;the only blocks that can in placed&lt;br&gt;in non-border areas.&lt;/p&gt;</string>
+    <string notr="true">&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Water Blocks&lt;/span&gt; serve as an obstacle to the player much like Blocked Walls but with a notable exception: cubes will sink when pushed in water, allowing the player to walk and push other cubes over the suken one.&lt;/p&gt;&lt;p&gt;Water Blocks are more complicated than ordinary blocks. In addition to their confusing codes,each block can only be placed in their titular positions, e.g., only Top can be placed on the top row, or Top Left in the top left corner of the board.&lt;/p&gt;&lt;p&gt;Horizontal and Vertical blocks are the only cubes that can in placed in non-border areas.&lt;/p&gt;</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QTableWidget" name="tableWidget_4">
