@@ -1,5 +1,5 @@
 # Building With Blocks #
-Written by Triangle717, with information provided by [Xiron](http://www.youtube.com/user/Segatendo12)
+Written by Triangle717, with information provided by [Xiron](http://www.youtube.com/user/Segatendo12).
 
 ### Warning: This tutorial is incomplete! ###
 
