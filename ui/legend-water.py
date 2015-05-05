@@ -164,6 +164,7 @@ class Ui_legendDiagWater(object):
         self.tableWidget_4.setItem(8, 0, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_4.setItem(8, 1, item)
+        self.tableWidget_4.verticalHeader().setVisible(False)
         self.btnClose = QtWidgets.QPushButton(legendDiagWater)
         self.btnClose.setGeometry(QtCore.QRect(170, 370, 75, 23))
         self.btnClose.setText("Close")
