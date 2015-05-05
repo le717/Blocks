@@ -16,7 +16,6 @@ Written by Triangle717, with information provided by [Xiron](http://www.youtube.
     <td><a href="#lesson-4-jumping-to-specific-levels">Lesson #4</a></td>
     <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
     <td><a href="#task-3-adding-a-one-way-west-bound-red-cube">Task #3</a></td>
-    <td><a href="#task-4-water">Task #4</a></td>
   </tr>
 </table>
 
@@ -348,10 +347,5 @@ And finally, we test it. If the game loaded, and you can complete it, your mod w
 
 > **Recap:** You leaned about a `One way, west-bound Red Cube`, the special properties it has (and does not have!), how it got it's unusual name, and how to
 responsibly use it in a level layout. High five! :raised_hand:
-
-[:arrow_up:](#building-with-blocks)
-
-### Task #4: Water ###
-While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me from writing it at this time. I'm sorry for any inconvenience this may have caused you. :(
 
 [:arrow_up:](#building-with-blocks)
