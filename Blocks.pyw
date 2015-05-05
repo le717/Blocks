@@ -32,6 +32,7 @@ import utils
 import levelchecks
 import constants as const
 import ui.main as mainUi
+import ui.legendWater as legendWaterUi
 
 from PyQt5 import QtWidgets
 
@@ -425,13 +426,14 @@ class UI:
         self.ui.actionNew.triggered.connect(self.__blocks.createLevel)
         self.ui.actionOpen.triggered.connect(self.__blocks.openLevel)
         self.ui.actionSave.triggered.connect(self.__blocks.saveLevel)
+        self.ui.actionLegendWater.triggered.connect(self.__showWaterLegend)
         # Quit menu item is connected in generated main.py
 
         # Display app details and run app
-        self._setDetails()
-        self._start()
+        self.__setDetails()
+        self.__start()
 
-    def _start(self):
+    def __start(self):
         """Start the application."""
         # Show the UI
         self.__MainWindow.show()
@@ -446,7 +448,7 @@ class UI:
         # Run the application
         self.__qApp.exec_()
 
-    def _setDetails(self):
+    def __setDetails(self):
         """Set the program details in the GUI.
 
         @return {Boolean} Always returns True.
@@ -463,6 +465,18 @@ class UI:
             self.ui.appCreator.text().replace("app-creator", const.creator))
         return True
 
+    def __showWaterLegend(self):
+        """Display the Water Blocks Legend dialog.
+
+        @return {Boolean} Always returns True.
+        """
+        dialogWindow = QtWidgets.QDialog()
+        ui = legendWaterUi.Ui_legendDiagWater()
+        ui.setupUi(dialogWindow)
+        dialogWindow.setWindowTitle(
+            dialogWindow.windowTitle().replace("app-name", const.appName))
+        dialogWindow.exec_()
+        return True
 
 # class BlocksGUI(tk.Frame):
 #
