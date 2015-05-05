@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string notr="true">Water Blocks Legend - app-name</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/Logo/Media/Blocks.png</normaloff>:/Logo/Media/Blocks.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">QTableWidget {
 	font-size: 9pt;
@@ -250,7 +254,9 @@ qproperty-alignment: AlignTop;</string>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>btnClose</sender>

@@ -14,6 +14,9 @@ class Ui_legendDiagWater(object):
         legendDiagWater.resize(445, 410)
         legendDiagWater.setMinimumSize(QtCore.QSize(445, 410))
         legendDiagWater.setWindowTitle("Water Blocks Legend - app-name")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/Logo/Media/Blocks.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        legendDiagWater.setWindowIcon(icon)
         legendDiagWater.setStyleSheet("QTableWidget {\n"
 "    font-size: 9pt;\n"
 "    font-family: \"Source Code Pro\", \"Consolas\";\n"
@@ -136,3 +139,4 @@ class Ui_legendDiagWater(object):
         self.tableCodes.setSortingEnabled(False)
         self.tableCodes.setSortingEnabled(__sortingEnabled)
 
+import images_rc
