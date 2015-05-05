@@ -96,7 +96,7 @@ class Ui_legendDiagWater(object):
         self.label_2.setGeometry(QtCore.QRect(220, 40, 211, 311))
         self.label_2.setStyleSheet("font: 75 9pt \"Open Sans\";\n"
 "qproperty-alignment: AlignTop;")
-        self.label_2.setText("<p><span style=\" font-weight:700;\">Water Blocks</span> serve as an obstacle to the player much like Blocked Walls but with a notable exception: cubes will sink when pushed in water, allowing the player to walk and push other cubes over the sunken one.</p><p>Water Blocks are more complicated than ordinary blocks. In addition to their confusing codes, each block can only be placed in their titular positions, e.g., only Top can be placed on the top row, or Top Left in the top left corner of the board.</p><p>Horizontal and Vertical blocks are the only cubes that can in placed in non-border areas.</p>")
+        self.label_2.setText("<p><span style=\" font-weight:700;\">Water Blocks</span> serve as an obstacle to the player much like Blocked Walls but with a notable exception: cubes will sink when pushed in water, allowing the player to walk and push other cubes over the sunken one.</p><p>Water Blocks are more complicated than ordinary blocks. In addition to their confusing codes, each block can only be placed in their titular positions, e.g., only Top can be placed on the top row, or Top Left in the top left corner of the board.</p><p>Horizontal and Vertical blocks are the only cubes that can in placed in non-bordered areas.</p>")
         self.label_2.setWordWrap(True)
         self.label_2.setObjectName("label_2")
         self.tableWidget_4 = QtWidgets.QTableWidget(legendDiagWater)
