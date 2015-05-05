@@ -212,6 +212,7 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
      <addaction name="actionLegendWater"/>
     </widget>
     <addaction name="menuLegend"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
@@ -263,6 +264,14 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
   <action name="actionLegendMain">
    <property name="text">
     <string>&amp;Main Blocks</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string notr="true">&amp;About</string>
    </property>
   </action>
  </widget>

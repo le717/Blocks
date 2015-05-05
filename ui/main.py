@@ -100,6 +100,10 @@ class Ui_MainWindow(object):
         self.actionLegendWater.setObjectName("actionLegendWater")
         self.actionLegendMain = QtWidgets.QAction(MainWindow)
         self.actionLegendMain.setObjectName("actionLegendMain")
+        self.actionAbout = QtWidgets.QAction(MainWindow)
+        self.actionAbout.setEnabled(False)
+        self.actionAbout.setText("&About")
+        self.actionAbout.setObjectName("actionAbout")
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionSave)
@@ -108,6 +112,7 @@ class Ui_MainWindow(object):
         self.menuLegend.addAction(self.actionLegendMain)
         self.menuLegend.addAction(self.actionLegendWater)
         self.menuHelp.addAction(self.menuLegend.menuAction())
+        self.menuHelp.addAction(self.actionAbout)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
