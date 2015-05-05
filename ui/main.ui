@@ -93,7 +93,8 @@ border: none;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 10pt;</string>
+     <string notr="true">font-size: 10pt;
+font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>

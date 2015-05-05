@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui\main.ui'
 #
-# Created: Sun Feb 15 21:09:15 2015
-#      by: PyQt5 UI code generator 5.4
+# Created by: PyQt5 UI code generator 5.4.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -42,7 +41,8 @@ class Ui_MainWindow(object):
         self.btnSave.setObjectName("btnSave")
         self.pteLevelArea = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.pteLevelArea.setGeometry(QtCore.QRect(60, 90, 321, 141))
-        self.pteLevelArea.setStyleSheet("font-size: 10pt;")
+        self.pteLevelArea.setStyleSheet("font-size: 10pt;\n"
+"font-family: \"Source Code Pro\", \"Consolas\";")
         self.pteLevelArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.pteLevelArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.pteLevelArea.setLineWrapMode(QtWidgets.QPlainTextEdit.NoWrap)
