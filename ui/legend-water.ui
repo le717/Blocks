@@ -224,7 +224,7 @@ qproperty-alignment: AlignCenter;</string>
 qproperty-alignment: AlignTop;</string>
    </property>
    <property name="text">
-    <string notr="true">&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Water Blocks&lt;/span&gt; serve as an obstacle to the player much like Blocked Walls but with a notable exception: cubes will sink when pushed in water, allowing the player to walk and push other cubes over the suken one.&lt;/p&gt;&lt;p&gt;Water Blocks are more complicated than ordinary blocks. In addition to their confusing codes,each block can only be placed in their titular positions, e.g., only Top can be placed on the top row, or Top Left in the top left corner of the board.&lt;/p&gt;&lt;p&gt;Horizontal and Vertical blocks are the only cubes that can in placed in non-border areas.&lt;/p&gt;</string>
+    <string notr="true">&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Water Blocks&lt;/span&gt; serve as an obstacle to the player much like Blocked Walls but with a notable exception: cubes will sink when pushed in water, allowing the player to walk and push other cubes over the sunken one.&lt;/p&gt;&lt;p&gt;Water Blocks are more complicated than ordinary blocks. In addition to their confusing codes, each block can only be placed in their titular positions, e.g., only Top can be placed on the top row, or Top Left in the top left corner of the board.&lt;/p&gt;&lt;p&gt;Horizontal and Vertical blocks are the only cubes that can in placed in non-border areas.&lt;/p&gt;</string>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
