@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>legendDiagWater</class>
+ <widget class="QDialog" name="legendDiagWater">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>445</width>
+    <height>410</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>445</width>
+    <height>410</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Water Blocks Legend - app-name</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QTableWidget {
+	font-size: 9pt;
+	font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;
+}
+</string>
+  </property>
+  <widget class="QTableWidget" name="tableWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>201</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>false</bool>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::NoSelection</enum>
+   </property>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>Water Type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Code</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string>Top</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string>WI</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string>Left</string>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string>WJ</string>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string>Right</string>
+    </property>
+   </item>
+   <item row="2" column="1">
+    <property name="text">
+     <string>WM</string>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string>Top Left</string>
+    </property>
+   </item>
+   <item row="3" column="1">
+    <property name="text">
+     <string>WT</string>
+    </property>
+   </item>
+   <item row="4" column="0">
+    <property name="text">
+     <string>Top Right</string>
+    </property>
+   </item>
+   <item row="4" column="1">
+    <property name="text">
+     <string>WL</string>
+    </property>
+   </item>
+   <item row="5" column="0">
+    <property name="text">
+     <string>Bottom Left</string>
+    </property>
+   </item>
+   <item row="5" column="1">
+    <property name="text">
+     <string>WR</string>
+    </property>
+   </item>
+   <item row="6" column="0">
+    <property name="text">
+     <string>Bottom Right</string>
+    </property>
+   </item>
+   <item row="6" column="1">
+    <property name="text">
+     <string>WB</string>
+    </property>
+   </item>
+   <item row="7" column="0">
+    <property name="text">
+     <string>Vertical</string>
+    </property>
+   </item>
+   <item row="7" column="1">
+    <property name="text">
+     <string>WV</string>
+    </property>
+   </item>
+   <item row="8" column="0">
+    <property name="text">
+     <string>Horizontal</string>
+    </property>
+   </item>
+   <item row="8" column="1">
+    <property name="text">
+     <string>WH</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>10</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 16pt &quot;Open Sans&quot;;
+qproperty-alignment: AlignCenter;</string>
+   </property>
+   <property name="text">
+    <string notr="true">Water Blocks</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>30</y>
+     <width>211</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 9pt &quot;Open Sans&quot;;</string>
+   </property>
+   <property name="text">
+    <string notr="true">&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Water Blocks&lt;/span&gt; serve as an obstacle&lt;br&gt;to the player much like Blocked Walls&lt;br&gt;but with a notable exception:&lt;br&gt;cubes will sink when pushed in water,&lt;br&gt;allowing the player to walk and push&lt;br&gt;other cubesover the suken one.&lt;/p&gt;&lt;p&gt;Water Blocks are more complicated&lt;br&gt;than ordinary blocks. In addition to&lt;br&gt;their confusing codes,each block&lt;br&gt;can only be placed in their titular&lt;br&gt;positions, e.g., only &quot;top&quot; blocks&lt;br&gt;can be placed on the top row,&lt;br&gt;or &quot;top left&quot; in the top left corner&lt;br&gt;of the board.&lt;/p&gt;&lt;p&gt;&quot;Horizontal&quot; and &quot;Vertical&quot; blocks are&lt;br&gt;the only blocks that can in placed&lt;br&gt;in non-border areas.&lt;/p&gt;</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>201</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>false</bool>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::NoSelection</enum>
+   </property>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string/>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>Water Type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Code</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string>Top</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string>WI</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string>Left</string>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string>WJ</string>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string>Right</string>
+    </property>
+   </item>
+   <item row="2" column="1">
+    <property name="text">
+     <string>WM</string>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string>Top Left</string>
+    </property>
+   </item>
+   <item row="3" column="1">
+    <property name="text">
+     <string>WT</string>
+    </property>
+   </item>
+   <item row="4" column="0">
+    <property name="text">
+     <string>Top Right</string>
+    </property>
+   </item>
+   <item row="4" column="1">
+    <property name="text">
+     <string>WL</string>
+    </property>
+   </item>
+   <item row="5" column="0">
+    <property name="text">
+     <string>Bottom Left</string>
+    </property>
+   </item>
+   <item row="5" column="1">
+    <property name="text">
+     <string>WR</string>
+    </property>
+   </item>
+   <item row="6" column="0">
+    <property name="text">
+     <string>Bottom Right</string>
+    </property>
+   </item>
+   <item row="6" column="1">
+    <property name="text">
+     <string>WB</string>
+    </property>
+   </item>
+   <item row="7" column="0">
+    <property name="text">
+     <string>Vertical</string>
+    </property>
+   </item>
+   <item row="7" column="1">
+    <property name="text">
+     <string>WV</string>
+    </property>
+   </item>
+   <item row="8" column="0">
+    <property name="text">
+     <string>Horizontal</string>
+    </property>
+   </item>
+   <item row="8" column="1">
+    <property name="text">
+     <string>WH</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="btnClose">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>370</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">Close</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btnClose</sender>
+   <signal>clicked()</signal>
+   <receiver>legendDiagWater</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>307</x>
+     <y>391</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
