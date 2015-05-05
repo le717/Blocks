@@ -4,7 +4,7 @@
 Released ?? ??, 2015
 
 * Remove Python version check
-* Correct docstring annotations
+* Correct and update docstring annotations
 * Replace Tkinter GUI with PyQt5 GUI
 
 ### 1.0.1 ###

@@ -1,16 +1,13 @@
-Minigame Level Format Details
-=============================
+# Minigame Level Format Details #
 
-File Details
-------------
+## File Details ##
 
 ### Known For Sure ###
 
 * The levels are nothing more than plain text written with [`ANSI (Windows-1252)`](http://en.wikipedia.org/wiki/Windows-1252) encoding, and can be changed to use
 [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding. Any other encodings will crash *Island Xtreme Stunts*.
 
-* The files are located in [`cdc\Z14WPO`](about:blank), [`cdc\Z14WPO\LEVELS`](about:blank), [`cdc\Z14WWH`](about:blank), and [`cdc\Z14WWH\LEVELS`](about:blank).
-They do not exist in any other folders.
+* The files are located in [`cdc\Z14WPO`](about:blank), [`cdc\Z14WPO\LEVELS`](about:blank), [`cdc\Z14WWH`](about:blank), and [`cdc\Z14WWH\LEVELS`](about:blank). They do not exist in any other folders.
 
 * [`cdc\Z14WPO\LEVELS`](about:blank) contains the levels for the *Trouble in Store* minigame at the Post Office, and [`cdc\Z14WWH\LEVELS`](about:blank) the levels in Jack O'Trade's store.
 

@@ -223,6 +223,7 @@ and attach this file for an quicker fix!
             return False
 
         # Ask to reload the program
+        # TODO: Replace with PyQt
         root = tk.Tk()
         root.withdraw()
         reloadAsAdmin = tk.messagebox.askyesno(

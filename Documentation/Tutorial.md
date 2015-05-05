@@ -118,10 +118,10 @@ _Any color-cube or color-tile combination is acceptable (e.g. `RT`, `BC`, etc.).
   </tr>
   <tr>
   <tr>
-    <td>Small Vertical</td>
+    <td>Vertical</td>
     <td>WV</td>
   </tr>
-    <td>Small Horizontal</td>
+    <td>Horizontal</td>
     <td>WH</td>
   </tr>
 </table>
