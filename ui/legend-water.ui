@@ -26,174 +26,7 @@
 }
 </string>
   </property>
-  <widget class="QTableWidget" name="tableWidget_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>40</y>
-     <width>201</width>
-     <height>291</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="horizontalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="autoScroll">
-    <bool>false</bool>
-   </property>
-   <property name="selectionMode">
-    <enum>QAbstractItemView::NoSelection</enum>
-   </property>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string/>
-    </property>
-   </row>
-   <column>
-    <property name="text">
-     <string>Water Type</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Code</string>
-    </property>
-   </column>
-   <item row="0" column="0">
-    <property name="text">
-     <string>Top</string>
-    </property>
-   </item>
-   <item row="0" column="1">
-    <property name="text">
-     <string>WI</string>
-    </property>
-   </item>
-   <item row="1" column="0">
-    <property name="text">
-     <string>Left</string>
-    </property>
-   </item>
-   <item row="1" column="1">
-    <property name="text">
-     <string>WJ</string>
-    </property>
-   </item>
-   <item row="2" column="0">
-    <property name="text">
-     <string>Right</string>
-    </property>
-   </item>
-   <item row="2" column="1">
-    <property name="text">
-     <string>WM</string>
-    </property>
-   </item>
-   <item row="3" column="0">
-    <property name="text">
-     <string>Top Left</string>
-    </property>
-   </item>
-   <item row="3" column="1">
-    <property name="text">
-     <string>WT</string>
-    </property>
-   </item>
-   <item row="4" column="0">
-    <property name="text">
-     <string>Top Right</string>
-    </property>
-   </item>
-   <item row="4" column="1">
-    <property name="text">
-     <string>WL</string>
-    </property>
-   </item>
-   <item row="5" column="0">
-    <property name="text">
-     <string>Bottom Left</string>
-    </property>
-   </item>
-   <item row="5" column="1">
-    <property name="text">
-     <string>WR</string>
-    </property>
-   </item>
-   <item row="6" column="0">
-    <property name="text">
-     <string>Bottom Right</string>
-    </property>
-   </item>
-   <item row="6" column="1">
-    <property name="text">
-     <string>WB</string>
-    </property>
-   </item>
-   <item row="7" column="0">
-    <property name="text">
-     <string>Vertical</string>
-    </property>
-   </item>
-   <item row="7" column="1">
-    <property name="text">
-     <string>WV</string>
-    </property>
-   </item>
-   <item row="8" column="0">
-    <property name="text">
-     <string>Horizontal</string>
-    </property>
-   </item>
-   <item row="8" column="1">
-    <property name="text">
-     <string>WH</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="lbHeader">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -210,7 +43,7 @@ qproperty-alignment: AlignCenter;</string>
     <string notr="true">Water Blocks</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="lbDesc">
    <property name="geometry">
     <rect>
      <x>220</x>
@@ -230,7 +63,7 @@ qproperty-alignment: AlignTop;</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tableWidget_4">
+  <widget class="QTableWidget" name="tableCodes">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -247,6 +80,9 @@ qproperty-alignment: AlignTop;</string>
    </property>
    <property name="autoScroll">
     <bool>false</bool>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
    </property>
    <property name="selectionMode">
     <enum>QAbstractItemView::NoSelection</enum>
