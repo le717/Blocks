@@ -166,7 +166,7 @@ breaking the level layout and rendering it unplayable. That is why I strongly ad
 
 Now you may be thinking
 
-> "If Notepad++ does not break the levels like Notepad does, then why do I need to use Blocks?"
+> If Notepad++ does not break the levels like Notepad does, then why do I need to use Blocks?
 
 Honestly, there is no need! Using **Notepad++** instead of **Blocks** is your choice. I myself use **Notepad++** a good amount when modding!
 However, **Blocks** contains safeguards that **Notepad++** does not.
@@ -272,7 +272,7 @@ This one is loads of fun, and in a good way. :stuck_out_tongue:
 
 You are probably wondering,
 
-> "What on earth is a West-bound Red Cube, and what is with that name??"
+> What on earth is a West-bound Red Cube, and what is with that name??
 
 Let me tell you. A West-bound Red Cube is a unique cube in _Island Xtreme Stunts_.
 They are only found in Maggie Post's _Trouble in Store_ minigame
