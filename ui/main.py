@@ -16,7 +16,11 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/Logo/Media/Blocks.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet("QLabel { qproperty-alignment: AlignCenter; }")
+        MainWindow.setStyleSheet("QLabel {\n"
+"font-family: \"Open Sans\";\n"
+"font-size: 9pt;\n"
+"qproperty-alignment: AlignCenter\n"
+"}")
         MainWindow.setUnifiedTitleAndToolBarOnMac(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -50,15 +54,15 @@ class Ui_MainWindow(object):
         self.pteLevelArea.setPlaceholderText("Minigame layout will be displayed here.")
         self.pteLevelArea.setObjectName("pteLevelArea")
         self.appDetails = QtWidgets.QLabel(self.centralwidget)
-        self.appDetails.setGeometry(QtCore.QRect(440, 0, 101, 20))
+        self.appDetails.setGeometry(QtCore.QRect(430, 0, 111, 20))
         self.appDetails.setText("app-name app-ver")
         self.appDetails.setObjectName("appDetails")
         self.appYear = QtWidgets.QLabel(self.centralwidget)
-        self.appYear.setGeometry(QtCore.QRect(440, 16, 101, 20))
+        self.appYear.setGeometry(QtCore.QRect(430, 16, 111, 20))
         self.appYear.setText("Created 2013-2015")
         self.appYear.setObjectName("appYear")
         self.appCreator = QtWidgets.QLabel(self.centralwidget)
-        self.appCreator.setGeometry(QtCore.QRect(460, 30, 61, 20))
+        self.appCreator.setGeometry(QtCore.QRect(450, 30, 71, 20))
         self.appCreator.setStyleSheet("")
         self.appCreator.setText("app-creator")
         self.appCreator.setObjectName("appCreator")

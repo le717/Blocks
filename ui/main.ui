@@ -18,7 +18,11 @@
     <normaloff>:/Logo/Media/Blocks.png</normaloff>:/Logo/Media/Blocks.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QLabel { qproperty-alignment: AlignCenter; }</string>
+   <string notr="true">QLabel {
+font-family: &quot;Open Sans&quot;;
+font-size: 9pt;
+qproperty-alignment: AlignCenter
+}</string>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>false</bool>
@@ -115,9 +119,9 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
    <widget class="QLabel" name="appDetails">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>430</x>
       <y>0</y>
-      <width>101</width>
+      <width>111</width>
       <height>20</height>
      </rect>
     </property>
@@ -128,9 +132,9 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
    <widget class="QLabel" name="appYear">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>430</x>
       <y>16</y>
-      <width>101</width>
+      <width>111</width>
       <height>20</height>
      </rect>
     </property>
@@ -141,9 +145,9 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
    <widget class="QLabel" name="appCreator">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>450</x>
       <y>30</y>
-      <width>61</width>
+      <width>71</width>
       <height>20</height>
      </rect>
     </property>
