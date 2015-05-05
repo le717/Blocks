@@ -32,6 +32,7 @@ import utils
 import levelchecks
 import constants as const
 import ui.main as mainUi
+import ui.legendMain as legendMainUi
 import ui.legendWater as legendWaterUi
 
 from PyQt5 import QtWidgets
@@ -426,6 +427,7 @@ class UI:
         self.ui.actionNew.triggered.connect(self.__blocks.createLevel)
         self.ui.actionOpen.triggered.connect(self.__blocks.openLevel)
         self.ui.actionSave.triggered.connect(self.__blocks.saveLevel)
+        self.ui.actionLegendMain.triggered.connect(self.__showMainLegend)
         self.ui.actionLegendWater.triggered.connect(self.__showWaterLegend)
         # Quit menu item is connected in generated main.py
 
@@ -463,6 +465,19 @@ class UI:
             self.ui.appDetails.text().replace("app-ver", const.version))
         self.ui.appCreator.setText(
             self.ui.appCreator.text().replace("app-creator", const.creator))
+        return True
+
+    def __showMainLegend(self):
+        """Display the Main Blocks Legend dialog.
+
+        @return {Boolean} Always returns True.
+        """
+        dialogWindow = QtWidgets.QDialog()
+        ui = legendMainUi.Ui_legendDiagMain()
+        ui.setupUi(dialogWindow)
+        dialogWindow.setWindowTitle(
+            dialogWindow.windowTitle().replace("app-name", const.appName))
+        dialogWindow.exec_()
         return True
 
     def __showWaterLegend(self):
