@@ -125,7 +125,7 @@ class Blocks(object):
         @param {Boolean} readFile True if the file needs to be read from disk.
         @return {Boolean} Always returns True.
         """
-        # Read the level, get just the file 
+        # Read the level, get just the file
         self.__fileName = os.path.basename(filePath)
         if readFile:
             levelLayout = self.__readLevel(filePath)
@@ -153,7 +153,7 @@ class Blocks(object):
         return True
 
     def __writeFile(self, filePath, fileName, firstLine,
-                   levelLayout, temporary=False):
+                    levelLayout, temporary=False):
         """Write the level layout to file.
 
         @param {String} filePath Absolute path to the resulting file.
@@ -187,8 +187,8 @@ class Blocks(object):
         except PermissionError as p:
             if self.__newLevel:
                 self.__displayError("Insufficient Privileges!",
-                                   "You can't save to {0}"
-                                   .format(fileName.replace("\\", "/")), p)
+                                    "You can't save to {0}"
+                                    .format(fileName.replace("\\", "/")), p)
             return False
 
     def __createBackup(self, location, backupFile):
@@ -212,8 +212,8 @@ class Blocks(object):
         # We cannot save a file in this location
         except PermissionError as p:
             self.__displayError("Insufficient Privileges!",
-                               "You can't save to {0}"
-                               .format(backupFile.replace("\\", "/")), p)
+                                "You can't save to {0}"
+                                .format(backupFile.replace("\\", "/")), p)
             return False
 
     def __syntaxChecks(self, levelLayout):
@@ -351,7 +351,7 @@ class Blocks(object):
         # Do not permit saving before opening a file
         if not self.__fileOpen:
             self.__displayError("No File!",
-                               "You need to open a level before saving!")
+                                "You need to open a level before saving!")
             return False
 
         # Store the new layout
