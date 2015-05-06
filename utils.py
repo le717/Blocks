@@ -27,7 +27,7 @@ import logging
 import argparse
 import platform
 import subprocess
-import tkinter as tk
+from PyQt5 import QtWidgets
 
 import constants as const
 
@@ -223,18 +223,14 @@ and attach this file for an quicker fix!
             return False
 
         # Ask to reload the program
-        # TODO: Replace with PyQt
-        root = tk.Tk()
-        root.withdraw()
-        reloadAsAdmin = tk.messagebox.askyesno(
-            "Reload Blocks?",
+        dialog = QtWidgets.QMessageBox()
+        reloadAsAdmin = dialog.question(dialog, "Reload Blocks?",
             """Would you like to reload Blocks with Administrator rights?
  Not doing so may cause odd behavior when saving files!
  (You will only be asked this question once.)""")
-        root.destroy()
 
         # No reloading is happening here
-        if not reloadAsAdmin:
+        if reloadAsAdmin != 16384:
             self._saveConfig(False)
             return False
 

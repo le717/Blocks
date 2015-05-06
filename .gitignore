@@ -14,7 +14,8 @@ $RECYCLE.BIN/
 
 __pycache__/
 Archives/
-bin/
+b[inuld]*/
 Testing/
 *.txt
 *.bak
+*.exe

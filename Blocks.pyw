@@ -27,6 +27,7 @@ import stat
 import shutil
 import logging
 import traceback
+from PyQt5 import QtWidgets
 
 import utils
 import levelchecks
@@ -36,7 +37,6 @@ from ui import (main as mainUi,
                 legendMain as legendMainUi,
                 legendWater as legendWaterUi
                )
-from PyQt5 import QtWidgets
 
 __all__ = ("Blocks", "UI")
 
@@ -359,7 +359,6 @@ class Blocks(object):
 
         # Store the new layout
         self.__levelLayout = self.__uiLevelArea.toPlainText()
-        print(self.__levelLayout)
 
         # Get the destination details
         filePath, fileName, firstLine = self.__getDestDetails()
@@ -449,6 +448,7 @@ class UI:
             self.__blocks.openLevelAuto(self.__openArg, True)
 
         # Run the application
+        init.runAsAdmin()
         self.__qApp.exec_()
 
     def __setDetails(self):
@@ -497,5 +497,4 @@ class UI:
 
 if __name__ == "__main__":
     init = utils.Utils()
-    init.runAsAdmin()
     UI(init.openArg)
