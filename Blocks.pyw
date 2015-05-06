@@ -31,10 +31,11 @@ import traceback
 import utils
 import levelchecks
 import constants as const
-import ui.main as mainUi
-import ui.legendMain as legendMainUi
-import ui.legendWater as legendWaterUi
 
+from ui import (main as mainUi,
+                legendMain as legendMainUi,
+                legendWater as legendWaterUi
+               )
 from PyQt5 import QtWidgets
 
 __all__ = ("Blocks", "UI")
@@ -328,7 +329,7 @@ class Blocks(object):
         return True
 
     def openLevel(self, *args):
-        """Display Tkinter open dialog for selecting a level file.
+        """Display file open dialog for selecting a level file.
 
         @return {Boolean} True if a file was selected for opening;
             False otherwise.

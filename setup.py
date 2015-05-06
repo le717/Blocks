@@ -75,7 +75,7 @@ filesForCopying = [
     "LICENSE",
     "LICENSE.RunAsAdmin.txt",
     "README.md",
-    os.path.join("Media", "Blocks.gif"),
+    os.path.join("Media", "Blocks.png"),
     os.path.join("Media", "Blocks.ico"),
     os.path.join("Documentation", "Changelog.md"),
     os.path.join("Documentation", "Format-Details.md"),
