@@ -36,7 +36,7 @@ import constants as const
 from ui import (main as mainUi,
                 legendMain as legendMainUi,
                 legendWater as legendWaterUi
-               )
+                )
 
 __all__ = ("Blocks", "UI")
 
