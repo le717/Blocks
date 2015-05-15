@@ -55,9 +55,13 @@ if not os.path.exists(destfolder):
     os.makedirs(destfolder)
 
 # Copy required files
-build_exe_options = {"build_exe": destfolder,
-                     "icon": "Media/Blocks.ico"
-                     }
+build_exe_options = {
+    "build_exe": destfolder,
+    "create_shared_zip": True,
+    "compressed": True,
+    "optimize": 2,
+    "icon": "Media/Blocks.ico"
+}
 
 setup(
     name=const.appName,
@@ -84,4 +88,4 @@ filesForCopying = [
 copyfiles.main(filesForCopying, destfolder)
 
 # Run script to remove unneeded Tkinter files
-cleanup.main(destfolder)
+# cleanup.main(destfolder)

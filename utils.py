@@ -225,7 +225,7 @@ and attach this file for an quicker fix!
         # Ask to reload the program
         dialog = QtWidgets.QMessageBox()
         reloadAsAdmin = dialog.question(dialog, "Reload Blocks?",
-            """Would you like to reload Blocks with Administrator rights?
+"""Would you like to reload Blocks with Administrator rights?  # noqa
  Not doing so may cause odd behavior when saving files!
  (You will only be asked this question once.)""")
 
