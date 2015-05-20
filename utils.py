@@ -224,10 +224,10 @@ and attach this file for an quicker fix!
 
         # Ask to reload the program
         dialog = QtWidgets.QMessageBox()
-        reloadAsAdmin = dialog.question(dialog, "Reload Blocks?",
-"""Would you like to reload Blocks with Administrator rights?
- Not doing so may cause odd behavior when saving files!
- (You will only be asked this question once.)""")
+        reloadAsAdmin = dialog.question(dialog, "Reload Blocks?", "\n".join(
+            ("Would you like to reload Blocks with Administrator rights?",
+             "Not doing so may cause odd behavior when saving files!",
+             "(You will only be asked this question once.)")))
 
         # No reloading is happening here
         if reloadAsAdmin != 16384:
