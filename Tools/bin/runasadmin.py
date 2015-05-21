@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Blocks - Island Xtreme Stunts Minigame Level Editor.
 
@@ -19,16 +20,11 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
+
 import os
-import sys
 
-appName = "Blocks"
-version = "1.1.0"
-creator = "Triangle717"
-debugMode = False
 
-exeName = os.path.basename(sys.argv[0])
-appFolder = os.path.dirname(sys.argv[0])
-
-appLogo = os.path.join("Media", "Blocks.gif")
-appIcon = os.path.join("Media", "Blocks.ico")
+def main(destfolder):
+    """Write RunAsAdmin .cfg file."""
+    with open(os.path.join(destfolder, "RunAsAdmin.cfg"), "wt") as f:
+        f.write("Blocks.exe")

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>legendDiagWater</class>
+ <widget class="QDialog" name="legendDiagWater">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>445</width>
+    <height>410</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>445</width>
+    <height>410</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Water Blocks Legend - app-name</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/Logo/Media/Blocks.png</normaloff>:/Logo/Media/Blocks.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QTableWidget {
+	font-size: 9pt;
+	font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;
+}
+</string>
+  </property>
+  <widget class="QLabel" name="lbHeader">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>10</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 16pt &quot;Open Sans&quot;;
+qproperty-alignment: AlignCenter;</string>
+   </property>
+   <property name="text">
+    <string notr="true">Water Blocks</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbDesc">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>40</y>
+     <width>211</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 9pt &quot;Open Sans&quot;;
+qproperty-alignment: AlignTop;</string>
+   </property>
+   <property name="text">
+    <string notr="true">&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Water Blocks&lt;/span&gt; serve as an obstacle to the player much like Blocked Walls but with a notable exception: cubes will sink when pushed in water, allowing the player to walk and push other cubes over the sunken one.&lt;/p&gt;&lt;p&gt;Water Blocks are more complicated than ordinary blocks. In addition to their confusing codes, each block can only be placed in their titular positions, e.g., only Top can be placed on the top row, or Top Left in the top left corner of the board.&lt;/p&gt;&lt;p&gt;Horizontal and Vertical blocks are the only cubes that can in placed in non-bordered areas.&lt;/p&gt;</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableCodes">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>201</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>false</bool>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::NoSelection</enum>
+   </property>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string notr="true">Water Type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string notr="true">Code</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string notr="true">Top</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string notr="true">WI</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string notr="true">Left</string>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string notr="true">WJ</string>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string notr="true">Right</string>
+    </property>
+   </item>
+   <item row="2" column="1">
+    <property name="text">
+     <string notr="true">WM</string>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string notr="true">Top Left</string>
+    </property>
+   </item>
+   <item row="3" column="1">
+    <property name="text">
+     <string notr="true">WT</string>
+    </property>
+   </item>
+   <item row="4" column="0">
+    <property name="text">
+     <string notr="true">Top Right</string>
+    </property>
+   </item>
+   <item row="4" column="1">
+    <property name="text">
+     <string notr="true">WL</string>
+    </property>
+   </item>
+   <item row="5" column="0">
+    <property name="text">
+     <string notr="true">Bottom Left</string>
+    </property>
+   </item>
+   <item row="5" column="1">
+    <property name="text">
+     <string notr="true">WR</string>
+    </property>
+   </item>
+   <item row="6" column="0">
+    <property name="text">
+     <string notr="true">Bottom Right</string>
+    </property>
+   </item>
+   <item row="6" column="1">
+    <property name="text">
+     <string notr="true">WB</string>
+    </property>
+   </item>
+   <item row="7" column="0">
+    <property name="text">
+     <string notr="true">Vertical</string>
+    </property>
+   </item>
+   <item row="7" column="1">
+    <property name="text">
+     <string notr="true">WV</string>
+    </property>
+   </item>
+   <item row="8" column="0">
+    <property name="text">
+     <string notr="true">Horizontal</string>
+    </property>
+   </item>
+   <item row="8" column="1">
+    <property name="text">
+     <string notr="true">WH</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="btnClose">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>370</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">Close</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>btnClose</sender>
+   <signal>clicked()</signal>
+   <receiver>legendDiagWater</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>307</x>
+     <y>391</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

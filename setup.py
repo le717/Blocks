@@ -1,9 +1,8 @@
 #! /usr/bin/python3.4-32
 # -*- coding: utf-8 -*-
-# <pep8-80 compliant>
 """Blocks - Island Xtreme Stunts Minigame Level Editor.
 
-Created 2013-2014 Triangle717
+Created 2013-2015 Triangle717
 <http://Triangle717.WordPress.com/>
 
 Blocks is free software: you can redistribute it and/or modify
@@ -23,11 +22,18 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
+import subprocess
 from cx_Freeze import (setup, Executable)
 
 import constants as const
-from Tools.bin import (cleanup, copyfiles)
+from Tools.bin import (copyfiles, runasadmin)
 base = None
+
+# Only compile GUI on full build
+if sys.argv[1] == "build":
+    from PyQt5 import uic
+    uic.compileUiDir("ui")
+    subprocess.call(["pyrcc5", "ui/images.qrc", "-o", "images_rc.py"])
 
 # Windows
 if sys.platform == "win32":
@@ -35,7 +41,7 @@ if sys.platform == "win32":
 
     # This is x86 Python
     if sys.maxsize < 2 ** 32:
-        destfolder = os.path.join("bin", "Windows")
+        destFolder = os.path.join("bin", "Windows")
 
     # Do not freeze on x64 Python
     else:
@@ -45,19 +51,23 @@ if sys.platform == "win32":
 
 # Mac OS X
 elif sys.platform == "darwin":
-    destfolder = os.path.join("bin", "Mac OS X")
+    destFolder = os.path.join("bin", "Mac OS X")
 # Linux
 else:
-    destfolder = os.path.join("bin", "Linux")
+    destFolder = os.path.join("bin", "Linux")
 
 # Create the freeze path if it doesn't exist
-if not os.path.exists(destfolder):
-    os.makedirs(destfolder)
+if not os.path.exists(destFolder):
+    os.makedirs(destFolder)
 
 # Copy required files
-build_exe_options = {"build_exe": destfolder,
-                     "icon": "Media/Blocks.ico"
-                     }
+build_exe_options = {
+    "build_exe": destFolder,
+    "create_shared_zip": True,
+    "compressed": True,
+    "optimize": 2,
+    "icon": "Media/Blocks.ico"
+}
 
 setup(
     name=const.appName,
@@ -75,13 +85,14 @@ filesForCopying = [
     "LICENSE",
     "LICENSE.RunAsAdmin.txt",
     "README.md",
-    os.path.join("Media", "Blocks.gif"),
+    os.path.join("Media", "Blocks.png"),
     os.path.join("Media", "Blocks.ico"),
     os.path.join("Documentation", "Changelog.md"),
     os.path.join("Documentation", "Format-Details.md"),
     os.path.join("Documentation", "Tutorial.md")
 ]
-copyfiles.main(filesForCopying, destfolder)
+copyfiles.main(filesForCopying, destFolder)
 
-# Run script to remove unneeded Tkinter files
-cleanup.main(destfolder)
+# Add RunAsAdmin config
+if sys.platform == "win32":
+    runasadmin.main(destFolder)

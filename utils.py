@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Blocks - Island Xtreme Stunts Minigame Level Editor.
 
-Created 2013-2014 Triangle717
+Created 2013-2015 Triangle717
 <http://Triangle717.WordPress.com/>
 
 Blocks is free software: you can redistribute it and/or modify
@@ -19,7 +19,6 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-__all__ = ("Utils")
 
 import os
 import sys
@@ -28,9 +27,11 @@ import logging
 import argparse
 import platform
 import subprocess
-import tkinter as tk
+from PyQt5 import QtWidgets
 
 import constants as const
+
+__all__ = ("Utils")
 
 
 class Utils(object):
@@ -222,17 +223,14 @@ and attach this file for an quicker fix!
             return False
 
         # Ask to reload the program
-        root = tk.Tk()
-        root.withdraw()
-        reloadAsAdmin = tk.messagebox.askyesno(
-            "Reload Blocks?",
-            """Would you like to reload Blocks with Administrator rights?
- Not doing so may cause odd behavior when saving files!
- (You will only be asked this question once.)""")
-        root.destroy()
+        dialog = QtWidgets.QMessageBox()
+        reloadAsAdmin = dialog.question(dialog, "Reload Blocks?", "\n".join(
+            ("Would you like to reload Blocks with Administrator rights?",
+             "Not doing so may cause odd behavior when saving files!",
+             "(You will only be asked this question once.)")))
 
         # No reloading is happening here
-        if not reloadAsAdmin:
+        if reloadAsAdmin != 16384:
             self._saveConfig(False)
             return False
 

@@ -14,7 +14,10 @@ $RECYCLE.BIN/
 
 __pycache__/
 Archives/
+build/
 bin/
+!Tools/bin
 Testing/
 *.txt
 *.bak
+*.exe

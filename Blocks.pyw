@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Blocks - Island Xtreme Stunts Minigame Level Editor.
 
-Created 2013-2014 Triangle717
+Created 2013-2015 Triangle717
 <http://Triangle717.WordPress.com/>
 
 Blocks is free software: you can redistribute it and/or modify
@@ -20,44 +20,25 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-__all__ = ("Blocks", "BlocksGUI")
 
 import os
 import sys
-import webbrowser
-
-try:
-    # Python 3 Tkinter
-    import tkinter as tk
-    from tkinter import ttk
-    from tkinter import filedialog, messagebox
-except ImportError:
-    # Python 2 Tkinter
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-
-# User is running < Python 3.3.0
-if sys.version_info[:2] < (3, 3):
-    root = tk.Tk()
-    root.withdraw()
-    messagebox.showerror("Unsupported Python Version!",
-                         """You are running Python {0}.
-You need to download Python 3.3.0 or newer to run Blocks."""
-                         .format(sys.version[0:5]))
-    webbrowser.open_new_tab("http://python.org/download/")
-    raise SystemExit(0)
-
-# Now that we know we are running Python 3.3+,
-# let's import everything else we needed
 import stat
 import shutil
 import logging
 import traceback
+from PyQt5 import QtWidgets
 
-# Blocks-specific modules
 import utils
 import levelchecks
 import constants as const
+
+from ui import (main as mainUi,
+                legendMain as legendMainUi,
+                legendWater as legendWaterUi
+                )
+
+__all__ = ("Blocks", "UI")
 
 
 class Blocks(object):
@@ -71,7 +52,7 @@ class Blocks(object):
     * saveLevel {Method} Entry point to saving a level.
     """
 
-    def __init__(self):
+    def __init__(self, ui):
         """Initialize private properties."""
         self.__filePath = ""
         self.__fileName = ""
@@ -80,12 +61,16 @@ class Blocks(object):
         self.__newLevel = False
         self.__fileOpen = False
 
-    def _changePermissions(self, filePath, fileName):
+        self.__uiLevelName = ui.lbLevelName
+        self.__uiLevelArea = ui.pteLevelArea
+        self.__uiErrors = QtWidgets.QMessageBox()
+
+    def __changePermissions(self, filePath, fileName):
         """Change a file permissions to make it writable.
 
-        @param filePath {String} Absolute path to the file being changed.
-        @param fileName {String} File name for changing.
-        @returns {Boolean} Returns True if the permissions could be changed,
+        @param {String} filePath Absolute path to the file being changed.
+        @param {String} fileName File name for changing.
+        @return {Boolean} Returns True if the permissions could be changed,
           False otherwise.
         """
         myFile = os.path.join(filePath, fileName)
@@ -94,13 +79,13 @@ class Blocks(object):
             return True
         return False
 
-    def _displayError(self, title, message, trace=None):
-        """Display error message using a a Tkinter error dialog.
+    def __displayError(self, title, message, trace=None):
+        """Display error message dialog.
 
-        @param title {String} Dialog error title.
-        @param message {String} Dialog error message.
-        @param trace {Exception} Exception alias for debugging.
-        @returns {Boolean} Always returns False.
+        @param {String} title Dialog error title.
+        @param {String} message Dialog error message.
+        @param {Exception} [trace=None] Exception alias for debugging.
+        @return {Boolean} Always returns False.
         """
         # Run Exception logging only if an exception occurred
         if trace is not None:
@@ -112,14 +97,14 @@ class Blocks(object):
         else:
             logging.error("\nAn error has occurred:\n{0}".format(message))
 
-        messagebox.showerror(title, message)
+        self.__uiErrors.critical(self.__uiErrors, title, message)
         return False
 
-    def _readLevel(self, filePath):
+    def __readLevel(self, filePath):
         """Read a level file and get its contents.
 
-        @param filePath {String} Absolute path to the file being opened.
-        @returns {String} The layout contained in the file.
+        @param {String} filePath Absolute path to the file being opened.
+        @return {String} The layout contained in the file.
         """
         if const.debugMode:
             print("\nA new level is not being created.")
@@ -133,20 +118,20 @@ class Blocks(object):
             levelLayout = f2.readlines()[1:]
         return "".join(levelLayout)
 
-    def _displayLevel(self, filePath, readFile):
+    def __displayLevel(self, filePath, readFile):
         """Display the level name and layout in the GUI.
 
         It is not acceptable to call this directly,
             call openLevel() or openLevelAuto() instead.
 
-        @param filePath {String} Absolute path to the file being opened.
-        @param readFile {Boolean} True if the file needs to be read from disk.
-        @returns {Boolean} Always returns True.
+        @param {String} filePath Absolute path to the file being opened.
+        @param {Boolean} readFile True if the file needs to be read from disk.
+        @return {Boolean} Always returns True.
         """
-        # Read the level, get just the file name
+        # Read the level, get just the file
         self.__fileName = os.path.basename(filePath)
         if readFile:
-            levelLayout = self._readLevel(filePath)
+            levelLayout = self.__readLevel(filePath)
         # Reuse the layout we already have
         else:
             levelLayout = self.__levelLayout
@@ -162,26 +147,25 @@ class Blocks(object):
             fileName = fileName.lower().rstrip(".txt")
 
         # Replace all text in the widget with the opened file contents
-        gui.levelName.set(fileName)
-        gui.levelArea.delete("1.0", "end")
-        gui.levelArea.insert("1.0", levelLayout)
+        self.__uiLevelName.setText(fileName)
+        self.__uiLevelArea.setPlainText(levelLayout)
 
         # If a temporary file was opened, delete it
         if extension.lower() == ".tmp":
             os.unlink(filePath)
         return True
 
-    def _writeFile(self, filePath, fileName, firstLine,
-                   levelLayout, temporary=False):
+    def __writeFile(self, filePath, fileName, firstLine,
+                    levelLayout, temporary=False):
         """Write the level layout to file.
 
-        @param filePath {String} Absolute path to the resulting file.
-        @param fileName {String} File name for the resulting file.
-        @param firstLine {Bytes} The first line for the file.
-        @param levelLayout {Bytes} The level layout to be written.
-        @param temporary {Boolean} If set to True, a temporary file will be
-            created at "~".
-        @returns {Boolean|String} True if temporary is set to False;
+        @param {String} filePath Absolute path to the resulting file.
+        @param {String} fileName File name for the resulting file.
+        @param {Bytes} firstLine The first line for the file.
+        @param {Bytes} levelLayout The level layout to be written.
+        @param {Boolean} [temporary=False] If set to True,
+            a temporary file will be created at "~".
+        @return {Boolean|String} True if temporary is set to False;
             Path to the temporary file if temporary is set to True;
             False if a PermissionError was hit.
         """
@@ -205,17 +189,17 @@ class Blocks(object):
         # We cannot save a file in this location
         except PermissionError as p:
             if self.__newLevel:
-                self._displayError("Insufficient Privileges!",
-                                   "You can't save to {0}"
-                                   .format(fileName.replace("\\", "/")), p)
+                self.__displayError("Insufficient Privileges!",
+                                    "You can't save to {0}"
+                                    .format(fileName.replace("\\", "/")), p)
             return False
 
-    def _createBackup(self, location, backupFile):
+    def __createBackup(self, location, backupFile):
         """Make a backup of the level before saving.
 
-        @param location {String} Absolute path to the file being opened.
-        @param backupFile File name for the backup file.
-        @returns {Boolean} True if a backup was successfully saved;
+        @param {String} location  Absolute path to the file being opened.
+        @param {String} backupFile File name for the backup file.
+        @return {Boolean} True if a backup was successfully saved;
             False if a PermissionError was hit.
         """
         # Define the name and location of the backup
@@ -230,16 +214,16 @@ class Blocks(object):
 
         # We cannot save a file in this location
         except PermissionError as p:
-            self._displayError("Insufficient Privileges!",
-                               "You can't save to {0}"
-                               .format(backupFile.replace("\\", "/")), p)
+            self.__displayError("Insufficient Privileges!",
+                                "You can't save to {0}"
+                                .format(backupFile.replace("\\", "/")), p)
             return False
 
-    def _syntaxChecks(self, levelLayout):
+    def __syntaxChecks(self, levelLayout):
         """Check the level layout for syntax errors.
 
-        @param levelLayout {Bytes} The level layout to be written.
-        @returns {Boolean} False of a syntax error was found;
+        @param {Bytes} levelLayout The level layout to be written.
+        @return {Boolean} False of a syntax error was found;
             level layout suitable for saving.
         """
         results = levelchecks.LevelChecks(levelLayout).checkLevel()
@@ -248,38 +232,35 @@ class Blocks(object):
         if type(results) == tuple:
             if const.debugMode:
                 print(results[0], results[1])
-            self._displayError(results[0], results[1])
+            self.__displayError(results[0], results[1])
             return False
         return results
 
-    def _selectDestFile(self):
+    def __selectDestFile(self):
         """File selection dialog for new level file.
 
-        @returns {Boolean|String} Absolute path to the resulting file;
+        @return {Boolean|String} Absolute path to the resulting file;
             False otherwise.
         """
-        newFile = filedialog.asksaveasfilename(
-            parent=root,
-            defaultextension=".TXT",
-            filetypes=[("IXS Minigame Layout", ".TXT")],
-            title="Save As"
+        newFile = QtWidgets.QFileDialog.getSaveFileName(
+            caption="Save As",
+            filter="Text files (*.txt)"
         )
 
-        if newFile:
-            # Append proper file extension to file name if needed
-            if not newFile.lower().endswith(".txt"):
-                newFile = "{0}.TXT".format(newFile)
-            return newFile
+        if newFile[0]:
+            # Uppercase the file extension
+            fileName = "{0}.TXT".format(newFile[0][:-4])
+            return fileName
         return False
 
-    def _getDestDetails(self):
+    def __getDestDetails(self):
         """Generate the destination's file details and save backup file.
 
         Reuses the information if we are saving an existing file,
             and prompts for new details if we are saving a new file or
             the backup file could not be written.
 
-        @returns {List.<string|False>} Three index list containing the file's
+        @return {List.<string|False>} Three index list containing the file's
              destination, file name, and first line if no error occurred,
              otherwise all three indexes all indexes are False.
         """
@@ -295,8 +276,8 @@ class Blocks(object):
         # but we don't have the permissions required
         if (self.__newLevel or
             (not self.__newLevel and not
-             self._createBackup(details[0], details[1]))):
-            destFile = self._selectDestFile()
+             self.__createBackup(details[0], details[1]))):
+            destFile = self.__selectDestFile()
 
             # The user did not select a new destination
             if not destFile:
@@ -311,7 +292,7 @@ class Blocks(object):
     def createLevel(self, *args):
         """Create a new level layout using a layout template.
 
-        @returns {Boolean} Always returns True.
+        @return {Boolean} Always returns True.
         """
         # Blank (free) layout for when starting a new level
         blankLayout = """ F  F  F  F  F  F  F  F  F  F  F  F  F
@@ -321,7 +302,7 @@ class Blocks(object):
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
  F  F  F  F  F  F  F  F  F  F  F  F  F
- F  F  F  F  F  F  F  F  F  F  F  F  F\n"""
+ F  F  F  F  F  F  F  F  F  F  F  F  F"""
 
         if const.debugMode:
             print("\nA new level is being created.")
@@ -329,84 +310,81 @@ class Blocks(object):
         # Remove level name display, since there is no opened level
         self.__newLevel = True
         self.__fileOpen = True
-        gui.levelName.set("")
+        self.__uiLevelName.setText("")
 
         # Remove the old content and display blank layout in edit box
-        gui.levelArea.delete("1.0", "end")
-        gui.levelArea.insert("1.0", blankLayout)
+        self.__uiLevelArea.setPlainText(blankLayout)
         return True
 
     def openLevelAuto(self, filePath, readAgain):
         """Open a level file without a GUI dialog box.
 
-        @param filePath {String} Absolute path to the file being opened.
-        @param readAgain {Boolean} True if the file needs to be read from disk.
-        @returns {Boolean} Always returns True.
+        @param {String} filePath Absolute path to the file being opened.
+        @param {Boolean} readAgain True if the file needs to be read from disk.
+        @return {Boolean} Always returns True.
         """
         self.__fileOpen = True
         self.__filePath = os.path.dirname(os.path.abspath(filePath))
-        self._displayLevel(filePath, readAgain)
+        self.__displayLevel(filePath, readAgain)
         return True
 
     def openLevel(self, *args):
-        """Display Tkinter open dialog for selecting a level file.
+        """Display file open dialog for selecting a level file.
 
-        @returns {Boolean} True if a file was selected for opening;
+        @return {Boolean} True if a file was selected for opening;
             False otherwise.
         """
-        filePath = filedialog.askopenfilename(
-            parent=root,
-            defaultextension=".TXT",
-            filetypes=[("IXS Minigame Layout", ".TXT")],
-            title="Open"
+        filePath = QtWidgets.QFileDialog.getOpenFileName(
+            caption="Open File",
+            filter="Text files (*.txt)"
         )
 
         # A file was selected, read the layout
-        if filePath:
-            self.openLevelAuto(filePath, True)
+        if filePath[0]:
+            self.openLevelAuto(filePath[0], True)
             return True
         return False
 
     def saveLevel(self, *args):
         """Save the level layout.
 
-        @returns {Boolean} False if any errors occurred;
+        @return {Boolean} False if any errors occurred;
             True otherwise.
         """
         # Do not permit saving before opening a file
         if not self.__fileOpen:
-            self._displayError("No File!",
-                               "You need to open a level before saving!")
+            self.__displayError("No File!",
+                                "You need to open a level before saving!")
             return False
 
         # Store the new layout
-        levelLayout = gui.levelArea.get("1.0", "end")
-        self.__levelLayout = levelLayout
+        self.__levelLayout = self.__uiLevelArea.toPlainText()
 
         # Get the destination details
-        filePath, fileName, firstLine = self._getDestDetails()
+        filePath, fileName, firstLine = self.__getDestDetails()
         if not filePath:
             return False
 
         # Check the level layout for errors
-        levelLayout = self._syntaxChecks(levelLayout)
-        if not levelLayout:
+        self.__levelLayout = self.__syntaxChecks(self.__levelLayout)
+        if not self.__levelLayout:
             return False
 
         # Create a bytes version of the layout for accurate writing
-        binaryLayout = str.encode(levelLayout, encoding="utf-8",
+        binaryLayout = str.encode(self.__levelLayout, encoding="utf-8",
                                   errors="strict")
 
         # Change the permissions of the file to make it writable.
         # This should help reduce permission exceptions.
-        self._changePermissions(filePath, fileName)
+        self.__changePermissions(filePath, fileName)
 
         # Write the file to disk.
         # PermissionError handling is not needed here,
-        # as it is handled in _writeFile()
-        if self._writeFile(filePath, fileName, firstLine, binaryLayout):
-            messagebox.showinfo("Success!", "Successfully saved {0} to {1}"
-                                .format(fileName, filePath))
+        # as it is handled in __writeFile()
+        if self.__writeFile(filePath, fileName, firstLine, binaryLayout):
+            self.__uiErrors.information(self.__uiErrors, "Success!",
+                                        "Successfully saved {0} to {1}".
+                                        format(fileName, filePath))
         else:
             # Could not save the file
             return False
@@ -416,160 +394,107 @@ class Blocks(object):
         return True
 
 
-class BlocksGUI(tk.Frame):
+class UI:
 
-    """Tkinter-based GUI for Blocks.
+    """PyQt 5-based GUI for Blocks.
 
     Provides public access to key visual areas including
     file name and editing area.
-
-    @param parent {Tkinter} Tkinter frame all elements to which are parented.
-    @param cmdFile {String|None} Absolute path to the file being opened.
-        Passing None will not invoke the automatic opening.
     """
 
-    def __init__(self, parent, cmdFile):
-        """Draw the GUI."""
+    def __init__(self, openArg):
+        """Setup the GUI.
+
+        @param {String|None} openArg Absolute path to the file being opened.
+            Passing None will not invoke the automatic opening.
+        """
+        self.__openArg = openArg
+        self.__qApp = QtWidgets.QApplication(sys.argv)
+        self.__qApp.setStyle("fusion")
+        self.__MainWindow = QtWidgets.QMainWindow()
+        self.ui = mainUi.Ui_MainWindow()
+        self.ui.setupUi(self.__MainWindow)
+
         # Create an instance of the back-end code
-        blocks = Blocks()
+        self.__blocks = Blocks(self.ui)
 
-        # Window settings
-        tk.Frame.__init__(self, parent)
-        parent.title("{0} {1}".format(
-            const.appName, const.version))
-        parent.iconbitmap(const.appIcon)
-        parent.minsize("575", "250")
-        self.__mainframe = ttk.Frame(root, padding="7 7 7 7")
-        self.__mainframe.grid(column=0, row=0,
-                              sticky=(tk.N, tk.W, tk.E, tk.S))
+        # Connect the buttons
+        self.ui.btnNew.clicked.connect(self.__blocks.createLevel)
+        self.ui.btnOpen.clicked.connect(self.__blocks.openLevel)
+        self.ui.btnSave.clicked.connect(self.__blocks.saveLevel)
 
-        # Window resizing
-        parent.columnconfigure(0, weight=1)
-        self.__mainframe.columnconfigure(0, weight=1)
-        self.__mainframe.columnconfigure(1, weight=1)
-        self.__mainframe.columnconfigure(2, weight=1)
-        self.__mainframe.rowconfigure(0, weight=1)
-        self.__mainframe.rowconfigure(1, weight=1)
-        self.__mainframe.rowconfigure(2, weight=1)
+        # Connect the menu items
+        self.ui.actionNew.triggered.connect(self.__blocks.createLevel)
+        self.ui.actionOpen.triggered.connect(self.__blocks.openLevel)
+        self.ui.actionSave.triggered.connect(self.__blocks.saveLevel)
+        self.ui.actionLegendMain.triggered.connect(self.__showMainLegend)
+        self.ui.actionLegendWater.triggered.connect(self.__showWaterLegend)
+        # Quit menu item is connected in generated main.py
 
-        # Blocks Logo
-        self.__blocksLogo = tk.PhotoImage(file=const.appLogo)
-        self.__imageFrame = ttk.Label(self.__mainframe)
-        self.__imageFrame["image"] = self.__blocksLogo
-        self.__imageFrame.grid(column=2, row=3, sticky=tk.S)
+        # Display app details and run app
+        self.__setDetails()
+        self.__start()
 
-        # Level (file) name display
-        self.levelName = tk.StringVar()
-        ttk.Label(self.__mainframe, textvariable=self.levelName).grid(
-            column=0, row=2, columnspan=2)
-
-        # Level editing area
-        self.levelArea = tk.Text(self.__mainframe,
-                                 height=8, width=40, wrap="none")
-        self.levelArea.grid(column=0, row=3, sticky=(tk.N, tk.S, tk.E))
-        self.levelArea.insert("1.0",
-                              "Minigame layout will be displayed here.")
-
-        # About Blocks text
-        self.__aboutBlocks = ttk.Label(
-            self.__mainframe,
-            text="""      {0} {1}
-Created 2013-2014
-      Triangle717""".format(const.appName, const.version))
-        self.__aboutBlocks.grid(column=2, row=0, sticky=tk.N)
-
-        # New, Open, Save, and Legend buttons
-        self.__buttonNew = ttk.Button(self.__mainframe, text="New",
-                                      command=blocks.createLevel)
-        self.__buttonNew.grid(column=2, row=1, sticky=tk.N)
-        self.__buttonOpen = ttk.Button(self.__mainframe, text="Open",
-                                       command=blocks.openLevel)
-        self.__buttonOpen.grid(column=2, row=2, sticky=tk.N)
-        self.__buttonSave = ttk.Button(self.__mainframe, text="Save",
-                                       command=blocks.saveLevel)
-        self.__buttonSave.grid(column=2, row=3, sticky=tk.N)
-        self.__buttonLegend = ttk.Button(self.__mainframe,
-                                         text="Character Legend",
-                                         command=self._charLegend)
-        self.__buttonLegend.grid(column=0, row=0, columnspan=2, rowspan=1,
-                                 sticky=(tk.N, tk.S))
-
-        # Some padding around all the elements
-        for child in self.__mainframe.winfo_children():
-            child.grid_configure(padx=1, pady=1)
-
-        # Bind keyboard shortcuts
-        parent.bind("<Control-n>", blocks.createLevel)
-        parent.bind("<Control-O>", blocks.openLevel)
-        parent.bind("<Control-s>", blocks.saveLevel)
-        parent.bind("<Control-q>", self._close)
-        parent.bind("<F12>", self._charLegend)
+    def __start(self):
+        """Start the application."""
+        # Show the UI
+        self.__MainWindow.show()
 
         # If the argument is a valid file, open it
-        if (cmdFile is not None and os.path.isfile(cmdFile)):
+        if (self.__openArg is not None and os.path.isfile(self.__openArg)):
             if const.debugMode:
                 print("\n{0}\nis being opened for reading.".format(
-                    os.path.abspath(cmdFile)))
-            root.after(1, blocks.openLevelAuto, cmdFile, True)
+                    os.path.abspath(self.__openArg)))
+            self.__blocks.openLevelAuto(self.__openArg, True)
 
-    def _close(self, *args):
-        """Close Blocks."""
-        logging.shutdown()
-        raise SystemExit(0)
+        # Run the application
+        init.runAsAdmin()
+        self.__qApp.exec_()
 
-    def _closeLegend(self, *args):
-        """Close character legend window."""
-        self.__legendWindow.destroy()
+    def __setDetails(self):
+        """Set the program details in the GUI.
 
-    def _charLegend(self, *args):
-        """Chart listing valid cubes that can be used."""
-        # Spawn a new window, parent it to main window
-        self.__legendWindow = tk.Toplevel(root)
-        self.__legendWindow.iconbitmap(const.appIcon)
-        self.__legendWindow.title(
-            "Level Character Legend - Blocks {0}".format(
-                const.version))
+        @return {Boolean} Always returns True.
+        """
+        self.__MainWindow.setWindowTitle(
+            self.__MainWindow.windowTitle().replace("app-name", const.appName))
+        self.__MainWindow.setWindowTitle(
+            self.__MainWindow.windowTitle().replace("app-ver", const.version))
+        self.ui.appDetails.setText(
+            self.ui.appDetails.text().replace("app-name", const.appName))
+        self.ui.appDetails.setText(
+            self.ui.appDetails.text().replace("app-ver", const.version))
+        self.ui.appCreator.setText(
+            self.ui.appCreator.text().replace("app-creator", const.creator))
+        return True
 
-        # The dialog is not resizable
-        self.__legendWindow.minsize("400", "260")
-        self.__legendWindow.maxsize("400", "260")
+    def __showMainLegend(self):
+        """Display the Main Blocks Legend dialog.
 
-        # Give it focus
-        self.__legendWindow.lift()
-        self.__legendWindow.focus()
+        @return {Boolean} Always returns True.
+        """
+        dialogWindow = QtWidgets.QDialog()
+        ui = legendMainUi.Ui_legendDiagMain()
+        ui.setupUi(dialogWindow)
+        dialogWindow.setWindowTitle(
+            dialogWindow.windowTitle().replace("app-name", const.appName))
+        dialogWindow.exec_()
+        return True
 
-        # The legend itself
-        # TODO I hate this layout, ask for revision help
-        self.__legendText = """\t\t        === Available Colors ===
-\t              R = Red, G = Green, B = Blue, Y = Yellow
+    def __showWaterLegend(self):
+        """Display the Water Blocks Legend dialog.
 
-\t\t        === Available Types ===
-\t\t\t  F = Free Tile,
-\t\t              BW = Blocked Wall,
-\t\t            (R, G, B, Y)C = Cube,
-\t\t            (R, G, B, Y)T = Tile,
-\t\tRB = One way, west-bound Red Cube
-
-\t\t\t=== Water ===
-\t        WH = Small Horizontal, WV = Small Vertical,
-\t            WI = Top, WJ = Left, WM = Right,
-\t            WT = Top Left, WL = Top Right,
-\t            WR = Bottom Left, WB = Bottom Right"""
-
-        # Display the legend
-        ttk.Label(self.__legendWindow, text=self.__legendText).grid()
-
-        # Close button and keyboard shortcut
-        buttonLegendClose = ttk.Button(self.__legendWindow,
-                                       default="active", text="Close",
-                                       command=self._closeLegend)
-        buttonLegendClose.grid(column=1, row=1, sticky=tk.S)
-        self.__legendWindow.bind("<Control-q>", self._closeLegend)
+        @return {Boolean} Always returns True.
+        """
+        dialogWindow = QtWidgets.QDialog()
+        ui = legendWaterUi.Ui_legendDiagWater()
+        ui.setupUi(dialogWindow)
+        dialogWindow.setWindowTitle(
+            dialogWindow.windowTitle().replace("app-name", const.appName))
+        dialogWindow.exec_()
+        return True
 
 
 if __name__ == "__main__":
     init = utils.Utils()
-    init.runAsAdmin()
-    root = tk.Tk()
-    gui = BlocksGUI(root, init.openArg)
-    root.mainloop()
+    UI(init.openArg)

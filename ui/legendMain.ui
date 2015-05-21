@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>legendDiagMain</class>
+ <widget class="QDialog" name="legendDiagMain">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>445</width>
+    <height>410</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>445</width>
+    <height>410</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Main Blocks Legend - app-name</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/Logo/Media/Blocks.png</normaloff>:/Logo/Media/Blocks.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QTableWidget {
+	font-size: 9pt;
+	font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;
+}</string>
+  </property>
+  <widget class="QTableWidget" name="tableColors">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>201</width>
+     <height>170</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>201</width>
+     <height>170</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>false</bool>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::NoSelection</enum>
+   </property>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string notr="true">Color</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string notr="true">Code</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string notr="true">Red</string>
+    </property>
+    <property name="toolTip">
+     <string notr="true"/>
+    </property>
+    <property name="whatsThis">
+     <string notr="true"/>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>232</red>
+       <green>0</green>
+       <blue>3</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="foreground">
+     <brush brushstyle="NoBrush">
+      <color alpha="255">
+       <red>255</red>
+       <green>255</green>
+       <blue>255</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string notr="true">R</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string notr="true">Green</string>
+    </property>
+    <property name="toolTip">
+     <string notr="true"/>
+    </property>
+    <property name="whatsThis">
+     <string notr="true"/>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>19</red>
+       <green>194</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string notr="true">G</string>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string notr="true">Blue</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>113</green>
+       <blue>212</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="foreground">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>255</red>
+       <green>255</green>
+       <blue>255</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="2" column="1">
+    <property name="text">
+     <string notr="true">B</string>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string notr="true">Yellow</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>239</red>
+       <green>239</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="3" column="1">
+    <property name="text">
+     <string notr="true">Y</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QTableWidget" name="tableCodes">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>40</y>
+     <width>201</width>
+     <height>170</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>201</width>
+     <height>170</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">qproperty-alignment: AlignCenter;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>false</bool>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::NoSelection</enum>
+   </property>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string notr="true">Block Type</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string notr="true">Code</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string notr="true">Tile</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string notr="true">T</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string notr="true">Cube</string>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string notr="true">C</string>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string notr="true">Free</string>
+    </property>
+   </item>
+   <item row="2" column="1">
+    <property name="text">
+     <string notr="true">F</string>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string notr="true">Blocked Wall</string>
+    </property>
+   </item>
+   <item row="3" column="1">
+    <property name="text">
+     <string notr="true">BW</string>
+    </property>
+   </item>
+   <item row="4" column="0">
+    <property name="text">
+     <string notr="true">West-bound RC</string>
+    </property>
+   </item>
+   <item row="4" column="1">
+    <property name="text">
+     <string notr="true">RB</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="lbDesc">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>220</y>
+     <width>421</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 9pt &quot;Open Sans&quot;;
+qproperty-alignment: AlignTop;</string>
+   </property>
+   <property name="text">
+    <string notr="true">&lt;p&gt;&lt;span style=&quot; font-weight: 700;&quot;&gt;Main Blocks&lt;/span&gt; are the primary cubes and tiles used in the levels. Cubes and Tiles are prefixed with a color to create a complete block, e.g., RT creates a Red Tile the player can walk across, and  BC creates a Blue Cube the player can push.&lt;/p&gt; &lt;p&gt;Two notable blocks are the Blocked Wall and the West-bound Red Cube. A Blocked Wall is an obstacle the player must navigate around, while the West-bound Red Cube is a a special red cube that can only be pushed to the left side of the board.&lt;/p&gt;</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbHeader">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>10</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 16pt &quot;Open Sans&quot;;
+qproperty-alignment: AlignCenter;</string>
+   </property>
+   <property name="text">
+    <string notr="true">Main Blocks</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnClose">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>370</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">Close</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>btnClose</sender>
+   <signal>clicked()</signal>
+   <receiver>legendDiagMain</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>217</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

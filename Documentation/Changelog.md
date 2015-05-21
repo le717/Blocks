@@ -1,5 +1,12 @@
 # Blocks Change Log #
 
+### 1.1.0 ###
+Released ?? ??, 2015
+
+* Remove Python version check
+* Correct and update docstring annotations
+* Replace Tkinter GUI with PyQt5 GUI
+
 ### 1.0.1 ###
 Released 13 December, 2014
 
@@ -73,8 +80,8 @@ Released August 15, 2013
 * Dump any errors to log
 * Rewrote command-line arguments using `argparse` module
 * Rename `BlocksIcon.gif` to just `Blocks.gif`
-* Add open (`-o`) command-line argument, invoked when relaunching **Blocks** as Administrator (Special thanks to
-[@Anonymooseable](https://github.com/Anonymooseable) for _majorly_ helping with this by suggesting one single line of code!)
+* Add open (`-o`) command-line argument, invoked when relaunching **Blocks** as Administrator
+  (Special thanks to [@Anonymooseable](https://github.com/Anonymooseable) for _majorly_ helping with this by suggesting one single line of code!)
 * Fix Administrator relaunch and loading of temporary level save
 * Save temporary level to same location as log
 * Split Administrator relaunch into separate function

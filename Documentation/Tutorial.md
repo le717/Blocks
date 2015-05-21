@@ -1,5 +1,5 @@
 # Building With Blocks #
-Written by Triangle717, with information provided by [Xiron](http://www.youtube.com/user/Segatendo12)
+Written by Triangle717, with information provided by [Xiron](http://www.youtube.com/user/Segatendo12).
 
 ### Warning: This tutorial is incomplete! ###
 
@@ -15,8 +15,7 @@ Written by Triangle717, with information provided by [Xiron](http://www.youtube.
     <td><a href="#lesson-3-making-sure-it-all-works">Lesson #3</a></td>
     <td><a href="#lesson-4-jumping-to-specific-levels">Lesson #4</a></td>
     <td><a href="#task-2-adding-a-blocked-wall-on-the-left-corner">Task #2</a></td>
-    <td><a href="#task-3-adding-a-one-way-west-bound-red-cube">Task #3</a></td>
-    <td><a href="#task-4-water">Task #4</a></td>
+    <td><a href="#task-3-adding-a-west-bound-red-cube">Task #3</a></td>
   </tr>
 </table>
 
@@ -81,7 +80,7 @@ _Any color-cube or color-tile combination is acceptable (e.g. `RT`, `BC`, etc.).
     <td>BW</td>
   </tr>
   <tr>
-    <td>One way, west-bound Red Cube</td>
+    <td>West-bound Red Cube</td>
     <td>RB</td>
   </tr>
 
@@ -119,10 +118,10 @@ _Any color-cube or color-tile combination is acceptable (e.g. `RT`, `BC`, etc.).
   </tr>
   <tr>
   <tr>
-    <td>Small Vertical</td>
+    <td>Vertical</td>
     <td>WV</td>
   </tr>
-    <td>Small Horizontal</td>
+    <td>Horizontal</td>
     <td>WH</td>
   </tr>
 </table>
@@ -167,7 +166,7 @@ breaking the level layout and rendering it unplayable. That is why I strongly ad
 
 Now you may be thinking
 
-> "If Notepad++ does not break the levels like Notepad does, then why do I need to use Blocks?"
+> If Notepad++ does not break the levels like Notepad does, then why do I need to use Blocks?
 
 Honestly, there is no need! Using **Notepad++** instead of **Blocks** is your choice. I myself use **Notepad++** a good amount when modding!
 However, **Blocks** contains safeguards that **Notepad++** does not.
@@ -268,15 +267,15 @@ So adding a cube on the left corner affects most (if not the entire) indentation
 
 [:arrow_up:](#building-with-blocks)
 
-### Task #3: Adding a one way, west-bound Red Cube ###
+### Task #3: Adding a West-bound Red Cube ###
 This one is loads of fun, and in a good way. :stuck_out_tongue:
 
 You are probably wondering,
 
-> "What on earth is a `One way, west-bound Red Cube`, and what is with that name??"
+> What on earth is a West-bound Red Cube, and what is with that name??
 
-Let me tell you.
-An `One way, west-bound Red Cube` is a unique cube in _Island Xtreme Stunts_. They are only found in Maggie Post's _Trouble in Store_ minigame
+Let me tell you. A West-bound Red Cube is a unique cube in _Island Xtreme Stunts_.
+They are only found in Maggie Post's _Trouble in Store_ minigame
 (that is, only in an unmodded copy), it only comes in Red, has a one-of-a-kind code, has an arrow on the top to visually remind you it is special,
 validates any color Tile (not only Red) and even have special properties, since it only move ones direction, to the right of the layout.
 If you think about the level in terms of a map, and have a standard NSEW compass, we can call the top of the level North, the bottom South, the
@@ -288,7 +287,7 @@ I was unable to write a better description for it. I asked around for a new name
 
 > Since this cube is so unique and one-of-a-kind, why can't it have a unique name to match?
 
-And that's how it got the name `One way, west-bound Red Cube`. I'm sure if the _Island Xtreme Stunts_ developer who added this cube saw this,
+And that's how it got the name West-bound Red Cube. I'm sure if the _Island Xtreme Stunts_ developer who added this cube saw this,
 they would probably laugh at the odd fan name. :P
 
 Now that we take taken care of, we get to add this cube into our layout. Since it only moves West, we will be mindful of players and place it
@@ -315,7 +314,7 @@ Start by placing a Red Tile (`RT`) at the 11th column of the 4th row (remember, 
  F  F  F  F  F  F  F  F  F  F  F  F  F
 ```
 
-Since we are adding an `One way, west-bound Red Cube`, it also must be located somewhere on the 4th row. Perhaps we should add it at...
+Since we are adding an West-bound Red Cube, it also must be located somewhere on the 4th row. Perhaps we should add it at...
 
 > "Wait a second, le717! You have not said what the code for this cube is!"
 
@@ -344,14 +343,9 @@ Just for fun, we will add some Blocked Walls and a Cube in the layout to make th
  F  F BW BW BW  F  F  F  F  F  F  F  F
 ```
 
-And finally, we test it. If the game loaded, and you can complete it, your mod works, and you have successfully added an `One way, west-bound Red Cube`!
+And finally, we test it. If the game loaded, and you can complete it, your mod works, and you have successfully added an West-bound Red Cube!
 
-> **Recap:** You leaned about a `One way, west-bound Red Cube`, the special properties it has (and does not have!), how it got it's unusual name, and how to
+> **Recap:** You leaned about a West-bound Red Cube, the special properties it has (and does not have!), how it got it's unusual name, and how to
 responsibly use it in a level layout. High five! :raised_hand:
-
-[:arrow_up:](#building-with-blocks)
-
-### Task #4: Water ###
-While this is a valid section of Building With Blocks, and will be written, lack of time and accurate knowledge of the Water Tiles is prohibiting me from writing it at this time. I'm sorry for any inconvenience this may have caused you. :(
 
 [:arrow_up:](#building-with-blocks)
