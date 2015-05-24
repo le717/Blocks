@@ -53,8 +53,8 @@ class LevelChecks(object):
         # Get the length of each line
         numOfLines = len(self.__layoutNormCase[:-2].split("\n"))
 
-        # The level is more than or less than 8 lines
-        if (numOfLines > 8 or numOfLines < 8):
+        # The level is not 8 lines
+        if (numOfLines != 8):
             return (True, "Size Error!", """Your level contains {0} lines!
 The level must be exactly 8 lines.""".format(numOfLines))
 
