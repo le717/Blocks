@@ -25,7 +25,7 @@ import sys
 import subprocess
 from cx_Freeze import (setup, Executable)
 
-import constants as const
+from src import constants as const
 from Tools.bin import (copyfiles, runasadmin)
 base = None
 
@@ -34,7 +34,7 @@ if sys.argv[1] == "build":
     print("Generating GUI resources")
     from PyQt5 import uic
     uic.compileUiDir("ui")
-    subprocess.call(["pyrcc5", "ui/images.qrc", "-o", "images_rc.py"])
+    subprocess.call(["pyrcc5", "ui/graphics.qrc", "-o", "graphics_rc.py"])
 
 # Windows
 if sys.platform == "win32":

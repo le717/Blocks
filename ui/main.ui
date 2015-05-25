@@ -14,7 +14,7 @@
    <string notr="true">app-name app-ver</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="images.qrc">
+   <iconset resource="graphics.qrc">
     <normaloff>:/Logo/Media/Blocks.png</normaloff>:/Logo/Media/Blocks.png</iconset>
   </property>
   <property name="styleSheet">
@@ -276,7 +276,7 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
   </action>
  </widget>
  <resources>
-  <include location="images.qrc"/>
+  <include location="graphics.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -137,4 +137,4 @@ class Ui_MainWindow(object):
         self.actionLegendWater.setText(_translate("MainWindow", "&Water Blocks"))
         self.actionLegendMain.setText(_translate("MainWindow", "&Main Blocks"))
 
-import images_rc
+import graphics_rc
