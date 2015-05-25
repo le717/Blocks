@@ -44,9 +44,6 @@
      <height>170</height>
     </size>
    </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
    </property>
@@ -216,9 +213,6 @@
      <width>201</width>
      <height>170</height>
     </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">qproperty-alignment: AlignCenter;</string>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
