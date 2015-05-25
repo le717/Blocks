@@ -50,10 +50,8 @@ class LevelChecks(object):
             Otherwise, first index is False,
             while second index and third index are both None.
         """
-        # Get the length of each line
-        numOfLines = len(self.__layoutNormCase[:-2].split("\n"))
-
         # The level is not 8 lines
+        numOfLines = len(self.__layoutNormCase[:-2].split("\n"))
         if (numOfLines != 8):
             return (True, "Size Error!", """Your level contains {0} lines!
 The level must be exactly 8 lines.""".format(numOfLines))
@@ -79,11 +77,11 @@ The level must be exactly 8 lines.""".format(numOfLines))
 
         # Get the each character's index, removing any new lines on them
         for index, char in enumerate(self.__layoutNormCase.split(" ")):
-            char = char.strip()
             index += 1
 
+            char = char.strip().upper()
             # If any character in the layout is not in the list
-            if char.upper() not in cubeList:
+            if char not in cubeList:
                 return (True, "Syntax Error!",
                         """Invalid character "{0}" at position {1}."""
                         .format(char, index))
@@ -102,7 +100,7 @@ The level must be exactly 8 lines.""".format(numOfLines))
             Otherwise, first index is False,
             while second index and third index are both None.
         """
-        # Get the each line's number text, and length
+        # Get the each line's length and text
         for lineNum, lineText in enumerate(self.__layoutNormCase.split("\n")):
             lineNum += 1
             lineLength = len(lineText)
