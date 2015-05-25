@@ -29,10 +29,7 @@ import logging
 import traceback
 from PyQt5 import QtWidgets
 
-import utils
-import levelchecks
-import constants as const
-
+from src import (constants as const, levelchecks, utils)
 from ui import (main as mainUi,
                 legendMain as legendMainUi,
                 legendWater as legendWaterUi

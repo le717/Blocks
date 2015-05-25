@@ -29,7 +29,7 @@ import platform
 import subprocess
 from PyQt5 import QtWidgets
 
-import constants as const
+from . import constants as const
 
 __all__ = ("Utils")
 
