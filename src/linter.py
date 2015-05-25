@@ -84,7 +84,7 @@ The level must be exactly 8 lines.""".format(numOfLines))
                 # The character is not valid block
                 if char not in cubeList:
                     return (True, "Syntax Error!",
-                            "Invalid block \"{0}\" on line {1} character {2}."
+                            """Invalid block "{0}" on line {1} code {2}."""
                             .format(char, lineNum, charLoc))
 
         # No error was found
