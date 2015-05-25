@@ -6,7 +6,9 @@ Released ?? ??, 2015
 * Remove Python version check
 * Correct and update docstring annotations
 * Replace Tkinter GUI with PyQt5 GUI
+* Open button keyboard binding is now `<Ctrl + o>`
 * Display line number and proper index in invalid character dialog
+* Make invalid character check case-insensitive again (regression from 1.0.0)
 
 ### 1.0.1 ###
 Released 13 December, 2014
@@ -172,7 +174,7 @@ Released May 26, 2013
 * Resized Blocks logo, moved location of logo in program, resized program window
 * Added large version of `Blocks` icon
 * Compressed Blender project
-* Renamed `Blocks.gif` to 'BlocksIcon.gif`
+* Renamed `Blocks.gif` to `BlocksIcon.gif`
 * Added ability to save edited levels
 * Handled `PermissionError` exception
 * Added successful save message

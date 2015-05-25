@@ -37,8 +37,6 @@ class LevelChecks(object):
 
         @param layout {String} The level layout to be checked.
         """
-        # TODO What on Galidor happened here???
-        self.__layoutNormCase = layout.rstrip()
         self.__layout = layout.rstrip().upper()
 
     def _levelSize(self):
@@ -52,7 +50,7 @@ class LevelChecks(object):
             while second index and third index are both None.
         """
         # The level is not 8 lines
-        numOfLines = len(self.__layoutNormCase[:-2].split("\n"))
+        numOfLines = len(self.__layout[:-2].split("\n"))
         if (numOfLines != 8):
             return (True, "Size Error!", """Your level contains {0} lines!
 The level must be exactly 8 lines.""".format(numOfLines))
@@ -77,7 +75,7 @@ The level must be exactly 8 lines.""".format(numOfLines))
                     "WI", "WJ", "WM", "WL", "WR", "WT", "WV")
 
         # Get each each character's index and line location
-        for lineNum, lineText in enumerate(self.__layoutNormCase.split("\n")):
+        for lineNum, lineText in enumerate(self.__layout.split("\n")):
             lineNum += 1
             for charLoc, char in enumerate(lineText.split()):
                 charLoc += 1
@@ -103,7 +101,7 @@ The level must be exactly 8 lines.""".format(numOfLines))
             while second index and third index are both None.
         """
         # Get the each line's length and text
-        for lineNum, lineText in enumerate(self.__layoutNormCase.split("\n")):
+        for lineNum, lineText in enumerate(self.__layout.split("\n")):
             lineNum += 1
             lineLength = len(lineText)
 
