@@ -29,7 +29,7 @@ import logging
 import traceback
 from PyQt5 import QtWidgets
 
-from src import (constants as const, levelchecks, utils)
+from src import (constants as const, linter, utils)
 from ui import (main as mainUi,
                 legendMain as legendMainUi,
                 legendWater as legendWaterUi
@@ -223,7 +223,7 @@ class Blocks(object):
         @return {Boolean} False of a syntax error was found;
             level layout suitable for saving.
         """
-        results = levelchecks.LevelChecks(levelLayout).checkLevel()
+        results = linter.Linter(levelLayout).lintLevel()
 
         # An error in the level was found, display the details
         if type(results) == tuple:

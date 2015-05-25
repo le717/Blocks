@@ -19,21 +19,22 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-__all__ = ("LevelChecks")
+__all__ = ("Linter")
 
 
-class LevelChecks(object):
+class Linter(object):
 
-    """Level syntax checker object.
+    """Level layout linters.
 
-    Run syntax checks on the user's level to ensure it is valid.
+    Run linters on the user's level to ensure it is valid.
 
-    Exposes one public method:
-    * checkLevel {Method} Checks the level layout for syntax errors.
+    Exposes the following public method:
+    * {Method} checkLevel Runs all currently available linters
+                          to check for any layout errors.
     """
 
     def __init__(self, layout):
-        """Initalize syntax checks.
+        """Initalize linters.
 
         @param layout {String} The level layout to be checked.
         """
@@ -121,8 +122,8 @@ The line must be exactly 38 characters, including spaces.""".format(
         # to the left or right sides of the level.
         # The checks should be revised once these anomalies are documented.
 
-    def checkLevel(self):
-        """Public method to run syntax checks on a level.
+    def lintLevel(self):
+        """Public method to run linters on a level layout.
 
         @returns {Tuple.<string>|String} If an error was found,
             two index tuple, first index the error dialog title and the second
