@@ -7,13 +7,13 @@ python:
 install: pip install -r requirements.txt
 script:
   - flake8 Blocks.pyw
-  - flake8 constants.py
-  - flake8 levelchecks.py
-  - flake8 setup.py
-  - flake8 utils.py
+  - flake8 src/constants.py
+  - flake8 src/linter.py
+  - flake8 src/setup.py
+  - flake8 src/utils.py
 
   - pep257 Blocks.pyw --explain
-  - pep257 constants.py --explain
-  - pep257 levelchecks.py --explain
-  - pep257 setup.py --explain
-  - pep257 utils.py --explain
+  - pep257 src/constants.py --explain
+  - pep257 src/linter.py --explain
+  - pep257 src/setup.py --explain
+  - pep257 src/utils.py --explain
