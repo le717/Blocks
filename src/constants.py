@@ -30,5 +30,4 @@ debugMode = False
 exeName = os.path.basename(sys.argv[0])
 appFolder = os.path.dirname(sys.argv[0])
 
-appLogo = os.path.join("Media", "Blocks.gif")
 appIcon = os.path.join("Media", "Blocks.ico")
