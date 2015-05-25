@@ -37,6 +37,7 @@ class LevelChecks(object):
 
         @param layout {String} The level layout to be checked.
         """
+        # TODO What on Galidor happened here???
         self.__layoutNormCase = layout.rstrip()
         self.__layout = layout.rstrip().upper()
 
@@ -75,16 +76,17 @@ The level must be exactly 8 lines.""".format(numOfLines))
                     "RB", "BC", "BT", "GT", "GC", "WB", "WH",
                     "WI", "WJ", "WM", "WL", "WR", "WT", "WV")
 
-        # Get the each character's index, removing any new lines on them
-        for index, char in enumerate(self.__layoutNormCase.split(" ")):
-            index += 1
+        # Get each each character's index and line location
+        for lineNum, lineText in enumerate(self.__layoutNormCase.split("\n")):
+            lineNum += 1
+            for charLoc, char in enumerate(lineText.split()):
+                charLoc += 1
 
-            char = char.strip().upper()
-            # If any character in the layout is not in the list
-            if char not in cubeList:
-                return (True, "Syntax Error!",
-                        """Invalid character "{0}" at position {1}."""
-                        .format(char, index))
+                # The character is not valid block
+                if char not in cubeList:
+                    return (True, "Syntax Error!",
+                            "Invalid block \"{0}\" on line {1} character {2}."
+                            .format(char, lineNum, charLoc))
 
         # No error was found
         return (False, None, None)

@@ -6,6 +6,7 @@ Released ?? ??, 2015
 * Remove Python version check
 * Correct and update docstring annotations
 * Replace Tkinter GUI with PyQt5 GUI
+* Display line number and proper index in invalid character dialog
 
 ### 1.0.1 ###
 Released 13 December, 2014

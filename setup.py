@@ -31,6 +31,7 @@ base = None
 
 # Only compile GUI on full build
 if sys.argv[1] == "build":
+    print("Generating GUI resources")
     from PyQt5 import uic
     uic.compileUiDir("ui")
     subprocess.call(["pyrcc5", "ui/images.qrc", "-o", "images_rc.py"])
@@ -52,6 +53,7 @@ if sys.platform == "win32":
 # Mac OS X
 elif sys.platform == "darwin":
     destFolder = os.path.join("bin", "Mac OS X")
+
 # Linux
 else:
     destFolder = os.path.join("bin", "Linux")
