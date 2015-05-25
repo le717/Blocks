@@ -360,14 +360,14 @@ class Blocks(object):
         # Store the new layout
         self.__levelLayout = self.__uiLevelArea.toPlainText()
 
-        # Get the destination details
-        filePath, fileName, firstLine = self.__getDestDetails()
-        if not filePath:
-            return False
-
         # Check the level layout for errors
         self.__levelLayout = self.__syntaxChecks(self.__levelLayout)
         if not self.__levelLayout:
+            return False
+
+        # Get the destination details
+        filePath, fileName, firstLine = self.__getDestDetails()
+        if not filePath:
             return False
 
         # Create a bytes version of the layout for accurate writing

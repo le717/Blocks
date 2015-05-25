@@ -9,6 +9,7 @@ Released ?? ??, 2015
 * Open button keyboard binding is now `<Ctrl + o>`
 * Display line number and proper index in invalid character dialog
 * Make invalid character check case-insensitive again (regression from 1.0.0)
+* Lint the layout before attempting to save (regression from 1.0.0)
 
 ### 1.0.1 ###
 Released 13 December, 2014
