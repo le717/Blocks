@@ -20,7 +20,7 @@
    <string notr="true">Main Blocks Legend - app-name</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="images.qrc">
+   <iconset resource="graphics.qrc">
     <normaloff>:/Logo/Media/Blocks.png</normaloff>:/Logo/Media/Blocks.png</iconset>
   </property>
   <property name="styleSheet">
@@ -376,7 +376,7 @@ qproperty-alignment: AlignCenter;</string>
   </widget>
  </widget>
  <resources>
-  <include location="images.qrc"/>
+  <include location="graphics.qrc"/>
  </resources>
  <connections>
   <connection>

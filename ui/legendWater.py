@@ -139,4 +139,4 @@ class Ui_legendDiagWater(object):
         self.tableCodes.setSortingEnabled(False)
         self.tableCodes.setSortingEnabled(__sortingEnabled)
 
-import images_rc
+import graphics_rc
