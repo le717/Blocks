@@ -64,6 +64,7 @@ class Utils(object):
 
     def _reloadApp(self):
         """Reload Blocks with administrator rights."""
+        logging.info("Reloading using RunAsAdmin")
         subprocess.call("RunAsAdmin.exe")
         logging.shutdown()
         raise SystemExit(0)
@@ -94,6 +95,7 @@ class Utils(object):
         try:
             # Make sure it exists
             if os.path.exists(self.__jsonFile):
+                logging.info("Reading config file from {0}".format(self.__jsonFile))
                 with open(self.__jsonFile, "rt", encoding="utf-8") as f:
                     self.__configData = json.load(f)
                 return True
@@ -101,6 +103,7 @@ class Utils(object):
 
         # The file is not valid JSON, sliently fail
         except ValueError:
+            logging.warning("The config file is not valid!")
             return False
 
     def _saveConfig(self, value):
@@ -111,12 +114,14 @@ class Utils(object):
         """
         try:
             jsonData = {"adminReload": value}
+            logging.info("Writing config file to {0}".format(self.__jsonFile))
             with open(self.__jsonFile, "wt", encoding="utf_8") as f:
                 f.write(json.dumps(jsonData, indent=4, sort_keys=True))
             return True
 
         # Silently fail
         except PermissionError:
+            logging.warning("The config file could not be saved!")
             return False
 
     def _commandLine(self):
@@ -182,7 +187,7 @@ class Utils(object):
         logging.info("""
 #########################################
 {0} v{1}
-Created 2013-2014 {2}
+Created 2013-2015 {2}
 
 If you run into a bug, open an issue at
 https://github.com/le717/Blocks/issues
@@ -206,10 +211,8 @@ and attach this file for an quicker fix!
         if not self.isWindows or self.openArg is not None:
             return False
 
-        # We only need the ctypes module on Windows
-        import ctypes
-
         # The program is already being run with admin rights
+        import ctypes
         if ctypes.windll.shell32.IsUserAnAdmin() == 1:
             return False
 
