@@ -95,7 +95,8 @@ class Utils(object):
         try:
             # Make sure it exists
             if os.path.exists(self.__jsonFile):
-                logging.info("Reading config file from {0}".format(self.__jsonFile))
+                logging.info("Reading config file from {0}".format(
+                             self.__jsonFile))
                 with open(self.__jsonFile, "rt", encoding="utf-8") as f:
                     self.__configData = json.load(f)
                 return True
