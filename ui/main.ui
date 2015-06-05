@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="graphics.qrc">
-    <normaloff>:/Logo/Media/Blocks.png</normaloff>:/Logo/Media/Blocks.png</iconset>
+    <normaloff>:/Logo/images/Blocks.ico</normaloff>:/Logo/images/Blocks.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel {
@@ -38,7 +38,7 @@ qproperty-alignment: AlignCenter
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/Logo/Media/Blocks.png);
+     <string notr="true">image: url(:/Logo/images/Blocks.png);
 border: none;</string>
     </property>
     <property name="frameShape">

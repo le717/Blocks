@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="graphics.qrc">
-    <normaloff>:/Logo/Media/Blocks.png</normaloff>:/Logo/Media/Blocks.png</iconset>
+    <normaloff>:/Logo/images/Blocks.ico</normaloff>:/Logo/images/Blocks.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QTableWidget {
