@@ -68,7 +68,7 @@ build_exe_options = {
     "create_shared_zip": True,
     "compressed": True,
     "optimize": 2,
-    "icon": "Media/Blocks.ico"
+    "icon": "ui/images/Blocks.ico"
 }
 
 setup(
