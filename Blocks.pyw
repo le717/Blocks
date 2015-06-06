@@ -28,6 +28,7 @@ import shutil
 import logging
 import traceback
 from PyQt5 import QtWidgets
+# from PyQt5.QtGui import QFontDatabase
 
 from src import (constants as const, linter, utils)
 from ui import (main as mainUi,
@@ -146,41 +147,25 @@ class Blocks(object):
         # Replace all text in the widget with the opened file contents
         self.__uiLevelName.setText(fileName)
         self.__uiLevelArea.setPlainText(levelLayout)
-
-        # If a temporary file was opened, delete it
-        if extension.lower() == ".tmp":
-            os.unlink(filePath)
         return True
 
-    def __writeFile(self, filePath, fileName, firstLine,
-                    levelLayout, temporary=False):
+    def __writeFile(self, filePath, fileName, firstLine, levelLayout):
         """Write the level layout to file.
 
         @param {String} filePath Absolute path to the resulting file.
         @param {String} fileName File name for the resulting file.
         @param {Bytes} firstLine The first line for the file.
         @param {Bytes} levelLayout The level layout to be written.
-        @param {Boolean} [temporary=False] If set to True,
-            a temporary file will be created at "~".
-        @return {Boolean|String} True if temporary is set to False;
-            Path to the temporary file if temporary is set to True;
+        @return {Boolean} Always returns True;
             False if a PermissionError was hit.
         """
-        # Name and location of the temporary file
-        if temporary:
-            filePath = os.path.join(os.path.expanduser("~"),
-                                    "{0}.tmp".format(fileName))
-
         try:
             # Write the file using binary mode in the following order:
             # First line, layout, file ending
             with open(os.path.join(filePath, fileName), "wb") as f:
                 f.write(firstLine)
                 f.write(levelLayout)
-                f.write(b"\r\n")
-
-            if temporary:
-                return filePath
+                f.write(b"\r\n ")
             return True
 
         # We cannot save a file in this location
@@ -376,8 +361,8 @@ class Blocks(object):
         self.__changePermissions(filePath, fileName)
 
         # Write the file to disk.
-        # PermissionError handling is not needed here,
-        # as it is handled in __writeFile()
+        # PermissionError handling is not needed here
+        # as it is handled in writeFile()
         if self.__writeFile(filePath, fileName, firstLine, binaryLayout):
             self.__uiErrors.information(self.__uiErrors, "Success!",
                                         "Successfully saved {0} to {1}".
