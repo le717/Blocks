@@ -14,7 +14,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(572, 274)
         MainWindow.setWindowTitle("app-name app-ver")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Logo/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ui/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("QLabel {\n"
 "font-family: \"Open Sans\";\n"
@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.appLogo = QtWidgets.QFrame(self.centralwidget)
         self.appLogo.setGeometry(QtCore.QRect(430, 150, 120, 80))
-        self.appLogo.setStyleSheet("image: url(:/Logo/images/Blocks.png);\n"
+        self.appLogo.setStyleSheet("image: url(:/ui/images/Blocks.png);\n"
 "border: none;")
         self.appLogo.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.appLogo.setFrameShadow(QtWidgets.QFrame.Raised)

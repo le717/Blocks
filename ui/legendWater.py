@@ -15,7 +15,7 @@ class Ui_legendDiagWater(object):
         legendDiagWater.setMinimumSize(QtCore.QSize(445, 410))
         legendDiagWater.setWindowTitle("Water Blocks Legend - app-name")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Logo/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ui/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         legendDiagWater.setWindowIcon(icon)
         legendDiagWater.setStyleSheet("QTableWidget {\n"
 "    font-size: 9pt;\n"

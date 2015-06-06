@@ -15,7 +15,7 @@ class Ui_legendDiagMain(object):
         legendDiagMain.setMinimumSize(QtCore.QSize(445, 410))
         legendDiagMain.setWindowTitle("Main Blocks Legend - app-name")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Logo/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ui/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         legendDiagMain.setWindowIcon(icon)
         legendDiagMain.setStyleSheet("QTableWidget {\n"
 "    font-size: 9pt;\n"
