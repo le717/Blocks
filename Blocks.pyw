@@ -39,11 +39,11 @@ from ui import (main as mainUi,
 __all__ = ("Blocks", "UI")
 
 
-class Blocks(object):
+class Blocks:
 
     """Core Blocks code and actions.
 
-    Exposes four public methods:
+    Exposes the following public methods:
     * createLevel {Method} Entry point to creating a new, blank level.
     * openLevel {Method} Entry point to opening an existing level.
     * openLevelAuto {Method} GUI-less entry point to opening an existing level.

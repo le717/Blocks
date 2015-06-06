@@ -22,7 +22,7 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 __all__ = ("Linter")
 
 
-class Linter(object):
+class Linter:
 
     """Level layout linters.
 
