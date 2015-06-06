@@ -271,7 +271,7 @@ class Blocks(object):
             details[2] = b"C\x01\x00\x001\r\n"
         return details
 
-    def createLevel(self, *args):
+    def createLevel(self):
         """Create a new level layout using a layout template.
 
         @return {Boolean} Always returns True.
@@ -310,7 +310,7 @@ class Blocks(object):
         self.__displayLevel(filePath, readAgain)
         return True
 
-    def openLevel(self, *args):
+    def openLevel(self):
         """Display file open dialog for selecting a level file.
 
         @return {Boolean} True if a file was selected for opening;
@@ -327,7 +327,7 @@ class Blocks(object):
             return True
         return False
 
-    def saveLevel(self, *args):
+    def saveLevel(self):
         """Save the level layout.
 
         @return {Boolean} False if any errors occurred;
