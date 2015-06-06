@@ -26,10 +26,8 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.appLogo = QtWidgets.QFrame(self.centralwidget)
         self.appLogo.setGeometry(QtCore.QRect(430, 150, 120, 80))
-        self.appLogo.setStyleSheet("image: url(:/ui/images/Blocks.png);\n"
-"border: none;")
-        self.appLogo.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.appLogo.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.appLogo.setStyleSheet("image: url(:/ui/images/Blocks.png);")
+        self.appLogo.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.appLogo.setObjectName("appLogo")
         self.btnNew = QtWidgets.QPushButton(self.centralwidget)
         self.btnNew.setGeometry(QtCore.QRect(450, 60, 75, 23))
