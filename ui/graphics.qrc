@@ -3,4 +3,8 @@
     <file>images/Blocks.ico</file>
     <file>images/Blocks.png</file>
   </qresource>
+  <qresource prefix="/ui">
+    <file>fonts/SourceCodePro-Regular.otf</file>
+    <file>fonts/OpenSans-Regular.ttf</file>
+  </qresource>
 </RCC>

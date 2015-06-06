@@ -21,3 +21,4 @@ Testing/
 *.txt
 *.bak
 *.exe
+ui/fonts/*
