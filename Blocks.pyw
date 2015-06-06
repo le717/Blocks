@@ -28,7 +28,7 @@ import shutil
 import logging
 import traceback
 from PyQt5 import QtWidgets
-# from PyQt5.QtGui import QFontDatabase
+from PyQt5.QtGui import QFont, QFontDatabase
 
 from src import (constants as const, linter, utils)
 from ui import (main as mainUi,
@@ -413,8 +413,9 @@ class UI:
         self.ui.actionLegendWater.triggered.connect(self.__showWaterLegend)
         # Quit menu item is connected in generated main.py
 
-        # Display app details and run app
+        # Set up and run app
         self.__setDetails()
+        self.__setupFonts()
         self.__start()
 
     def __start(self):
@@ -448,6 +449,27 @@ class UI:
             self.ui.appDetails.text().replace("app-ver", const.version))
         self.ui.appCreator.setText(
             self.ui.appCreator.text().replace("app-creator", const.creator))
+        return True
+
+    def __setupFonts(self):
+        """Load and set the program fonts.
+
+        @return {Boolean} Always returns True.
+        """
+        fontList = {
+            "OS": ":/ui/fonts/OpenSans-Regular.ttf",
+            "SCP": ":/ui/fonts/SourceCodePro-Regular.otf"
+        }
+
+        # Generate the font classes from the resource file
+        for k, v in fontList.items():
+            fontID = QFontDatabase.addApplicationFont(v)
+            fontFamily = QFontDatabase.applicationFontFamilies(fontID)
+            fontList[k] = QFont("".join(fontFamily))
+
+        # Set the fonts
+        self.ui.pteLevelArea.setFont(fontList["SCP"])
+        # TODO Open Sans for QLabel only!
         return True
 
     def __showMainLegend(self):
