@@ -381,7 +381,7 @@ class UI:
     """PyQt 5-based GUI for Blocks.
 
     Provides public access to key visual areas including
-    file name and editing area.
+        file name and editing area.
     """
 
     def __init__(self, openArg):
@@ -392,7 +392,7 @@ class UI:
         """
         self.__openArg = openArg
         self.__qApp = QtWidgets.QApplication(sys.argv)
-        self.__qApp.setStyle("fusion")
+        # self.__qApp.setStyle("fusion")
         self.__MainWindow = QtWidgets.QMainWindow()
         self.ui = mainUi.Ui_MainWindow()
         self.ui.setupUi(self.__MainWindow)
@@ -457,11 +457,10 @@ class UI:
         @return {Boolean} Always returns True.
         """
         fontList = {
-            "OS": ":/ui/fonts/OpenSans-Regular.ttf",
             "SCP": ":/ui/fonts/SourceCodePro-Regular.otf"
         }
 
-        # Generate the font classes from the resource file
+        # Generate the font objects from the resource file
         for k, v in fontList.items():
             fontID = QFontDatabase.addApplicationFont(v)
             fontFamily = QFontDatabase.applicationFontFamilies(fontID)
@@ -469,7 +468,6 @@ class UI:
 
         # Set the fonts
         self.ui.pteLevelArea.setFont(fontList["SCP"])
-        # TODO Open Sans for QLabel only!
         return True
 
     def __showMainLegend(self):
