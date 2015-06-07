@@ -5,6 +5,5 @@
   </qresource>
   <qresource prefix="/ui">
     <file>fonts/SourceCodePro-Regular.otf</file>
-    <file>fonts/OpenSans-Regular.ttf</file>
   </qresource>
 </RCC>

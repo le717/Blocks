@@ -19,7 +19,6 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel {
-font-family: &quot;Open Sans&quot;;
 font-size: 9pt;
 qproperty-alignment: AlignCenter
 }</string>

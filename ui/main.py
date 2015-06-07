@@ -17,7 +17,6 @@ class Ui_MainWindow(object):
         icon.addPixmap(QtGui.QPixmap(":/ui/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("QLabel {\n"
-"font-family: \"Open Sans\";\n"
 "font-size: 9pt;\n"
 "qproperty-alignment: AlignCenter\n"
 "}")

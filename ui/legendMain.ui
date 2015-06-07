@@ -334,7 +334,7 @@
     </size>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 75 9pt &quot;Open Sans&quot;;
+    <string notr="true">font-size: 10pt;
 qproperty-alignment: AlignTop;</string>
    </property>
    <property name="text">
@@ -354,7 +354,7 @@ qproperty-alignment: AlignTop;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 75 16pt &quot;Open Sans&quot;;
+    <string notr="true">font-size: 15pt;
 qproperty-alignment: AlignCenter;</string>
    </property>
    <property name="text">
