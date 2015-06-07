@@ -392,7 +392,6 @@ class UI:
         """
         self.__openArg = openArg
         self.__qApp = QtWidgets.QApplication(sys.argv)
-        # self.__qApp.setStyle("fusion")
         self.__MainWindow = QtWidgets.QMainWindow()
         self.ui = mainUi.Ui_MainWindow()
         self.ui.setupUi(self.__MainWindow)
