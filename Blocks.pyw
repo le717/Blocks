@@ -27,11 +27,13 @@ import stat
 import shutil
 import logging
 import traceback
+import webbrowser
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QFont, QFontDatabase
 
 from src import (constants as const, linter, utils)
 from ui import (main as mainUi,
+                about as aboutUi,
                 legendMain as legendMainUi,
                 legendWater as legendWaterUi
                 )
@@ -411,6 +413,7 @@ class UI:
         self.ui.actionSave.triggered.connect(self.__blocks.saveLevel)
         self.ui.actionLegendMain.triggered.connect(self.__showMainLegend)
         self.ui.actionLegendWater.triggered.connect(self.__showWaterLegend)
+        self.ui.actionAbout.triggered.connect(self.__showAboutDialog)
         # Quit menu item is connected in generated main.py
 
         # Set up and run app
@@ -474,6 +477,34 @@ class UI:
         @return {Boolean} Always returns True.
         """
         self.ui.pteLevelArea.setFont(self.__fontList["SCP"])
+        return True
+
+    def __showAboutDialog(self):
+        """Display the About dialog.
+
+        @return {Boolean} Always returns True.
+        """
+        def openGitHub():
+            webbrowser.open_new_tab("https://github.com/le717/Blocks")
+
+        dialogWindow = QtWidgets.QDialog()
+        ui = aboutUi.Ui_aboutDiag()
+        ui.setupUi(dialogWindow)
+        dialogWindow.setWindowTitle(
+            dialogWindow.windowTitle().replace("app-name", const.appName))
+        ui.lbHeader.setText(
+            ui.lbHeader.text().replace("app-name", const.appName))
+        ui.lbHeader.setText(
+            ui.lbHeader.text().replace("app-version", const.version))
+        ui.lbCreated.setText(
+            ui.lbCreated.text().replace("app-creator", const.creator))
+        ui.btnGitHub.clicked.connect(
+            lambda: webbrowser.open_new_tab("https://github.com/le717/Blocks")
+        )
+        ui.btnLicense.clicked.connect(
+            lambda: webbrowser.open_new_tab(
+                "http://www.gnu.org/licenses/gpl-3.0-standalone.html"))
+        dialogWindow.exec_()
         return True
 
     def __showMainLegend(self):
