@@ -395,6 +395,7 @@ class UI:
         self.__MainWindow = QtWidgets.QMainWindow()
         self.ui = mainUi.Ui_MainWindow()
         self.ui.setupUi(self.__MainWindow)
+        self.__fontList = self.__loadFonts()
 
         # Create an instance of the back-end code
         self.__blocks = Blocks(self.ui)
@@ -450,10 +451,11 @@ class UI:
             self.ui.appCreator.text().replace("app-creator", const.creator))
         return True
 
-    def __setupFonts(self):
-        """Load and set the program fonts.
+    def __loadFonts(self):
+        """Load the program fonts.
 
-        @return {Boolean} Always returns True.
+        @return {Dictionary} Dictionary containing
+            QFont objects for each font.
         """
         fontList = {
             "SCP": ":/ui/fonts/SourceCodePro-Regular.otf"
@@ -464,9 +466,14 @@ class UI:
             fontID = QFontDatabase.addApplicationFont(v)
             fontFamily = QFontDatabase.applicationFontFamilies(fontID)
             fontList[k] = QFont("".join(fontFamily))
+        return fontList
 
-        # Set the fonts
-        self.ui.pteLevelArea.setFont(fontList["SCP"])
+    def __setupFonts(self):
+        """Set the program fonts.
+
+        @return {Boolean} Always returns True.
+        """
+        self.ui.pteLevelArea.setFont(self.__fontList["SCP"])
         return True
 
     def __showMainLegend(self):
