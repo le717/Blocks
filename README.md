@@ -4,7 +4,7 @@
 
 ## Downloads ##
 * All downloads are available on the [Releases](https://github.com/le717/Blocks/releases) page.
-* File format details, a change log, and the **Building With Blocks** tutorial are available in the [Documentation](Documentation) directory.
+* The contribution details, change log, file format details, and **Building With Blocks** tutorial are available in the [Documentation](Documentation) directory.
 
 ## Contributing ##
 Contribution details are available in [CONTRIBUTING.md](Documentation/CONTRIBUTING.md)
