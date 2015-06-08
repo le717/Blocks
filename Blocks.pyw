@@ -486,6 +486,8 @@ class UI:
         ui.setupUi(dialogWindow)
         dialogWindow.setWindowTitle(
             dialogWindow.windowTitle().replace("app-name", const.appName))
+        ui.tableColors.setFont(self.__fontList["SCP"])
+        ui.tableCodes.setFont(self.__fontList["SCP"])
         dialogWindow.exec_()
         return True
 
@@ -499,6 +501,7 @@ class UI:
         ui.setupUi(dialogWindow)
         dialogWindow.setWindowTitle(
             dialogWindow.windowTitle().replace("app-name", const.appName))
+        ui.tableCodes.setFont(self.__fontList["SCP"])
         dialogWindow.exec_()
         return True
 

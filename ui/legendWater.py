@@ -17,11 +17,7 @@ class Ui_legendDiagWater(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/ui/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         legendDiagWater.setWindowIcon(icon)
-        legendDiagWater.setStyleSheet("QTableWidget {\n"
-"    font-size: 9pt;\n"
-"    font-family: \"Source Code Pro\", \"Consolas\";\n"
-"}\n"
-"")
+        legendDiagWater.setStyleSheet("QTableWidget { font-size: 9pt; }")
         self.lbHeader = QtWidgets.QLabel(legendDiagWater)
         self.lbHeader.setGeometry(QtCore.QRect(40, 10, 131, 21))
         self.lbHeader.setStyleSheet("font-size:15pt;\n"

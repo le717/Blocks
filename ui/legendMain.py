@@ -17,10 +17,7 @@ class Ui_legendDiagMain(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/ui/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         legendDiagMain.setWindowIcon(icon)
-        legendDiagMain.setStyleSheet("QTableWidget {\n"
-"    font-size: 9pt;\n"
-"    font-family: \"Source Code Pro\", \"Consolas\";\n"
-"}")
+        legendDiagMain.setStyleSheet("QTableWidget { font-size: 9pt; }")
         self.tableColors = QtWidgets.QTableWidget(legendDiagMain)
         self.tableColors.setGeometry(QtCore.QRect(10, 40, 201, 170))
         self.tableColors.setMinimumSize(QtCore.QSize(201, 170))
