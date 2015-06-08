@@ -21,14 +21,10 @@
   </property>
   <property name="windowIcon">
    <iconset resource="graphics.qrc">
-    <normaloff>:/Logo/images/Blocks.ico</normaloff>:/Logo/images/Blocks.ico</iconset>
+    <normaloff>:/ui/images/Blocks.ico</normaloff>:/ui/images/Blocks.ico</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QTableWidget {
-	font-size: 9pt;
-	font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;
-}
-</string>
+   <string notr="true">QTableWidget { font-size: 9pt; }</string>
   </property>
   <widget class="QLabel" name="lbHeader">
    <property name="geometry">
@@ -40,7 +36,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 75 16pt &quot;Open Sans&quot;;
+    <string notr="true">font-size:15pt;
 qproperty-alignment: AlignCenter;</string>
    </property>
    <property name="text">
@@ -57,7 +53,7 @@ qproperty-alignment: AlignCenter;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 75 9pt &quot;Open Sans&quot;;
+    <string notr="true">font-size: 10pt;
 qproperty-alignment: AlignTop;</string>
    </property>
    <property name="text">

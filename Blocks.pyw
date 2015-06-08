@@ -28,7 +28,7 @@ import shutil
 import logging
 import traceback
 from PyQt5 import QtWidgets
-# from PyQt5.QtGui import QFontDatabase
+from PyQt5.QtGui import QFont, QFontDatabase
 
 from src import (constants as const, linter, utils)
 from ui import (main as mainUi,
@@ -39,11 +39,11 @@ from ui import (main as mainUi,
 __all__ = ("Blocks", "UI")
 
 
-class Blocks(object):
+class Blocks:
 
     """Core Blocks code and actions.
 
-    Exposes four public methods:
+    Exposes the following public methods:
     * createLevel {Method} Entry point to creating a new, blank level.
     * openLevel {Method} Entry point to opening an existing level.
     * openLevelAuto {Method} GUI-less entry point to opening an existing level.
@@ -381,7 +381,7 @@ class UI:
     """PyQt 5-based GUI for Blocks.
 
     Provides public access to key visual areas including
-    file name and editing area.
+        file name and editing area.
     """
 
     def __init__(self, openArg):
@@ -392,10 +392,10 @@ class UI:
         """
         self.__openArg = openArg
         self.__qApp = QtWidgets.QApplication(sys.argv)
-        self.__qApp.setStyle("fusion")
         self.__MainWindow = QtWidgets.QMainWindow()
         self.ui = mainUi.Ui_MainWindow()
         self.ui.setupUi(self.__MainWindow)
+        self.__fontList = self.__loadFonts()
 
         # Create an instance of the back-end code
         self.__blocks = Blocks(self.ui)
@@ -413,8 +413,9 @@ class UI:
         self.ui.actionLegendWater.triggered.connect(self.__showWaterLegend)
         # Quit menu item is connected in generated main.py
 
-        # Display app details and run app
+        # Set up and run app
         self.__setDetails()
+        self.__setupFonts()
         self.__start()
 
     def __start(self):
@@ -450,6 +451,31 @@ class UI:
             self.ui.appCreator.text().replace("app-creator", const.creator))
         return True
 
+    def __loadFonts(self):
+        """Load the program fonts.
+
+        @return {Dictionary} Dictionary containing
+            QFont objects for each font.
+        """
+        fontList = {
+            "SCP": ":/ui/fonts/SourceCodePro-Regular.otf"
+        }
+
+        # Generate the font objects from the resource file
+        for k, v in fontList.items():
+            fontID = QFontDatabase.addApplicationFont(v)
+            fontFamily = QFontDatabase.applicationFontFamilies(fontID)
+            fontList[k] = QFont("".join(fontFamily))
+        return fontList
+
+    def __setupFonts(self):
+        """Set the program fonts.
+
+        @return {Boolean} Always returns True.
+        """
+        self.ui.pteLevelArea.setFont(self.__fontList["SCP"])
+        return True
+
     def __showMainLegend(self):
         """Display the Main Blocks Legend dialog.
 
@@ -460,6 +486,8 @@ class UI:
         ui.setupUi(dialogWindow)
         dialogWindow.setWindowTitle(
             dialogWindow.windowTitle().replace("app-name", const.appName))
+        ui.tableColors.setFont(self.__fontList["SCP"])
+        ui.tableCodes.setFont(self.__fontList["SCP"])
         dialogWindow.exec_()
         return True
 
@@ -473,6 +501,7 @@ class UI:
         ui.setupUi(dialogWindow)
         dialogWindow.setWindowTitle(
             dialogWindow.windowTitle().replace("app-name", const.appName))
+        ui.tableCodes.setFont(self.__fontList["SCP"])
         dialogWindow.exec_()
         return True
 

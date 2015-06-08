@@ -1,6 +1,9 @@
 <RCC>
-  <qresource prefix="Logo">
+  <qresource prefix="/ui">
     <file>images/Blocks.ico</file>
     <file>images/Blocks.png</file>
+  </qresource>
+  <qresource prefix="/ui">
+    <file>fonts/SourceCodePro-Regular.otf</file>
   </qresource>
 </RCC>

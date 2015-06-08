@@ -21,3 +21,6 @@ Testing/
 *.txt
 *.bak
 *.exe
+ui/fonts/*
+!ui/fonts/README.txt
+!License/*

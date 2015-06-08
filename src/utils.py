@@ -34,7 +34,7 @@ from . import constants as const
 __all__ = ("Utils")
 
 
-class Utils(object):
+class Utils:
 
     """Utility functions.
 

@@ -15,22 +15,18 @@ class Ui_legendDiagWater(object):
         legendDiagWater.setMinimumSize(QtCore.QSize(445, 410))
         legendDiagWater.setWindowTitle("Water Blocks Legend - app-name")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Logo/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ui/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         legendDiagWater.setWindowIcon(icon)
-        legendDiagWater.setStyleSheet("QTableWidget {\n"
-"    font-size: 9pt;\n"
-"    font-family: \"Source Code Pro\", \"Consolas\";\n"
-"}\n"
-"")
+        legendDiagWater.setStyleSheet("QTableWidget { font-size: 9pt; }")
         self.lbHeader = QtWidgets.QLabel(legendDiagWater)
         self.lbHeader.setGeometry(QtCore.QRect(40, 10, 131, 21))
-        self.lbHeader.setStyleSheet("font: 75 16pt \"Open Sans\";\n"
+        self.lbHeader.setStyleSheet("font-size:15pt;\n"
 "qproperty-alignment: AlignCenter;")
         self.lbHeader.setText("Water Blocks")
         self.lbHeader.setObjectName("lbHeader")
         self.lbDesc = QtWidgets.QLabel(legendDiagWater)
         self.lbDesc.setGeometry(QtCore.QRect(220, 40, 211, 311))
-        self.lbDesc.setStyleSheet("font: 75 9pt \"Open Sans\";\n"
+        self.lbDesc.setStyleSheet("font-size: 10pt;\n"
 "qproperty-alignment: AlignTop;")
         self.lbDesc.setText("<p><span style=\" font-weight:700;\">Water Blocks</span> serve as an obstacle to the player much like Blocked Walls but with a notable exception: cubes will sink when pushed in water, allowing the player to walk and push other cubes over the sunken one.</p><p>Water Blocks are more complicated than ordinary blocks. In addition to their confusing codes, each block can only be placed in their titular positions, e.g., only Top can be placed on the top row, or Top Left in the top left corner of the board.</p><p>Horizontal and Vertical blocks are the only cubes that can in placed in non-bordered areas.</p>")
         self.lbDesc.setWordWrap(True)

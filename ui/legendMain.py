@@ -15,12 +15,9 @@ class Ui_legendDiagMain(object):
         legendDiagMain.setMinimumSize(QtCore.QSize(445, 410))
         legendDiagMain.setWindowTitle("Main Blocks Legend - app-name")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Logo/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ui/images/Blocks.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         legendDiagMain.setWindowIcon(icon)
-        legendDiagMain.setStyleSheet("QTableWidget {\n"
-"    font-size: 9pt;\n"
-"    font-family: \"Source Code Pro\", \"Consolas\";\n"
-"}")
+        legendDiagMain.setStyleSheet("QTableWidget { font-size: 9pt; }")
         self.tableColors = QtWidgets.QTableWidget(legendDiagMain)
         self.tableColors.setGeometry(QtCore.QRect(10, 40, 201, 170))
         self.tableColors.setMinimumSize(QtCore.QSize(201, 170))
@@ -150,14 +147,14 @@ class Ui_legendDiagMain(object):
         self.lbDesc = QtWidgets.QLabel(legendDiagMain)
         self.lbDesc.setGeometry(QtCore.QRect(10, 220, 421, 151))
         self.lbDesc.setMinimumSize(QtCore.QSize(0, 0))
-        self.lbDesc.setStyleSheet("font: 75 9pt \"Open Sans\";\n"
+        self.lbDesc.setStyleSheet("font-size: 10pt;\n"
 "qproperty-alignment: AlignTop;")
         self.lbDesc.setText("<p><span style=\" font-weight: 700;\">Main Blocks</span> are the primary cubes and tiles used in the levels. Cubes and Tiles are prefixed with a color to create a complete block, e.g., RT creates a Red Tile the player can walk across, and  BC creates a Blue Cube the player can push.</p> <p>Two notable blocks are the Blocked Wall and the West-bound Red Cube. A Blocked Wall is an obstacle the player must navigate around, while the West-bound Red Cube is a a special red cube that can only be pushed to the left side of the board.</p>")
         self.lbDesc.setWordWrap(True)
         self.lbDesc.setObjectName("lbDesc")
         self.lbHeader = QtWidgets.QLabel(legendDiagMain)
         self.lbHeader.setGeometry(QtCore.QRect(150, 10, 131, 21))
-        self.lbHeader.setStyleSheet("font: 75 16pt \"Open Sans\";\n"
+        self.lbHeader.setStyleSheet("font-size: 15pt;\n"
 "qproperty-alignment: AlignCenter;")
         self.lbHeader.setText("Main Blocks")
         self.lbHeader.setObjectName("lbHeader")

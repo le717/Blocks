@@ -15,11 +15,10 @@
   </property>
   <property name="windowIcon">
    <iconset resource="graphics.qrc">
-    <normaloff>:/Logo/images/Blocks.ico</normaloff>:/Logo/images/Blocks.ico</iconset>
+    <normaloff>:/ui/images/Blocks.ico</normaloff>:/ui/images/Blocks.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel {
-font-family: &quot;Open Sans&quot;;
 font-size: 9pt;
 qproperty-alignment: AlignCenter
 }</string>
@@ -38,14 +37,10 @@ qproperty-alignment: AlignCenter
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/Logo/images/Blocks.png);
-border: none;</string>
+     <string notr="true">image: url(:/ui/images/Blocks.png);</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="QPushButton" name="btnNew">
@@ -97,8 +92,7 @@ border: none;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 10pt;
-font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
+     <string notr="true">font-size: 10pt;</string>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -189,7 +183,7 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
      <bool>false</bool>
     </property>
     <property name="title">
-     <string>&amp;File</string>
+     <string notr="true">&amp;File</string>
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
@@ -202,11 +196,11 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
      <bool>true</bool>
     </property>
     <property name="title">
-     <string>&amp;Help</string>
+     <string notr="true">&amp;Help</string>
     </property>
     <widget class="QMenu" name="menuLegend">
      <property name="title">
-      <string>&amp;Legend</string>
+      <string notr="true">&amp;Legend</string>
      </property>
      <addaction name="actionLegendMain"/>
      <addaction name="actionLegendWater"/>
@@ -220,10 +214,10 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
    <property name="text">
-    <string>&amp;New</string>
+    <string notr="true">&amp;New</string>
    </property>
    <property name="iconText">
-    <string>New</string>
+    <string notr="true">New</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -234,7 +228,10 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
   </action>
   <action name="actionOpen">
    <property name="text">
-    <string>&amp;Open...</string>
+    <string notr="true">&amp;Open...</string>
+   </property>
+   <property name="iconText">
+    <string notr="true">Open</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -242,7 +239,10 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>&amp;Save</string>
+    <string notr="true">&amp;Save</string>
+   </property>
+   <property name="iconText">
+    <string notr="true">Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -250,7 +250,10 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
   </action>
   <action name="actionQuit">
    <property name="text">
-    <string>&amp;Quit</string>
+    <string notr="true">&amp;Quit</string>
+   </property>
+   <property name="iconText">
+    <string notr="true">Quit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -258,12 +261,12 @@ font-family: &quot;Source Code Pro&quot;, &quot;Consolas&quot;;</string>
   </action>
   <action name="actionLegendWater">
    <property name="text">
-    <string>&amp;Water Blocks</string>
+    <string notr="true">&amp;Water Blocks</string>
    </property>
   </action>
   <action name="actionLegendMain">
    <property name="text">
-    <string>&amp;Main Blocks</string>
+    <string notr="true">&amp;Main Blocks</string>
    </property>
   </action>
   <action name="actionAbout">

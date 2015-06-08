@@ -84,9 +84,10 @@ setup(
 
 # Copy any required files/directories
 filesForCopying = [
-    "LICENSE",
-    "LICENSE.RunAsAdmin.txt",
     "README.md",
+    os.path.join("License", "LICENSE"),
+    os.path.join("License", "LICENSE.RunAsAdmin.txt"),
+    os.path.join("License", "LICENSE.SourceCodePro.txt"),
     os.path.join("Documentation", "Changelog.md"),
     os.path.join("Documentation", "Format-Details.md"),
     os.path.join("Documentation", "Tutorial.md")
