@@ -116,37 +116,21 @@ qproperty-alignment: AlignCenter
       <x>430</x>
       <y>0</y>
       <width>111</width>
-      <height>20</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string notr="true">app-name app-ver</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="appYear">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>16</y>
-      <width>111</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string notr="true">Created 2013-2015</string>
+     <string notr="true">app-name vapp-ver</string>
     </property>
    </widget>
    <widget class="QLabel" name="appCreator">
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>30</y>
+      <y>20</y>
       <width>71</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
     </property>
     <property name="text">
      <string notr="true">app-creator</string>
@@ -270,9 +254,6 @@ qproperty-alignment: AlignCenter
    </property>
   </action>
   <action name="actionAbout">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string notr="true">&amp;About</string>
    </property>

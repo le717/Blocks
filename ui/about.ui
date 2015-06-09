@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>aboutDiag</class>
+ <widget class="QDialog" name="aboutDiag">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>368</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>368</width>
+    <height>320</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">About - app-name</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="graphics.qrc">
+    <normaloff>:/ui/images/Blocks.ico</normaloff>:/ui/images/Blocks.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QTableWidget { font-size: 9pt; }
+QLabel { qproperty-alignment: AlignCenter; }</string>
+  </property>
+  <widget class="QLabel" name="lbCreated">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>50</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 10pt;</string>
+   </property>
+   <property name="text">
+    <string notr="true">&lt;p&gt;Created 2013-2015 app-creator&lt;/p&gt;</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbHeader">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>20</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 15pt;</string>
+   </property>
+   <property name="text">
+    <string notr="true">app-name vapp-version</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnClose">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>280</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">Close</string>
+   </property>
+  </widget>
+  <widget class="QFrame" name="appLogo">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>100</y>
+     <width>151</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">image: url(:/ui/images/Blocks.png);</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnGitHub">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>280</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">GitHub</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnLicense">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>280</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">License</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>200</y>
+     <width>371</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 13pt;
+qproperty-wordWrap: true;</string>
+   </property>
+   <property name="text">
+    <string notr="true">An Island Xtreme Stunts Trouble in Store minigame level editor.</string>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>btnGitHub</tabstop>
+  <tabstop>btnClose</tabstop>
+  <tabstop>btnLicense</tabstop>
+ </tabstops>
+ <resources>
+  <include location="graphics.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>btnClose</sender>
+   <signal>clicked()</signal>
+   <receiver>aboutDiag</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>217</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

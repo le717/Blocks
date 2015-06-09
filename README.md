@@ -10,4 +10,4 @@
 Contribution details are available in [CONTRIBUTING.md](Documentation/CONTRIBUTING.md)
 
 ## License ##
-Blocks, created 2013-2015 [Triangle717](http://Triangle717.WordPress.com/), and released under the [GPLv3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).
+Blocks, created 2013-2015 [Triangle717](https://Triangle717.WordPress.com/), and released under the [GPLv3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).
