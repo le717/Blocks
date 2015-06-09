@@ -107,7 +107,7 @@ qproperty-alignment: AlignCenter
      <string notr="true"/>
     </property>
     <property name="placeholderText">
-     <string notr="true">Minigame layout will be displayed here.</string>
+     <string notr="true">Level layouts will be displayed here.</string>
     </property>
    </widget>
    <widget class="QLabel" name="appDetails">

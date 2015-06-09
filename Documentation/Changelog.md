@@ -1,7 +1,7 @@
 # Blocks Change Log #
 
 ### 2.1.0 ###
-Released June ??, 2015
+Released ?? June, 2015
 
 * Remove Python version check
 * Correct and update docstring annotations

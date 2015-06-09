@@ -47,7 +47,7 @@ class Ui_MainWindow(object):
         self.pteLevelArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.pteLevelArea.setLineWrapMode(QtWidgets.QPlainTextEdit.NoWrap)
         self.pteLevelArea.setPlainText("")
-        self.pteLevelArea.setPlaceholderText("Minigame layout will be displayed here.")
+        self.pteLevelArea.setPlaceholderText("Level layouts will be displayed here.")
         self.pteLevelArea.setObjectName("pteLevelArea")
         self.appDetails = QtWidgets.QLabel(self.centralwidget)
         self.appDetails.setGeometry(QtCore.QRect(430, 0, 111, 21))
