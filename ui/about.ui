@@ -141,6 +141,11 @@ qproperty-wordWrap: true;</string>
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>btnGitHub</tabstop>
+  <tabstop>btnClose</tabstop>
+  <tabstop>btnLicense</tabstop>
+ </tabstops>
  <resources>
   <include location="graphics.qrc"/>
  </resources>

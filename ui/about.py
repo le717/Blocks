@@ -58,6 +58,8 @@ class Ui_aboutDiag(object):
         self.retranslateUi(aboutDiag)
         self.btnClose.clicked.connect(aboutDiag.close)
         QtCore.QMetaObject.connectSlotsByName(aboutDiag)
+        aboutDiag.setTabOrder(self.btnGitHub, self.btnClose)
+        aboutDiag.setTabOrder(self.btnClose, self.btnLicense)
 
     def retranslateUi(self, aboutDiag):
         pass
