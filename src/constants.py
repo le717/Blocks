@@ -26,8 +26,3 @@ appName = "Blocks"
 version = "2.1.0"
 creator = "Triangle717"
 debugMode = False
-
-exeName = os.path.basename(sys.argv[0])
-appFolder = os.path.dirname(sys.argv[0])
-
-appIcon = os.path.join("Media", "Blocks.ico")
