@@ -19,9 +19,6 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-import os
-import sys
-
 appName = "Blocks"
 version = "2.1.0"
 creator = "Triangle717"
