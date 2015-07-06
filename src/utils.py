@@ -132,7 +132,7 @@ class Utils:
         """
         parser = argparse.ArgumentParser(
             description="{0} {1} Command-line arguments".format(
-                const.appName, const.version))
+                const.APP_NAME, const.VERSION))
 
         # Debug message and file open arguments
         parser.add_argument("-d", "--debug",
@@ -153,7 +153,7 @@ class Utils:
             # Write a console title on Windows
             if self.isWindows:
                 os.system("title {0} {1} - Debug".format(
-                          const.appName, const.version))
+                          const.APP_NAME, const.VERSION))
             print("\nDebug messages have been enabled.")
         self.openArg = openArg
         return True
@@ -194,8 +194,8 @@ If you run into a bug, open an issue at
 https://github.com/le717/Blocks/issues
 and attach this file for an quicker fix!
 #########################################
-                                    """.format(const.appName, const.version,
-                                               const.creator))
+                                    """.format(const.APP_NAME, const.VERSION,
+                                               const.CREATOR))
         return True
 
     def runAsAdmin(self):

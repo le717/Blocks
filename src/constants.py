@@ -19,7 +19,7 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-appName = "Blocks"
-version = "2.1.0"
-creator = "Triangle717"
+APP_NAME = "Blocks"
+VERSION = "2.1.0"
+CREATOR = "Triangle717"
 debugMode = False

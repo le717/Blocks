@@ -72,10 +72,10 @@ build_exe_options = {
 }
 
 setup(
-    name=const.appName,
-    version=const.version,
-    author=const.creator,
-    description=const.appName,
+    name=const.APP_NAME,
+    version=const.VERSION,
+    author=const.CREATOR,
+    description=const.APP_NAME,
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("Blocks.pyw",

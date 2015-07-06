@@ -443,15 +443,15 @@ class UI:
         @return {Boolean} Always returns True.
         """
         self.__MainWindow.setWindowTitle(
-            self.__MainWindow.windowTitle().replace("app-name", const.appName))
+            self.__MainWindow.windowTitle().replace("app-name", const.APP_NAME))
         self.__MainWindow.setWindowTitle(
-            self.__MainWindow.windowTitle().replace("app-ver", const.version))
+            self.__MainWindow.windowTitle().replace("app-ver", const.VERSION))
         self.ui.appDetails.setText(
-            self.ui.appDetails.text().replace("app-name", const.appName))
+            self.ui.appDetails.text().replace("app-name", const.APP_NAME))
         self.ui.appDetails.setText(
-            self.ui.appDetails.text().replace("app-ver", const.version))
+            self.ui.appDetails.text().replace("app-ver", const.VERSION))
         self.ui.appCreator.setText(
-            self.ui.appCreator.text().replace("app-creator", const.creator))
+            self.ui.appCreator.text().replace("app-creator", const.CREATOR))
         return True
 
     def __loadFonts(self):
@@ -484,20 +484,17 @@ class UI:
 
         @return {Boolean} Always returns True.
         """
-        def openGitHub():
-            webbrowser.open_new_tab("https://github.com/le717/Blocks")
-
         dialogWindow = QtWidgets.QDialog()
         ui = aboutUi.Ui_aboutDiag()
         ui.setupUi(dialogWindow)
         dialogWindow.setWindowTitle(
-            dialogWindow.windowTitle().replace("app-name", const.appName))
+            dialogWindow.windowTitle().replace("app-name", const.APP_NAME))
         ui.lbHeader.setText(
-            ui.lbHeader.text().replace("app-name", const.appName))
+            ui.lbHeader.text().replace("app-name", const.APP_NAME))
         ui.lbHeader.setText(
-            ui.lbHeader.text().replace("app-version", const.version))
+            ui.lbHeader.text().replace("app-version", const.VERSION))
         ui.lbCreated.setText(
-            ui.lbCreated.text().replace("app-creator", const.creator))
+            ui.lbCreated.text().replace("app-creator", const.CREATOR))
         ui.btnGitHub.clicked.connect(
             lambda: webbrowser.open_new_tab("https://github.com/le717/Blocks")
         )
@@ -516,7 +513,7 @@ class UI:
         ui = legendMainUi.Ui_legendDiagMain()
         ui.setupUi(dialogWindow)
         dialogWindow.setWindowTitle(
-            dialogWindow.windowTitle().replace("app-name", const.appName))
+            dialogWindow.windowTitle().replace("app-name", const.APP_NAME))
         ui.tableColors.setFont(self.__fontList["SCP"])
         ui.tableCodes.setFont(self.__fontList["SCP"])
         dialogWindow.exec_()
@@ -531,7 +528,7 @@ class UI:
         ui = legendWaterUi.Ui_legendDiagWater()
         ui.setupUi(dialogWindow)
         dialogWindow.setWindowTitle(
-            dialogWindow.windowTitle().replace("app-name", const.appName))
+            dialogWindow.windowTitle().replace("app-name", const.APP_NAME))
         ui.tableCodes.setFont(self.__fontList["SCP"])
         dialogWindow.exec_()
         return True
