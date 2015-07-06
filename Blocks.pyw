@@ -443,7 +443,8 @@ class UI:
         @return {Boolean} Always returns True.
         """
         self.__MainWindow.setWindowTitle(
-            self.__MainWindow.windowTitle().replace("app-name", const.APP_NAME))
+            self.__MainWindow.windowTitle().replace("app-name",
+                                                    const.APP_NAME))
         self.__MainWindow.setWindowTitle(
             self.__MainWindow.windowTitle().replace("app-ver", const.VERSION))
         self.ui.appDetails.setText(
