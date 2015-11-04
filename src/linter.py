@@ -28,9 +28,9 @@ class Linter:
 
     Run linters on the user's level to ensure it is valid.
 
-    Exposes the following public method:
-    * {Method} checkLevel Runs all currently available linters
-                          to check for any layout errors.
+    Exposes the following items:
+    * {Method} lintLevel Runs all currently available linters
+                         to check for any layout errors.
     """
 
     def __init__(self, layout):
