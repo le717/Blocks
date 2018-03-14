@@ -20,6 +20,6 @@ along with Blocks. If not, see <http://www.gnu.org/licenses/>.
 """
 
 APP_NAME = "Blocks"
-VERSION = "2.1.0"
+VERSION = "2.1.1"
 CREATOR = "Triangle717"
 debugMode = False
